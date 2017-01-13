@@ -1,0 +1,69 @@
+{% extends 'blog/footer.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <section id="post_detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="post_detail_title" style="text-align: center"><strong>ICB</strong>LOG</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <!-- POST BODY -->
+                <div class="col-md-9 post_detail_body">
+                    <h3><strong>{{ post.title }}</strong></h3>
+                    <small>{{ post.published_date|date:"SHORT_DATE_FORMAT" }} | Autor: {{ post.author.first_name }} {{post.author.last_name}}</small>
+                    <hr>
+                    {% autoescape off %}
+                    <p>{{ post.text }}</p>
+                    {% endautoescape %}
+                </div>
+
+                <!-- SIDEBAR -->
+                <div class="col-md-3">
+                    <ul class="post_detail_ul">
+                        <li class="post_detail_li">
+                            <h3 class="post_detail_title">Notas relacionadas</h3>
+                        </li>
+                        {% for related_post in related_posts %}
+                        <li class="post_detail_li">
+                            <a href="/icblog/{{ related_post.id }}" class="list-group-item post_detail_a">
+                                <span style="color: #581845;">
+                                    {{ related_post.title }}
+                                </span><br>
+                                <small>
+                                    Publicado el d&iacute;a {{ related_post.published_date }}
+                                </small>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <ul class="post_detail_ul">
+                        <li class="post_detail_li">
+                            <h4 class="post_detail_title">Etiquetas</h4>
+                        </li>
+                        <li class="post_detail_li">
+                        {% for tag in post.tags.all %}
+                            <a href="/icblog/{{ tag.word }}" class="list-group-item post_detail_a">
+                                <span style="color: #581845;">
+                                    <span class="label label-default">{{ tag.word }}</span>
+                                </span>
+                            </a>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

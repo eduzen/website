@@ -1,0 +1,50 @@
+{% extends 'blog/footer.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <section id="post_list">
+        <div class="container">
+            <!-- SECTION TITLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="post_list_title"><strong>ICB</strong>LOG</h2>
+                </div>
+            </div>
+        
+            {% for post in posts %}
+            <div class="row">
+                <!-- TAGS LIST -->
+                <div class="col-md-2">
+                    <ul>
+                        <li><h4 class="post_list_date">{{ post.published_date }}</h4></li>
+                        <li>
+                        {% for tag in post.tags.all %}
+                            <a href="/icblog/{{ tag.word }}" class="list-group-item">
+                                <span style="color: #581845;">
+                                    <span class="label label-default">{{ tag.word }}</span>
+                                </span>
+                            </a>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- POSTS LIST -->
+                <div class="col-md-10">
+                    <a href="/icblog/{{ post.id }}">
+                        <h3 class="post_list_title">
+                            {{ post.title }}
+                        </h3>
+                    </a>
+                    {% autoescape off %}
+                    <p>{{ post.pompadour }}</p>
+                    {% endautoescape %}
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+{% endblock %}
