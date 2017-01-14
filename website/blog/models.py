@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 
+
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
