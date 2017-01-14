@@ -25,7 +25,11 @@ SECRET_KEY = '5%y*^)7fk96m5u=p1d04c4kh@@-vhnphlm)$h8!ys_&-aef5dh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.eduardoenriquez.com.ar', 'eduardoenriquez.com.ar',
+    'eduzen.com.ar', 'www.eduzen.com.ar',
+    '45.55.130.126'
+]
 
 SITE_ID = 1
 # Application definition
