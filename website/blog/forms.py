@@ -2,6 +2,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from .models import Comment
 
 
 class EmailForm(forms.Form):
@@ -29,3 +30,10 @@ class EmailForm(forms.Form):
         )
         self.helper.form_tag = True
         self.helper.form_action = "mail"
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ('author', 'text',)

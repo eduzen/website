@@ -41,6 +41,9 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
+    def approved_comments(self):
+        return self.comments.filter(approved_comment=True)
+
     @models.permalink
     def get_absolute_url(self):
         return 'blog:post', (self.slug,)
