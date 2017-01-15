@@ -28,6 +28,9 @@ class Post(models.Model):
         max_length=800, null=True, blank=True,
         verbose_name=u"Resumen para portada"
     )
+    slug = models.CharField(
+        verbose_name=u"Url", max_length=250
+    )
     created_date = models.DateField(default=timezone.now)
     published_date = models.DateField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='posts')
