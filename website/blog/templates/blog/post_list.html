@@ -7,11 +7,11 @@
             <!-- SECTION TITLE -->
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="post_list_title"><strong>ICB</strong>LOG</h2>
+                    <h2 class="post_list_title">BLOG</h2>
                 </div>
             </div>
         
-            {% for post in posts %}
+            {% for post in posts %} 
             <div class="row">
                 <!-- TAGS LIST -->
                 <div class="col-md-2">
@@ -40,7 +40,7 @@
                     <p>{{ post.pompadour }}</p>
                     {% endautoescape %}
                 </div>
-
+                 <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
             </div>
             {% endfor %}
 

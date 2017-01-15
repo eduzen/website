@@ -26,6 +26,14 @@ def post_list(request):
     return render(request, 'blog/post_list.html', data)
 
 
+def post_slug(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+
+    return render(request, 'blog/post_detail.html', {
+        'post': post,
+    })
+
+
 def post_list_by_tag(request, tag):
     posts = Post.objects.filter(
         published_date__isnull=False, tags__word=tag).order_by(

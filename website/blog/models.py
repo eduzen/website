@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 
-
+from autoslug import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
@@ -28,8 +28,9 @@ class Post(models.Model):
         max_length=800, null=True, blank=True,
         verbose_name=u"Resumen para portada"
     )
-    slug = models.CharField(
-        verbose_name=u"Url", max_length=250
+    slug = AutoSlugField(
+        editable=True, null=True, blank=True, unique=True,
+        populate_from='title', verbose_name=u"Url"
     )
     created_date = models.DateField(default=timezone.now)
     published_date = models.DateField(blank=True, null=True)
@@ -40,6 +41,10 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'blog:post', (self.slug,)
+
     def __str__(self):
         return u"{}".format(self.title)
 
@@ -47,12 +52,28 @@ class Post(models.Model):
         return u"{}".format(self.title)
 
 
+class Comment(models.Model):
+    post = models.ForeignKey('blog.Post', related_name='comments')
+    author = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    approved_comment = models.BooleanField(default=False)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text
+
+
 class CustomPage(models.Model):
     name = models.CharField(
         verbose_name=u"Nombre", max_length=250)
 
-    slug = models.CharField(
-        verbose_name=u"Url", max_length=250)
+    slug = AutoSlugField(
+        populate_from='name'
+    )
 
     include_header = models.BooleanField(
         default=True, verbose_name=u"Incluir header"
@@ -69,6 +90,10 @@ class CustomPage(models.Model):
     content = RichTextUploadingField(
         verbose_name=u"Contenido", null=True, blank=True
     )
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'blog:post', (self.slug,)
 
     def __str__(self):
         return u"{}".format(self.name)

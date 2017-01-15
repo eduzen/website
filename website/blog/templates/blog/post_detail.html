@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="post_detail_title" style="text-align: center"><strong>ICB</strong>LOG</h2>
+                    <h2 class="post_detail_title" style="text-align: center">BLOG</h2>
                 </div>
             </div>
         </div>
@@ -24,6 +24,19 @@
                     {% autoescape off %}
                     <p>{{ post.text }}</p>
                     {% endautoescape %}
+
+                    <hr>
+                    {% for comment in post.comments.all %}
+                        <div class="comment">
+                            <div class="date">{{ comment.created_date }}</div>
+                            <strong>{{ comment.author }}</strong>
+                            <p>{{ comment.text|linebreaks }}</p>
+                        </div>
+                    {% empty %}
+                        <p>No comments here yet :(</p>
+                    {% endfor %}
+
+
                 </div>
 
                 <!-- SIDEBAR -->
