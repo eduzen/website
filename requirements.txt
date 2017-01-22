@@ -1,4 +1,10 @@
 Django==1.10.5
+django-autoslug==1.9.3
 django-ckeditor==5.2.1
 django-crispy-forms==1.6.1
 django-solo==1.1.2
+gunicorn==19.6.0
+meld3==1.0.2
+olefile==0.44
+Pillow==4.0.0
+supervisor==3.3.1
