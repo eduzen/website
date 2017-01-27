@@ -133,9 +133,13 @@ CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'awesome_ckeditor': {
-        'toolbar': 'Basic',
+        'toolbar': 'full',
     },
     'default': {
         'toolbar': 'full',
+        'extraPlugins': ','.join(
+            [
+                'codesnippet',
+            ]),
     },
 }
