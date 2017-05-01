@@ -3,30 +3,31 @@
 
 {% block body %}
 
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
-      </div>
+    <!-- /container -->
+    
+    <div class="row">
+        <div class="col-md-8">
+                {% if posts %} 
 
-     <!-- /container -->
-    {% if posts %} 
-    
-      {% for post in posts %}
-          <div>
-              <p>publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</p>
-              <h1><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h1>
-              {% autoescape off %}
-                  <p>{{ post.text|linebreaksbr }}</p>
-              {% endautoescape %}
-          
-          </div>
-      {% endfor %}
-    
-    {% endif %}
+                  {% for post in posts %}
+                      <div>
+                          <p>publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</p>
+                          <h1><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h1>
+                          {% autoescape off %}
+                              <p>{{ post.text|linebreaksbr }}</p>
+                          {% endautoescape %}
+                      
+                      </div>
+                  {% endfor %}
+                {% else %}
+                    <p> Empty posts </p>
+                {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <p>me arroba eduzen.com.ar</p> 
+        </div>
+    </div>
 
 {% endblock %}
 
