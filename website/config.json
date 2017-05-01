@@ -1,0 +1,1 @@
+[{"model": "config.siteconfiguration", "pk": 1, "fields": {"title": "Site Name", "subtitle": "Subtitle Name", "tab_title": "Tab title", "home": "eduardoenriquez.com.ar", "url_linkedin": "linkedin", "url_github": "github", "url_twitter": "twitter"}}]
