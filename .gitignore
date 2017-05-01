@@ -115,3 +115,7 @@ ENV/
 # sqlite
 
 *.sqlite3
+
+website/keysettings.pyc
+website/keysettings.py 
+static/
