@@ -26,6 +26,7 @@ from django.contrib.auth import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^your_url_extension/', include('twython_django_oauth.urls')),
     url(r'^accounts/login/$', views.login, name='login'),
     url(
         r'^accounts/logout/$', views.logout,

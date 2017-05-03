@@ -3,6 +3,10 @@ body {
   padding-bottom: 20px;
 }
 
+p {
+  padding: 5px;
+}
+
 .navbar {
   margin-bottom: 20px;
 }
@@ -32,4 +36,21 @@ body {
 
 .date{
   text-align: right;
+}
+
+img.center {
+    display: block;
+    margin: 0 auto;
+}
+
+h4.title-img {
+    text-align: center;
+}
+
+p.zen {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 0.75em;
+
 }
