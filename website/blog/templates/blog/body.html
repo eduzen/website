@@ -6,13 +6,15 @@
     <!-- /container -->
     
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
                 {% if posts %} 
 
                   {% for post in posts %}
                       <div>
-                          <p>publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</p>
-                          <h1><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h1>
+                          <div class="side-boxes">
+                            <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+                            <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
+                          </div>
                           {% autoescape off %}
                               <p>{{ post.text|linebreaksbr }}</p>
                           {% endautoescape %}
@@ -24,7 +26,14 @@
                 {% endif %}
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <div class="side-boxes"> 
+                <p class="bg-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p class="bg-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p> 
+                <p class="bg-info">Maecenas sed diam eget risus varius blandit sit amet non magna.</p> 
+                <p class="bg-warning">Etiam porta sem malesuada magna mollis euismod.</p> 
+                <p class="bg-danger">Donec ullamcorper nulla non metus auctor fringilla.</p>
+            </div>
             <p>me arroba eduzen.com.ar</p> 
         </div>
     </div>

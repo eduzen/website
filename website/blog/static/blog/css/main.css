@@ -10,3 +10,26 @@ body {
 .comment {
     margin: 20px 0px 20px 20px;
 }
+
+.side-boxes {
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+    border-color: #ddd;
+    border-width: 1px;
+}
+
+.side-boxes p {
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+    border-color: #ddd;
+    border-width: 1px;
+}
+
+.date{
+  text-align: right;
+}
