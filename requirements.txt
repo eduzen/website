@@ -2,11 +2,11 @@ appdirs==1.4.3
 Django==1.11
 django-autoslug==1.9.3
 django-bootstrap3==8.2.2
-django-ckeditor==5.2.2
+django-ckeditor==5.2.1
 django-crispy-forms==1.6.1
 django-jsonview==0.4.3
 django-solo==1.1.2
--e git+https://github.com/michaelbrooks/django-twitter-stream.git@c0285e1663f26a3e845a11131a4ebe4ec9e9d9e6#egg=django_twitter_stream
+future==0.16.0
 gunicorn==19.6.0
 meld3==1.0.2
 mysqlclient==1.3.10
@@ -15,6 +15,7 @@ olefile==0.44
 packaging==16.8
 Pillow==4.0.0
 pyparsing==2.2.0
+python-twitter==3.2.1
 pytz==2017.2
 requests==2.13.0
 requests-oauthlib==0.8.0
