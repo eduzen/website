@@ -137,6 +137,12 @@ CKEDITOR_CONFIGS = {
     },
     'default': {
         'toolbar': 'full',
+        'autoParagraph': 'false',
+        'breakBeforeOpen': 'false',
+        'breakAfterOpen': 'false',
+        'breakBeforeClose': 'false',
+        'breakAfterClose': 'false',
+        'enterMode': 'false',
         'extraPlugins': ','.join(
             [
                 'codesnippet',
