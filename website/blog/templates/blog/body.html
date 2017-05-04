@@ -1,6 +1,5 @@
 {% extends 'blog/footer.html' %}
 {% load staticfiles %}
-{% load twitter_tags %}
 
 {% block body %}
 
@@ -64,6 +63,7 @@
                 </a>
             </div>
             <div class="block social-block social-twitter">
+            {% load twitter_tags %}
              <h2>Our Twitter</h2>
              <ul>
                 {% for tweet in tweets %}
