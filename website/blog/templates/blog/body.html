@@ -1,5 +1,6 @@
 {% extends 'blog/footer.html' %}
 {% load staticfiles %}
+{% load twitter_tags %}
 
 {% block body %}
 
@@ -24,6 +25,8 @@
                 {% else %}
                     <p> Empty posts </p>
                 {% endif %}
+
+
         </div>
         <div class="col-md-4">
             <div class="side-boxes">
@@ -59,6 +62,27 @@
                 <a href="http://www.python.org.ar/">
                 <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">
                 </a>
+            </div>
+            <div class="block social-block social-twitter">
+             <h2>Our Twitter</h2>
+             <ul>
+                {% for tweet in tweets %}
+                <li>
+                 <div class="tweet-meta">
+                    <a href="https://www.twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}" target="_blank">
+                    <img src="{{ tweet.user.profile_image_url }}" width="32" height="32" />
+                    <h2>
+                        {{ tweet.user.name }}<br />
+                        <span>@{{ tweet.user.screen_name }} &middot; {{ tweet.created_at|twitter_date }}
+                        </span>
+                    </h2>
+                    </a>
+                </div>
+                 <p>{{ tweet|expand_tweet_urls|urlize_tweet_text|safe }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+            <a href="#" class="btn btn-round btn-red">"Follow Us"</a>
             </div>
         </div>
     </div>

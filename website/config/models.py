@@ -17,3 +17,16 @@ class SiteConfiguration(SingletonModel):
 
     class Meta:
         verbose_name = "Site Configuration"
+
+
+class TwitterConfiguration(SingletonModel):
+    consumer_key = models.CharField(max_length=255, default='consumer key')
+    consumer_secret = models.CharField(max_length=255, default='consumer secret')
+    access_token = models.CharField(max_length=255, default='access token')
+    access_token_secret = models.CharField(max_length=255, default='access token secret')
+
+    def __unicode__(self):
+        return u"Twitter api Configuration"
+
+    class Meta:
+        verbose_name = "Twitter api Configuration"
