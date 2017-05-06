@@ -11,12 +11,12 @@
 
                   {% for post in posts %}
                       <div>
-                          <div class="side-boxes">
+                          <div class="side-boxes titles">
                             <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
                             <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
                           </div>
                           {% autoescape off %}
-                              <p>{{ post.text|linebreaksbr }}</p>
+                              <p>{{ post.text|truncatechars:200  }}</p>
                           {% endautoescape %}
                       
                       </div>
@@ -29,6 +29,9 @@
         </div>
         <div class="col-md-4">
             <div class="side-boxes">
+            <a href="http://www.python.org">
+            <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">
+            </a>
               <h4 class='title-img'>The Zen of Python, by Tim Peters</h4>
               <p class="zen">Beautiful is better than ugly.</p>
               <p class="zen">Explicit is better than implicit.</p>
@@ -54,9 +57,7 @@
             </div>
 
             <div class="side-boxes"> 
-                <a href="http://www.python.org">
-                <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">
-                </a>
+
                 <h4 class='title-img'>Python Argentina</h4>
                 <a href="http://www.python.org.ar/">
                 <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">

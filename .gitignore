@@ -115,6 +115,6 @@ ENV/
 # sqlite
 
 *.sqlite3
-
+.idea/
 website/website/keysettings.pyc
 website/website/keysettings.py 

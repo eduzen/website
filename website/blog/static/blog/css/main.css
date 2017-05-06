@@ -54,3 +54,25 @@ p.zen {
   font-size: 0.75em;
 
 }
+
+h2.post_detail_title {
+    font-size: 30px;
+}
+div.post_detail {
+    background-color: gainsboro;
+}
+pre {
+    margin: 0px 30px 2px;
+}
+
+h6.date {
+    font-weight: bold;
+}
+
+div.titles{
+    padding: 0px 10px;
+}
+
+ul.post_detail_ul {
+  list-style-type: none;
+}

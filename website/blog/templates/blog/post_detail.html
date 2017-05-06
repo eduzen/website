@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="post_detail_title" style="text-align: center">BLOG</h2>
+                    <h2 class="post_detail_title" style="text-align: center">Algo así como un blog</h2>
                 </div>
             </div>
         </div>
@@ -19,12 +19,15 @@
                 <!-- POST BODY -->
                 <div class="col-md-9 post_detail_body">
                     <h3><strong>{{ post.title }}</strong></h3>
-                    <small>{{ post.published_date|date:"SHORT_DATE_FORMAT" }} | Autor: {{ post.author.first_name }} {{post.author.last_name}}</small>
+                    {% if post.published_date %}
+                        <small>{{ post.published_date|date:"SHORT_DATE_FORMAT" }} | Autor: {{ post.author.first_name }} {{post.author.last_name}}</small>
+                    {% endif %}
                     <hr>
-                    {% autoescape off %}
-                    <p>{{ post.text }}</p>
-                    {% endautoescape %}
-
+                    <div class="post_detail">
+                        {% autoescape off %}
+                        <p>{{ post.text }}</p>
+                        {% endautoescape %}
+                    </div>
                     <hr>
                     <a class="btn btn-default" href="{% url 'add_comment' pk=post.pk %}">Add comment</a>
                     {% for comment in post.comments.all %}
