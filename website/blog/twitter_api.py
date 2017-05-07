@@ -4,7 +4,7 @@ import twitter
 from config.models import TwitterConfiguration
 
 
-def get_tweets():
+def get_tweets(screen_name='@zedus', count=10, exclude_replies=True, include_rts=False):
     """
     returns twitter feed with settings as described below, contains all related twitter settings
     """
@@ -14,9 +14,9 @@ def get_tweets():
         api = twitter.Api(**twitter_conf.data)
 
         return api.GetUserTimeline(
-            screen_name='twitter_screen_name',
-            exclude_replies=True,
-            include_rts=False)  # includes entities
+            count=count, exclude_replies=exclude_replies,
+            include_rts=include_rts, screen_name=screen_name
+        )
+
     except Exception:
         logging.exception("Something with twitter api happened")
-        return {}

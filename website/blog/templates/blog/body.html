@@ -72,18 +72,18 @@
                  <div class="tweet-meta">
                     <a href="https://www.twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}" target="_blank">
                     <img src="{{ tweet.user.profile_image_url }}" width="32" height="32" />
-                    <h2>
-                        {{ tweet.user.name }}<br />
-                        <span>@{{ tweet.user.screen_name }} &middot; {{ tweet.created_at|twitter_date }}
-                        </span>
-                    </h2>
+                    <h6>
+                        <span>{{ tweet.created_at|twitter_date }}</span>
+                    </h6>
+                    <p>{{ tweet.text }}</p>
                     </a>
                 </div>
-                 <p>{{ tweet|expand_tweet_urls|urlize_tweet_text|safe }}</p>
                 </li>
                 {% endfor %}
             </ul>
-            <a href="#" class="btn btn-round btn-red">"Follow Us"</a>
+            <a  class="twitter-follow-button" href="https://twitter.com/{{ tweet.user.screen_name }}"
+                data-size="default">
+                Follow @zedus</a>
             </div>
         </div>
     </div>

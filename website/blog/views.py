@@ -11,13 +11,14 @@ from .models import CustomPage
 from .forms import CommentForm
 from .twitter_api import get_tweets
 
-
 def home(request):
     posts = Post.objects.filter(
         published_date__isnull=False).order_by('-published_date')[:10]
 
+    tweets = get_tweets(count=10)
     data = {
         'posts': posts,
+        'tweets': tweets,
     }
     return render(request, 'blog/body.html', data)
 
