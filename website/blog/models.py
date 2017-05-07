@@ -15,9 +15,6 @@ class Tag(models.Model):
     def __unicode__(self):
         return u"{}".format(self.slug)
 
-    def __str__(self):
-        return u"{}".format(self.slug)
-
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
@@ -47,9 +44,6 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return 'blog:post', (self.slug,)
-
-    def __str__(self):
-        return u"{}".format(self.title)
 
     def __unicode__(self):
         return u"{}".format(self.title)

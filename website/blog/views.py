@@ -9,10 +9,12 @@ from django.shortcuts import redirect
 from .models import Post, Comment
 from .models import CustomPage
 from .forms import CommentForm
+from .twitter_api import get_tweets
+
 
 def home(request):
     posts = Post.objects.filter(
-        published_date__isnull=False).order_by('-published_date')[:3]
+        published_date__isnull=False).order_by('-published_date')[:10]
 
     data = {
         'posts': posts,

@@ -25,6 +25,16 @@ class TwitterConfiguration(SingletonModel):
     access_token = models.CharField(max_length=255, default='access token')
     access_token_secret = models.CharField(max_length=255, default='access token secret')
 
+    @property
+    def data(self):
+        response = {
+            'consumer_key': self.consumer_key,
+            'consumer_secret': self.consumer_secret,
+            'access_token_key': self.access_token,
+            'access_token_secret': self.access_token_secret,
+        }
+        return  response
+
     def __unicode__(self):
         return u"Twitter api Configuration"
 

@@ -7,6 +7,10 @@ p {
   padding: 5px;
 }
 
+a.page-subtitle {
+    color: crimson;
+}
+
 .navbar {
   margin-bottom: 20px;
 }

@@ -37,7 +37,7 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="./">{{ site_config.subtitle }} </a></li>
+              <li><a class='page-subtitle' href="./">{{ site_config.subtitle }} </a></li>
               {% if user.is_authenticated %}
                     <li><a href="#">{{ user.username }}</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>
