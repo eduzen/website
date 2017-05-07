@@ -2,6 +2,7 @@
 import logging
 import twitter
 from config.models import TwitterConfiguration
+from twitter import TwitterError
 
 
 def get_tweets(screen_name='@zedus', count=10, exclude_replies=True, include_rts=False):
@@ -15,8 +16,8 @@ def get_tweets(screen_name='@zedus', count=10, exclude_replies=True, include_rts
 
         return api.GetUserTimeline(
             count=count, exclude_replies=exclude_replies,
-            include_rts=include_rts, screen_name=screen_name
+            include_rts=include_rts,
         )
 
-    except Exception:
-        logging.exception("Something with twitter api happened")
+    except TwitterError:
+        logging.exception("Something happened with twitter api")
