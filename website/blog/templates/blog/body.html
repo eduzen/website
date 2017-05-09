@@ -65,25 +65,15 @@
             </div>
             <div class="block social-block social-twitter">
             {% load twitter_tags %}
-             <h2>Our Twitter</h2>
-             <ul>
-                {% for tweet in tweets %}
-                <li>
-                 <div class="tweet-meta">
-                    <a href="https://www.twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}" target="_blank">
-                    <img src="{{ tweet.user.profile_image_url }}" width="32" height="32" />
-                    <h6>
-                        <span>{{ tweet.created_at|twitter_date }}</span>
-                    </h6>
-                    <p>{{ tweet.text }}</p>
-                    </a>
-                </div>
-                </li>
-                {% endfor %}
-            </ul>
+            <a class="twitter-timeline"
+               href="https://twitter.com/{{ tweet.user.screen_name }}"
+               data-height="100px" data-chrome="nofooter"
+               data-aria-polite="assertive"
+              data-tweet-limit="4">
+                follow @{{ tweet.user.screen_name }}</a>
             <a  class="twitter-follow-button" href="https://twitter.com/{{ tweet.user.screen_name }}"
                 data-size="default">
-                Follow @zedus</a>
+                follow @{{ tweet.user.screen_name }}</a>
             </div>
         </div>
     </div>
