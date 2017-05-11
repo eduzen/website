@@ -80,3 +80,11 @@ div.titles{
 ul.post_detail_ul {
   list-style-type: none;
 }
+
+img.pic-link {
+    width: 20px;
+}
+
+div.menu {
+    padding-right: 1px;
+}
