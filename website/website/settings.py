@@ -21,6 +21,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 SITE_ID = 1
 
+# HTTPS
+"""
+SECURE_SSL_REDIRECT = True
+SECURE_REDIRECT_EXEMPT = []
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+"""
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
