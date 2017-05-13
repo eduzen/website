@@ -164,3 +164,12 @@ CKEDITOR_CONFIGS = {
     },
     'autoParagraph': 'false',
 }
+
+def show_toolbar(request):
+    return True
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+}
+
+INTERNAL_IPS = ('45.55.130.126', )
