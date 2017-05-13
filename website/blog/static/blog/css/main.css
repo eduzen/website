@@ -85,6 +85,11 @@ img.pic-link {
     width: 20px;
 }
 
+li.grey {
+    background-color: #e2e2e2;
+    padding-bottom: 15px;
+}
+
 div.menu {
     padding-right: 1px;
 }
