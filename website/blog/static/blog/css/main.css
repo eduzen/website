@@ -7,8 +7,8 @@ p {
   padding: 5px;
 }
 
-a.page-subtitle {
-    color: crimson !important;
+.page-subtitle {
+    color: crimson;
 }
 
 .navbar {
@@ -51,12 +51,12 @@ h4.title-img {
     text-align: center;
 }
 
-p.zen {
+.zen {
   border: 0;
   padding: 0;
   margin: 0;
   font-size: 0.75em;
-
+  color: black;
 }
 
 h2.post_detail_title {

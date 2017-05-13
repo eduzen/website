@@ -7,24 +7,7 @@
     
     <div class="row">
         <div class="col-md-8">
-                {% if posts %} 
-
-                  {% for post in posts %}
-                      <div>
-                          <div class="side-boxes titles">
-                            <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
-                            <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
-                          </div>
-                          {% autoescape off %}
-                              <p>{{ post.text|truncatechars:300  }}</p>
-                          {% endautoescape %}
-                      
-                      </div>
-                  {% endfor %}
-                {% else %}
-                    <p> Empty posts </p>
-                {% endif %}
-
+                My bio
 
         </div>
         <div class="col-md-4">
