@@ -93,3 +93,7 @@ li.grey {
 div.menu {
     padding: 0px;
 }
+
+.post_detail_title {
+    text-align: center;
+}

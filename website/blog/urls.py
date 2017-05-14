@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^blog/$', views.post_list, name='entries'),
     url(r'^blog/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
     url(r'^blog/(?P<slug>[\w-]+)/$', views.post_slug, name='post'),
-    url(r'^blog/(?P<tag>[\w-]+)/$', views.post_list_by_tag, name='bytag'),
+    url(r'^tags/(?P<tag>[\w-]+)/$', views.post_list_by_tag, name='bytag'),
     url(
         r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post,
         name='add_comment'
