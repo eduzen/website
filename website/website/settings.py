@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 SITE_ID = 1
 
-DEBUG = True
+DEBUG = False
 # HTTPS
 """
 SECURE_SSL_REDIRECT = True
@@ -166,10 +166,10 @@ CKEDITOR_CONFIGS = {
 }
 
 def show_toolbar(request):
-    return True
+    return False
 
 DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+    "SHOW_TOOLBAR_CALLBACK": show_toolbar,
 }
 
 INTERNAL_IPS = ('45.55.130.126', )
