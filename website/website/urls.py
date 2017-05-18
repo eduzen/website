@@ -26,18 +26,13 @@ from django.contrib.auth import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^robots\.txt', include('robots.urls')),
     url(r'^accounts/login/$', views.login, name='login'),
     url(
         r'^accounts/logout/$', views.logout,
         name='logout', kwargs={'next_page': '/'}
     ),
-    url(
-        r'^robots.txt$',
-        lambda r: HttpResponse(
-            "User-agent: Google\nDisallow:\nUser-agent: *\nDisallow: /",
-            content_type="text/plain"
-        )
-    ),
+
     url(r'^', include('blog.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

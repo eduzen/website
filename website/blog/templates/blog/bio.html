@@ -1,13 +1,19 @@
 {% extends 'blog/footer.html' %}
 {% load staticfiles %}
+{% load solo_tags %}
 
 {% block body %}
+    {% get_solo 'config.BioConfiguration' as bio_config %}
 
     <!-- /container -->
     
     <div class="row">
         <div class="col-md-8">
-                My bio
+                <h2>{{ bio_config.title }}</h2>
+                <h3>{{ bio_config.subtitle }}</h3>
+                {% autoescape off %}
+                    {{ bio_config.body }}
+                {% endautoescape %}
 
         </div>
         <div class="col-md-4">

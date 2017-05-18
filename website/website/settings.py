@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'solo',
+    'robots',
     'djangoseo',
     'debug_toolbar',
     'config',

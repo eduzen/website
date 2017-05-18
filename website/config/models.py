@@ -1,7 +1,26 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 from solo.models import SingletonModel
 from djangoseo import seo
+from ckeditor_uploader.fields import RichTextUploadingField
+
+
+class BioConfiguration(SingletonModel):
+    title = models.CharField(
+        max_length=255, default="Quién les escribe"
+    )
+    subtitle = models.CharField(
+        max_length=255, null=True, blank=True
+    )
+    body = RichTextUploadingField(null=True, blank=True)
+
+    def __unicode__(self):
+        return u"Pagina de Bio/About"
+
+    class Meta:
+        verbose_name = "Bio/About configuration"
+
 
 
 class SiteConfiguration(SingletonModel):
