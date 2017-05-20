@@ -60,7 +60,7 @@ def post_list_by_tag(request, tag):
         published_date__isnull=False, tags__word=tag).order_by(
         '-published_date')
 
-    tags = [post.tags.all() for post in posts]
+    tags = [tg.word for post in posts for tg in post.tags.all()]
 
     data = {'posts': posts, 'tags': tags}
 
