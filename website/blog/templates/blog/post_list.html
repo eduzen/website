@@ -7,19 +7,19 @@
 
         <div class="row">
             <!-- POSTS LIST -->
-            {% for post in posts %}
             <div class="col-xs-8">
-                <div class="side-boxes">
-                <a href="/blog/{{ post.slug }}">
-                    <h3 class="post_list_title">{{ post.title }}</h3>
-                </a>
-                </div>
-                {% autoescape off %}
-                <p>{{ post.pompadour }}</p>
-                {% endautoescape %}
-                <hr/>
+                {% for post in posts %}
+                    <div class="side-boxes">
+                    <a href="/blog/{{ post.slug }}">
+                        <h3 class="post_list_title">{{ post.title }}</h3>
+                    </a>
+                    </div>
+                    {% autoescape off %}
+                    <p>{{ post.pompadour }}</p>
+                    {% endautoescape %}
+                    <hr/>
+                {% endfor %}
             </div>
-            {% endfor %}
 
             <!-- TAGS LIST -->
             <div class="col-xs-4">
