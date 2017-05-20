@@ -60,7 +60,9 @@ def post_list_by_tag(request, tag):
         published_date__isnull=False, tags__word=tag).order_by(
         '-published_date')
 
-    data = {'posts': posts}
+    tags = [post.tags.all() for post in posts]
+
+    data = {'posts': posts, 'tags': tags}
 
     return render(request, 'blog/post_list.html', data)
 

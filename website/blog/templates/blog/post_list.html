@@ -5,30 +5,32 @@
     <section id="post_list">
         <div class="container">
 
-            {% for post in posts %} 
-            <div class="row">
-                <!-- POSTS LIST -->
-                <div class="col-xs-8">
-                    <div class="side-boxes">
-                    <a href="/blog/{{ post.slug }}">
-                        <h3 class="post_list_title">{{ post.title }}</h3>
-                    </a>
-                    </div>
-                    {% autoescape off %}
-                    <p>{{ post.pompadour }}</p>
-                    {% endautoescape %}
-                    <hr/>
+        <div class="row">
+            <!-- POSTS LIST -->
+            {% for post in posts %}
+            <div class="col-xs-8">
+                <div class="side-boxes">
+                <a href="/blog/{{ post.slug }}">
+                    <h3 class="post_list_title">{{ post.title }}</h3>
+                </a>
                 </div>
-                <!-- TAGS LIST -->
-                <div class="col-xs-4">
-                    <h4>Tags</h4>
-                    <ul class="tags">
-                        <li class="tag-item">
-                        {% for tag in post.tags.all %}
-                            <a href="/tags/{{ tag.word }}">{{ tag.word }}</a>
-                        {% endfor %}
-                        </li>
-                    </ul>
+                {% autoescape off %}
+                <p>{{ post.pompadour }}</p>
+                {% endautoescape %}
+                <hr/>
+            </div>
+            {% endfor %}
+
+            <!-- TAGS LIST -->
+            <div class="col-xs-4">
+                <h4>Tags</h4>
+                <ul class="tags">
+                    <li class="tag-item">
+                    {% for tag in tags %}
+                        <a href="/tags/{{ tag.word }}">{{ tag.word }}</a>
+                    {% endfor %}
+                    </li>
+                </ul>
                  <div class="side-boxes">
                     <a href="http://www.python.org">
                     <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">
@@ -59,7 +61,6 @@
                 </div>
 
             </div>
-            {% endfor %}
 
         </div>
     </section>
