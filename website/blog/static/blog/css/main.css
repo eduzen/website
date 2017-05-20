@@ -29,7 +29,7 @@ p {
     border-width: 1px;
 }
 
-.side-boxes p {
+.side-boxes {
     padding: 9px 14px;
     margin-bottom: 14px;
     border: 1px solid #e1e1e8;
@@ -96,4 +96,11 @@ div.menu {
 
 .post_detail_title {
     text-align: center;
+}
+
+.tag-item {
+     list-style-type: none;
+}
+.tags {
+    padding-left: 0px;
 }

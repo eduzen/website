@@ -7,20 +7,8 @@
 
             {% for post in posts %} 
             <div class="row">
-                <!-- TAGS LIST -->
-                <div class="col-md-2">
-                    <h4>Tags</h4>
-                    <ul>
-                        <li>
-                        {% for tag in post.tags.all %}
-                            <a href="/tags/{{ tag.word }}">{{ tag.word }}</a>
-                        {% endfor %}
-                        </li>
-                    </ul>
-                </div>
-
                 <!-- POSTS LIST -->
-                <div class="col-md-10">
+                <div class="col-xs-8">
                     <div class="side-boxes">
                     <a href="/blog/{{ post.slug }}">
                         <h3 class="post_list_title">{{ post.title }}</h3>
@@ -31,6 +19,45 @@
                     {% endautoescape %}
                     <hr/>
                 </div>
+                <!-- TAGS LIST -->
+                <div class="col-xs-4">
+                    <h4>Tags</h4>
+                    <ul class="tags">
+                        <li class="tag-item">
+                        {% for tag in post.tags.all %}
+                            <a href="/tags/{{ tag.word }}">{{ tag.word }}</a>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                 <div class="side-boxes">
+                    <a href="http://www.python.org">
+                    <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">
+                    </a>
+                      <h4 class='title-img'>The Zen of Python, by Tim Peters</h4>
+                      <p class="zen">Beautiful is better than ugly.</p>
+                      <p class="zen">Explicit is better than implicit.</p>
+                      <p class="zen">Simple is better than complex.</p>
+                      <p class="zen">Complex is better than complicated.</p>
+                      <p class="zen">Flat is better than nested.</p>
+                      <p class="zen">Sparse is better than dense.</p>
+                      <p class="zen">Readability counts.</p>
+                      <p class="zen">Special cases aren't special enough to break the rules.</p>
+                      <p class="zen">Although practicality beats purity.</p>
+                      <p class="zen">Errors should never pass silently.</p>
+                      <p class="zen">Unless explicitly silenced.</p>
+                      <p class="zen">In the face of ambiguity, refuse the temptation to guess.</p>
+                      <p class="zen">There should be one-- and preferably only one --obvious way to do it.</p>
+                      <p class="zen">Although that way may not be obvious at first unless you're Dutch.</p>
+                      <p class="zen">Now is better than never.</p>
+                      <p class="zen">Although never is often better than *right* now.</p>
+                      <p class="zen">If the implementation is hard to explain, it's a bad idea.</p>
+                      <p class="zen">If the implementation is easy to explain, it may be a good idea.</p>
+                      <p class="zen">Namespaces are one honking great idea -- let's do more of those!</p>
+                      <br>
+                      <p class="bg-info"><a href="https://www.python.org/dev/peps/pep-0020/">Este Zen se puede leer en el pep-0020</a></p>
+                    </div>
+                </div>
+
             </div>
             {% endfor %}
 

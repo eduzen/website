@@ -23,12 +23,20 @@ def home(request):
     return render(request, 'blog/body.html', data)
 
 def bio(request):
-    print "aca  "
     tweets = get_tweets(count=2)
     data = {
         'tweet': tweets[0],
     }
     return render(request, 'blog/bio.html', data)
+
+
+def stuff(request):
+    tweets = get_tweets(count=2)
+    data = {
+        'tweet': tweets[0],
+    }
+    return render(request, 'blog/stuff.html', data)
+
 
 def post_list(request):
     posts = Post.objects.filter(
