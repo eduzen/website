@@ -28,3 +28,4 @@ swapper==0.1.1
 tweepy==3.5.0
 twitter-monitor==0.3.0
 twython==3.4.0
+Fabric==1.13.2
