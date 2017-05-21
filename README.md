@@ -1,4 +1,7 @@
+# My django blog repo
 
-# Update server:
+### Update server with fabric:
 
-`fab update_repo`
+```
+fab update_repo
+```
