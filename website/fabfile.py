@@ -20,7 +20,7 @@ def pull():
 
 
 def deploy_static():
-    run('./manage.py collectstatic u-v0')
+    run('./manage.py collectstatic -v0')
 
 
 @contextmanager
