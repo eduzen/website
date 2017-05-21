@@ -28,11 +28,14 @@ def source_virtualenv():
     with prefix('source /home/eduzen/.virtualenvs/website/bin/activate'):
         yield
 
+def purge_pyc():
+    sudo("find . -name \*.pyc -delete")
 
 @hosts(['eduzen.com.ar'])
 def update_repo():
     with cd('eduzen/website'):
         pull()
+        purge_pyc()
         with source_virtualenv():
             deploy_static()
             restart_gunicorn()
