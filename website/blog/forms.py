@@ -2,6 +2,8 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from nocaptcha_recaptcha.fields import NoReCaptchaField
+
 from .models import Comment
 
 
@@ -21,6 +23,7 @@ class EmailForm(forms.Form):
         required=True,
         widget=forms.Textarea
     )
+    captcha = NoReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super(EmailForm, self).__init__(*args, **kwargs)

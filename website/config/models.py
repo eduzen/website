@@ -22,6 +22,21 @@ class BioConfiguration(SingletonModel):
         verbose_name = "Bio/About configuration"
 
 
+class ContactConfiguration(SingletonModel):
+    title = models.CharField(
+        max_length=255, default="Contacto"
+    )
+    subtitle = models.CharField(
+        max_length=255, null=True, blank=True
+    )
+    body = RichTextUploadingField(null=True, blank=True)
+
+    def __unicode__(self):
+        return u"Contact config"
+
+    class Meta:
+        verbose_name = "Contact configuration"
+
 
 class SiteConfiguration(SingletonModel):
     title = models.CharField(max_length=255, default='Site Name')

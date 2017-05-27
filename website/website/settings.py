@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'nocaptcha_recaptcha',
+    'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
     'solo',

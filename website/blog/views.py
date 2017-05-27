@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.http import HttpResponse
+from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
@@ -6,10 +8,13 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
 
+from .twitter_api import get_tweets
+
 from .models import Post, Comment
 from .models import CustomPage
+from .forms import EmailForm
 from .forms import CommentForm
-from .twitter_api import get_tweets
+
 
 def home(request):
     posts = Post.objects.filter(
@@ -120,3 +125,34 @@ def custom_page(request, slug):
     }
 
     return render(request, 'blog/custom_page.html', data)
+
+
+def contact(request):
+    tweets = get_tweets(count=2)
+
+    if request.method == 'GET':
+        contact_form = EmailForm()
+
+    if request.method == 'POST':
+        contact_form = EmailForm(data=request.POST)
+
+        if contact_form.is_valid():
+            contact_name = contact_form.cleaned_data.get('name')
+            contact_email = contact_form.cleaned_data.get('email')
+            message = contact_form.cleaned_data.get('message')
+
+            try:
+                send_mail(
+                    "web email {}".format(contact_name),
+                    message,
+                    contact_email,
+                    ['me@eduzen.com.ar']
+                )
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return HttpResponse('Success! Thank you for your message.')
+
+    return render(request, 'blog/contact.html', {
+        'form': contact_form, 'tweet': tweets[0],
+    })
+

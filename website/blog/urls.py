@@ -3,10 +3,13 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^bio/$', views.bio, name='bio'),
-    url(r'^about/$', views.bio, name='bio'),
+    url(r'^bio/$', views.bio, name='about'),
+    url(r'^about/$', views.bio, name='about'),
     url(r'^stuff/$', views.bio, name='stuff'),
-    url(r'^util/$', views.bio, name='stuff'),
+    url(r'^util/$', views.bio, name='util'),
+    url(r'^contact/$', views.contact, name='contact'),
+    url(r'^contactar/$', views.contact, name='contact'),
+    url(r'^contacto/$', views.contact, name='contact'),
     url(r'^custom/(?P<slug>[\w-]+)/$', views.custom_page, name='custom_page'),
     url(r'^blog/$', views.post_list, name='entries'),
     url(r'^blog/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
