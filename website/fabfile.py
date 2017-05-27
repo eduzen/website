@@ -15,6 +15,10 @@ def restart_nginx():
     sudo('servicectl restart nginx')
 
 
+def pip_install():
+    sudo('pip install -r ../requirements.txt')
+
+
 def pull():
     run("git pull origin master")
 
@@ -22,6 +26,13 @@ def pull():
 def deploy_static():
     run('./manage.py collectstatic -v0')
 
+
+def make_migrations():
+    run('./manage.py makemigrations')
+
+
+def migrate():
+    run('./manage.py migrate')
 
 @contextmanager
 def source_virtualenv():
@@ -37,5 +48,8 @@ def update_repo():
         pull()
         purge_pyc()
         with source_virtualenv():
+            pip_install()
+            make_migrations()
+            migrate()
             deploy_static()
             restart_gunicorn()
