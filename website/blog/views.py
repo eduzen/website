@@ -155,7 +155,7 @@ def contact(request):
             except BadHeaderError:
                 logging.exception()
                 return HttpResponse('Invalid header found.')
-            
+
             return HttpResponse('Success! Thank you for your message.')
 
     return render(request, 'blog/contact.html', {
