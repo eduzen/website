@@ -18,6 +18,9 @@ from .forms import EmailForm
 from .forms import CommentForm
 
 
+logger = logging.getLogger('spam_application')
+
+
 def home(request):
     posts = Post.objects.filter(
         published_date__isnull=False).order_by('-published_date')[:10]
@@ -134,6 +137,9 @@ def contact(request):
 
     if request.method == 'GET':
         contact_form = EmailForm()
+        return render(request, 'blog/contact.html', {
+            'form': contact_form, 'tweet': tweets[0],
+        })
 
     if request.method == 'POST':
         contact_form = EmailForm(data=request.POST)
@@ -150,15 +156,13 @@ def contact(request):
                     contact_email,
                     ['me@eduzen.com.ar']
                 )
-                logging.info("Email sent")
+                logger.info("Email sent")
 
             except BadHeaderError:
-                logging.exception()
+                logger.exception()
                 return HttpResponse('Invalid header found.')
 
-            return HttpResponse('Success! Thank you for your message.')
-
-    return render(request, 'blog/contact.html', {
-        'form': contact_form, 'tweet': tweets[0],
-    })
-
+            contact_form = EmailForm()
+            return render(request, 'blog/contact.html', {
+                'form': contact_form, 'tweet': tweets[0],
+            })
