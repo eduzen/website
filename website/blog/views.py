@@ -163,7 +163,7 @@ def contact(request):
                 logger.exception()
                 return HttpResponse('Invalid header found.')
 
-            contact_form = EmailForm()
-            return render(request, 'blog/contact.html', {
-                'form': contact_form, 'tweet': tweets[0],
-            })
+        contact_form = EmailForm()
+        return render(request, 'blog/contact.html', {
+            'form': contact_form, 'tweet': tweets[0],
+        })
