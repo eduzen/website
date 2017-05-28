@@ -9,6 +9,8 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
+from django.core.mail import EmailMultiAlternatives
+from anymail.message import attach_inline_image_file
 
 from .twitter_api import get_tweets
 
@@ -151,12 +153,15 @@ def contact(request):
             message = contact_form.cleaned_data.get('message')
 
             try:
-                send_mail(
-                    "web email {}".format(contact_name),
-                    message,
-                    contact_email,
-                    ['me@eduzen.com.ar']
+                msg = EmailMultiAlternatives(
+                    subject="web email from {}".format(contact_name),
+                    body=message,
+                    from_email="me@eduzen.com.ar",
+                    to=["me@eduzen.com.ar"],
+                    reply_to=[contact_email]
                 )
+                # Send it:
+                msg.send()
                 logger.info("Email sent")
 
             except BadHeaderError:
