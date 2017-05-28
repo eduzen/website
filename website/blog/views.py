@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
+from yahoo_finance import Currency
 
 from django.http import HttpResponse
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import BadHeaderError
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
@@ -10,7 +11,6 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
 from django.core.mail import EmailMultiAlternatives
-from anymail.message import attach_inline_image_file
 
 from .twitter_api import get_tweets
 
@@ -20,7 +20,7 @@ from .forms import EmailForm
 from .forms import CommentForm
 
 
-logger = logging.getLogger('spam_application')
+logger = logging.getLogger('__name__')
 
 
 def home(request):
@@ -45,8 +45,14 @@ def bio(request):
 
 def stuff(request):
     tweets = get_tweets(count=2)
+    currency = Currency('ARS')
     data = {
         'tweet': tweets[0],
+        'name': currency.data_set.get('Name'),
+        'bid': currency.data_set.get('Bid'),
+        'ask': currency.data_set.get('Ask'),
+        'rate': currency.data_set.get('Rate'),
+        'date': currency.data_set.get('Date'),
     }
     return render(request, 'blog/stuff.html', data)
 
