@@ -47,6 +47,7 @@ requests==2.13.0
 requests-oauthlib==0.8.0
 scandir==1.5
 simplegeneric==0.8.1
+simplejson==3.10.0
 six==1.10.0
 sqlparse==0.2.3
 supervisor==3.3.1
@@ -56,3 +57,4 @@ tweepy==3.5.0
 twitter-monitor==0.3.0
 twython==3.4.0
 wcwidth==0.1.7
+yahoo-finance==1.4.0
