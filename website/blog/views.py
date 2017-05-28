@@ -32,6 +32,7 @@ def home(request):
     }
     return render(request, 'blog/body.html', data)
 
+
 def bio(request):
     tweets = get_tweets(count=2)
     data = {

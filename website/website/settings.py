@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 SITE_ID = 1
+APPEND_SLASH = True
 
 DEBUG = False
 # HTTPS
@@ -181,3 +182,6 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 INTERNAL_IPS = ('45.55.130.126', )
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

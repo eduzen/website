@@ -32,7 +32,7 @@ class EmailForm(forms.Form):
             Submit('submit', 'Enviar', css_class="btn-block", style="")
         )
         self.helper.form_tag = True
-        self.helper.form_action = "/contact"
+        self.helper.form_action = "/contact/"
 
 
 class CommentForm(forms.ModelForm):
