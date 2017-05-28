@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.decorators import login_required
@@ -148,8 +150,12 @@ def contact(request):
                     contact_email,
                     ['me@eduzen.com.ar']
                 )
+                logging.info("Email sent")
+
             except BadHeaderError:
+                logging.exception()
                 return HttpResponse('Invalid header found.')
+            
             return HttpResponse('Success! Thank you for your message.')
 
     return render(request, 'blog/contact.html', {

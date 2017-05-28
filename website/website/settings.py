@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'nocaptcha_recaptcha',
+    "anymail",
     'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
