@@ -159,7 +159,7 @@ def contact(request):
                 data = {
                     'name': contact_form.cleaned_data.get('name'),
                     'email': email,
-                    'phone': contact_form.cleaned_data.get('message'),
+                    'message': contact_form.cleaned_data.get('message'),
                 }
 
                 content = (
