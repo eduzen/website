@@ -4,13 +4,13 @@ from yahoo_finance import Currency
 
 from django.http import HttpResponse
 from django.core.mail import BadHeaderError
-from django.contrib.auth.decorators import login_required
-
+from django.core.mail import EmailMessage
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
-from django.core.mail import EmailMultiAlternatives
+
+from django.contrib.auth.decorators import login_required
 
 from .twitter_api import get_tweets
 
@@ -154,24 +154,30 @@ def contact(request):
         contact_form = EmailForm(data=request.POST)
 
         if contact_form.is_valid():
-            contact_name = contact_form.cleaned_data.get('name')
-            contact_email = contact_form.cleaned_data.get('email')
-            message = contact_form.cleaned_data.get('message')
-
             try:
-                msg = EmailMultiAlternatives(
-                    subject="web email from {}".format(contact_name),
-                    body=message,
-                    from_email="me@eduzen.com.ar",
-                    to=["me@eduzen.com.ar"],
-                    reply_to=[contact_email]
+                email = contact_form.cleaned_data.get('email')
+                data = {
+                    'name': contact_form.cleaned_data.get('name'),
+                    'email': email,
+                    'phone': contact_form.cleaned_data.get('message'),
+                }
+
+                content = (
+                    u"Hola, {name} escribio en la web lo siguiente: {message} <br/>"
+                    u" Si querés escribirle su mail es {email}"
                 )
-                # Send it:
-                msg.send()
+
+                email = EmailMessage(
+                    "Nuevo contacto",
+                    content.format(**data),
+                    email,
+                    ['eduardo.a.enriquez@gmail.com'],
+                )
+                email.send()
                 logger.info("Email sent")
 
             except BadHeaderError:
-                logger.exception()
+                logger.exception("Email problems")
                 return HttpResponse('Invalid header found.')
 
         contact_form = EmailForm()
