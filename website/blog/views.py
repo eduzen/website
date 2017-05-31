@@ -163,7 +163,7 @@ def contact(request):
                 }
 
                 content = (
-                    u"Hola, {name} escribio en la web lo siguiente: {message} <br/>"
+                    u"Hola, {name} escribio en la web lo siguiente: {message} "
                     u" Si querés escribirle su mail es {email}"
                 )
 
