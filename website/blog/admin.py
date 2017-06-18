@@ -5,6 +5,7 @@ from .models import Post
 from .models import Comment
 from .models import Tag
 from .models import CustomPage
+from .models import DolarPeso
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -41,4 +42,5 @@ class CustomPageAdmin(admin.ModelAdmin):
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Tag)
+admin.site.register(DolarPeso)
 admin.site.register(CustomPage, CustomPageAdmin)
