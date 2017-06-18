@@ -54,7 +54,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li><a class='page-subtitle' href="./">{{ site_config.subtitle }} </a></li>
               {% if user.is_authenticated %}
-                    <li><a href="#">{{ user.username }}</a></li>
+                    <li><a href="/admin">{{ user.username }}</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>
               {% else %}
                     <li><a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a></li>  

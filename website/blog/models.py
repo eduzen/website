@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from autoslug import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
+from djmoney.models.fields import MoneyField
 
 
 class Tag(models.Model):
@@ -101,3 +102,22 @@ class CustomPage(models.Model):
     class Meta:
         verbose_name = "Páginas custom"
         verbose_name_plural = u"Páginas custom"
+
+
+class DolarPeso(models.Model):
+    balance = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
+    name = models.CharField(verbose_name=u"Nombre", max_length=250)
+    bid = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
+    ask = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
+    rate = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return "{} - {}".format(self.name, self.created_date)
+
+    def __unicode__(self):
+        return "{} - {}".format(self.name, self.created_date)
+
+    class Meta:
+        verbose_name = "Cambio"
+        verbose_name_plural = u"Cambio"

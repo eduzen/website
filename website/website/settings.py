@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'robots',
     'djangoseo',
     'debug_toolbar',
+    'djmoney',
     'config',
     'blog',
 ]

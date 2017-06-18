@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+from datetime import datetime, timedelta, time
 from yahoo_finance import Currency
 
 from django.http import HttpResponse
@@ -15,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from .twitter_api import get_tweets
 
 from .models import Post, Comment
-from .models import CustomPage
+from .models import CustomPage, DolarPeso
 from .forms import EmailForm
 from .forms import CommentForm
 
@@ -45,14 +46,40 @@ def bio(request):
 
 def stuff(request):
     tweets = get_tweets(count=2)
-    currency = Currency('ARS')
-    data = {
-        'tweet': tweets[0],
+    # import pdb; pdb.set_trace()
+    today = datetime.now().date()
+    tomorrow = today + timedelta(1)
+    today_start = datetime.combine(today, time())
+    today_end = datetime.combine(tomorrow, time())
+
+    current_peso = DolarPeso.objects.filter(
+        created_date__lte=today_end, created_date__gte=today_start
+    )
+    if not current_peso.exists():
+        currency = Currency('ARS')
+        end_date = currency.data_set.get('DateTimeUTC')
+        end_date = end_date.split(" ")
+        end_date[-1] = end_date[-1][:4]
+        end_date = " ".join(end_date)
+        date = datetime.strptime(end_date[:-1], '%Y-%m-%d %H:%M:%S %Z')
+        data = {
         'name': currency.data_set.get('Name'),
         'bid': currency.data_set.get('Bid'),
         'ask': currency.data_set.get('Ask'),
         'rate': currency.data_set.get('Rate'),
-        'date': currency.data_set.get('Date'),
+        'created_date': date,
+        }
+        current_peso = DolarPeso.objects.create(**data)
+    else:
+        current_peso = current_peso[0]
+
+    data = {
+        'tweet': tweets[0],
+        'name': current_peso.name,
+        'bid':current_peso.bid,
+        'ask': current_peso.ask,
+        'rate': current_peso.rate,
+        'date': current_peso.created_date,
     }
     return render(request, 'blog/stuff.html', data)
 
