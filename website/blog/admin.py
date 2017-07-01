@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.forms import TextInput, Textarea
+from django.db import models
 
 from .models import Post
 from .models import Comment
 from .models import Tag
 from .models import CustomPage
 from .models import DolarPeso
-
 
 class PostAdmin(admin.ModelAdmin):
 
@@ -15,6 +16,10 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ["author", "title", "published_date"]
 
     list_display = ["author", "title", "slug", "published_date"]
+
+    formfield_overrides = {
+        models.CharField: {'widget': TextInput(attrs={'size': '100',})},
+    }
 
 
 class CommentAdmin(admin.ModelAdmin):
