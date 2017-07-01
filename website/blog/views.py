@@ -146,8 +146,8 @@ def add_comment_to_post(request, pk):
             comment.post = post
             comment.save()
             email = EmailMessage(
-                "Nuevo comment",
-                "alguien escribio un comentario",
+                form.cleaned_data.get('author'),
+                form.cleaned_data.get('text'),
                 "",
                 ['eduardo.a.enriquez@gmail.com'],
             )

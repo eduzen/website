@@ -37,6 +37,16 @@ class EmailForm(forms.Form):
 
 class CommentForm(forms.ModelForm):
 
+    captcha = NoReCaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(
+            Submit('submit', 'Enviar', css_class="btn-block", style="")
+        )
+        self.helper.form_tag = True
+
     class Meta:
         model = Comment
         fields = ('author', 'text',)
