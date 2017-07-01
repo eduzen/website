@@ -116,6 +116,8 @@ ENV/
 
 *.sqlite3
 .idea/
+eduzen.sublime-project
+
 website/website/keysettings.pyc
 website/website/keysettings.py 
 website/__init__.py

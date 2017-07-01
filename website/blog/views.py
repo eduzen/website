@@ -29,8 +29,10 @@ def home(request):
         published_date__isnull=False).order_by('-published_date')[:10]
 
     tweets = get_tweets(count=2)
+
     data = {
         'posts': posts,
+        'oftopic': posts,
         'tweet': tweets[0],
     }
     return render(request, 'blog/body.html', data)
