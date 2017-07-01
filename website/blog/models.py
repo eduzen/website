@@ -119,5 +119,5 @@ class DolarPeso(models.Model):
         return "{} - {}".format(self.name, self.created_date)
 
     class Meta:
-        verbose_name = "Cambio"
-        verbose_name_plural = u"Cambio"
+        verbose_name = "Cambio dolar"
+        verbose_name_plural = u"Historial pesos/dolar   "
