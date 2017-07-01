@@ -24,14 +24,28 @@
             <!-- TAGS LIST -->
             <div class="col-xs-4">
                 <h4>Tags</h4>
-                <ul class="tags">
-                    <li class="tag-item">
-                    {% for tag in tags %}
-                        <a href="/tags/{{ tag }}">{{ tag }}</a>
+                {% if python %}
+                    <div class="tag-cloud">
+                    <ul class="tags">
+                    {% for key, value in tags.items %}
+                        <li class="tag-item">
+                            <a href="/tags/{{ key }}" class="size-{{ value.size }}">
+                                {{ value.word }}
+                            </a>
+                        </li>
                     {% endfor %}
-                    </li>
-                </ul>
-                {% if 'python' in tags %}
+                    </ul>
+                    </div>
+                {% else %}
+                    <ul class="tags">
+                        <li class="tag-item">
+                        {% for tag in tags %}
+                            <a href="/tags/{{ tag }}">{{ tag }}</a>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if python %}
                  <div class="side-boxes">
                     <a href="http://www.python.org">
                     <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">

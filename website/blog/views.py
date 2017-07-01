@@ -108,10 +108,19 @@ def post_list_by_tag(request, tag):
         published_date__isnull=False, tags__word=tag).order_by(
         '-published_date')
 
-    tags = [tg.word for post in posts for tg in post.tags.all()]
+    python = tag == u'python'
+    tags = {}
+    for post in posts:
+        for tag in post.tags.all():
+            if tag.slug not in tags.keys():
+                tags[tag.slug] = {}
+                tags[tag.slug]['word'] = tag.word
+                tags[tag.slug]['size'] = 1
+            else:
+                if tags[tag.slug]['size'] < 10:
+                    tags[tag.slug]['size'] += 1
 
-    data = {'posts': posts, 'tags': tags}
-
+    data = {'posts': posts, 'tags': tags, 'python': python}
     return render(request, 'blog/post_list.html', data)
 
 
