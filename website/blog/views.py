@@ -145,6 +145,14 @@ def add_comment_to_post(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
+            email = EmailMessage(
+                "Nuevo comment",
+                "alguien escribio un comentario",
+                "",
+                ['eduardo.a.enriquez@gmail.com'],
+            )
+            email.send()
+            logger.info("Email sent")
             return redirect('post_detail', pk=post.pk)
     else:
         form = CommentForm()
