@@ -65,11 +65,11 @@ def stuff(request):
         end_date = " ".join(end_date)
         date = datetime.strptime(end_date[:-1], '%Y-%m-%d %H:%M:%S %Z')
         data = {
-        'name': currency.data_set.get('Name'),
-        'bid': currency.data_set.get('Bid'),
-        'ask': currency.data_set.get('Ask'),
-        'rate': currency.data_set.get('Rate'),
-        'created_date': date,
+            'name': currency.data_set.get('Name'),
+            'bid': currency.data_set.get('Bid'),
+            'ask': currency.data_set.get('Ask'),
+            'rate': currency.data_set.get('Rate'),
+            'created_date': date,
         }
         current_peso = DolarPeso.objects.create(**data)
     else:
@@ -78,7 +78,7 @@ def stuff(request):
     data = {
         'tweet': tweets[0],
         'name': current_peso.name,
-        'bid':current_peso.bid,
+        'bid': current_peso.bid,
         'ask': current_peso.ask,
         'rate': current_peso.rate,
         'date': current_peso.created_date,
