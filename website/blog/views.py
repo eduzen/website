@@ -12,6 +12,9 @@ from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
 
 from django.contrib.auth.decorators import login_required
+from django.views.generic.dates import MonthArchiveView
+from django.views.generic.dates import WeekArchiveView
+from django.views.generic.dates import DayArchiveView
 
 from .twitter_api import get_tweets
 
@@ -230,3 +233,22 @@ def contact(request):
         return render(request, 'blog/contact.html', {
             'form': contact_form, 'tweet': tweets[0],
         })
+
+
+class PostMonthArchiveView(MonthArchiveView):
+    queryset = Post.objects.all()
+    date_field = "published_date"
+    allow_future = True
+
+
+class PostWeekArchiveView(WeekArchiveView):
+    queryset = Post.objects.all()
+    date_field = "published_date"
+    week_format = "%W"
+    allow_future = True
+
+
+class PostDayArchiveView(DayArchiveView):
+    queryset = Post.objects.all()
+    date_field = "published_date"
+    allow_future = True

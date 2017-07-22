@@ -1,0 +1,27 @@
+{% extends 'blog/footer.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <section id="post_list">
+        <div class="container">
+        <h2>Post archives for {{ week|date:"F" }}, {{ week|date:"Y" }}</h2>
+
+        <div class="row">
+            <!-- POSTS LIST -->
+            <div class="col-xs-8">
+                {% for post in object_list %}
+                    <div class="side-boxes">
+                    <a href="/blog/{{ post.slug }}">
+                        <h3 class="post_list_title">{{ post.title }}</h3>
+                    </a>
+                    </div>
+                    <hr/>
+                {% endfor %}
+            </div>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

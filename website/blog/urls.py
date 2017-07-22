@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from . import views
 
+
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^bio/$', views.bio, name='about'),
@@ -26,5 +27,29 @@ urlpatterns = [
     url(
         r'^comment/(?P<pk>\d+)/remove/$', views.comment_remove,
         name='comment_remove'
+    ),
+    # Example: /2012/aug/
+    url(
+        r'^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/$',
+        views.PostMonthArchiveView.as_view(),
+        name="archive_month"
+    ),
+    # Example: /2012/08/
+    url(
+        r'^(?P<year>[0-9]{4})/(?P<month>[0-9]+)/$',
+        views.PostMonthArchiveView.as_view(month_format='%m'),
+        name="archive_month_numeric"
+    ),
+    # Example: /2012/week/23/
+    url(
+        r'^(?P<year>[0-9]{4})/week/(?P<week>[0-9]+)/$',
+        views.PostWeekArchiveView.as_view(),
+        name="archive_week"
+    ),
+    # Example: /2012/nov/10/
+    url(
+        r'^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/(?P<day>[0-9]+)/$',
+        views.PostDayArchiveView.as_view(),
+        name="archive_day"
     ),
 ]

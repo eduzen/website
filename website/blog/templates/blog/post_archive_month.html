@@ -1,0 +1,34 @@
+{% extends 'blog/footer.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <section id="post_list">
+        <div class="container">
+        <h2>Post archives for {{ month|date:"F" }}, {{ month|date:"Y" }}</h2>
+
+        <div class="row">
+            <!-- POSTS LIST -->
+            <div class="col-xs-8">
+                {% for post in object_list %}
+                    <div class="side-boxes">
+                    <a href="/blog/{{ post.slug }}">
+                        <h3 class="post_list_title">{{ post.title }}</h3>
+                    </a>
+                    </div>
+                    <hr/>
+                {% endfor %}
+            </div>
+            <p>
+                {% if previous_month %}
+                    Previous Month: {{ previous_month|date:"F Y" }}
+                {% endif %}
+                {% if next_month %}
+                    Next Month: {{ next_month|date:"F Y" }}
+                {% endif %}
+            </p>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
