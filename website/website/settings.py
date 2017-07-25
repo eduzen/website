@@ -66,7 +66,9 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'djmoney',
     'config',
+    'rest_framework',
     'blog',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -186,3 +188,11 @@ INTERNAL_IPS = ('45.55.130.126', )
 
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

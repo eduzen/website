@@ -252,3 +252,16 @@ class PostDayArchiveView(DayArchiveView):
     queryset = Post.objects.all()
     date_field = "published_date"
     allow_future = True
+
+
+def search_on_posts(request):
+    q = request.GET.get("q")
+    if q:
+        results = Post.objects.filter(
+            published_date__isnull=False,
+            name__icontains=q).order_by('-published_date')
+    else:
+        results = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
+
+    data = {'posts': results, 'tags': [], 'python': False}
+    return render(request, 'blog/post_list.html', data)
