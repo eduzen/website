@@ -68,3 +68,6 @@ twitter-monitor==0.3.0
 twython==3.4.0
 wcwidth==0.1.7
 yahoo-finance==1.4.0
+django-rest-framework==0.1.0
+coreapi==2.3.1
+
