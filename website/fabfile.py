@@ -24,7 +24,7 @@ def pull():
 
 
 def deploy_static():
-    run('./manage.py collectstatic -v0')
+    run('./manage.py collectstatic -v0 --noinput')
 
 
 def make_migrations():

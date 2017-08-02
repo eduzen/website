@@ -81,8 +81,9 @@ ul.post_detail_ul {
   list-style-type: none;
 }
 
-img.pic-link {
-    width: 20px;
+.pic-link {
+    width: 17px;
+    height: 17px;
 }
 
 li.grey {
@@ -116,3 +117,11 @@ a.size-8 { font-size: 1.8em }
 a.size-9 { font-size: 1.9em }
 a.size-10 { font-size: 2em }
 
+.clase{
+    padding-left: 10px;
+}
+
+.txt-clases{
+    text-align: justify;
+    font-size: 1.9em;
+}

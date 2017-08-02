@@ -254,6 +254,10 @@ class PostDayArchiveView(DayArchiveView):
     allow_future = True
 
 
+def clases(request):
+    return render(request, 'blog/clases.html', )
+
+
 def search_on_posts(request):
     q = request.GET.get("q")
     if q:
