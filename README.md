@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/eduzen/eduzen.svg?branch=master)](https://travis-ci.org/eduzen/eduzen)
+
 # My django blog repo
 
 create database
