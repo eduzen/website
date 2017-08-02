@@ -32,24 +32,3 @@ class ViewTestCase(TestCase):
 
     def tearDown(self):
         self.client.logout()
-
-    def test_api_can_create_a_post(self):
-        """Test the api has bucket creation capability."""
-        return
-        self.client.login(username='eduzen', password='top_secret')
-
-        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-
-    def test_api_can_create_a_tag(self):
-        self.client.login(username='eduzen', password='top_secret')
-
-        token = Token.objects.get(user__username='eduzen')
-        self.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
-        response = self.client.post(
-            reverse('tag_create'),
-            {'word': 'test', 'slug': 'test'},
-            format='json',
-        )
-
-        assert response == status.HTTP_201_CREATED
