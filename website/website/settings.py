@@ -11,11 +11,14 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from keysettings import (
-    SECRET_KEY, DATABASES, NORECAPTCHA_SITE_KEY, NORECAPTCHA_SECRET_KEY,
-    ANYMAIL, EMAIL_BACKEND, DEFAULT_FROM_EMAIL,
-)
 
+try:
+    from keysettings import (
+        SECRET_KEY, DATABASES, NORECAPTCHA_SITE_KEY, NORECAPTCHA_SECRET_KEY,
+        ANYMAIL, EMAIL_BACKEND, DEFAULT_FROM_EMAIL,
+    )
+except Exception:
+    pass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
