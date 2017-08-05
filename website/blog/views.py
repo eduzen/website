@@ -32,7 +32,7 @@ def home(request):
     posts_list = Post.objects.filter(
         published_date__isnull=False).order_by('-published_date')
 
-    paginator = Paginator(posts_list, 2)
+    paginator = Paginator(posts_list, 12)
     page = request.GET.get('page')
 
     try:
