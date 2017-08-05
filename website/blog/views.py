@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.auth.decorators import login_required
 from django.views.generic.dates import MonthArchiveView
@@ -28,14 +29,23 @@ logger = logging.getLogger('__name__')
 
 
 def home(request):
-    posts = Post.objects.filter(
-        published_date__isnull=False).order_by('-published_date')[:10]
+    posts_list = Post.objects.filter(
+        published_date__isnull=False).order_by('-published_date')
+
+    paginator = Paginator(posts_list, 2)
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
     tweets = get_tweets(count=2)
 
     data = {
         'posts': posts,
-        'oftopic': posts,
         'tweet': tweets[0],
     }
     return render(request, 'blog/body.html', data)
@@ -90,8 +100,18 @@ def stuff(request):
 
 
 def post_list(request):
-    posts = Post.objects.filter(
+    posts_list = Post.objects.filter(
         published_date__isnull=False).order_by('-published_date')
+
+    paginator = Paginator(posts_list, 12)
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
     data = {'posts': posts}
 
@@ -107,13 +127,24 @@ def post_slug(request, slug):
 
 
 def post_list_by_tag(request, tag):
-    posts = Post.objects.filter(
+    posts_list = Post.objects.filter(
         published_date__isnull=False, tags__word=tag).order_by(
         '-published_date')
 
+    paginator = Paginator(posts_list, 12)
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+
     python = tag == u'python'
     tags = {}
-    for post in posts:
+    for post in posts_list:
         for tag in post.tags.all():
             if tag.slug not in tags.keys():
                 tags[tag.slug] = {}
