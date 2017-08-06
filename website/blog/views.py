@@ -16,6 +16,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.dates import MonthArchiveView
 from django.views.generic.dates import WeekArchiveView
 from django.views.generic.dates import DayArchiveView
+from django.views.generic import ListView
+from django.views.generic import TemplateView
 
 from .twitter_api import get_tweets
 
@@ -26,6 +28,10 @@ from .forms import CommentForm
 
 
 logger = logging.getLogger('__name__')
+
+
+class AboutView(TemplateView):
+    template_name = "blog/about.html"
 
 
 def home(request):
@@ -115,7 +121,7 @@ def post_list(request):
 
     data = {'posts': posts}
 
-    return render(request, 'blog/post_list.html', data)
+    return render(request, 'blog/posts_list.html', data)
 
 
 def post_slug(request, slug):
@@ -155,7 +161,7 @@ def post_list_by_tag(request, tag):
                     tags[tag.slug]['size'] += 1
 
     data = {'posts': posts, 'tags': tags, 'python': python}
-    return render(request, 'blog/post_list.html', data)
+    return render(request, 'blog/posts_list.html', data)
 
 
 def post_detail(request, pk):
@@ -285,6 +291,11 @@ class PostDayArchiveView(DayArchiveView):
     allow_future = True
 
 
+class PostListView(ListView):
+    model = Post
+    paginate_by = 12
+
+
 def clases(request):
     return render(request, 'blog/clases.html', )
 
@@ -299,4 +310,4 @@ def search_on_posts(request):
         results = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
 
     data = {'posts': results, 'tags': [], 'python': False}
-    return render(request, 'blog/post_list.html', data)
+    return render(request, 'blog/posts_list.html', data)

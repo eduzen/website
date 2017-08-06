@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^bio/$', views.bio, name='about'),
-    url(r'^about/$', views.bio, name='about'),
+    url(r'^about/$', views.AboutView.as_view(), name='about'),
     url(r'^stuff/$', views.stuff, name='stuff'),
     url(r'^util/$', views.stuff, name='stuff'),
     url(r'^clases/$', views.clases, name='clases'),
@@ -15,8 +15,9 @@ urlpatterns = [
     url(r'^custom/(?P<slug>[\w-]+)/$', views.custom_page, name='custom_page'),
     url(r'^blog/$', views.post_list, name='entries'),
     url(r'^blog/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
-    url(r'^blog/(?P<slug>[\w-]+)/$', views.post_slug, name='post'),
+    url(r'^blog/(?P<slug>[\w-]+)/$', views.post_slug, name='post_slug'),
     url(r'^tags/(?P<tag>[\w-]+)/$', views.post_list_by_tag, name='bytag'),
+    url(r'^post/$', views.PostListView.as_view(), name='post_list'),
     url(
         r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post,
         name='add_comment'
