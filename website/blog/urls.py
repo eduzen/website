@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^clases/$', views.clases, name='clases'),
     url(r'^contactar/$', views.contact, name='contact'),
     url(r'^contacto/$', views.contact, name='contact'),
+    url(r'^contact/$', views.contact, name='contact'),
     url(r'^custom/(?P<slug>[\w-]+)/$', views.custom_page, name='custom_page'),
     url(r'^blog/$', views.post_list, name='entries'),
     url(r'^blog/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
