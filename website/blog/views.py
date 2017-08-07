@@ -87,7 +87,7 @@ class PostTagsList(ListView):
         return context
 
     def get_queryset(self):
-        return self.queryset.filter(tags=self.kwargs.get('tags'))
+        return self.queryset.filter(tags__word=self.kwargs.get('tag'))
 
 
 
