@@ -1,23 +1,22 @@
 from django.conf.urls import url
 from . import views
 
-
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
-    url(r'^bio/$', views.bio, name='about'),
+    url(r'^$', views.HomeListView.as_view(), name='home'),
+    url(r'^post/$', views.PostListView.as_view(), name='post_list'),
+    url(r'^blog/$', views.PostListView.as_view(), name='entries'),
     url(r'^about/$', views.AboutView.as_view(), name='about'),
+    url(r'^bio/$', views.AboutView.as_view(), name='about'),
+    url(r'^clases/$', views.ClasesView.as_view(), name='clases'),
+    url(r'^tags/(?P<tag>[\w-]+)/$', views.PostTagsList.as_view(), name='bytag'),
     url(r'^stuff/$', views.stuff, name='stuff'),
     url(r'^util/$', views.stuff, name='stuff'),
-    url(r'^clases/$', views.clases, name='clases'),
     url(r'^contactar/$', views.contact, name='contact'),
     url(r'^contacto/$', views.contact, name='contact'),
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^custom/(?P<slug>[\w-]+)/$', views.custom_page, name='custom_page'),
-    url(r'^blog/$', views.post_list, name='entries'),
     url(r'^blog/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
     url(r'^blog/(?P<slug>[\w-]+)/$', views.post_slug, name='post_slug'),
-    url(r'^tags/(?P<tag>[\w-]+)/$', views.post_list_by_tag, name='bytag'),
-    url(r'^post/$', views.PostListView.as_view(), name='post_list'),
     url(
         r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post,
         name='add_comment'
@@ -54,4 +53,9 @@ urlpatterns = [
         views.PostDayArchiveView.as_view(),
         name="archive_day"
     ),
+    url(r'^archive/$',
+        views.PostArchiveIndex.as_view(),
+        name="post_archive"),
+
 ]
+

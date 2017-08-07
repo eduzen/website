@@ -7,22 +7,22 @@
     
     <div class="row">
         <div class="col-md-8">
-                {% if posts %}
-                  {% for post in posts %}
-                      <div class="side-boxes titles">
-                        <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
-                        <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
+            {% if posts %}
+              {% for post in posts %}
+                  <div class="side-boxes titles">
+                    <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+                    <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
+                  </div>
+                   <div class="row">
+                      <div class="col-md-12">
+                          <p>{{ post.pompadour }}</p>
+                          <hr/>
                       </div>
-                       <div class="row">
-                          <div class="col-md-12">
-                              <p>{{ post.pompadour }}</p>
-                              <hr/>
-                          </div>
-                       </div>
-                  {% endfor %}
-                {% else %}
-                    <p> Empty posts </p>
-                {% endif %}
+                   </div>
+              {% endfor %}
+            {% else %}
+                <p> Empty posts </p>
+            {% endif %}
 
         <nav aria-label="Page navigation">
             <ul class="pager">
@@ -48,14 +48,13 @@
             <a href="/clases" class="btn btn-danger btn-lg btn-block" role="button">Clases particulares - Python</a>
             <hr/>
             <div class="block social-block social-twitter">
-            {% load twitter_tags %}
             <a class="twitter-timeline"
-               href="https://twitter.com/{{ tweet.user.screen_name }}"
+               href="https://twitter.com/_eduzen_"
                data-height="100px" data-chrome="nofooter"
                data-aria-polite="assertive"
               data-tweet-limit="4">
                 follow @{{ tweet.user.screen_name }}</a>
-            <a  class="twitter-follow-button" href="https://twitter.com/{{ tweet.user.screen_name }}"
+            <a  class="twitter-follow-button" href="https://twitter.com/_eduzen_"
                 data-size="default">
                 follow @{{ tweet.user.screen_name }}</a>
             </div>

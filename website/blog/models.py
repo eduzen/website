@@ -49,6 +49,12 @@ class Post(models.Model):
     def __unicode__(self):
         return u"{}".format(self.title)
 
+    class Meta:
+        verbose_name = "post"
+        verbose_name_plural = u"posts"
+        ordering = ['-published_date']
+
+
 
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', related_name='comments')

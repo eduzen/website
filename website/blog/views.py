@@ -10,18 +10,18 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.auth.decorators import login_required
 from django.views.generic.dates import MonthArchiveView
 from django.views.generic.dates import WeekArchiveView
 from django.views.generic.dates import DayArchiveView
+from django.views.generic.dates import ArchiveIndexView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 
 from .twitter_api import get_tweets
 
-from .models import Post, Comment
+from .models import Post, Comment, Tag
 from .models import CustomPage, DolarPeso
 from .forms import EmailForm
 from .forms import CommentForm
@@ -34,35 +34,61 @@ class AboutView(TemplateView):
     template_name = "blog/about.html"
 
 
-def home(request):
-    posts_list = Post.objects.filter(
-        published_date__isnull=False).order_by('-published_date')
-
-    paginator = Paginator(posts_list, 12)
-    page = request.GET.get('page')
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-    tweets = get_tweets(count=2)
-
-    data = {
-        'posts': posts,
-        'tweet': tweets[0],
-    }
-    return render(request, 'blog/body.html', data)
+class ClasesView(TemplateView):
+    template_name = "blog/clases.html"
 
 
-def bio(request):
-    tweets = get_tweets(count=2)
-    data = {
-        'tweet': tweets[0],
-    }
-    return render(request, 'blog/bio.html', data)
+class HomeListView(ListView):
+    model = Post
+    queryset = Post.objects.filter(published_date__isnull=False)
+    context_object_name = 'posts'
+    template_name = 'blog/body.html'
+    ordering = ['-published_date', ]
+    paginate_by = 12
+
+
+class PostListView(ListView):
+    model = Post
+    queryset = Post.objects.filter(published_date__isnull=False)
+    context_object_name = 'posts'
+    template_name = 'blog/post_list.html'
+    ordering = ['-published_date', ]
+    paginate_by = 12
+
+
+class PostTagsList(ListView):
+    model = Post
+    queryset = Post.objects.filter(published_date__isnull=False)
+    context_object_name = 'posts'
+    template_name = 'blog/post_list.html'
+    ordering = ['-published_date', ]
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super(PostTagsList, self).get_context_data(**kwargs)
+
+        python = self.kwargs.get('tag') == u'python'
+        tags = {}
+
+        for post in self.queryset:
+            for tag in post.tags.all():
+                if tag.slug not in tags.keys():
+                    tags[tag.slug] = {}
+                    tags[tag.slug]['word'] = tag.word
+                    tags[tag.slug]['size'] = 1
+                else:
+                    if tags[tag.slug]['size'] < 10:
+                        tags[tag.slug]['size'] += 1
+
+        context.update({
+            'tags': tags,
+            'python': python,
+        })
+        return context
+
+    def get_queryset(self):
+        return self.queryset.filter(tags=self.kwargs.get('tags'))
+
 
 
 def stuff(request):
@@ -105,63 +131,12 @@ def stuff(request):
     return render(request, 'blog/stuff.html', data)
 
 
-def post_list(request):
-    posts_list = Post.objects.filter(
-        published_date__isnull=False).order_by('-published_date')
-
-    paginator = Paginator(posts_list, 12)
-    page = request.GET.get('page')
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-    data = {'posts': posts}
-
-    return render(request, 'blog/posts_list.html', data)
-
-
 def post_slug(request, slug):
     post = get_object_or_404(Post, slug=slug)
 
     return render(request, 'blog/post_detail.html', {
         'post': post,
     })
-
-
-def post_list_by_tag(request, tag):
-    posts_list = Post.objects.filter(
-        published_date__isnull=False, tags__word=tag).order_by(
-        '-published_date')
-
-    paginator = Paginator(posts_list, 12)
-    page = request.GET.get('page')
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-
-    python = tag == u'python'
-    tags = {}
-    for post in posts_list:
-        for tag in post.tags.all():
-            if tag.slug not in tags.keys():
-                tags[tag.slug] = {}
-                tags[tag.slug]['word'] = tag.word
-                tags[tag.slug]['size'] = 1
-            else:
-                if tags[tag.slug]['size'] < 10:
-                    tags[tag.slug]['size'] += 1
-
-    data = {'posts': posts, 'tags': tags, 'python': python}
-    return render(request, 'blog/posts_list.html', data)
 
 
 def post_detail(request, pk):
@@ -291,13 +266,14 @@ class PostDayArchiveView(DayArchiveView):
     allow_future = True
 
 
-class PostListView(ListView):
+class PostArchiveIndex(ArchiveIndexView):
     model = Post
-    paginate_by = 12
-
-
-def clases(request):
-    return render(request, 'blog/clases.html', )
+    paginate_by = 50
+    queryset = Post.objects.filter(published_date__isnull=False)
+    template_name = 'blog/post_list.html'
+    date_field = "published_date"
+    allow_future = True
+    context_object_name = 'posts'
 
 
 def search_on_posts(request):
@@ -310,4 +286,4 @@ def search_on_posts(request):
         results = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
 
     data = {'posts': results, 'tags': [], 'python': False}
-    return render(request, 'blog/posts_list.html', data)
+    return render(request, 'blog/bloglist.html', data)
