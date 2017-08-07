@@ -19,6 +19,8 @@ try:
     )
 except Exception:
     SECRET_KEY = "9-t+&@+bo$l263c!s_3vobwh0_1bx^m93wih^-s+bt1xljfrnv"
+    NORECAPTCHA_SECRET_KEY = "some key"
+    NORECAPTCHA_SITE_KEY = "some key"
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
