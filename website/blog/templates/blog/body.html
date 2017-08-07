@@ -24,21 +24,24 @@
                 <p> Empty posts </p>
             {% endif %}
 
-        <nav aria-label="Page navigation">
-            <ul class="pager">
-            <li>
-                {% if posts.has_previous %}
-                    <a href="?page={{ posts.previous_page_number }}"
-                    aria-label="previous"> previous</a>
-                {% endif %}
-            </li>
-            <li>
-               {% if posts.has_next %}
-                    <a href="?page={{ posts.next_page_number }}">next</a>
-                {% endif %}
-            </li>
-          </ul>
-        </nav>
+            {% if is_paginated %}
+
+                <nav aria-label="Page navigation">
+                <ul class="pager">
+                    <li>
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}"
+                            aria-label="previous"> previous</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                       {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </li>
+                </ul>
+                </nav>
+            {% endif %}
 
         </div>
 
