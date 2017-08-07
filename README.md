@@ -8,7 +8,7 @@ create database
 
 cp website/settings.py website/settings-local.py
 
-touch website//keysettings.py
+touch website/keysettings.py
 ```
 
 
