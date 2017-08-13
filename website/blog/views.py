@@ -161,6 +161,7 @@ def add_comment_to_post(request, pk):
             comment.post = post
             comment.save()
             email = EmailMessage(
+                "Nuevo comment",
                 form.cleaned_data.get('author'),
                 form.cleaned_data.get('text'),
                 "",
@@ -224,7 +225,7 @@ def contact(request):
                 }
 
                 content = (
-                    u"Hola, {name} escribio en la web lo siguiente: {message} "
+                    u"Hola, {name} escribio en la web contacto lo siguiente: {message} "
                     u" Si querés escribirle su mail es {email}"
                 )
 
