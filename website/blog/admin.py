@@ -10,12 +10,13 @@ from .models import CustomPage
 from .models import DolarPeso
 
 class PostAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created_date'
 
-    search_fields = ["author", "title", "published_date"]
+    search_fields = ["author", "title", "published_date", "created_date"]
 
-    list_filter = ["author", "title", "published_date"]
+    list_filter = ["author", "title", "published_date", "created_date"]
 
-    list_display = ["author", "title", "slug", "published_date"]
+    list_display = ["author", "title", "slug", "published_date", "created_date"]
 
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size': '100',})},
