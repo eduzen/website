@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.forms import TextInput, Textarea
+from django.forms import TextInput
 from django.db import models
 
 from .models import Post
@@ -12,11 +12,11 @@ from .models import DolarPeso
 class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
 
-    search_fields = ["author", "title", "published_date", "created_date"]
+    search_fields = ["author", "title", "published", "published_date", "created_date"]
 
-    list_filter = ["author", "title", "published_date", "created_date"]
+    list_filter = [ "published_date", "author", "title", "created_date"]
 
-    list_display = ["author", "title", "slug", "published_date", "created_date"]
+    list_display = ["author", "title", "slug", "created_date", "published_date", "published", ]
 
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size': '100',})},

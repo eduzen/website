@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
+from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
 from django.views.generic.dates import MonthArchiveView
@@ -94,7 +95,7 @@ class PostTagsList(ListView):
 def stuff(request):
     tweets = get_tweets(count=2)
     # import pdb; pdb.set_trace()
-    today = datetime.now().date()
+    today = timezone.now().date()
     tomorrow = today + timedelta(1)
     today_start = datetime.combine(today, time())
     today_end = datetime.combine(tomorrow, time())
@@ -104,17 +105,17 @@ def stuff(request):
     )
     if not current_peso.exists():
         currency = Currency('ARS')
-        end_date = currency.data_set.get('DateTimeUTC')
-        end_date = end_date.split(" ")
-        end_date[-1] = end_date[-1][:4]
-        end_date = " ".join(end_date)
-        date = datetime.strptime(end_date[:-1], '%Y-%m-%d %H:%M:%S %Z')
+        # end_date = currency.data_set.get('DateTimeUTC')
+        # end_date = end_date.split(" ")
+        # end_date[-1] = end_date[-1][:4]
+        # end_date = " ".join(end_date)
+        # date = datetime.strptime(end_date[:-1], '%Y-%m-%d %H:%M:%S %Z')
         data = {
             'name': currency.data_set.get('Name'),
             'bid': currency.data_set.get('Bid'),
             'ask': currency.data_set.get('Ask'),
             'rate': currency.data_set.get('Rate'),
-            'created_date': date,
+            'created_date': timezone.now(),
         }
         current_peso = DolarPeso.objects.create(**data)
     else:

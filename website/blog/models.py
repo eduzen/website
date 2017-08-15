@@ -39,6 +39,12 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
+    def published(self):
+        return True if self.published_date else False
+
+    published.boolean = True
+    published.short_description = 'Published'
+
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
 
