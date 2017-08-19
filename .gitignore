@@ -115,6 +115,7 @@ ENV/
 # sqlite
 
 *.sqlite3
+.vscode/
 .idea/
 eduzen.sublime-project
 eduzen.sublime-workspace
