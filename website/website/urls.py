@@ -22,7 +22,7 @@ from django.contrib import admin
 from django.contrib.auth import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^eduardo/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^robots\.txt', include('robots.urls')),
     url(r'^accounts/login/$', views.login, name='login'),
