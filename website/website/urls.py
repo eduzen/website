@@ -29,8 +29,8 @@ urlpatterns = [
     url(
         r'^accounts/logout/$', views.logout,
         name='logout', kwargs={'next_page': '/'}
-    ),
-
+    ), 
+    url(r'^google448c52311d45450b.html', include('config.urls')),
     url(r'^', include('blog.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
