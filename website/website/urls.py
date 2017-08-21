@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views
 
+from rest_framework.documentation import include_docs_urls
+
 urlpatterns = [
     url(r'^eduardo/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
@@ -29,11 +31,12 @@ urlpatterns = [
     url(
         r'^accounts/logout/$', views.logout,
         name='logout', kwargs={'next_page': '/'}
-    ), 
+    ),
     url(r'^google448c52311d45450b.html', include('config.urls')),
     url(r'^', include('blog.urls')),
     url(r'^api/', include('api.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^docs/', include_docs_urls(title='My eduzen API title'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
