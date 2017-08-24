@@ -67,8 +67,6 @@ class PostTagsList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostTagsList, self).get_context_data(**kwargs)
-
-        python = self.kwargs.get('tag') == u'python'
         tags = {}
 
         for post in self.queryset:
@@ -83,12 +81,12 @@ class PostTagsList(ListView):
 
         context.update({
             'tags': tags,
-            'python': python,
+            'tag': self.kwargs.get('tag').capitalize(),
         })
         return context
 
     def get_queryset(self):
-        return self.queryset.filter(tags__word=self.kwargs.get('tag'))
+        return self.queryset.filter(tags__slug=self.kwargs.get('tag'))
 
 
 

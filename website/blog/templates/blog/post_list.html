@@ -8,13 +8,15 @@
         <div class="row">
             <!-- POSTS LIST -->
             <div class="col-xs-8">
+            {% if tag %}
+                <h2 style="text-align:center;">{{ tag }}</h2>
+            {% endif %}
             {% if posts %}
-
               {% for post in posts %}
                   <div class="side-boxes titles">
                     <div class="row">
                         <div class="col-xs-6">
-                            <p>Tags: <strong>
+                            <p>Etiquetas: <strong>
                             {% for tag in post.tags.all %}
                                 <a href="/tags/{{ tag }}">{{ tag }}</a>
                             {% endfor %}
@@ -62,7 +64,7 @@
             <div class="col-xs-4">
                 <a href="/clases" class="btn btn-danger btn-lg btn-block" role="button">Clases particulares - Python</a>
                 <hr/>
-                {% if python %}
+                {% if tag == 'python' %}
                     <h4>Python Tags</h4>
                     <div class="tag-cloud">
                     <ul class="tags">
