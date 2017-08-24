@@ -12,7 +12,18 @@
 
               {% for post in posts %}
                   <div class="side-boxes titles">
-                    <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p>Tags: <strong>
+                            {% for tag in post.tags.all %}
+                                <a href="/tags/{{ tag }}">{{ tag }}</a>
+                            {% endfor %}
+                            </strong></p>
+                        </div>
+                        <div class="col-xs-6">
+                        <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+                        </div>
+                    </div>
                     <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
                   </div>
                    <div class="row">
