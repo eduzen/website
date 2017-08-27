@@ -2,7 +2,6 @@
 from django.db import models
 
 from solo.models import SingletonModel
-from djangoseo import seo
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
