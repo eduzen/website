@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.utils import timezone
 
 from autoslug import AutoSlugField
+from meta.models import ModelMeta
 from ckeditor_uploader.fields import RichTextUploadingField
 from djmoney.models.fields import MoneyField
 
-
+@python_2_unicode_compatible
 class Tag(models.Model):
     word = models.CharField(max_length=50)
     slug = models.CharField(max_length=250)
 
-    def __unicode__(self):
-        return u"{}".format(self.slug)
+    def __str__(self):
+        return self.slug
 
 
+@python_2_unicode_compatible
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
     title = models.CharField(
@@ -45,15 +46,12 @@ class Post(models.Model):
     published.boolean = True
     published.short_description = 'Published'
 
-    def approved_comments(self):
-        return self.comments.filter(approved_comment=True)
-
     @models.permalink
     def get_absolute_url(self):
         return 'blog:post', (self.slug,)
 
-    def __unicode__(self):
-        return u"{}".format(self.title)
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name = "post"
@@ -61,7 +59,7 @@ class Post(models.Model):
         ordering = ['-published_date']
 
 
-
+@python_2_unicode_compatible
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', related_name='comments')
     author = models.CharField(max_length=200, verbose_name=u"Autor")
@@ -77,6 +75,7 @@ class Comment(models.Model):
         return self.text
 
 
+@python_2_unicode_compatible
 class CustomPage(models.Model):
     name = models.CharField(
         verbose_name=u"Nombre", max_length=250)
@@ -108,14 +107,12 @@ class CustomPage(models.Model):
     def __str__(self):
         return u"{}".format(self.name)
 
-    def __unicode__(self):
-        return u"{}".format(self.name)
-
     class Meta:
         verbose_name = "Páginas custom"
         verbose_name_plural = u"Páginas custom"
 
 
+@python_2_unicode_compatible
 class DolarPeso(models.Model):
     balance = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
     name = models.CharField(verbose_name=u"Nombre", max_length=250)
@@ -125,9 +122,6 @@ class DolarPeso(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return "{} - {}".format(self.name, self.created_date)
-
-    def __unicode__(self):
         return "{} - {}".format(self.name, self.created_date)
 
     class Meta:

@@ -17,7 +17,6 @@ django-jsonview==0.4.3
 django-money==0.11.2
 django-nocaptcha-recaptcha==0.0.19
 django-robots==3.0
-django-seo2==1.0.1
 django-solo==1.1.2
 djangorestframework==3.6.3
 enum34==1.1.6

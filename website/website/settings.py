@@ -38,26 +38,13 @@ SITE_ID = 1
 APPEND_SLASH = True
 
 DEBUG = False
-# HTTPS
-"""
-SECURE_SSL_REDIRECT = True
-SECURE_REDIRECT_EXEMPT = []
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-"""
-# SECURITY WARNING: don't run with debug turned on in production!
 
 ALLOWED_HOSTS = [
     'www.eduardoenriquez.com.ar', 'eduardoenriquez.com.ar',
     'eduzen.com.ar', 'www.eduzen.com.ar',
-    '45.55.130.126'
 ]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,20 +52,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'django.contrib.sites',
+
     'nocaptcha_recaptcha',
-    'rollyourown.seo',
-    'djangoseo',
-    "anymail",
+    'debug_toolbar',
+    'anymail',
     'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
     'solo',
     'robots',
-    'debug_toolbar',
     'djmoney',
-    'config',
     'rest_framework',
+
+    'config',
     'blog',
     'api',
 ]
@@ -114,11 +102,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'website.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
 
 
 # Password validation
