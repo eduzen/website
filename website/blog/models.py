@@ -4,7 +4,6 @@ from django.db import models
 from django.utils import timezone
 
 from autoslug import AutoSlugField
-from meta.models import ModelMeta
 from ckeditor_uploader.fields import RichTextUploadingField
 from djmoney.models.fields import MoneyField
 
