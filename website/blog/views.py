@@ -122,11 +122,11 @@ def stuff(request):
 
     data = {
         'tweet': tweets[0],
-        'name': current_peso.name,
-        'bid': current_peso.bid,
-        'ask': current_peso.ask,
-        'rate': current_peso.rate,
-        'date': current_peso.created_date,
+        'name': "current_peso.name",
+        'bid': "current_peso.bid",
+        'ask': "current_peso.ask",
+        'rate': "current_peso.rate",
+        'date': "current_peso.created_date",
     }
     return render(request, 'blog/stuff.html', data)
 
