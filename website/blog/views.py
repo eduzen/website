@@ -93,7 +93,6 @@ class PostTagsList(ListView):
 
 def stuff(request):
     tweets = get_tweets(count=2)
-    # import pdb; pdb.set_trace()
     today = timezone.now().date()
     tomorrow = today + timedelta(1)
     today_start = datetime.combine(today, time())
@@ -103,22 +102,23 @@ def stuff(request):
         created_date__lte=today_end, created_date__gte=today_start
     )
     if not current_peso.exists():
-        currency = Currency('ARS')
-        # end_date = currency.data_set.get('DateTimeUTC')
+        #"'currency = 'Currency('ARS'")
+        # end_date = "currency.data_set.get('DateTimeUTC'")
         # end_date = end_date.split(" ")
         # end_date[-1] = end_date[-1][:4]
         # end_date = " ".join(end_date)
         # date = datetime.strptime(end_date[:-1], '%Y-%m-%d %H:%M:%S %Z')
         data = {
-            'name': currency.data_set.get('Name'),
-            'bid': currency.data_set.get('Bid'),
-            'ask': currency.data_set.get('Ask'),
-            'rate': currency.data_set.get('Rate'),
+            'name': "currency.data_set.get('Name')",
+            'bid': "currency.data_set.get('Bid')",
+            'ask': "currency.data_set.get('Ask')",
+            'rate': "currency.data_set.get('Rate')",
             'created_date': timezone.now(),
         }
-        current_peso = DolarPeso.objects.create(**data)
+        #current_peso = DolarPeso.objects.create(**data)
     else:
-        current_peso = current_peso[0]
+        pass
+        #current_peso = current_peso[0]
 
     data = {
         'tweet': tweets[0],
