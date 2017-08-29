@@ -1,105 +1,60 @@
-$(document).ready(function() {
-	
-	$('#calcular').on('click', function() {
-		calcular();
-	})
-
-	$(document).keypress(function(e) {
-	  if (e.keyCode == 13) {
-		e.preventDefault();
-		calcular();
-	  }
-	});
-
-});
-
-
-var topesEscalas = [10000, 20000, 30000, 60000, 90000, 120000,99999999];
-var porcentajesEscalas = [0.09, 0.14, 0.19, 0.23, 0.27, 0.31, 0.35];
-var fijosEscalas = [900, 1400, 1900, 6900, 8100, 9300];
-
-var MINIMO_NO_IMPONIBLE = 42318;
-var ADICIONAL_4TA_CATEGORIA = 203126;
-var CONYUGE = 39778;
-var HIJO = 19889;
-var FAMILIAR_A_CARGO = 19889;
-
 function calcular() {
-	
-	var sueldoBruto = $('#sueldoBruto').val();
-	var conyuge = $("input[name='conyuge']:checked").val();
+    var sueldoBruto = $("#sueldoBruto").val(),
+        isConyuge = $("input[name='conyuge']:checked").val(),
+        isJubilado = $("input[name='jubilado']:checked").val(),
+        isPatagonico = $("input[name='patagonico']:checked").val(),
+        valorAlquiler = $("#alquiler").val(),
+        deduccionAlquiler = 12 * valorAlquiler * .4 > TOPE_ALQUILER ? TOPE_ALQUILER : 12 * valorAlquiler * .4,
+        valorHipotecario = $("#hipotecario").val(),
+        deduccionHipotecario = 12 * valorHipotecario > TOPE_HIPOTECARIO ? TOPE_HIPOTECARIO : 12 * valorHipotecario,
+		hijosElement = document.getElementById("hijos"),
+        cantHijos = hijosElement.options[hijosElement.selectedIndex].value,
+        sueldoNeto = 0 == isJubilado ? .17 * sueldoBruto > TOPE_APORTES ? sueldoBruto - TOPE_APORTES : .83 * sueldoBruto : .06 * sueldoBruto > TOPE_APORTES ? sueldoBruto - TOPE_APORTES : .94 * sueldoBruto;
 
-//	var familiaresComponent = document.getElementById("familiares");
-//	var cantFamiliares = familiaresComponent.options[familiaresComponent.selectedIndex].value;
-	
-	var hijosComponent = document.getElementById("hijos");
-	var cantHijos = hijosComponent.options[hijosComponent.selectedIndex].value;
-	
-	
-	var sueldoNeto = sueldoBruto * 0.83;
-	var sueldoNetoAnual = sueldoNeto * 13;
-	
-	var MNI_anual = MINIMO_NO_IMPONIBLE+ADICIONAL_4TA_CATEGORIA+CONYUGE*conyuge+HIJO*cantHijos
-	var MNI_mensual = MNI_anual / 13;
-	
-	var MontoImponibleAnual =  0;
-	if(MNI_anual < sueldoNetoAnual)
-	{
-		MontoImponibleAnual = sueldoNetoAnual - MNI_anual;
-	}
-	
-	var MontoImponibleMensual = MontoImponibleAnual / 13;
-	
-	var totalEscalas = [0, 0, 0, 0, 0, 0,0];
-
-	//Calculo Escalas
-	for (var i=0; i<totalEscalas.length; i++) 
-	{
-	 	totalEscalas[i] = calcularValorEscala(i,MontoImponibleAnual);
-	 	if(totalEscalas[i] != fijosEscalas[i])
-	 	{
-	 		break;
-	 	}
-	}
-
-	//Calculo Resultados
-	var impuestoAnual = 0;
-	for (var i=0; i<totalEscalas.length; i++) 
-	{
-	  impuestoAnual =  impuestoAnual + totalEscalas[i];
-	}
-	$("#impuestoAnual").text("$" + Math.ceil(impuestoAnual) + ".00");
-
-	var impuestoMensual = impuestoAnual / 13;
-	$("#impuestoMensual").text("$" + Math.ceil(impuestoMensual) + ".00");
-
-	var alicuota = (impuestoMensual / sueldoNeto)*100;
-	$("#alicuota").text(alicuota.toFixed(2) + "%");
-
-	var sueldoEnMano = sueldoNeto - impuestoMensual;
-	$("#sueldoEnMano").text("$" + Math.ceil(sueldoEnMano) + ".00");
-	
-	
+    var sueldoNetoAnual = 13 * sueldoNeto,
+        mniConDeduccionEspecial = (MINIMO_NO_IMPONIBLE + ADICIONAL_4TA_CATEGORIA) * (1.22 * isPatagonico + (1 - isPatagonico));
+    mniTotal = (mniConDeduccionEspecial + CONYUGE * isConyuge + HIJO * cantHijos + deduccionAlquiler + deduccionHipotecario) * (1 - isJubilado) + isJubilado * (TOPE_JUBILADO + deduccionAlquiler + deduccionHipotecario),
+        montoImponibleAplicable = 0,
+        mniTotal < sueldoNetoAnual && (montoImponibleAplicable = sueldoNetoAnual - mniTotal);
+    for (var n = [0, 0, 0, 0, 0, 0, 0, 0, 0], o = 0; o < n.length && (n[o] = calcularValorEscala(o, montoImponibleAplicable), n[o] == fijosEscalas[o]); o++);
+    for (var p = o, impuestoAnual = 0, o = 0; o < n.length; o++) impuestoAnual += n[o];
+    impuestoAnual = impuestoAnual.toFixed(2), $("#impuestoAnual").text("$" + impuestoAnual);
+    var impuestoMensual = (impuestoAnual / 13).toFixed(2);
+    $("#impuestoMensual").text("$" + impuestoMensual);
+    var alicuota = impuestoMensual / sueldoBruto * 100;
+    $("#alicuota").text(alicuota.toFixed(2) + "%");
+    var alicuotaMarginal = 0 == alicuota ? 0 : 100 * porcentajesEscalas[p];
+    $("#alicuotaMarginal").text(alicuotaMarginal.toFixed(2) + "%");
+    var sueldoEnMano = sueldoNeto - impuestoMensual;
+    $("#sueldoEnMano").text("$" + Math.round(sueldoEnMano) + ".00")
 }
 
-
-function calcularValorEscala(numeroEscala,montoImponibleAnual) 
-{
-	var resultado = 0;
-	var montoEscala = 0;
-	if(numeroEscala > 0)
-	{
-		montoEscala = topesEscalas[numeroEscala - 1];
-	}
-
-	if(montoImponibleAnual < topesEscalas[numeroEscala])
-	{
-			resultado = (montoImponibleAnual - montoEscala) * porcentajesEscalas[numeroEscala];
-	}
-	else
-	{
-			resultado = fijosEscalas[numeroEscala];
-	}
-
-	return resultado;
+function calcularValorEscala(a, b) {
+    var c = 0,
+        d = 0;
+    return a > 0 && (d = topesEscalas[a - 1]), c = b < topesEscalas[a] ? (b - d) * porcentajesEscalas[a] : fijosEscalas[a]
 }
+$(document).ready(function() {
+    $("#calcular").on("click", function() {
+        calcular()
+    }), $(document).keypress(function(a) {
+        13 == a.keyCode && (a.preventDefault(), calcular())
+    }), $("input[name='jubilado']").click(function() {
+        $("input[name='conyuge']").attr({
+            disabled: 1 == $(this).val()
+        }), $("input[name='patagonico']").attr({
+            disabled: 1 == $(this).val()
+        })
+    })
+});
+var topesEscalas = [2e4, 4e4, 6e4, 8e4, 12e4, 16e4, 24e4, 32e4, 99999999],
+    porcentajesEscalas = [.05, .09, .12, .15, .19, .23, .27, .31, .35],
+    fijosEscalas = [1e3, 1800, 2400, 3e3, 7600, 9200, 21600, 24800],
+    MINIMO_NO_IMPONIBLE = 51967,
+    ADICIONAL_4TA_CATEGORIA = 249441.6,
+    CONYUGE = 48447,
+    HIJO = 24432,
+    TOPE_APORTES = 10896.32,
+    TOPE_JUBILADO = 407592,
+    TOPE_ALQUILER = 51967,
+    TOPE_HIPOTECARIO = 20000;
