@@ -92,7 +92,7 @@ class PostTagsList(ListView):
 
 
 def stuff(request):
-    tweets = get_tweets(count=2)
+    # tweets = get_tweets(count=2)
     today = timezone.now().date()
     tomorrow = today + timedelta(1)
     today_start = datetime.combine(today, time())
@@ -121,7 +121,7 @@ def stuff(request):
         #current_peso = current_peso[0]
 
     data = {
-        'tweet': tweets[0],
+        'tweet': 'tweets[0]',
         'name': "current_peso.name",
         'bid': "current_peso.bid",
         'ask': "current_peso.ask",

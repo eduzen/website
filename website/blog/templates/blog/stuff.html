@@ -42,115 +42,165 @@
                    <div class="panel panel-default">
                         <div class="panel-heading">Datos</div>
                         <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
+                            <div class="row">
+                              <div class="col-lg-12">
                                 <form role="form">
-                                    <div class="form-group">
+                                  <div class="form-group">
                                     <label>Sueldo Bruto</label>
                                     <div class="form-group input-group">
-                                    <span class="input-group-addon">$</span>
-                                    <input id="sueldoBruto" type="text" class="form-control">
-                                    <span class="input-group-addon">.00</span>
+                                      <span class="input-group-addon">$</span>
+                                      <input id="sueldoBruto" type="text" class="form-control">
+                                      <span class="input-group-addon">.00</span>
+                                    </div>
+                                    <p class="help-block">Ingrese su Sueldo Bruto</p>
+                                  </div>
+
+                                  <div class="col-lg-4">
+                                    <div class="form-group">
+                                      <label>Conyuge a Cargo</label>
+                                      <br>
+                                      <label class="radio-inline"> <input type="radio" name="conyuge" id="No"
+                                       value="0" checked>No
+                                     </label>
+                                     <label class="radio-inline"> <input type="radio" name="conyuge" id="Si"
+                                      value="1">Si
+                                    </label>
+                                  </div>
+
                                 </div>
-                                <p class="help-block">Ingrese su Sueldo Bruto</p>
-                            </div>
-                            <label>Conyuge a Cargo</label>
-                            <div class="radio">
-                             <label> <input type="radio" name="conyuge" id="No"
-                                 value="0" checked>No
-                             </label>
-                             </div>
-                            <div class="radio">
-                             <label> <input type="radio" name="conyuge" id="Si"
-                                value="1">Si
-                            </label>
-                        </div>
-                                <!--
+
+                                <div class="col-lg-4">
+
+                                  <div class="form-group">
+                                    <label>Jubilado</label>
+                                    <br>
+                                    <label class="radio-inline"> <input type="radio" name="jubilado" id="No"
+                                     value="0" checked>No
+                                   </label>
+                                   <label class="radio-inline"> <input type="radio" name="jubilado" id="Si"
+                                    value="1">Si
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-4">
+
+
                                 <div class="form-group">
-                                    <label>Familiares a Cargo</label>
-                                    <select class="form-control" id="familiares">
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            -->
-                            <div class="form-group">
-                                <label>Cantidad de Hijos</label>
-                                <select class="form-control" id="hijos">
-                                    <option>0</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                </select>
+                                  <label>Patagónico</label>
+                                  <br>
+                                  <label class="radio-inline"> <input type="radio" name="patagonico" id="No"
+                                   value="0" checked>No
+                                 </label>
+                                 <label class="radio-inline"> <input type="radio" name="patagonico" id="Si"
+                                  value="1">Si
+                                </label>
+                              </div>
                             </div>
-                            <div class="form-group" align="right">
-                               <button id="calcular" type="button" class="btn btn-success">Calcular</button>
-                           </div>
+
+                            <div class="form-group">
+                              <label>Cantidad de Hijos ( Menores de 18 años )</label>
+                              <select class="form-control" id="hijos">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                              </select>
+                            </div>
+
+
+                            <div class="form-group">
+                             <label>Deducción Alquiler</label>
+                             <div class="form-group input-group">
+                              <span class="input-group-addon">$</span>
+                              <input id="alquiler" type="text" class="form-control">
+                              <span class="input-group-addon">.00</span>
+                            </div>
+                            <p class="help-block">Ingrese su Alquiler Mensual (el 40% podrá descontarse con topes)</p>
+                          </div>
+
+
+                            <div class="form-group">
+                             <label>Deducción Hipotecario</label>
+                             <div class="form-group input-group">
+                              <span class="input-group-addon">$</span>
+                              <input id="hipotecario" type="text" class="form-control">
+                              <span class="input-group-addon">.00</span>
+                            </div>
+                            <p class="help-block">Ingrese lo que paga mensualmente en intereses</p>
+                          </div>
+
+                          <div class="form-group" align="right">
+                           <button id="calcular" type="button" class="btn btn-success">Calcular</button>
+                         </div>
                        </form>
+                     </div>
                    </div>
+                   <!-- /.row (nested) -->
+                  </div>
+                  <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+                  </div>
+                  <!-- /.col-lg-6 -->
+                  <div class="col-lg-6">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                       Resultado
+                      </div>
+                      <div class="panel-body">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label>Impuesto Anual</label>
+                            <p class="text-danger"  id="impuestoAnual"></p>
+                          </div>
+                          <div class="form-group">
+                            <label>Impuesto Mensual</label>
+                            <p class="text-danger"  id="impuestoMensual"></p>
+                          </div>
+                          <div class="form-group">
+                            <label>Alicuota</label>
+                            <p class="text-danger" id="alicuota"></p>
+                          </div>
+                          <div class="form-group">
+                            <label>Alicuota Marginal que aplica</label>
+                            <p class="text-danger" id="alicuotaMarginal"></p>
+                          </div>
+                          <div class="form-group">
+                            <label>Sueldo en Mano</label>
+                            <p class="text-success" id="sueldoEnMano">
+                            </p>
+                          </div>
+
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+                      </div>
+                      <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                  </div>
+
                 </div>
-                <!-- /.row (nested) -->
-              </div>
-       <!-- /.panel-body -->
-           </div>
-   <!-- /.panel -->
-</div>
-            <!-- /.col-lg-6 -->
-            <div class="col-lg-6">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-           Resultado
-       </div>
-       <div class="panel-body">
-        <div class="row">
-            <div class="col-lg-12">
-               <div class="form-group">
-                <label>Impuesto Anual</label>
-                <p class="text-danger"  id="impuestoAnual"></p>
             </div>
-                <div class="form-group">
-                    <label>Impuesto Mensual</label>
-                    <p class="text-danger"  id="impuestoMensual"></p>
-                </div>
-                <div class="form-group">
-                    <label>Alicuota</label>
-                    <p class="text-danger" id="alicuota""></p>
-                </div>
-                <div class="form-group">
-                    <label>Sueldo en Mano</label>
-                    <p class="text-success" id="sueldoEnMano">
-                    </p>
-                </div>
-            </div>
-        <!-- /.col-lg-6 (nested) -->
-        </div>
-        <!-- /.row (nested) -->
-       </div>
-    </div>
-</div>
-       </div>
-     </div>
         <div class="col-md-4">
             <div class="block social-block social-twitter">
-            {% load twitter_tags %}
             <a class="twitter-timeline"
-               href="https://twitter.com/{{ tweet.user.screen_name }}"
+               href="https://twitter.com/_eduzen_"
                data-height="100px" data-chrome="nofooter"
                data-aria-polite="assertive"
               data-tweet-limit="4">
-                follow @{{ tweet.user.screen_name }}</a>
-            <a  class="twitter-follow-button" href="https://twitter.com/{{ tweet.user.screen_name }}"
+                follow @_eduzen_</a>
+            <a  class="twitter-follow-button" href="https://twitter.com/_eduzen_"
                 data-size="default">
-                follow @{{ tweet.user.screen_name }}</a>
+                follow @_eduzen_</a>
             </div>
         </div>
     </div>
