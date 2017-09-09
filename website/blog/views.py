@@ -204,12 +204,12 @@ def custom_page(request, slug):
 
 
 def contact(request):
-    tweets = get_tweets(count=2)
+    # tweets = get_tweets(count=2)
 
     if request.method == 'GET':
         contact_form = EmailForm()
         return render(request, 'blog/contact.html', {
-            'form': contact_form, 'tweet': tweets[0],
+            'form': contact_form, 'tweet': "tweets[0]",
         })
 
     if request.method == 'POST':
@@ -244,7 +244,7 @@ def contact(request):
 
         contact_form = EmailForm()
         return render(request, 'blog/contact.html', {
-            'form': contact_form, 'tweet': tweets[0],
+            'form': contact_form, 'tweet': "tweets[0]",
         })
 
 

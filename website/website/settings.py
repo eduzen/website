@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 try:
-    from keysettings import (
+    from .keysettings import (
         SECRET_KEY, DATABASES, NORECAPTCHA_SITE_KEY, NORECAPTCHA_SECRET_KEY,
         ANYMAIL, EMAIL_BACKEND, DEFAULT_FROM_EMAIL,
     )
