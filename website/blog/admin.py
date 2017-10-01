@@ -9,17 +9,19 @@ from .models import Tag
 from .models import CustomPage
 from .models import DolarPeso
 
+
 class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
 
     search_fields = ["author", "title", "published", "published_date", "created_date"]
 
-    list_filter = [ "published_date", "author", "title", "created_date"]
+    list_filter = ["published_date", "author", "title", "created_date"]
 
-    list_display = ["author", "title", "slug", "created_date", "published_date", "published", ]
+    list_display = ["author", "title", "slug", "created_date", "published_date", "published",
+                    'image']
 
     formfield_overrides = {
-        models.CharField: {'widget': TextInput(attrs={'size': '100',})},
+        models.CharField: {'widget': TextInput(attrs={'size': '100', })},
     }
 
 

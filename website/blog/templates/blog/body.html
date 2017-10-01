@@ -19,10 +19,27 @@
                             </strong></p>
                         </div>
                         <div class="col-xs-6">
-                        <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+                          <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
                         </div>
+                      {% if post.image %}
+                      <div class="col-xs-12">
+
+                        <div class="col-xs-3">
+                          <a href="/blog/{{ post.slug }}">
+                            <img class='portrait' src="{{ post.image.url }}" alt="{{ post.image.name }}">
+                          </a>
+                        </div>
+                        <div class="col-xs-9">
+                          <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
+                        </div>
+
+                      </div>
+                      {% else %}
+                        <div class="col-xs-12">
+                          <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
+                        </div>
+                      {% endif %}
                     </div>
-                    <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
                   </div>
                    <div class="row">
                       <div class="col-md-12">
@@ -72,7 +89,7 @@
                 </script>
                 <gcse:search></gcse:search>
               </div>
-              
+
               <div class="col-md-12">
                 <a href="/clases" class="btn btn-danger btn-lg btn-block" role="button">Clases particulares - Python</a>
                 <hr/>
@@ -94,7 +111,7 @@
                       follow @{{ tweet.user.screen_name }}</a>
                 </div>
               </div>
-            
+
             </div>
         </div>
 

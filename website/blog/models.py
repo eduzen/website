@@ -2,10 +2,12 @@
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 
 from autoslug import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
 from djmoney.models.fields import MoneyField
+
 
 @python_2_unicode_compatible
 class Tag(models.Model):
@@ -34,6 +36,13 @@ class Post(models.Model):
     published_date = models.DateField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='posts')
     text = RichTextUploadingField(verbose_name=u"Cuerpo de texto")
+    image = models.ImageField(upload_to='post-img/%Y/%m/%d', blank=True, null=True)
+
+    def image_tag(self):
+        return mark_safe(
+            "<img src='{}' width='100' height='100'/>".format(self.image.url)
+        )
+    image_tag.short_description = 'Image'
 
     def publish(self):
         self.published_date = timezone.now()

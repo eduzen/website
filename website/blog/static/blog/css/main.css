@@ -126,3 +126,8 @@ div.menu {
     text-align: justify;
     font-size: 1.9em;
 }
+
+.portrait{
+  max-width: 130%;
+  margin-left: -25px;
+}
