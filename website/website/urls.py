@@ -20,10 +20,14 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.contrib.auth import views
+from django.views.generic.base import RedirectView
 
 from rest_framework.documentation import include_docs_urls
 
+favicon_view = RedirectView.as_view(url='/static/config/img/favicon.ico', permanent=True)
+
 urlpatterns = [
+    url(r'^favicon\.ico$', favicon_view),
     url(r'^eduardo/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^robots\.txt', include('robots.urls')),
@@ -36,7 +40,7 @@ urlpatterns = [
     url(r'^', include('blog.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^docs/', include_docs_urls(title='My eduzen API title'))
+    url(r'^docs/', include_docs_urls(title='My eduzen API title')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

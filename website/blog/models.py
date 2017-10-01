@@ -39,9 +39,11 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post-img/%Y/%m/%d', blank=True, null=True)
 
     def image_tag(self):
-        return mark_safe(
-            "<img src='{}' width='100' height='100'/>".format(self.image.url)
-        )
+        img = ''
+        if self.image:
+            img = "<img src='{}' width='100' height='100'/>".format(self.image.url)
+        return mark_safe(img)
+
     image_tag.short_description = 'Image'
 
     def publish(self):

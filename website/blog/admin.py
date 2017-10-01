@@ -18,7 +18,9 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ["published_date", "author", "title", "created_date"]
 
     list_display = ["author", "title", "slug", "created_date", "published_date", "published",
-                    'image']
+                    'image_tag']
+
+    readonly_fields = ('image_tag', )
 
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size': '100', })},
