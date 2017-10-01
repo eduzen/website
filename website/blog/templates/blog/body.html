@@ -57,21 +57,50 @@
         </div>
 
         <div class="col-md-4">
-            <a href="/util" class="btn btn-primary btn-lg btn-block" role="button">Calculadora Ganancias 2017</a>
-            <hr/>
-            <a href="/clases" class="btn btn-danger btn-lg btn-block" role="button">Clases particulares - Python</a>
-            <hr/>
-            <div class="block social-block social-twitter">
-            <a class="twitter-timeline"
-               href="https://twitter.com/_eduzen_"
-               data-height="100px" data-chrome="nofooter"
-               data-aria-polite="assertive"
-              data-tweet-limit="4">
-                follow @{{ tweet.user.screen_name }}</a>
-            <a  class="twitter-follow-button" href="https://twitter.com/_eduzen_"
-                data-size="default">
-                follow @{{ tweet.user.screen_name }}</a>
+            <div class="row">
+              <div class="col-md-12">
+                <script>
+                  (function() {
+                    var cx = '015876062389103455937:0u7kglktdjy';
+                    var gcse = document.createElement('script');
+                    gcse.type = 'text/javascript';
+                    gcse.async = true;
+                    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(gcse, s);
+                  })();
+                </script>
+                <gcse:search></gcse:search>
+              </div>
+              
+              <div class="col-md-12">
+                <a href="/clases" class="btn btn-danger btn-lg btn-block" role="button">Clases particulares - Python</a>
+                <hr/>
+              </div>
+              <div class="col-md-12">
+                <a href="/util" class="btn btn-primary btn-lg btn-block" role="button">Calculadora Ganancias 2017</a>
+              </div>
+              <hr/>
+              <div class="col-md-12">
+                <div class="block social-block social-twitter">
+                  <a class="twitter-timeline"
+                     href="https://twitter.com/_eduzen_"
+                     data-height="100px" data-chrome="nofooter"
+                     data-aria-polite="assertive"
+                    data-tweet-limit="4">
+                      follow @{{ tweet.user.screen_name }}</a>
+                  <a  class="twitter-follow-button" href="https://twitter.com/_eduzen_"
+                      data-size="default">
+                      follow @{{ tweet.user.screen_name }}</a>
+                </div>
+              </div>
+            
             </div>
+        </div>
+
+
+
+
 
         </div>
     </div>
