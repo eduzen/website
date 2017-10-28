@@ -1,7 +1,6 @@
 import pytest
 from datetime import datetime
 from django.test import Client
-
 from blog.models import Post
 
 from django.core.urlresolvers import reverse

@@ -5,3 +5,4 @@ python:
 before_script: cd website
 install: "pip install -r requirements.txt"
 script: pytest
+after_script: codecov

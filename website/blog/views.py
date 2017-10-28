@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 from datetime import datetime, timedelta, time
-from yahoo_finance import Currency
 
 from django.http import HttpResponse
 from django.core.mail import BadHeaderError
@@ -21,9 +20,7 @@ from django.views.generic.dates import ArchiveIndexView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 
-from .twitter_api import get_tweets
-
-from .models import Post, Comment, Tag
+from .models import Post, Comment
 from .models import CustomPage, DolarPeso
 from .forms import EmailForm
 from .forms import CommentForm
@@ -90,7 +87,6 @@ class PostTagsList(ListView):
         return self.queryset.filter(tags__slug=self.kwargs.get('tag'))
 
 
-
 def stuff(request):
     # tweets = get_tweets(count=2)
     today = timezone.now().date()
@@ -102,7 +98,7 @@ def stuff(request):
         created_date__lte=today_end, created_date__gte=today_start
     )
     if not current_peso.exists():
-        #"'currency = 'Currency('ARS'")
+        # 'currency = 'Currency('ARS'")
         # end_date = "currency.data_set.get('DateTimeUTC'")
         # end_date = end_date.split(" ")
         # end_date[-1] = end_date[-1][:4]
@@ -115,10 +111,10 @@ def stuff(request):
             'rate': "currency.data_set.get('Rate')",
             'created_date': timezone.now(),
         }
-        #current_peso = DolarPeso.objects.create(**data)
+        # current_peso = DolarPeso.objects.create(**data)
     else:
         pass
-        #current_peso = current_peso[0]
+        # current_peso = current_peso[0]
 
     data = {
         'tweet': 'tweets[0]',
@@ -143,7 +139,7 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     related_posts = Post.objects.filter(
         published_date__isnull=False, tags__in=post.tags.all()).order_by(
-        '-published_date').distinct().exclude(id=post.id)
+            '-published_date').distinct().exclude(id=post.id)
     data = {
         'post': post,
         'related_posts': related_posts,
@@ -225,7 +221,8 @@ def contact(request):
                 }
 
                 content = (
-                    u"Hola, {name} escribio en la web contacto lo siguiente: {message} "
+                    u"Hola, {name} escribio en la web contacto"
+                    u"lo siguiente: {message} "
                     u" Si querés escribirle su mail es {email}"
                 )
 
@@ -284,7 +281,8 @@ def search_on_posts(request):
             published_date__isnull=False,
             name__icontains=q).order_by('-published_date')
     else:
-        results = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
+        results = Post.objects.filter(published_date__isnull=False).order_by(
+            '-published_date')
 
     data = {'posts': results, 'tags': [], 'python': False}
     return render(request, 'blog/bloglist.html', data)
