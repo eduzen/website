@@ -4,5 +4,5 @@ python:
   - "3.6.2"
 before_script: cd website
 install: "pip install -r requirements_dev.txt"
-script: pytest
+script: pytest --cov=.
 after_script: codecov

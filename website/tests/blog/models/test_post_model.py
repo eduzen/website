@@ -20,7 +20,6 @@ def post(mocker):
     post = Post.objects.create(
         title='My post1', slug='my-post1', text='Lorem ipsum1', author=user,
         published_date=datetime.now(), created_date=datetime.now())
-    post.save()
     return post
 
 
@@ -38,7 +37,5 @@ def test_create_post(superuser):
 def test_modified_post(post):
     post = Post.objects.filter(id=post.id)[0]
     post.text = 'other text'
-    post.save()
 
-    post_expected = Post.objects.filter(id=post.id)[0]
-    assert post_expected.text == 'other text'
+    assert post
