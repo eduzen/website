@@ -3,6 +3,6 @@ python:
   - "2.7"
   - "3.6.2"
 before_script: cd website
-install: "pip install -r requirements.txt"
+install: "pip install -r requirements_dev.txt"
 script: pytest
 after_script: codecov
