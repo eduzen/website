@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
+import requests
+from collections import defaultdict
 from datetime import datetime, timedelta, time
 
 from django.http import HttpResponse
@@ -44,6 +46,25 @@ class HomeListView(ListView):
     template_name = 'blog/body.html'
     ordering = ['-published_date', ]
     paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeListView, self).get_context_data(**kwargs)
+        tags = {}
+
+        for post in self.queryset:
+            for tag in post.tags.all():
+                if tag.slug not in tags.keys():
+                    tags[tag.slug] = {}
+                    tags[tag.slug]['word'] = tag.word
+                    tags[tag.slug]['size'] = 1
+                else:
+                    if tags[tag.slug]['size'] < 10:
+                        tags[tag.slug]['size'] += 1
+
+        context.update({
+            'tags': tags,
+        })
+        return context
 
 
 class PostListView(ListView):
@@ -97,6 +118,11 @@ def stuff(request):
     current_peso = DolarPeso.objects.filter(
         created_date__lte=today_end, created_date__gte=today_start
     )
+    btc = requests.get('https://coinbin.org/btc')
+    btc_data = defaultdict(str)
+    if btc.status_code == requests.codes.ok:
+        btc_data.update(btc.json()['coin'])
+
     if not current_peso.exists():
         # 'currency = 'Currency('ARS'")
         # end_date = "currency.data_set.get('DateTimeUTC'")
@@ -123,6 +149,8 @@ def stuff(request):
         'ask': "current_peso.ask",
         'rate': "current_peso.rate",
         'date': "current_peso.created_date",
+        'bdate': datetime.today(),
+        'busd': btc_data['usd']
     }
     return render(request, 'blog/stuff.html', data)
 

@@ -124,11 +124,11 @@ class CustomPage(models.Model):
 
 @python_2_unicode_compatible
 class DolarPeso(models.Model):
-    balance = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
+    balance = MoneyField(max_digits=10, decimal_places=2)
     name = models.CharField(verbose_name=u"Nombre", max_length=250)
-    bid = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
-    ask = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
-    rate = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
+    bid = MoneyField(max_digits=10, decimal_places=2,)
+    ask = MoneyField(max_digits=10, decimal_places=2,)
+    rate = MoneyField(max_digits=10, decimal_places=2,)
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

@@ -89,7 +89,20 @@
                 </script>
                 <gcse:search></gcse:search>
               </div>
-
+              <div class="col-md-12">
+                <h4>Tags</h4>
+                <div class="tag-cloud">
+                  <ul class="tags">
+                    {% for key, value in tags.items %}
+                        <li class="tag-item">
+                            <a href="/tags/{{ key }}" class="size-{{ value.size }}">
+                                {{ value.word }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
               <div class="col-md-12">
                 <a href="/clases" class="btn btn-danger btn-lg btn-block" role="button">Clases particulares - Python</a>
                 <hr/>
