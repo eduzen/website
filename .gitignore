@@ -124,3 +124,4 @@ website/website/keysettings.pyc
 website/website/keysettings.py 
 website/__init__.py
 website/static
+website/mydatabase
