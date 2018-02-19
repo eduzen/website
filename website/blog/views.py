@@ -13,7 +13,6 @@ from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
 from django.utils import timezone
 
-from django.contrib.sitemaps import Sitemap
 from django.contrib.auth.decorators import login_required
 from django.views.generic.dates import MonthArchiveView
 from django.views.generic.dates import WeekArchiveView
@@ -314,14 +313,3 @@ def search_on_posts(request):
 
     data = {'posts': results, 'tags': [], 'python': False}
     return render(request, 'blog/bloglist.html', data)
-
-
-class BlogSitemap(Sitemap):
-    changefreq = "never"
-    priority = 0.5
-
-    def items(self):
-        return Post.objects.filter(published_date__isnull=False,)
-
-    def lastmod(self, obj):
-        return obj.published_date

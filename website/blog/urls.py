@@ -1,15 +1,14 @@
-from django.contrib.sitemaps.views import sitemap
 from django.conf.urls import url
-from . import views
+from django.contrib.sitemaps.views import sitemap
 
-sitemaps = {
-    'blog': views.BlogSitemap
-}
+from . import views
+from .sitemap import sitemaps
+
 
 urlpatterns = [
     url(r'^$', views.HomeListView.as_view(), name='home'),
     url(r'^post/$', views.PostListView.as_view(), name='post_list'),
-    url(r'^blog/$', views.PostListView.as_view(), name='entries'),
+    url(r'^blog/$', views.PostListView.as_view(), name='blog'),
     url(r'^about/$', views.AboutView.as_view(), name='about'),
     url(r'^bio/$', views.AboutView.as_view(), name='about'),
     url(r'^clases/$', views.ClasesView.as_view(), name='clases'),
@@ -58,9 +57,16 @@ urlpatterns = [
         views.PostDayArchiveView.as_view(),
         name="archive_day"
     ),
-    url(r'^archive/$',
+    url(
+        r'^archive/$',
         views.PostArchiveIndex.as_view(),
-        name="post_archive"),
-
+        name="post_archive"
+    ),
+    url(
+        r'^sitemap-(?P<section>.+)\.xml$',
+        sitemap, {'sitemaps': sitemaps}),
+    url(
+        r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemaps'
+    ),
 ]
-

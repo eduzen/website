@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.sitemaps import ping_google
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
+from django.urls import reverse
 
 from autoslug import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -56,9 +58,17 @@ class Post(models.Model):
     published.boolean = True
     published.short_description = 'Published'
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'blog:post', (self.slug,)
+        return reverse('post_slug', args=[self.slug, ])
+
+    def save(self, force_insert=False, force_update=False):
+        super().save(force_insert, force_update)
+        try:
+            ping_google()
+        except Exception:
+            # Bare 'except' because we could get a variety
+            # of HTTP-related exceptions.
+            pass
 
     def __str__(self):
         return self.title
