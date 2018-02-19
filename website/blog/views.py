@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, time
 from django.http import HttpResponse
 from django.core.mail import BadHeaderError
 from django.core.mail import EmailMessage
+from django.db.models import Q
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
@@ -20,7 +21,6 @@ from django.views.generic.dates import DayArchiveView
 from django.views.generic.dates import ArchiveIndexView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
-
 from .models import Post, Comment
 from .models import CustomPage, DolarPeso
 from .forms import EmailForm
@@ -302,14 +302,14 @@ class PostArchiveIndex(ArchiveIndexView):
 
 
 def search_on_posts(request):
+    results = Post.objects.filter(published_date__isnull=False,).order_by('-published_date')
     q = request.GET.get("q")
     if q:
-        results = Post.objects.filter(
-            published_date__isnull=False,
-            name__icontains=q).order_by('-published_date')
-    else:
-        results = Post.objects.filter(published_date__isnull=False).order_by(
-            '-published_date')
+        results = results.filter(Q(text_text__search=q), Q(title_text__search=q))
 
-    data = {'posts': results, 'tags': [], 'python': False}
+    data = {
+        'posts': results,
+        'tags': [],
+        'python': False
+    }
     return render(request, 'blog/bloglist.html', data)

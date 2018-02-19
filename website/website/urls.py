@@ -26,6 +26,7 @@ from rest_framework.documentation import include_docs_urls
 
 favicon_view = RedirectView.as_view(url='/static/config/img/favicon.ico', permanent=True)
 
+
 urlpatterns = [
     url(r'^favicon\.ico$', favicon_view),
     url(r'^eduardo/', admin.site.urls),

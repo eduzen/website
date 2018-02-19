@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'robots',
     'djmoney',
     'rest_framework',
+    'django_extensions',
 
     'config',
     'blog',
