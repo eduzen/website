@@ -126,3 +126,5 @@ website/__init__.py
 website/static
 website/mydatabase
 settings_local.py
+media/
+.pytest_*/
