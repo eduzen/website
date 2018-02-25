@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'config',
     'blog',
     'api',
+    'expenses',
 ]
 
 MIDDLEWARE = [
