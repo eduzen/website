@@ -108,38 +108,10 @@ class PostTagsList(ListView):
 
 
 def stuff(request):
-    # tweets = get_tweets(count=2)
-    today = timezone.now().date()
-    tomorrow = today + timedelta(1)
-    today_start = datetime.combine(today, time())
-    today_end = datetime.combine(tomorrow, time())
-
-    current_peso = DolarPeso.objects.filter(
-        created_date__lte=today_end, created_date__gte=today_start
-    )
     btc = requests.get('https://coinbin.org/btc')
     btc_data = defaultdict(str)
     if btc.status_code == requests.codes.ok:
         btc_data.update(btc.json()['coin'])
-
-    if not current_peso.exists():
-        # 'currency = 'Currency('ARS'")
-        # end_date = "currency.data_set.get('DateTimeUTC'")
-        # end_date = end_date.split(" ")
-        # end_date[-1] = end_date[-1][:4]
-        # end_date = " ".join(end_date)
-        # date = datetime.strptime(end_date[:-1], '%Y-%m-%d %H:%M:%S %Z')
-        data = {
-            'name': "currency.data_set.get('Name')",
-            'bid': "currency.data_set.get('Bid')",
-            'ask': "currency.data_set.get('Ask')",
-            'rate': "currency.data_set.get('Rate')",
-            'created_date': timezone.now(),
-        }
-        # current_peso = DolarPeso.objects.create(**data)
-    else:
-        pass
-        # current_peso = current_peso[0]
 
     data = {
         'tweet': 'tweets[0]',
@@ -148,7 +120,7 @@ def stuff(request):
         'ask': "current_peso.ask",
         'rate': "current_peso.rate",
         'date': "current_peso.created_date",
-        'bdate': datetime.today(),
+        'bdate': timezone.now(),
         'busd': btc_data['usd']
     }
     return render(request, 'blog/stuff.html', data)
@@ -227,8 +199,6 @@ def custom_page(request, slug):
 
 
 def contact(request):
-    # tweets = get_tweets(count=2)
-
     if request.method == 'GET':
         contact_form = EmailForm()
         return render(request, 'blog/contact.html', {
@@ -302,7 +272,7 @@ class PostArchiveIndex(ArchiveIndexView):
 
 
 def search_on_posts(request):
-    results = Post.objects.filter(published_date__isnull=False,).order_by('-published_date')
+    results = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
     q = request.GET.get("q")
     if q:
         results = results.filter(Q(text_text__search=q), Q(title_text__search=q))
