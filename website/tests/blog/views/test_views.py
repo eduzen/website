@@ -33,6 +33,7 @@ def posts():
 
     return [post0, post1, post2]
 
+
 @pytest.mark.django_db
 def test_home_view(client):
     response = client.get(reverse('home'))
