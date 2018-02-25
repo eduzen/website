@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^google448c52311d45450b.html', include('config.urls')),
     url(r'^', include('blog.urls')),
     url(r'^api/', include('api.urls')),
+    url(r'^telegram/', include('expenses.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include_docs_urls(title='My eduzen API title')),
 
