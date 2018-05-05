@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import requests
-from collections import defaultdict
-from datetime import datetime, timedelta, time
-
+from datetime import datetime
 from django.http import HttpResponse
 from django.core.mail import BadHeaderError
 from django.core.mail import EmailMessage
@@ -12,7 +10,6 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
-from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
 from django.views.generic.dates import MonthArchiveView
@@ -22,7 +19,7 @@ from django.views.generic.dates import ArchiveIndexView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 from .models import Post, Comment
-from .models import CustomPage, DolarPeso
+from .models import CustomPage
 from .forms import EmailForm
 from .forms import CommentForm
 
@@ -212,8 +209,6 @@ def custom_page(request, slug):
 
 
 def contact(request):
-    # tweets = get_tweets(count=2)
-
     if request.method == 'GET':
         contact_form = EmailForm()
         return render(request, 'blog/contact.html', {
@@ -287,7 +282,7 @@ class PostArchiveIndex(ArchiveIndexView):
 
 
 def search_on_posts(request):
-    results = Post.objects.filter(published_date__isnull=False,).order_by('-published_date')
+    results = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
     q = request.GET.get("q")
     if q:
         results = results.filter(Q(text_text__search=q), Q(title_text__search=q))

@@ -15,9 +15,10 @@ def superuser():
 @pytest.mark.django_db
 def post(mocker):
     user = User.objects.create_superuser('myuser', 'myemail@test.com', 'pswd')
-    post = Post.objects.create(
+    post = Post(
         title='My post1', slug='my-post1', text='Lorem ipsum1', author=user,
         published_date=datetime.now(), created_date=datetime.now())
+    post.save()
     return post
 
 
