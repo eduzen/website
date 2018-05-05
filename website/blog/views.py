@@ -107,39 +107,24 @@ class PostTagsList(ListView):
         return self.queryset.filter(tags__slug=self.kwargs.get('tag'))
 
 
+def get_coin_value(url):
+    try:
+        response = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        return
+
+    return response
+
+
 def stuff(request):
-    # tweets = get_tweets(count=2)
-    today = timezone.now().date()
-    tomorrow = today + timedelta(1)
-    today_start = datetime.combine(today, time())
-    today_end = datetime.combine(tomorrow, time())
+    btc = get_coin_value("https://coinbin.org/btc")
+    if not btc:
+        btc = get_coin_value("https://api.coindesk.com/v1/bpi/currentprice.json")
 
-    current_peso = DolarPeso.objects.filter(
-        created_date__lte=today_end, created_date__gte=today_start
-    )
-    btc = requests.get('https://coinbin.org/btc')
-    btc_data = defaultdict(str)
-    if btc.status_code == requests.codes.ok:
-        btc_data.update(btc.json()['coin'])
-
-    if not current_peso.exists():
-        # 'currency = 'Currency('ARS'")
-        # end_date = "currency.data_set.get('DateTimeUTC'")
-        # end_date = end_date.split(" ")
-        # end_date[-1] = end_date[-1][:4]
-        # end_date = " ".join(end_date)
-        # date = datetime.strptime(end_date[:-1], '%Y-%m-%d %H:%M:%S %Z')
-        data = {
-            'name': "currency.data_set.get('Name')",
-            'bid': "currency.data_set.get('Bid')",
-            'ask': "currency.data_set.get('Ask')",
-            'rate': "currency.data_set.get('Rate')",
-            'created_date': timezone.now(),
-        }
-        # current_peso = DolarPeso.objects.create(**data)
-    else:
-        pass
-        # current_peso = current_peso[0]
+    try:
+        btc = btc.json()['coin']
+    except Exception:
+        btc = btc.json()['bpi']['USD']['rate']
 
     data = {
         'tweet': 'tweets[0]',
@@ -149,7 +134,7 @@ def stuff(request):
         'rate': "current_peso.rate",
         'date': "current_peso.created_date",
         'bdate': datetime.today(),
-        'busd': btc_data['usd']
+        'busd': btc
     }
     return render(request, 'blog/stuff.html', data)
 
