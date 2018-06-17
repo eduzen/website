@@ -20,6 +20,13 @@ class Tag(models.Model):
         return self.slug
 
 
+class PostQuerySet(models.QuerySet):
+
+    def published(self):
+        # -- only active records
+        return self.filter(published_date__isnull=False)
+
+
 @python_2_unicode_compatible
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
@@ -39,6 +46,8 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, related_name='posts')
     text = RichTextUploadingField(verbose_name=u"Cuerpo de texto")
     image = models.ImageField(upload_to='post-img/%Y/%m/%d', blank=True, null=True)
+
+    objects = PostQuerySet.as_manager()
 
     def image_tag(self):
         img = ''

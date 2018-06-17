@@ -22,6 +22,7 @@ from .models import Post, Comment
 from .models import CustomPage
 from .forms import EmailForm
 from .forms import CommentForm
+from .forms import SearchForm
 
 
 logger = logging.getLogger('__name__')
@@ -37,7 +38,7 @@ class ClasesView(TemplateView):
 
 class HomeListView(ListView):
     model = Post
-    queryset = Post.objects.filter(published_date__isnull=False)
+    queryset = Post.objects.published()
     context_object_name = 'posts'
     template_name = 'blog/body.html'
     ordering = ['-published_date', ]
@@ -57,24 +58,34 @@ class HomeListView(ListView):
                     if tags[tag.slug]['size'] < 10:
                         tags[tag.slug]['size'] += 1
 
+        search_form = SearchForm()
         context.update({
             'tags': tags,
+            'search_form': search_form,
         })
         return context
 
 
 class PostListView(ListView):
     model = Post
-    queryset = Post.objects.filter(published_date__isnull=False)
+    queryset = Post.objects.published()
     context_object_name = 'posts'
     template_name = 'blog/post_list.html'
     ordering = ['-published_date', ]
     paginate_by = 12
 
+    def get_queryset(self):
+        result = super(PostListView, self).get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            result = result.filter(text__search=query)
+
+        return result
+
 
 class PostTagsList(ListView):
     model = Post
-    queryset = Post.objects.filter(published_date__isnull=False)
+    queryset = Post.objects.published()
     context_object_name = 'posts'
     template_name = 'blog/post_list.html'
     ordering = ['-published_date', ]
@@ -146,9 +157,8 @@ def post_slug(request, slug):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    related_posts = Post.objects.filter(
-        published_date__isnull=False, tags__in=post.tags.all()).order_by(
-            '-published_date').distinct().exclude(id=post.id)
+    related_posts = Post.objects.published().filter(tags__in=post.tags.all()).order_by(
+        '-published_date').distinct().exclude(id=post.id)
     data = {
         'post': post,
         'related_posts': related_posts,
@@ -253,20 +263,20 @@ def contact(request):
 
 
 class PostMonthArchiveView(MonthArchiveView):
-    queryset = Post.objects.all()
+    queryset = Post.objects.published()
     date_field = "published_date"
     allow_future = True
 
 
 class PostWeekArchiveView(WeekArchiveView):
-    queryset = Post.objects.all()
+    queryset = Post.objects.published()
     date_field = "published_date"
     week_format = "%W"
     allow_future = True
 
 
 class PostDayArchiveView(DayArchiveView):
-    queryset = Post.objects.all()
+    queryset = Post.objects.published()
     date_field = "published_date"
     allow_future = True
 
@@ -274,7 +284,7 @@ class PostDayArchiveView(DayArchiveView):
 class PostArchiveIndex(ArchiveIndexView):
     model = Post
     paginate_by = 50
-    queryset = Post.objects.filter(published_date__isnull=False)
+    queryset = Post.objects.published()
     template_name = 'blog/post_list.html'
     date_field = "published_date"
     allow_future = True
@@ -282,7 +292,7 @@ class PostArchiveIndex(ArchiveIndexView):
 
 
 def search_on_posts(request):
-    results = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
+    results = Post.objects.published().order_by('-published_date')
     q = request.GET.get("q")
     if q:
         results = results.filter(Q(text_text__search=q), Q(title_text__search=q))

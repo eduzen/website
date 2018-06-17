@@ -1,5 +1,6 @@
 {% extends 'blog/footer.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block body %}
 
@@ -74,21 +75,11 @@
         </div>
 
         <div class="col-md-4">
+              {% if search_form %}
+                {% csrf_token %}
+                {% crispy search_form %}
+              {% endif %}
             <div class="row">
-              <div class="col-md-12">
-                <script>
-                  (function() {
-                    var cx = '015876062389103455937:0u7kglktdjy';
-                    var gcse = document.createElement('script');
-                    gcse.type = 'text/javascript';
-                    gcse.async = true;
-                    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-                    var s = document.getElementsByTagName('script')[0];
-                    s.parentNode.insertBefore(gcse, s);
-                  })();
-                </script>
-                <gcse:search></gcse:search>
-              </div>
               <div class="col-md-12">
                 <h4>Tags</h4>
                 <div class="tag-cloud">
