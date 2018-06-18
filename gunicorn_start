@@ -3,8 +3,8 @@
 NAME="website"                                  # Name of the application
 DJANGODIR=/home/eduzen/eduzen/website             # Django project directory
 SOCKFILE=/home/eduzen/eduzen/website/website.sock  # we will communicte using this unix socket
-USER=eduzen                                        # the user to run as
-GROUP=eduzen                                     # the group to run as
+USER=eduzen_website                                        # the user to run as
+GROUP=eduzen_website                                     # the group to run as
 NUM_WORKERS=3                                     # how many worker processes should Gunicorn spawn
 TIMEOUT=120
 DJANGO_SETTINGS_MODULE=website.settings             # which settings file should Django use
