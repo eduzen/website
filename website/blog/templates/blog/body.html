@@ -75,14 +75,14 @@
         </div>
 
         <div class="col-md-4">
-              {% if search_form %}
+            {% if search_form %}
                 {% csrf_token %}
                 {% crispy search_form %}
-              {% endif %}
+            {% endif %}
             <div class="row">
-              <div class="col-md-12">
-                <h4>Tags</h4>
-                <div class="tag-cloud">
+                <div class="col-md-12">
+                  <h4>Tags</h4>
+                  <div class="tag-cloud">
                   <ul class="tags">
                     {% for key, value in tags.items %}
                         <li class="tag-item">
@@ -92,27 +92,19 @@
                         </li>
                     {% endfor %}
                   </ul>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-12">
-                <a href="/clases" class="btn btn-danger btn-lg btn-block" role="button">Clases particulares - Python</a>
+                <div class="col-md-12">
+                  <hr/>
+                  <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Webs amigas:</h4>
+                    <hr>
+                    <a href="https://clasesdelatin.wordpress.com/" class="alert-link" role="button">Clases particulares de latín</a>
+                  </div>
+                </div>
                 <hr/>
-              </div>
-              <div class="col-md-12">
-                <a href="/util" class="btn btn-primary btn-lg btn-block" role="button">Calculadora Ganancias 2017</a>
-              </div>
-            <div class="col-md-12">
-             <hr/>
-
-              <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Webs amigas:</h4>
-                <hr>
-                <a href="https://clasesdelatin.wordpress.com/" class="alert-link" role="button">Clases particulares de latín</a>
-              </div>
-            </div>
-              <hr/>
-              <div class="col-md-12">
-                <div class="block social-block social-twitter">
+                <div class="col-md-12">
+                  <div class="block social-block social-twitter">
                   <a class="twitter-timeline"
                      href="https://twitter.com/_eduzen_"
                      data-height="100px" data-chrome="nofooter"
@@ -122,16 +114,10 @@
                   <a  class="twitter-follow-button" href="https://twitter.com/_eduzen_"
                       data-size="default">
                       follow @{{ tweet.user.screen_name }}</a>
+                  </div>
                 </div>
-              </div>
-
             </div>
         </div>
-
-
-
-
-
         </div>
     </div>
 

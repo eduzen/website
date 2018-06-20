@@ -60,12 +60,10 @@ class SearchForm(forms.Form):
         super(SearchForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-inline'
-        self.helper.add_input(
-            Submit('submit', 'Buscar', css_class="", style="")
-        )
         self.helper.form_tag = True
         self.helper.layout = Layout(
-            AppendedText('q', '<i class="fa fa-search"></i>'),
+            AppendedText('q', '<i class="fa fa-search" onclick="document.getElementsByClassName(\'form-inline\')[0].submit()"></i>'),
+
         )
         self.helper.form_action = "/post/"
         self.helper.form_method = "GET"
