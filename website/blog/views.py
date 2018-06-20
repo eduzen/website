@@ -120,7 +120,10 @@ class PostTagsList(ListView):
         for post in self.queryset.prefetch_related('tags'):
             _parse_post_tags(post, tags)
 
+        search_form = SearchForm()
+
         context.update({
+            'search_form': search_form,
             'tags': dict(tags),
             'tag': self.kwargs.get('tag').lower(),
         })
