@@ -1,6 +1,5 @@
 {% extends 'blog/footer.html' %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 {% block body %}
 
@@ -75,12 +74,7 @@
         </div>
 
         <div class="col-md-4">
-            {% if search_form %}
-                {% csrf_token %}
-                {% crispy search_form %}
-            {% endif %}
             <div class="row">
-                <hr />
                 <div class="col-md-12">
                   <div class="tag-cloud">
                   <ul class="tags">
