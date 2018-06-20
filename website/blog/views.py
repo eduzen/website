@@ -37,6 +37,21 @@ class ClasesView(TemplateView):
     template_name = "blog/clases.html"
 
 
+def _count_tags(slug, word, tags):
+    if slug not in tags:
+        tags[slug]['word'] = word
+        tags[slug]['size'] = 1
+        return
+
+    if tags[slug]['size'] < 12:
+        tags[slug]['size'] += 1
+
+
+def _parse_post_tags(post, tags):
+    for tag in post.tags.all():
+        _count_tags(tag.slug, tag.word, tags)
+
+
 class HomeListView(ListView):
     model = Post
     queryset = Post.objects.published()
@@ -45,24 +60,11 @@ class HomeListView(ListView):
     ordering = ['-published_date', ]
     paginate_by = 12
 
-    def _count_tags(self, slug, word, tags):
-        if slug not in tags:
-            tags[slug]['word'] = word
-            tags[slug]['size'] = 1
-            return
-
-        if tags[slug]['size'] < 12:
-            tags[slug]['size'] += 1
-
-    def _parse_post_tags(self, post, tags):
-        for tag in post.tags.all():
-            self._count_tags(tag.slug, tag.word, tags)
-
     def get_context_data(self, **kwargs):
         context = super(HomeListView, self).get_context_data(**kwargs)
         tags = defaultdict(dict)
         for post in self.queryset.prefetch_related('tags'):
-            self._parse_post_tags(post, tags)
+            _parse_post_tags(post, tags)
 
         search_form = SearchForm()
         context.update({
@@ -88,6 +90,20 @@ class PostListView(ListView):
 
         return result
 
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+        tags = defaultdict(dict)
+        for post in self.queryset.prefetch_related('tags'):
+            _parse_post_tags(post, tags)
+
+        search_form = SearchForm()
+        context.update({
+            'tags': dict(tags),
+            'search_form': search_form,
+            'tag': self.request.GET.get('q').lower(),
+        })
+        return context
+
 
 class PostTagsList(ListView):
     model = Post
@@ -99,21 +115,14 @@ class PostTagsList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostTagsList, self).get_context_data(**kwargs)
-        tags = {}
+        tags = defaultdict(dict)
 
-        for post in self.queryset:
-            for tag in post.tags.all():
-                if tag.slug not in tags.keys():
-                    tags[tag.slug] = {}
-                    tags[tag.slug]['word'] = tag.word
-                    tags[tag.slug]['size'] = 1
-                else:
-                    if tags[tag.slug]['size'] < 10:
-                        tags[tag.slug]['size'] += 1
+        for post in self.queryset.prefetch_related('tags'):
+            _parse_post_tags(post, tags)
 
         context.update({
-            'tags': tags,
-            'tag': self.kwargs.get('tag').capitalize(),
+            'tags': dict(tags),
+            'tag': self.kwargs.get('tag').lower(),
         })
         return context
 
