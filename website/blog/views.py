@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import requests
+from collections import defaultdict
 from datetime import datetime
 from django.http import HttpResponse
 from django.core.mail import BadHeaderError
@@ -44,19 +45,24 @@ class HomeListView(ListView):
     ordering = ['-published_date', ]
     paginate_by = 12
 
+    def _count_tags(self, slug, word, tags):
+        if slug not in tags:
+            tags[slug]['word'] = word
+            tags[slug]['size'] = 1
+            return
+
+        if tags[slug]['size'] < 12:
+            tags[slug]['size'] += 1
+
+    def _parse_post_tags(self, post, tags):
+        for tag in post.tags.all():
+            self._count_tags(tag.slug, tag.word, tags)
+
     def get_context_data(self, **kwargs):
         context = super(HomeListView, self).get_context_data(**kwargs)
-        tags = {}
-
-        for post in self.queryset:
-            for tag in post.tags.all():
-                if tag.slug not in tags.keys():
-                    tags[tag.slug] = {}
-                    tags[tag.slug]['word'] = tag.word
-                    tags[tag.slug]['size'] = 1
-                else:
-                    if tags[tag.slug]['size'] < 10:
-                        tags[tag.slug]['size'] += 1
+        tags = defaultdict(dict)
+        for post in self.queryset.prefetch_related('tags'):
+            self._parse_post_tags(post, tags)
 
         search_form = SearchForm()
         context.update({
