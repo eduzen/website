@@ -66,7 +66,7 @@ class HomeListView(ListView):
 
         search_form = SearchForm()
         context.update({
-            'tags': tags,
+            'tags': dict(tags),
             'search_form': search_form,
         })
         return context
