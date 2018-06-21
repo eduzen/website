@@ -13,6 +13,7 @@ from django.shortcuts import get_list_or_404
 from django.shortcuts import redirect
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.postgres.search import SearchVector
 from django.views.generic.dates import MonthArchiveView
 from django.views.generic.dates import WeekArchiveView
 from django.views.generic.dates import DayArchiveView
@@ -86,7 +87,9 @@ class PostListView(ListView):
         result = super(PostListView, self).get_queryset()
         query = self.request.GET.get('q')
         if query:
-            result = result.filter(text__search=query)
+            result = result.annotate(
+                search=SearchVector('text', 'title', 'pompadour'),
+            ).filter(search=query)
 
         return result
 
@@ -185,44 +188,6 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', data)
 
 
-def add_comment_to_post(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            email = EmailMessage(
-                "Nuevo comment",
-                form.cleaned_data.get('author'),
-                form.cleaned_data.get('text'),
-                "",
-                ['eduardo.a.enriquez@gmail.com'],
-            )
-            email.send()
-            logger.info("Email sent")
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'blog/add_comment_to_post.html', {'form': form})
-
-
-@login_required
-def comment_approve(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    comment.approve()
-    return redirect('post_detail', pk=comment.post.pk)
-
-
-@login_required
-def comment_remove(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    post_pk = comment.post.pk
-    comment.delete()
-    return redirect('post_detail', pk=post_pk)
-
-
 def custom_page(request, slug):
     custom_page = get_list_or_404(CustomPage, slug=slug)[0]
 
@@ -307,17 +272,3 @@ class PostArchiveIndex(ArchiveIndexView):
     date_field = "published_date"
     allow_future = True
     context_object_name = 'posts'
-
-
-def search_on_posts(request):
-    results = Post.objects.published().order_by('-published_date')
-    q = request.GET.get("q")
-    if q:
-        results = results.filter(Q(text_text__search=q), Q(title_text__search=q))
-
-    data = {
-        'posts': results,
-        'tags': [],
-        'python': False
-    }
-    return render(request, 'blog/bloglist.html', data)
