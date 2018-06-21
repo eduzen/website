@@ -103,7 +103,7 @@ class PostListView(ListView):
         context.update({
             'tags': dict(tags),
             'search_form': search_form,
-            'tag': self.request.GET.get('q').lower(),
+            'tag': self.request.GET.get('q', '').lower(),
         })
         return context
 
