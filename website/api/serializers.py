@@ -12,9 +12,9 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
+
         model = Post
-        fields = ('author', 'title', 'pompadour',  'tags', 'text',
-                  'slug', 'created_date', 'published_date',)
+        fields = ("author", "title", "pompadour", "tags", "text", "slug", "created_date", "published_date")
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -22,8 +22,9 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
+
         model = Tag
-        fields = ('word', 'slug',)
+        fields = ("word", "slug")
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -31,10 +32,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'is_staff')
+        fields = ("url", "username", "email", "is_staff")
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ('url', 'name')
+        fields = ("url", "name")
