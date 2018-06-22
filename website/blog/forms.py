@@ -57,3 +57,27 @@ class SearchForm(forms.Form):
         )
         self.helper.form_action = "/post/"
         self.helper.form_method = "GET"
+
+
+class AdvanceSearchForm(forms.Form):
+    q = forms.CharField(label="", max_length=100, required=True)
+    captcha = NoReCaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        super(AdvanceSearchForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        # self.helper.form_class = "form-inline"
+        self.helper.form_tag = True
+        self.helper.layout = Layout(
+            AppendedText(
+                "q",
+                (
+                    '<i class="fa fa-search" onclick='
+                    "\"document.getElementsByClassName('form-inline')[0].submit()\">"
+                    "</i>"
+                ),
+            )
+        )
+        self.helper.add_input(Submit("submit", "Buscar", css_class="btn-block", style=""))
+        self.helper.form_action = "/post/"
+        self.helper.form_method = "GET"

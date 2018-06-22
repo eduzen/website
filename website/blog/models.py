@@ -23,7 +23,7 @@ class Tag(models.Model):
 class PostQuerySet(models.QuerySet):
     def published(self):
         # -- only active records
-        return self.filter(published_date__isnull=False)
+        return self.filter(published_date__isnull=False).prefetch_related("tags")
 
 
 @python_2_unicode_compatible

@@ -6,13 +6,10 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.core.mail import BadHeaderError
 from django.core.mail import EmailMessage
-from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
-from django.shortcuts import redirect
 
-from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.views.generic.dates import MonthArchiveView
 from django.views.generic.dates import WeekArchiveView
@@ -20,14 +17,13 @@ from django.views.generic.dates import DayArchiveView
 from django.views.generic.dates import ArchiveIndexView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
-from .models import Post, Comment
+from .models import Post
 from .models import CustomPage
 from .forms import EmailForm
-from .forms import CommentForm
-from .forms import SearchForm
+from .forms import SearchForm, AdvanceSearchForm
 
 
-logger = logging.getLogger("__name__")
+logger = logging.getLogger("blog.views")
 
 
 class AboutView(TemplateView):
@@ -81,22 +77,37 @@ class PostListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        result = super(PostListView, self).get_queryset()
+        query_set = super(PostListView, self).get_queryset()
         query = self.request.GET.get("q")
-        if query:
-            result = result.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
+        if not query:
+            return query_set
 
-        return result
+        return query_set.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
+        query = self.request.GET.get("q")
+        if not query:
+            return context
+
+        posts = context.get('posts')
+        if not posts:
+            return context
+
         tags = defaultdict(dict)
-        for post in self.queryset.prefetch_related("tags"):
+        for post in posts:
             _parse_post_tags(post, tags)
 
         search_form = SearchForm()
-        context.update({"tags": dict(tags), "search_form": search_form, "tag": self.request.GET.get("q", "").lower()})
+        context.update({"tags": dict(tags), "search_form": search_form, "tag": query})
         return context
+
+    def render_to_response(self, context):
+        posts = context.get('posts')
+        if not posts:
+            return redirect('search')
+
+        return super(PostListView, self).render_to_response(context)
 
 
 class PostTagsList(ListView):
@@ -109,9 +120,10 @@ class PostTagsList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostTagsList, self).get_context_data(**kwargs)
+        posts = context.get('posts')
         tags = defaultdict(dict)
 
-        for post in self.queryset.prefetch_related("tags"):
+        for post in posts:
             _parse_post_tags(post, tags)
 
         search_form = SearchForm()
@@ -130,6 +142,14 @@ def get_coin_value(url):
         return
 
     return response
+
+
+def advance_search(request):
+    advance_search_form = AdvanceSearchForm()
+    data = {
+        'advance_search_form': advance_search_form,
+    }
+    return render(request, "blog/advance_search.html", data)
 
 
 def stuff(request):
