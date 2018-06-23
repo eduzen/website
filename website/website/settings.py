@@ -21,12 +21,14 @@ try:
         ANYMAIL,
         EMAIL_BACKEND,
         DEFAULT_FROM_EMAIL,
+        LOG_PATH
     )
 except Exception:
     SECRET_KEY = "9-t+&@+bo$l263c!s_3vobwh0_1bx^m93wih^-s+bt1xljfrnv"
     NORECAPTCHA_SECRET_KEY = "some key"
     NORECAPTCHA_SITE_KEY = "some key"
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase"}}
+    LOG_PATH = './'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,7 +78,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/home/eduzen/eduzen/logs/debug.log',
+            'filename': LOG_PATH,
         },
     },
     'loggers': {
