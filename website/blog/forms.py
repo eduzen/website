@@ -66,7 +66,6 @@ class AdvanceSearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AdvanceSearchForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        # self.helper.form_class = "form-inline"
         self.helper.form_tag = True
         self.helper.layout = Layout(
             AppendedText(
