@@ -1,0 +1,31 @@
+version: '3.6'
+
+volumes:
+  pgdata:
+
+services:
+  postgres:
+    restart: always
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=secret
+  web:
+    build: .
+    command: python website/manage.py runserver 0.0.0.0:8000 --settings=website.settings_docker
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=changemeinprod
+      - DB_USER=postgres
+      - DB_NAME=postgres
+      - DB_PASS=secret
+      - DB_SERVICE=postgres
+      - DJANGO_SETTINGS_MODULE=website.settings_docker
+    links:
+      - postgres
+    depends_on:
+      - postgres
