@@ -42,7 +42,7 @@ def source_virtualenv():
 
 
 def purge_pyc():
-    sudo("find . -name \*.pyc -delete")
+    sudo("find . -name \*.pyc -delete")  # NOQA
 
 
 @hosts(["eduzen.com.ar"])

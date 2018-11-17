@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3'
 
 volumes:
   pgdata:
@@ -13,7 +13,7 @@ services:
       - POSTGRES_PASSWORD=secret
   web:
     build: .
-    command: python website/manage.py runserver 0.0.0.0:8000 --settings=website.settings_docker
+    command: python manage.py runserver 0.0.0.0:8000 --settings=website.settings_docker
     volumes:
       - .:/code
     ports:

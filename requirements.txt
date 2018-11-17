@@ -2,10 +2,8 @@ appdirs==1.4.3
 asn1crypto==0.22.0
 attrs==17.4.0
 cffi==1.10.0
-codecov==2.0.9
 coreapi==2.3.1
 coreschema==0.0.4
-coverage==4.3.4
 cryptography==2.3
 decorator==4.0.11
 Django==1.11.16
@@ -43,7 +41,6 @@ pathlib2==2.2.1
 pexpect==4.2.1
 pickleshare==0.7.4
 Pillow==5.1.0
-pluggy==0.6.0
 prompt-toolkit==1.0.14
 psycopg2==2.7.4
 ptyprocess==0.5.1

@@ -11,10 +11,13 @@ help:
 	@echo "bootstrap --build containers, run django migrations, load fixtures and create the a superuser"
 
 build:
-	docker-compose build web
+	docker-compose build --no-cache web
 
 start:
-	docker-compose up
+	docker-compose up -d
+
+up:
+	docker-compose up web
 
 stop:
 	docker-compose stop
@@ -26,7 +29,7 @@ clean: stop
 	docker-compose rm --force -v
 
 only_test:
-	docker-compose run --rm web python website/manage.py test  -v2 --noinput
+	docker-compose run --rm web pytest
 
 pep8:
 	docker-compose run --rm web flake8
@@ -37,12 +40,12 @@ dockershell:
 	docker-compose run --rm web /bin/bash
 
 migrations:
-	docker-compose run --rm web python3 website/manage.py makemigrations
+	docker-compose run --rm web python3 manage.py makemigrations
 
 migrate:
-	docker-compose run --rm web python3 website/manage.py migrate
+	docker-compose run --rm web python3 manage.py migrate
 
 shell_plus:
-	docker-compose run --rm web python3 website/manage.py shell_plus
+	docker-compose run --rm web python3 manage.py shell_plus
 
 .PHONY: help start stop ps clean test dockershell shell_plus only_test pep8
