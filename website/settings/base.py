@@ -9,19 +9,24 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
-DEBUG = os.environ.get("DEBUG", "False")
+
+def show_toolbar(request):
+    return os.environ.get("DEBUG", False)
+
+
 SITE_ID = 1
 APPEND_SLASH = True
+DEBUG = os.environ.get("DEBUG", False)
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
 SECRET_KEY = os.environ.get("SECRET_KEY")
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", ["www.eduardoenriquez.com.ar", "eduardoenriquez.com.ar", "eduzen.com.ar", "www.eduzen.com.ar"])
-
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", )
 NORECAPTCHA_SITE_KEY=os.environ.get("NORECAPTCHA_SITE_KEY")
 NORECAPTCHA_SECRET_KEY=os.environ.get("NORECAPTCHA_SECRET_KEY")
 ANYMAIL = os.environ.get("ANYMAIL")
-EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
 DEFAULT_FROM_EMAIL= os.environ.get("DEFAULT_FROM_EMAIL")
 
 DATABASES = {
@@ -34,7 +39,6 @@ DATABASES = {
         "PORT": os.environ.get("DB_PORT", 5432),
     }
 }
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -110,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -153,14 +156,6 @@ CKEDITOR_CONFIGS = {
     "autoParagraph": "false",
 }
 
-
-def show_toolbar(request):
-    return False
-
-
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
-
-
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 
@@ -175,3 +170,8 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ),
 }
+
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN"),
+    integrations=[DjangoIntegration()]
+)

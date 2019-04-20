@@ -13,12 +13,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from .base import *  # NOQA
 
-
-DEBUG = os.environ.get("DEBUG")
-ALLOWED_HOSTS = ["*"]
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEBUG = False
+ALLOWED_HOSTS = ["www.eduardoenriquez.com.ar", "eduardoenriquez.com.ar", "eduzen.com.ar", "www.eduzen.com.ar"]
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
 
 DATABASES = {
     "default": {
@@ -31,6 +28,8 @@ DATABASES = {
     }
 }
 
+
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
 ANYMAIL = {
     "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
     "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
