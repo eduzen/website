@@ -14,7 +14,7 @@ import os
 from .base import *  # NOQA
 
 DEBUG = False
-ALLOWED_HOSTS = ["www.eduardoenriquez.com.ar", "eduardoenriquez.com.ar", "eduzen.com.ar", "www.eduzen.com.ar"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DATABASES = {
@@ -27,7 +27,6 @@ DATABASES = {
         "PORT": os.environ.get("DB_PORT"),
     }
 }
-
 
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
 ANYMAIL = {

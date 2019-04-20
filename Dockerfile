@@ -28,10 +28,11 @@ COPY --from=base /usr/local/lib/python3.6/site-packages/ /usr/local/lib/python3.
 COPY --from=base /usr/local/bin/ /usr/local/bin/
 COPY --from=base /usr/lib/ /usr/lib/
 
+WORKDIR /code
+
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONPATH /code:$PYTHONPATH
+EXPOSE 8080
 
-WORKDIR /code
 COPY . /code/
-EXPOSE 8001
