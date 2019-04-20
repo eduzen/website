@@ -4,27 +4,37 @@ volumes:
   pgdata:
 
 services:
-  postgres:
-    restart: always
-    image: postgres
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_PASSWORD=secret
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000 --settings=website.settings_docker
+    command: python manage.py runserver_plus 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     environment:
-      - SECRET_KEY=changemeinprod
-      - DB_USER=postgres
-      - DB_NAME=postgres
-      - DB_PASS=secret
-      - DB_SERVICE=postgres
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+      - DB_PASS=${DB_PASS}
+      - DB_PORT=${DB_PORT}
+      - DB_SERVICE=${DB_SERVICE}
+      - DEBUG=${DEBUG}
     links:
       - postgres
     depends_on:
       - postgres
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+      - ./scripts/db/:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}

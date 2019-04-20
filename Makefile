@@ -19,6 +19,12 @@ start:
 up:
 	docker-compose up web
 
+psql:
+	docker-compose exec postgres psql -U postgres
+
+load-dump:
+	docker-compose exec postgres sh psql -U postgres < /docker-entrypoint-initdb.d/dump.sql
+
 stop:
 	docker-compose stop
 
@@ -37,7 +43,7 @@ pep8:
 test: pep8 only_test
 
 dockershell:
-	docker-compose run --rm web /bin/bash
+	docker-compose run --rm web sh
 
 migrations:
 	docker-compose run --rm web python3 manage.py makemigrations
