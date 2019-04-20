@@ -6,7 +6,7 @@ from django.utils import timezone
 class Expense(models.Model):
     title = models.CharField(max_length=200, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-    Category = models.ForeignKey("expenses.Category", blank=True, null=True)
+    Category = models.ForeignKey("expenses.Category", blank=True, null=True, on_delete=models.CASCADE)
     amount = MoneyField(max_digits=10, decimal_places=2, default_currency="ARS")
 
     class Meta:
