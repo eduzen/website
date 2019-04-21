@@ -2,16 +2,36 @@ version: '3'
 
 volumes:
   pgdata:
+  dj-static:
 
 services:
-  web:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  www:
+    image: nginx:alpine
+    expose:
+      - "8080"
+    environment:
+      - VIRTUAL_HOST=static.eduzen.com.ar
+    volumes:
+      - dj-static:/usr/share/nginx/html
+
+  django:
     build: .
-    command: python manage.py runserver_plus 0.0.0.0:8000
+    command: sh ./scripts/gunicorn_start.sh
     volumes:
       - .:/code
-    ports:
-      - "8000:8000"
+      - dj-static:/code/website/static/
+    expose:
+      - "8080"
     environment:
+      - VIRTUAL_HOST=${ALLOWED_HOSTS}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
       - SECRET_KEY=${SECRET_KEY}
       - DB_USER=${DB_USER}

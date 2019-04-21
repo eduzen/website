@@ -10,18 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import os
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
-
-def show_toolbar(request):
-    return os.environ.get("DEBUG", False)
-
 
 SITE_ID = 1
 APPEND_SLASH = True
 DEBUG = os.environ.get("DEBUG", False)
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", )
 NORECAPTCHA_SITE_KEY=os.environ.get("NORECAPTCHA_SITE_KEY")
@@ -55,7 +48,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.postgres",
     "nocaptcha_recaptcha",
-    "debug_toolbar",
     "anymail",
     "crispy_forms",
     "ckeditor",
@@ -72,7 +64,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -170,8 +161,3 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ),
 }
-
-sentry_sdk.init(
-    dsn=os.environ.get("SENTRY_DSN"),
-    integrations=[DjangoIntegration()]
-)

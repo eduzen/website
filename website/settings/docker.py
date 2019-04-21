@@ -13,12 +13,17 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from .base import *  # NOQA
 
+def show_toolbar(request):
+    return os.environ.get("DEBUG", False)
 
 DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = ["*"]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
+
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+INSTALLED_APPS += ["debug_toolbar"]
 
 DATABASES = {
     "default": {
