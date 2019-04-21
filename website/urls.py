@@ -19,7 +19,6 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 
 from django.contrib import admin
-from django.contrib.auth import views
 from django.views.generic.base import RedirectView
 
 from rest_framework.documentation import include_docs_urls
@@ -32,8 +31,6 @@ urlpatterns = [
     url(r"^eduardo/", admin.site.urls),
     url(r"^ckeditor/", include("ckeditor_uploader.urls")),
     url(r"^robots\.txt", include("robots.urls")),
-    url(r"^accounts/login/$", views.login, name="login"),
-    url(r"^accounts/logout/$", views.logout, name="logout", kwargs={"next_page": "/"}),
     url(r"^google448c52311d45450b.html", include("config.urls")),
     url(r"^", include("blog.urls")),
     url(r"^api/", include("api.urls")),

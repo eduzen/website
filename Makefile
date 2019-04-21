@@ -1,3 +1,5 @@
+include .env
+
 help:
 	@echo "help  -- print this help"
 	@echo "start -- start docker stack"
@@ -17,7 +19,16 @@ start:
 	docker-compose up -d
 
 up:
-	docker-compose up web
+	docker-compose up
+
+psql:
+	docker-compose exec postgres psql -U postgres
+
+load-dump:
+	docker-compose exec postgres sh psql -U postgres < /docker-entrypoint-initdb.d/dump.sql
+
+collectstatic:
+	docker-compose exec django python manage.py collectstatic --no-input --settings=${DJANGO_SETTINGS_MODULE}
 
 stop:
 	docker-compose stop
@@ -29,23 +40,23 @@ clean: stop
 	docker-compose rm --force -v
 
 only_test:
-	docker-compose run --rm web pytest
+	docker-compose run --rm django pytest
 
 pep8:
-	docker-compose run --rm web flake8
+	docker-compose run --rm django flake8
 
 test: pep8 only_test
 
 dockershell:
-	docker-compose run --rm web /bin/bash
+	docker-compose run --rm django sh
 
 migrations:
-	docker-compose run --rm web python3 manage.py makemigrations
+	docker-compose run --rm django python3 manage.py makemigrations
 
 migrate:
-	docker-compose run --rm web python3 manage.py migrate
+	docker-compose run --rm django python3 manage.py migrate
 
 shell_plus:
-	docker-compose run --rm web python3 manage.py shell_plus
+	docker-compose run --rm django python3 manage.py shell_plus
 
 .PHONY: help start stop ps clean test dockershell shell_plus only_test pep8

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.contrib.sitemaps import ping_google
 from django.db import models
 from django.utils import timezone
@@ -11,7 +10,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from djmoney.models.fields import MoneyField
 
 
-@python_2_unicode_compatible
 class Tag(models.Model):
     word = models.CharField(max_length=50)
     slug = models.CharField(max_length=250)
@@ -26,9 +24,8 @@ class PostQuerySet(models.QuerySet):
         return self.filter(published_date__isnull=False).prefetch_related("tags")
 
 
-@python_2_unicode_compatible
 class Post(models.Model):
-    author = models.ForeignKey("auth.User")
+    author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Titulo")
     pompadour = models.CharField(max_length=800, null=True, blank=True, verbose_name="Resumen para portada")
     slug = AutoSlugField(editable=True, null=True, blank=True, unique=True, populate_from="title", verbose_name="Url")
@@ -79,9 +76,8 @@ class Post(models.Model):
         ordering = ["-published_date"]
 
 
-@python_2_unicode_compatible
 class Comment(models.Model):
-    post = models.ForeignKey("blog.Post", related_name="comments")
+    post = models.ForeignKey("blog.Post", related_name="comments", on_delete=models.CASCADE)
     author = models.CharField(max_length=200, verbose_name="Autor")
     text = models.TextField(verbose_name="Comentario")
     created_date = models.DateTimeField(default=timezone.now)
@@ -95,7 +91,6 @@ class Comment(models.Model):
         return self.text
 
 
-@python_2_unicode_compatible
 class CustomPage(models.Model):
     name = models.CharField(verbose_name="Nombre", max_length=250)
 
@@ -109,9 +104,8 @@ class CustomPage(models.Model):
 
     content = RichTextUploadingField(verbose_name="Contenido", null=True, blank=True)
 
-    @models.permalink
     def get_absolute_url(self):
-        return "blog:post", (self.slug,)
+        return reverse("blog:post", args=(self.slug,))
 
     def __str__(self):
         return "{}".format(self.name)
