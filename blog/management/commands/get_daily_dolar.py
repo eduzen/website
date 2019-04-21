@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, time
 from yahoo_finance import Currency
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 
 from blog.models import DolarPeso
 
