@@ -14,6 +14,7 @@ import os
 from .base import *  # NOQA
 
 DEBUG = False
+SECRET_KEY = "unsecret_key"
 
 DATABASES = {
     'default': {
