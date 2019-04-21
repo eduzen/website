@@ -1,4 +1,4 @@
-FROM python:3.6-alpine as base
+FROM python:3.7-alpine as base
 
 ENV PYTHONDONTWRITEBYTECODE 1
 
@@ -20,13 +20,12 @@ RUN apk add --update --no-cache --virtual .build-deps \
         -exec rm -rf '{}' +
 
 # Now multistage
-FROM python:3.6-alpine
+FROM python:3.7-alpine
 
-RUN apk --no-cache add --virtual libpq
+RUN apk add --update --no-cache libpq libjpeg-turbo
 
-COPY --from=base /usr/local/lib/python3.6/site-packages/ /usr/local/lib/python3.6/site-packages/
+COPY --from=base /usr/local/lib/python3.7/site-packages/ /usr/local/lib/python3.7/site-packages/
 COPY --from=base /usr/local/bin/ /usr/local/bin/
-COPY --from=base /usr/lib/ /usr/lib/
 
 WORKDIR /code
 
