@@ -77,13 +77,13 @@ LOGGING = {
     "loggers": {
         "*": {
             "handlers": ["console"],
-            "level": "DEBUG",
+            "level": os.environ.get('LOG_LEVEL', 'INFO'),
             "propagate": True
         },
         'django': {
             'handlers':['console'],
-            'propagate': True,
-            'level':'DEBUG',
+            'propagate': False,
+            'level': os.environ.get('LOG_LEVEL', 'INFO'),
         },
     },
 }
