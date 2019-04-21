@@ -2,8 +2,6 @@
 
 NAME="website"                       # Name of the application
 DJANGODIR=/code/website              # Django project directory
-USER=root                            # the user to run as
-GROUP=root                           # the group to run as
 NUM_WORKERS=3                        # how many worker processes should Gunicorn spawn
 DJANGO_WSGI_MODULE=website.wsgi      # WSGI module name
 BIND=0.0.0.0:8080
@@ -17,7 +15,6 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
   --workers $NUM_WORKERS \
   --timeout $TIMEOUT \
-  --user=$USER --group=$GROUP \
   --bind=$BIND \
   --log-level=$LOG_LEVEL \
   --log-file=-
