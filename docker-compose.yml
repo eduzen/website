@@ -2,8 +2,6 @@ version: '3'
 
 volumes:
   pgdata:
-  dj-static:
-  dj-media:
 
 services:
   nginx-proxy:
@@ -20,7 +18,7 @@ services:
     environment:
       - VIRTUAL_HOST=static.eduzen.com.ar
     volumes:
-      - dj-static:/usr/share/nginx/html
+      - ./website/static:/usr/share/nginx/html:ro
 
   media:
     image: nginx:alpine
@@ -29,15 +27,13 @@ services:
     environment:
       - VIRTUAL_HOST=media.eduzen.com.ar
     volumes:
-      - dj-media:/usr/share/nginx/html
+        - ./website/media:/usr/share/nginx/html:ro
 
   django:
     build: .
     command: sh ./scripts/gunicorn_start.sh
     volumes:
       - .:/code
-      - dj-static:/code/website/static/
-      - dj-media:/code/website/media/
     expose:
       - "8080"
     environment:
