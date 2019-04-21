@@ -17,4 +17,4 @@ install: echo OK
 
 script:
   - docker-compose run --rm django flake8
-  - docker-compose run --rm django pytest
+  - docker-compose run --rm django pytest --ds=website.settings.test
