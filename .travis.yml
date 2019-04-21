@@ -4,6 +4,8 @@ python:
   - "3.6.4"
 env:
   - DOCKER_COMPOSE_VERSION=1.22.0
+  - DJANGO_SETTINGS_MODULE=website.settings.test
+  - DJANGO_
 services:
   - docker
 before_install:
@@ -14,4 +16,4 @@ before_install:
 
 install: echo OK
 
-script: make test
+script: docker-compose run --rm django flake8 && pytest

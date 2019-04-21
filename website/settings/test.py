@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from .settings_docker import *
+from .base import *  # NOQA
 
 DEBUG = False
 
