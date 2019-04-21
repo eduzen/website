@@ -4,7 +4,7 @@ from django.test import Client
 
 from blog.models import Post
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 
