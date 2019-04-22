@@ -27,7 +27,7 @@ services:
     environment:
       - VIRTUAL_HOST=media.eduzen.com.ar
     volumes:
-        - ./website/media:/usr/share/nginx/html:ro
+      - ./website/media:/usr/share/nginx/html:ro
 
   django:
     build: .

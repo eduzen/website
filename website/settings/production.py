@@ -20,8 +20,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
-STATIC_URL = "http://static.eduzen.com.ar/"
-MEDIA_URL = "http://media.eduzen.com.ar/"
+STATIC_URL = "https://static.eduzen.com.ar/"
+MEDIA_URL = "https://media.eduzen.com.ar/"
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
