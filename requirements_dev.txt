@@ -13,3 +13,4 @@ django_factory_boy
 flake8
 coverage
 codecov
+wdb

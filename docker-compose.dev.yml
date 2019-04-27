@@ -20,10 +20,18 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_SERVICE=${DB_SERVICE}
       - DEBUG=${DEBUG}
+      - WDB_SOCKET_SERVER=wdb
+      - WDB_NO_BROWSER_AUTO_OPEN=True
     links:
       - postgres
+      - wdb
     depends_on:
       - postgres
+
+  wdb:
+    image: kozea/wdb
+    ports:
+      - "1984:1984"
 
   postgres:
     image: postgres:alpine

@@ -14,22 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import url
-from django.conf.urls import include
+from django.conf.urls import url, include
 from django.conf.urls.static import static
-
 from django.contrib import admin
-from django.views.generic.base import RedirectView
 
 from rest_framework.documentation import include_docs_urls
 
-favicon_view = RedirectView.as_view(url="https://static.eduzen.com.ar/config/img/favicon.ico", permanent=True)
-static_view = RedirectView.as_view(url="https://static.eduzen.com.ar/", permanent=True)
-media_view = RedirectView.as_view(url="https://media.eduzen.com.ar/", permanent=True)
+from .views import favicon_view, MediaView, StaticView
+
 
 urlpatterns = [
-    url(r"^static", static_view),
-    url(r"^media", media_view),
+    url(r"^static/(?P<path>.*)", StaticView.as_view()),
+    url(r"^media/(?P<path>.*)", MediaView.as_view()),
     url(r"^favicon\.ico$", favicon_view),
     url(r"^eduardo/", admin.site.urls),
     url(r"^ckeditor/", include("ckeditor_uploader.urls")),
