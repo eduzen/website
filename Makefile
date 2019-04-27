@@ -59,4 +59,19 @@ migrate:
 shell_plus:
 	docker-compose run --rm django python3 manage.py shell_plus
 
+clean-python: clean-build clean-pyc
+
+clean-build:
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+
+clean-pyc:
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+
 .PHONY: help start stop ps clean test dockershell shell_plus only_test pep8
