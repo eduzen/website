@@ -29,7 +29,7 @@ media_view = RedirectView.as_view(url="https://media.eduzen.com.ar/", permanent=
 
 urlpatterns = [
     url(r"^static", static_view),
-    url(r"^media", static_view),
+    url(r"^media", media_view),
     url(r"^favicon\.ico$", favicon_view),
     url(r"^eduardo/", admin.site.urls),
     url(r"^ckeditor/", include("ckeditor_uploader.urls")),
