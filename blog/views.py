@@ -153,24 +153,15 @@ def advance_search(request):
 
 
 def stuff(request):
-    btc = get_coin_value("https://coinbin.org/btc")
-    if not btc:
-        btc = get_coin_value("https://api.coindesk.com/v1/bpi/currentprice.json")
-
-    try:
-        btc = btc.json()["coin"]
-    except Exception:
-        btc = btc.json()["bpi"]["USD"]["rate"]
-
     data = {
-        "tweet": "tweets[0]",
-        "name": "current_peso.name",
-        "bid": "current_peso.bid",
-        "ask": "current_peso.ask",
-        "rate": "current_peso.rate",
-        "date": "current_peso.created_date",
+        "tweet": "",
+        "name": "",
+        "bid": "",
+        "ask": "",
+        "rate": "",
+        "date": "",
         "bdate": datetime.today(),
-        "busd": btc,
+        "busd": "",
     }
     return render(request, "blog/stuff.html", data)
 

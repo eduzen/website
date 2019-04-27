@@ -2,6 +2,7 @@ import logging
 
 from django.views.generic.base import RedirectView
 
+logger = logging.getLogger("website.views")
 
 favicon_view = RedirectView.as_view(url="https://static.eduzen.com.ar/config/img/favicon.ico", permanent=True)
 
@@ -11,7 +12,7 @@ class MediaView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         self.url = f"https://media.eduzen.com.ar/{kwargs['path']}"
-        logging.warn("url redirected %s", (self.url, ))
+        logger.warn("url redirected %s", (self.url, ))
         return super().get_redirect_url(*args, **kwargs)
 
 
@@ -20,5 +21,5 @@ class StaticView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         self.url = f"https://static.eduzen.com.ar/{kwargs['path']}"
-        logging.warn("url redirected %s", (self.url, ))
+        logger.warn("url redirected %s", (self.url, ))
         return super().get_redirect_url(*args, **kwargs)
