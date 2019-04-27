@@ -25,9 +25,11 @@ from rest_framework.documentation import include_docs_urls
 
 favicon_view = RedirectView.as_view(url="https://static.eduzen.com.ar/config/img/favicon.ico", permanent=True)
 static_view = RedirectView.as_view(url="https://static.eduzen.com.ar/", permanent=True)
+media_view = RedirectView.as_view(url="https://media.eduzen.com.ar/", permanent=True)
 
 urlpatterns = [
     url(r"^static", static_view),
+    url(r"^media", static_view),
     url(r"^favicon\.ico$", favicon_view),
     url(r"^eduardo/", admin.site.urls),
     url(r"^ckeditor/", include("ckeditor_uploader.urls")),
