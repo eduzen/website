@@ -8,7 +8,6 @@ RUN apk add --update --no-cache --virtual .build-deps \
     postgresql-dev \
     libffi-dev \
     python3-dev \
-    libffi-dev \
     jpeg-dev \
     zlib-dev \
     musl-dev \
