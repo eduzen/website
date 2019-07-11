@@ -16,9 +16,4 @@ from .base import *  # NOQA
 DEBUG = False
 SECRET_KEY = "unsecret_key"
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
-    }
-}
+DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': 'mydatabase'}}

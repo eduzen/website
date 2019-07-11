@@ -13,8 +13,10 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from .base import *  # NOQA
 
+
 def show_toolbar(request):
     return os.environ.get("DEBUG", False)
+
 
 DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = ["*"]

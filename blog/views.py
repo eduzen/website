@@ -82,7 +82,9 @@ class PostListView(ListView):
         if not query:
             return query_set
 
-        return query_set.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
+        return query_set.annotate(search=SearchVector("text", "title", "pompadour")).filter(
+            search=query
+        )
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
@@ -128,7 +130,9 @@ class PostTagsList(ListView):
 
         search_form = SearchForm()
 
-        context.update({"search_form": search_form, "tags": dict(tags), "tag": self.kwargs.get("tag").lower()})
+        context.update(
+            {"search_form": search_form, "tags": dict(tags), "tag": self.kwargs.get("tag").lower()}
+        )
         return context
 
     def get_queryset(self):
@@ -146,9 +150,7 @@ def get_coin_value(url):
 
 def advance_search(request):
     advance_search_form = AdvanceSearchForm()
-    data = {
-        'advance_search_form': advance_search_form,
-    }
+    data = {'advance_search_form': advance_search_form}
     return render(request, "blog/advance_search.html", data)
 
 
@@ -221,7 +223,12 @@ def contact(request):
                     " Si querés escribirle su mail es {email}"
                 )
 
-                email = EmailMessage("Nuevo contacto", content.format(**data), email, ["eduardo.a.enriquez@gmail.com"])
+                email = EmailMessage(
+                    "Nuevo contacto",
+                    content.format(**data),
+                    email,
+                    ["eduardo.a.enriquez@gmail.com"],
+                )
                 email.send()
                 logger.info("Email sent")
 

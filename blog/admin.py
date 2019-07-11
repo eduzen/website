@@ -17,7 +17,15 @@ class PostAdmin(admin.ModelAdmin):
 
     list_filter = ["published_date", "author", "title", "created_date"]
 
-    list_display = ["published", "author", "title", "slug", "created_date", "published_date", "image_tag"]
+    list_display = [
+        "published",
+        "author",
+        "title",
+        "slug",
+        "created_date",
+        "published_date",
+        "image_tag",
+    ]
 
     list_display_links = ("title", "author")
 

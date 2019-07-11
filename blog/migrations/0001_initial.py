@@ -14,15 +14,18 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL)]
 
     operations = [
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('author', models.CharField(max_length=200)),
                 ('text', models.TextField()),
                 ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
@@ -32,13 +35,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CustomPage',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(max_length=250, verbose_name='Nombre')),
                 ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
-                ('include_header', models.BooleanField(default=True, verbose_name='Incluir header')),
-                ('include_footer', models.BooleanField(default=True, verbose_name='Incluir footer')),
-                ('include_contact_form', models.BooleanField(default=True, verbose_name='Incluir formulario de contacto')),
-                ('content', ckeditor_uploader.fields.RichTextUploadingField(blank=True, null=True, verbose_name='Contenido')),
+                (
+                    'include_header',
+                    models.BooleanField(default=True, verbose_name='Incluir header'),
+                ),
+                (
+                    'include_footer',
+                    models.BooleanField(default=True, verbose_name='Incluir footer'),
+                ),
+                (
+                    'include_contact_form',
+                    models.BooleanField(
+                        default=True, verbose_name='Incluir formulario de contacto'
+                    ),
+                ),
+                (
+                    'content',
+                    ckeditor_uploader.fields.RichTextUploadingField(
+                        blank=True, null=True, verbose_name='Contenido'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'P\xe1ginas custom',
@@ -48,20 +72,55 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('title', models.CharField(max_length=200, verbose_name='Titulo')),
-                ('pompadour', models.CharField(blank=True, max_length=800, null=True, verbose_name='Resumen para portada')),
-                ('slug', autoslug.fields.AutoSlugField(blank=True, editable=True, null=True, populate_from='title', unique=True, verbose_name='Url')),
+                (
+                    'pompadour',
+                    models.CharField(
+                        blank=True, max_length=800, null=True, verbose_name='Resumen para portada'
+                    ),
+                ),
+                (
+                    'slug',
+                    autoslug.fields.AutoSlugField(
+                        blank=True,
+                        editable=True,
+                        null=True,
+                        populate_from='title',
+                        unique=True,
+                        verbose_name='Url',
+                    ),
+                ),
                 ('created_date', models.DateField(default=django.utils.timezone.now)),
                 ('published_date', models.DateField(blank=True, null=True)),
-                ('text', ckeditor_uploader.fields.RichTextUploadingField(verbose_name='Cuerpo de texto')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    'text',
+                    ckeditor_uploader.fields.RichTextUploadingField(
+                        verbose_name='Cuerpo de texto'
+                    ),
+                ),
+                (
+                    'author',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('word', models.CharField(max_length=50)),
                 ('slug', models.CharField(max_length=250)),
             ],
@@ -74,6 +133,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='blog.Post'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='comments',
+                to='blog.Post',
+            ),
         ),
     ]

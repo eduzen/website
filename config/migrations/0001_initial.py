@@ -9,14 +9,18 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='SiteConfiguration',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('title', models.CharField(default=b'Site Name', max_length=255)),
                 ('subtitle', models.CharField(default=b'Subtitle Name', max_length=255)),
                 ('home', models.URLField(default=b'eduardoenriquez.com.ar', max_length=500)),
@@ -24,8 +28,6 @@ class Migration(migrations.Migration):
                 ('url_github', models.URLField(default=b'github', max_length=500)),
                 ('url_twitter', models.URLField(default=b'twitter', max_length=500)),
             ],
-            options={
-                'verbose_name': 'Site Configuration',
-            },
-        ),
+            options={'verbose_name': 'Site Configuration'},
+        )
     ]

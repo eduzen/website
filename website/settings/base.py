@@ -16,11 +16,11 @@ APPEND_SLASH = True
 DEBUG = os.environ.get("DEBUG", False)
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", )
-NORECAPTCHA_SITE_KEY=os.environ.get("NORECAPTCHA_SITE_KEY")
-NORECAPTCHA_SECRET_KEY=os.environ.get("NORECAPTCHA_SECRET_KEY")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
+NORECAPTCHA_SITE_KEY = os.environ.get("NORECAPTCHA_SITE_KEY")
+NORECAPTCHA_SECRET_KEY = os.environ.get("NORECAPTCHA_SECRET_KEY")
 ANYMAIL = os.environ.get("ANYMAIL")
-DEFAULT_FROM_EMAIL= os.environ.get("DEFAULT_FROM_EMAIL")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 DATABASES = {
     "default": {
@@ -153,9 +153,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap3"
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated"
-    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",

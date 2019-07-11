@@ -14,7 +14,16 @@ class PostSerializer(serializers.ModelSerializer):
         """Meta class to map serializer's fields with the model fields."""
 
         model = Post
-        fields = ("author", "title", "pompadour", "tags", "text", "slug", "created_date", "published_date")
+        fields = (
+            "author",
+            "title",
+            "pompadour",
+            "tags",
+            "text",
+            "slug",
+            "created_date",
+            "published_date",
+        )
 
 
 class TagSerializer(serializers.ModelSerializer):

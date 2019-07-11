@@ -7,9 +7,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0003_auto_20170701_1458'),
-    ]
+    dependencies = [('blog', '0003_auto_20170701_1458')]
 
     operations = [
         migrations.AlterField(
@@ -18,8 +16,6 @@ class Migration(migrations.Migration):
             field=models.CharField(max_length=200, verbose_name='Autor'),
         ),
         migrations.AlterField(
-            model_name='comment',
-            name='text',
-            field=models.TextField(verbose_name='Comentario'),
+            model_name='comment', name='text', field=models.TextField(verbose_name='Comentario')
         ),
     ]

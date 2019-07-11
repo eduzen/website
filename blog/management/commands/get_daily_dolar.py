@@ -16,7 +16,9 @@ class Command(BaseCommand):
         today_start = datetime.combine(today, time())
         today_end = datetime.combine(tomorrow, time())
 
-        current_peso = DolarPeso.objects.filter(created_date__lte=today_end, created_date__gte=today_start)
+        current_peso = DolarPeso.objects.filter(
+            created_date__lte=today_end, created_date__gte=today_start
+        )
         if not current_peso.exists():
             currency = Currency("ARS")
             end_date = currency.data_set.get("DateTimeUTC")

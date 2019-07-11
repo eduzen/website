@@ -7,13 +7,14 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0002_dolarpeso'),
-    ]
+    dependencies = [('blog', '0002_dolarpeso')]
 
     operations = [
         migrations.AlterModelOptions(
             name='dolarpeso',
-            options={'verbose_name': 'Cambio dolar', 'verbose_name_plural': 'Historial pesos/dolar   '},
-        ),
+            options={
+                'verbose_name': 'Cambio dolar',
+                'verbose_name_plural': 'Historial pesos/dolar   ',
+            },
+        )
     ]

@@ -16,7 +16,10 @@ class StaticViewSitemap(Sitemap):
         return reverse(item)
 
 
-info_dict = {"queryset": Post.objects.filter(published_date__isnull=False), "date_field": "published_date"}
+info_dict = {
+    "queryset": Post.objects.filter(published_date__isnull=False),
+    "date_field": "published_date",
+}
 
 
 sitemaps = {"static": StaticViewSitemap, "blog": GenericSitemap(info_dict, priority=0.6)}

@@ -27,8 +27,17 @@ class PostQuerySet(models.QuerySet):
 class Post(models.Model):
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Titulo")
-    pompadour = models.CharField(max_length=800, null=True, blank=True, verbose_name="Resumen para portada")
-    slug = AutoSlugField(editable=True, null=True, blank=True, unique=True, populate_from="title", verbose_name="Url")
+    pompadour = models.CharField(
+        max_length=800, null=True, blank=True, verbose_name="Resumen para portada"
+    )
+    slug = AutoSlugField(
+        editable=True,
+        null=True,
+        blank=True,
+        unique=True,
+        populate_from="title",
+        verbose_name="Url",
+    )
     created_date = models.DateField(default=timezone.now)
     published_date = models.DateField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name="posts")
@@ -100,7 +109,9 @@ class CustomPage(models.Model):
 
     include_footer = models.BooleanField(default=True, verbose_name="Incluir footer")
 
-    include_contact_form = models.BooleanField(default=True, verbose_name="Incluir formulario de contacto")
+    include_contact_form = models.BooleanField(
+        default=True, verbose_name="Incluir formulario de contacto"
+    )
 
     content = RichTextUploadingField(verbose_name="Contenido", null=True, blank=True)
 

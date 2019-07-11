@@ -24,7 +24,11 @@ urlpatterns = [
     url(r"^blog/(?P<pk>[0-9]+)/$", views.post_detail, name="post_detail"),
     url(r"^blog/(?P<slug>[\w-]+)/$", views.post_slug, name="post_slug"),
     # Example: /2012/aug/
-    url(r"^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/$", views.PostMonthArchiveView.as_view(), name="archive_month"),
+    url(
+        r"^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/$",
+        views.PostMonthArchiveView.as_view(),
+        name="archive_month",
+    ),
     # Example: /2012/08/
     url(
         r"^(?P<year>[0-9]{4})/(?P<month>[0-9]+)/$",
@@ -32,7 +36,11 @@ urlpatterns = [
         name="archive_month_numeric",
     ),
     # Example: /2012/week/23/
-    url(r"^(?P<year>[0-9]{4})/week/(?P<week>[0-9]+)/$", views.PostWeekArchiveView.as_view(), name="archive_week"),
+    url(
+        r"^(?P<year>[0-9]{4})/week/(?P<week>[0-9]+)/$",
+        views.PostWeekArchiveView.as_view(),
+        name="archive_week",
+    ),
     # Example: /2012/nov/10/
     url(
         r"^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/(?P<day>[0-9]+)/$",
@@ -41,5 +49,10 @@ urlpatterns = [
     ),
     url(r"^archive/$", views.PostArchiveIndex.as_view(), name="post_archive"),
     url(r"^sitemap-(?P<section>.+)\.xml$", sitemap, {"sitemaps": sitemaps}),
-    url(r"^sitemap\.xml$", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemaps"),
+    url(
+        r"^sitemap\.xml$",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemaps",
+    ),
 ]

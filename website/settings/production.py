@@ -43,10 +43,7 @@ ANYMAIL = {
     "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
 }
 
-sentry_sdk.init(
-    dsn=os.environ.get("SENTRY_DSN"),
-    integrations=[DjangoIntegration()]
-)
+sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
 
 LOGGING = {
     "version": 1,
@@ -56,34 +53,28 @@ LOGGING = {
             "format": "[DJANGO] %(levelname)s %(asctime)s %(module)s %(name)s.%(funcName)s:%(lineno)s: %(message)s"
         },
         'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S",
         },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
+        'simple': {'format': '%(levelname)s %(message)s'},
     },
     "handlers": {
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        },
+        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "verbose"},
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': 'mysite.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
         },
     },
     "loggers": {
         "*": {
             "handlers": ["console"],
             "level": os.environ.get('LOG_LEVEL', 'INFO'),
-            "propagate": True
+            "propagate": True,
         },
         'django': {
-            'handlers':['console'],
+            'handlers': ['console'],
             'propagate': False,
             'level': os.environ.get('LOG_LEVEL', 'INFO'),
         },

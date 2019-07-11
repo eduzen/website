@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('config', '0001_initial'),
-    ]
+    dependencies = [('config', '0001_initial')]
 
     operations = [
         migrations.AddField(
             model_name='siteconfiguration',
             name='tab_title',
             field=models.CharField(default=b'Tab title', max_length=255),
-        ),
+        )
     ]

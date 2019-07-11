@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('config', '0007_auto_20171210_1543'),
-    ]
+    dependencies = [('config', '0007_auto_20171210_1543')]
 
     operations = [
         migrations.AlterField(
             model_name='bioconfiguration',
             name='title',
             field=models.CharField(default='Quién les escribe', max_length=255),
-        ),
+        )
     ]

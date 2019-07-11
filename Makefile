@@ -74,4 +74,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
+black:
+	black --py36 -l 99 -S .
+
 .PHONY: help start stop ps clean test dockershell shell_plus only_test pep8
