@@ -24,8 +24,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
 
-MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-INSTALLED_APPS += ["debug_toolbar"]
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # NOQA
+INSTALLED_APPS += ["debug_toolbar"]  # NOQA
 
 DATABASES = {
     "default": {
