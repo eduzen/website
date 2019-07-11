@@ -6,7 +6,11 @@ coreapi==2.3.1
 coreschema==0.0.4
 cryptography==2.3
 decorator==4.0.11
+<<<<<<< HEAD
 Django==2.2.3
+=======
+Django==2.2.2
+>>>>>>> 1e8fd8cfc82fc91ac4576eba460b4014bc8e1783
 django-anymail==6.0
 django-autoslug==1.9.4
 django-bootstrap3==11.0.0
