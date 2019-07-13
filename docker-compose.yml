@@ -48,6 +48,7 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_SERVICE=${DB_SERVICE}
       - DEBUG=${DEBUG}
+      - SENTRY_DSN=${SENTRY_DSN}
     links:
       - postgres
     depends_on:
