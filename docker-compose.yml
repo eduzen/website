@@ -48,6 +48,8 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_SERVICE=${DB_SERVICE}
       - DEBUG=${DEBUG}
+      - NORECAPTCHA_SECRET_KEY=${NORECAPTCHA_SECRET_KEY}
+      - NORECAPTCHA_SITE_KEY=${NORECAPTCHA_SITE_KEY}
       - SENTRY_DSN=${SENTRY_DSN}
     links:
       - postgres
