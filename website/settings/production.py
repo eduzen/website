@@ -17,7 +17,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 
 DEBUG = False
-
+LOG_LEVEL = os.getenv("LOG_LEVEL", "WARN").upper()
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 STATIC_URL = "https://static.eduzen.com.ar/"
@@ -62,9 +62,9 @@ LOGGING = {
         'simple': {'format': '%(levelname)s %(message)s'},
     },
     "handlers": {
-        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "verbose"},
+        "console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"},
         'file': {
-            'level': 'DEBUG',
+            'level': LOG_LEVEL,
             'class': 'logging.FileHandler',
             'filename': 'mysite.log',
             'formatter': 'verbose',
@@ -73,13 +73,13 @@ LOGGING = {
     "loggers": {
         "*": {
             "handlers": ["console"],
-            "level": os.environ.get('LOG_LEVEL', 'INFO'),
+            "level": LOG_LEVEL,
             "propagate": True,
         },
         'django': {
             'handlers': ['console'],
             'propagate': False,
-            'level': os.environ.get('LOG_LEVEL', 'INFO'),
+            'level': LOG_LEVEL,
         },
     },
 }

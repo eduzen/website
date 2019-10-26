@@ -1,13 +1,13 @@
 {% extends 'blog/footer.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block body %}
 
     <!-- /container -->
-    
+
     <div class="row">
         <div class="col-md-8">
-                {% if posts %} 
+                {% if posts %}
 
                   {% for post in posts %}
                       <div>
@@ -18,7 +18,7 @@
                           {% autoescape off %}
                               <p>{{ post.text|truncatechars:300  }}</p>
                           {% endautoescape %}
-                      
+
                       </div>
                   {% endfor %}
                 {% else %}
@@ -70,7 +70,7 @@
               <p class="bg-info"><a href="https://www.python.org/dev/peps/pep-0020/">Este Zen se puede leer en el pep-0020</a></p>
             </div>
 
-            <div class="side-boxes"> 
+            <div class="side-boxes">
 
                 <h4 class='title-img'>Python Argentina</h4>
                 <a href="http://www.python.org.ar/">

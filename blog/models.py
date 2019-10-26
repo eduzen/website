@@ -47,9 +47,9 @@ class Post(models.Model):
     objects = PostQuerySet.as_manager()
 
     def image_tag(self):
-        img = ""
-        if self.image:
-            img = "<img src='{}' width='100' height='100'/>".format(self.image.url)
+        if not self.image:
+            return "Nothing"
+        img = f"<img src='{self.image.url}' width='100' height='100'/>"
         return mark_safe(img)
 
     image_tag.short_description = "Image"

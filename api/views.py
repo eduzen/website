@@ -1,54 +1,25 @@
 from django.contrib.auth.models import User, Group
-
-from rest_framework import generics
 from rest_framework import viewsets
 
-from .serializers import PostSerializer
-from .serializers import TagSerializer
-from .serializers import UserSerializer
-from .serializers import GroupSerializer
-
-from blog.models import Post
-from blog.models import Tag
+from blog.models import Post, Tag
+from .serializers import PostSerializer, TagSerializer, UserSerializer, GroupSerializer
 
 
-class PostCreateView(generics.ListCreateAPIView):
-    """This class defines the create behavior of our rest api."""
-
+class PostCreateView(viewsets.ReadOnlyModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-    def perform_create(self, serializer):
-        """Save the post data when creating a new bucketlist."""
-        serializer.save()
 
-
-class TagCreateView(generics.ListCreateAPIView):
-    """This class defines the create behavior of our rest api."""
-
+class TagCreateView(viewsets.ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
-    def perform_create(self, serializer):
-        """Save the post data when creating a new bucketlist."""
-        serializer.save()
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (permissions.IsAuthenticated,)
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    # permission_classes = (permissions.IsAuthenticated,)

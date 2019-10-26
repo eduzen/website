@@ -1,3 +1,4 @@
+# from django.urls import path
 from django.conf.urls import url
 from django.contrib.sitemaps.views import sitemap
 
@@ -7,7 +8,7 @@ from .sitemap import sitemaps
 
 urlpatterns = [
     url(r"^$", views.HomeListView.as_view(), name="home"),
-    url(r"^post/$", views.PostListView.as_view(), name="post_list"),
+    url(r"post", views.PostListView.as_view(), name="post_list"),
     url(r"^blog/$", views.PostListView.as_view(), name="blog"),
     url(r"^about/$", views.AboutView.as_view(), name="about"),
     url(r"^bio/$", views.AboutView.as_view(), name="about"),

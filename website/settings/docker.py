@@ -11,14 +11,11 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from .base import show_toolbar
 from .base import *  # NOQA
 
 
-def show_toolbar(request):
-    return os.environ.get("DEBUG", False)
-
-
-DEBUG = os.environ.get("DEBUG")
+DEBUG = bool(os.environ.get("DEBUG"))
 ALLOWED_HOSTS = ["*"]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SECRET_KEY = os.environ.get("SECRET_KEY")

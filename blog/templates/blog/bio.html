@@ -1,12 +1,12 @@
 {% extends 'blog/footer.html' %}
-{% load staticfiles %}
+{% load static %}
 {% load solo_tags %}
 
 {% block body %}
     {% get_solo 'config.BioConfiguration' as bio_config %}
 
     <!-- /container -->
-    
+
     <div class="row">
         <div class="col-md-8">
                 <h2>{{ bio_config.title }}</h2>
@@ -57,7 +57,7 @@
               <p class="bg-info"><a href="https://www.python.org/dev/peps/pep-0020/">Este Zen se puede leer en el pep-0020</a></p>
             </div>
 
-            <div class="side-boxes"> 
+            <div class="side-boxes">
 
                 <h4 class='title-img'>Python Argentina</h4>
                 <a href="http://www.python.org.ar/">

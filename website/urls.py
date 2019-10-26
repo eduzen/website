@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import url, include
+from django.urls import path, include
+
 from django.conf.urls.static import static
 from django.contrib import admin
 
@@ -24,23 +25,23 @@ from .views import favicon_view, MediaView, StaticView
 
 
 urlpatterns = [
-    url(r"^static/(?P<path>.*)", StaticView.as_view()),
-    url(r"^media/(?P<path>.*)", MediaView.as_view()),
-    url(r"^favicon\.ico$", favicon_view),
-    url(r"^eduardo/", admin.site.urls),
-    url(r"^ckeditor/", include("ckeditor_uploader.urls")),
-    url(r"^robots\.txt", include("robots.urls")),
-    url(r"^google448c52311d45450b.html", include("config.urls")),
-    url(r"^", include("blog.urls")),
-    url(r"^api/", include("api.urls")),
-    url(r"^telegram/", include("expenses.urls")),
-    url(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),
-    url(r"^docs/", include_docs_urls(title="My eduzen API title")),
+    path("api/", include("api.urls")),
+    path("static/<path>", StaticView.as_view()),
+    path("media/<path>", MediaView.as_view()),
+    path("favicon.ico", favicon_view),
+    path("eduardo/", admin.site.urls),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("robots.txt", include("robots.urls")),
+    path("google448c52311d45450b.html", include("config.urls")),
+    path("telegram/", include("expenses.urls")),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("docs/", include_docs_urls(title="My eduzen API title")),
+    path('captcha/', include('captcha.urls')),
+    path("", include("blog.urls")),
 ]
 
 if settings.DEBUG:
     import debug_toolbar  # NOQA
-
-    urlpatterns += [url(r"^__debug__/", include(debug_toolbar.urls))] + static(
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))] + static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )

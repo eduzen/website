@@ -11,14 +11,18 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import os
 
+
+def show_toolbar(request):
+    return bool(os.getenv("DEBUG", False))
+
+
 SITE_ID = 1
 APPEND_SLASH = True
-DEBUG = os.environ.get("DEBUG", False)
+DEBUG = False
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
-NORECAPTCHA_SITE_KEY = os.environ.get("NORECAPTCHA_SITE_KEY")
-NORECAPTCHA_SECRET_KEY = os.environ.get("NORECAPTCHA_SECRET_KEY")
+
 ANYMAIL = os.environ.get("ANYMAIL")
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
@@ -36,8 +40,7 @@ DATABASES = {
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Application definition
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -47,7 +50,10 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.sites",
     "django.contrib.postgres",
-    "nocaptcha_recaptcha",
+]
+
+THIRD_PARTY_APPS = [
+    "captcha",
     "anymail",
     "crispy_forms",
     "ckeditor",
@@ -57,11 +63,17 @@ INSTALLED_APPS = [
     "djmoney",
     "rest_framework",
     "django_extensions",
+]
+
+# Application definition
+APPS = [
     "config",
     "blog",
     "api",
     "expenses",
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

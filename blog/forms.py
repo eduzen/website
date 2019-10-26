@@ -3,7 +3,8 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 from crispy_forms.bootstrap import AppendedText
-from nocaptcha_recaptcha.fields import NoReCaptchaField
+from captcha.fields import CaptchaField
+
 
 from .models import Comment
 
@@ -12,7 +13,7 @@ class EmailForm(forms.Form):
     name = forms.CharField(label="Nombre", max_length=100, required=True)
     email = forms.EmailField(max_length=150, label="E-mail", required=True)
     message = forms.CharField(label="Consulta", required=True, widget=forms.Textarea)
-    captcha = NoReCaptchaField()
+    captcha = CaptchaField()
 
     def __init__(self, *args, **kwargs):
         super(EmailForm, self).__init__(*args, **kwargs)
@@ -23,8 +24,7 @@ class EmailForm(forms.Form):
 
 
 class CommentForm(forms.ModelForm):
-
-    captcha = NoReCaptchaField()
+    captcha = CaptchaField()
 
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
@@ -61,7 +61,7 @@ class SearchForm(forms.Form):
 
 class AdvanceSearchForm(forms.Form):
     q = forms.CharField(label="", max_length=100, required=True)
-    captcha = NoReCaptchaField()
+    captcha = CaptchaField()
 
     def __init__(self, *args, **kwargs):
         super(AdvanceSearchForm, self).__init__(*args, **kwargs)

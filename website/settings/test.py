@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 from .base import *  # NOQA
 
-DEBUG = False
+DEBUG = True
 SECRET_KEY = "unsecret_key"
+
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # NOQA
+INSTALLED_APPS += ["debug_toolbar"]  # NOQA
+INTERNAL_IPS = ('*',)
 
 DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': 'mydatabase'}}

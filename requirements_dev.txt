@@ -1,17 +1,20 @@
 -r requirements.txt
+django-debug-toolbar==2.0
 termcolor==1.1.0
 pluggy>=0.7
 pdbpp>=0.9.2
 pytest>=3.6.2
 pytest-cov>=2.5.1
 pytest-django>=3.1.2
-pytest-djangorestframework==0.1.2
 pytest-mock>=1.10.0
 pytest-sugar>=0.9.1
 pytest-xdist
 factory_boy
 django_factory_boy
 flake8
+flake8-bugbear
+flake8-comprehensions
+flake8-assertive
 coverage
 codecov
 wdb
