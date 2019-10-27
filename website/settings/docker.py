@@ -21,7 +21,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
 
-MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # NOQA
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware", "pyinstrument.middleware.ProfilerMiddleware"]  # NOQA
 INSTALLED_APPS += ["debug_toolbar"]  # NOQA
 
 DATABASES = {
@@ -38,4 +38,25 @@ DATABASES = {
 ANYMAIL = {
     "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
     "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
+}
+
+LOG_LEVEL = os.getenv("LOG_LEVEL", "WARN").upper()
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": ("[DJANGO] %(levelname)s %(asctime)s %(module)s " "%(name)s.%(funcName)s:%(lineno)s: %(message)s")
+        },
+        'verbose': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S",
+        },
+        'simple': {'format': '%(levelname)s %(message)s'},
+    },
+    "handlers": {
+        "console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"},
+        'file': {'level': LOG_LEVEL, 'class': 'logging.FileHandler', 'filename': 'mysite.log', 'formatter': 'verbose'},
+    },
 }

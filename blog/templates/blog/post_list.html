@@ -62,20 +62,20 @@
 
             <!-- TAGS LIST -->
             <div class="col-xs-4">
+                <h2>Tags</h2>
                 <hr/>
-                {% if tag == 'python' %}
-                    <div class="tag-cloud">
+                <div class="tag-cloud">
                     <ul class="tags">
-                    {% for key, value in tags.items %}
-                        <li class="tag-item">
-                            <a href="/tags/{{ key }}" class="size-{{ value.size }}">
-                                {{ value.word }}
-                            </a>
-                        </li>
-                    {% endfor %}
+                        {% for count_tag in tags %}
+                            <li class="tag-item">
+                                <a href="/tags/{{ count_tag.tags__word }}" class="size-{{ count_tag.total }}">
+                                    {{ count_tag.tags__word }}
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
-                    </div>
-
+                </div>
+                {% if tag == 'python' %}
                     <div class="side-boxes">
                     <a href="http://www.python.org">
                     <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">
@@ -103,15 +103,6 @@
                       <br>
                       <p class="bg-info"><a href="https://www.python.org/dev/peps/pep-0020/">Este Zen se puede leer en el pep-0020</a></p>
                      </div>
-                {% else %}
-                    <h4>Tags</h4>
-                    <ul class="tags">
-                        <li class="tag-item">
-                        {% for tag in tags %}
-                            <a href="/tags/{{ tag }}">{{ tag }}</a>
-                        {% endfor %}
-                        </li>
-                    </ul>
                 {% endif %}
 
             </div>

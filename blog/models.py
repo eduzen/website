@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import ping_google
 from django.db import models
+from django.db.models import Count
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
@@ -22,6 +23,9 @@ class PostQuerySet(models.QuerySet):
     def published(self):
         # -- only active records
         return self.filter(published_date__isnull=False).prefetch_related("tags")
+
+    def count_tags(self):
+        return self.published().values("tags__word").annotate(total=Count('tags__slug'))
 
 
 class Post(models.Model):

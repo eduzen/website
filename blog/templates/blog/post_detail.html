@@ -46,16 +46,22 @@
                         <li class="post_detail_li">
                             <h4 class="post_detail_title">Tags</h4>
                         </li>
-                        <li class="post_detail_li">
-                        {% for tag in post.tags.all %}
-                            <a href="/tags/{{ tag.word }}" class="list-group-item post_detail_a">
-                                <span style="color: #581845;">
-                                    <span class="label label-default">{{ tag.word }}</span>
-                                </span>
-                            </a>
-                        {% endfor %}
-                        </li>
                     </ul>
+
+                    <div class="tag-cloud">
+                        <ul class="tags">
+                            {% for count_tag in tags %}
+                                --
+                                {{ count_tag}}
+                                --
+                                <li class="tag-item">
+                                    <a href="/tags/{{ count_tag.tags__word }}" class="size-{{ count_tag.total }}">
+                                        {{ count_tag.tags__word }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
 
             </div>

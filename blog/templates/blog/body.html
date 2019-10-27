@@ -1,5 +1,4 @@
 {% extends 'blog/footer.html' %}
-{% load static %}
 
 {% block body %}
 
@@ -76,10 +75,10 @@
                 <div class="col-md-12">
                   <div class="tag-cloud">
                   <ul class="tags">
-                    {% for key, value in tags.items %}
+                    {% for count_tag in tags %}
                         <li class="tag-item">
-                            <a href="/tags/{{ key }}" class="size-{{ value.size }}">
-                                {{ value.word }}
+                            <a href="/tags/{{ count_tag.tags__word }}" class="size-{{ count_tag.total }}">
+                                {{ count_tag.tags__word }}
                             </a>
                         </li>
                     {% endfor %}

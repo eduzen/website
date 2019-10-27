@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import logging
 import requests
 from collections import defaultdict
@@ -50,7 +49,6 @@ def _parse_post_tags(post, tags):
 
 
 class HomeListView(ListView):
-    model = Post
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/body.html"
@@ -58,13 +56,9 @@ class HomeListView(ListView):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = super(HomeListView, self).get_context_data(**kwargs)
-        tags = defaultdict(dict)
-        for post in self.queryset.prefetch_related("tags"):
-            _parse_post_tags(post, tags)
-
-        search_form = SearchForm()
-        context.update({"tags": dict(tags), "search_form": search_form})
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Post.objects.count_tags()
+        context["search_form"] = SearchForm()
         return context
 
 
@@ -82,12 +76,25 @@ class PostListView(ListView):
         if not query:
             return query_set
 
-        return query_set.annotate(search=SearchVector("text", "title", "pompadour")).filter(
-            search=query
-        )
+        return query_set.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
+
+    def _count_tags(self, slug, word, tags):
+        if slug not in tags:
+            tags[slug]["word"] = word
+            tags[slug]["size"] = 1
+            return
+
+        if tags[slug]["size"] < 12:
+            tags[slug]["size"] += 1
+
+    def _parse_post_tags(self, post, tags):
+        for tag in post.tags.all():
+            self._count_tags(tag.slug, tag.word, tags)
 
     def get_context_data(self, **kwargs):
-        context = super(PostListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Post.objects.count_tags()
+
         query = self.request.GET.get("q")
         if not query:
             return context
@@ -121,18 +128,10 @@ class PostTagsList(ListView):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = super(PostTagsList, self).get_context_data(**kwargs)
-        posts = context.get('posts')
-        tags = defaultdict(dict)
-
-        for post in posts:
-            _parse_post_tags(post, tags)
-
-        search_form = SearchForm()
-
-        context.update(
-            {"search_form": search_form, "tags": dict(tags), "tag": self.kwargs.get("tag").lower()}
-        )
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Post.objects.count_tags()
+        context["search_form"] = SearchForm()
+        context["tag"] = self.kwargs.get("tag").lower()
         return context
 
     def get_queryset(self):
@@ -223,12 +222,7 @@ def contact(request):
                     " Si querés escribirle su mail es {email}"
                 )
 
-                email = EmailMessage(
-                    "Nuevo contacto",
-                    content.format(**data),
-                    email,
-                    ["eduardo.a.enriquez@gmail.com"],
-                )
+                email = EmailMessage("Nuevo contacto", content.format(**data), email, ["eduardo.a.enriquez@gmail.com"])
                 email.send()
                 logger.info("Email sent")
 

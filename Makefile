@@ -1,5 +1,10 @@
 include .env
 
+RUNDJANGO=docker-compose run --rm django
+UP=docker-compose up
+EXEC=docker-compose exec
+DJMANAGE=$(RUN) django python manage.py
+
 help:
 	@echo "help  -- print this help"
 	@echo "start -- start docker stack"
@@ -24,6 +29,9 @@ up:
 psql:
 	docker-compose exec postgres psql -U postgres
 
+dbshell:
+	$(DJMANAGE) dbshell
+
 load-dump:
 	docker-compose exec postgres sh psql -U postgres < /docker-entrypoint-initdb.d/dump.sql
 
@@ -40,24 +48,36 @@ clean: stop
 	docker-compose rm --force -v
 
 only_test:
-	docker-compose run --rm django pytest
+	$(RUN) pytest
 
 pep8:
-	docker-compose run --rm django flake8
+	$(RUN) flake8
 
 test: pep8 only_test
 
 dockershell:
-	docker-compose run --rm django sh
+	$(RUN) sh
 
-migrations:
-	docker-compose run --rm django python3 manage.py makemigrations
+showmigrations:
+	$(DJMANAGE) showmigrations
+
+superuser:
+	$(DJMANAGE) createsuperuser
 
 migrate:
-	docker-compose run --rm django python3 manage.py migrate
+	$(DJMANAGE) migrate
+
+migrations:
+	$(DJMANAGE) makemigrations
 
 shell_plus:
-	docker-compose run --rm django python3 manage.py shell_plus
+	$(DJMANAGE) shell_plus
+
+shell_plus_sql:
+	$(DJMANAGE) shell_plus --print-sql
+
+black:
+	docker-compose run --rm --no-deps django black --py36 -l 99 -S .
 
 clean-python: clean-build clean-pyc
 
@@ -74,7 +94,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
-black:
-	black --py36 -l 99 -S .
+hard-clean-python: clean-build clean-pyc
 
 .PHONY: help start stop ps clean test dockershell shell_plus only_test pep8
+
