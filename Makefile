@@ -48,10 +48,10 @@ clean: stop
 	docker-compose rm --force -v
 
 only_test:
-	$(RUNDJANGO) pytest
+	docker-compose -f docker-compose.dev.yml run --rm django pytest
 
 pep8:
-	$(RUNDJANGO) flake8
+	docker-compose -f docker-compose.dev.yml run --rm django flake8
 
 test: pep8 only_test
 

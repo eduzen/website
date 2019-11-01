@@ -23,7 +23,9 @@ class EmailForm(forms.Form):
         data["subject"] = f"{self.data['subject']} Nuevo contacto a traves de la eduzen.com.ar"
         data["recipient_list"] = ["eduardo.a.enriquez@gmail.com"]
         data["message"] = self.data['message']
-        data["html_message"] = f"<html><body><h1>{self.data['subject']}<h1><hr/><p>{self.data['message']}</p></body></html>"
+        data["html_message"] = (
+            f"<html><body><h1>{self.data['subject']}<h1><hr/><p>{self.data['message']}</p></body></html>"
+        )
         data["from_email"] = self.data["from_email"]
         return data
 

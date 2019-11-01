@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-import sys
 from .base import show_toolbar
 from .base import *  # NOQA
 
