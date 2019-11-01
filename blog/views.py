@@ -3,26 +3,16 @@ import requests
 from collections import defaultdict
 from datetime import datetime
 from django.http import HttpResponse
-from django.core.mail import BadHeaderError
-from django.core.mail import EmailMessage
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-from django.shortcuts import get_list_or_404
-
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.postgres.search import SearchVector
-from django.views.generic.dates import MonthArchiveView
-from django.views.generic.dates import WeekArchiveView
-from django.views.generic.dates import DayArchiveView
-from django.views.generic.dates import ArchiveIndexView
-from django.views.generic import ListView
-from django.views.generic import TemplateView
-from .models import Post
-from .models import CustomPage
-from .forms import EmailForm
-from .forms import SearchForm, AdvanceSearchForm
+from django.views.generic.dates import (
+    MonthArchiveView, WeekArchiveView, DayArchiveView, ArchiveIndexView
+)
+from django.views.generic import ListView, TemplateView, FormView
+from .models import Post, CustomPage
+from .forms import EmailForm, SearchForm, AdvanceSearchForm
 
-
-logger = logging.getLogger("blog.views")
+logger = logging.getLogger(__name__)
 
 
 class AboutView(TemplateView):
@@ -199,39 +189,22 @@ def custom_page(request, slug):
     return render(request, "blog/custom_page.html", data)
 
 
-def contact(request):
-    if request.method == "GET":
-        contact_form = EmailForm()
-        return render(request, "blog/contact.html", {"form": contact_form, "tweet": "tweets[0]"})
+class ContactView(FormView):
+    template_name = "blog/contact.html"
+    form_class = EmailForm
+    success_url = '/'
 
-    if request.method == "POST":
-        contact_form = EmailForm(data=request.POST)
+    def form_valid(self, form):
+        try:
+            form.send_email()
+            return super().form_valid(form)
+        except Exception:
+            logger.exception("Email problems")
 
-        if contact_form.is_valid():
-            try:
-                email = contact_form.cleaned_data.get("email")
-                data = {
-                    "name": contact_form.cleaned_data.get("name"),
-                    "email": email,
-                    "message": contact_form.cleaned_data.get("message"),
-                }
-
-                content = (
-                    "Hola, {name} escribio en la web contacto"
-                    "lo siguiente: {message} "
-                    " Si querés escribirle su mail es {email}"
-                )
-
-                email = EmailMessage("Nuevo contacto", content.format(**data), email, ["eduardo.a.enriquez@gmail.com"])
-                email.send()
-                logger.info("Email sent")
-
-            except BadHeaderError:
-                logger.exception("Email problems")
-                return HttpResponse("Invalid header found.")
-
-        contact_form = EmailForm()
-        return render(request, "blog/contact.html", {"form": contact_form, "tweet": "tweets[0]"})
+        return HttpResponse(
+            "There was a problem sending the email, please send me "
+            "an email to eduardoaenriquez@gmail.com"
+        )
 
 
 class PostMonthArchiveView(MonthArchiveView):

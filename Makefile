@@ -3,7 +3,7 @@ include .env
 RUNDJANGO=docker-compose run --rm django
 UP=docker-compose up
 EXEC=docker-compose exec
-DJMANAGE=$(RUN) django python manage.py
+DJMANAGE=$(RUNDJANGO) django python manage.py
 
 help:
 	@echo "help  -- print this help"
@@ -48,15 +48,15 @@ clean: stop
 	docker-compose rm --force -v
 
 only_test:
-	$(RUN) pytest
+	$(RUNDJANGO) pytest
 
 pep8:
-	$(RUN) flake8
+	$(RUNDJANGO) flake8
 
 test: pep8 only_test
 
 dockershell:
-	$(RUN) sh
+	$(RUNDJANGO) sh
 
 showmigrations:
 	$(DJMANAGE) showmigrations

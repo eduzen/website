@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import sys
 from .base import show_toolbar
 from .base import *  # NOQA
 
@@ -21,6 +22,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mailhog'  # Your Mailhog Host
+EMAIL_PORT = '1025'
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware", "pyinstrument.middleware.ProfilerMiddleware"]  # NOQA
 INSTALLED_APPS += ["debug_toolbar"]  # NOQA
 
@@ -43,20 +47,17 @@ ANYMAIL = {
 LOG_LEVEL = os.getenv("LOG_LEVEL", "WARN").upper()
 
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "default": {
-            "format": ("[DJANGO] %(levelname)s %(asctime)s %(module)s " "%(name)s.%(funcName)s:%(lineno)s: %(message)s")
-        },
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
         'verbose': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'format': '{levelname} [{asctime}] [{name}.{funcName}:{lineno}]: {message}',
             'datefmt': "%d/%b/%Y %H:%M:%S",
-        },
-        'simple': {'format': '%(levelname)s %(message)s'},
+            'style': '{',
+        }
     },
-    "handlers": {
-        "console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"},
-        'file': {'level': LOG_LEVEL, 'class': 'logging.FileHandler', 'filename': 'mysite.log', 'formatter': 'verbose'},
+    'handlers': {'console': {'class': 'logging.StreamHandler', 'formatter': 'verbose'}},
+    'loggers': {
+        '': {'handlers': ['console'], 'level': 'DEBUG'}  # 'catch all' loggers by referencing it with the empty string
     },
 }
