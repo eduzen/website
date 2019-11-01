@@ -24,6 +24,8 @@ urlpatterns = [
     url(r"^custom/(?P<slug>[\w-]+)/$", views.custom_page, name="custom_page"),
     url(r"^blog/(?P<pk>[0-9]+)/$", views.post_detail, name="post_detail"),
     url(r"^blog/(?P<slug>[\w-]+)/$", views.post_slug, name="post_slug"),
+    url(r"^sucess/$", views.SucessView.as_view(), name="sucess"),
+    url(r"^error/$", views.ErrorView.as_view(), name="error"),
     # Example: /2012/aug/
     url(
         r"^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/$",

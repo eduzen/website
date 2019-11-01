@@ -2,7 +2,6 @@ import logging
 import requests
 from collections import defaultdict
 from datetime import datetime
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.postgres.search import SearchVector
 from django.views.generic.dates import (
@@ -21,6 +20,14 @@ class AboutView(TemplateView):
 
 class ClasesView(TemplateView):
     template_name = "blog/clases.html"
+
+
+class SucessView(TemplateView):
+    template_name = "blog/success.html"
+
+
+class ErrorView(TemplateView):
+    template_name = "blog/error.html"
 
 
 def _count_tags(slug, word, tags):
@@ -192,7 +199,7 @@ def custom_page(request, slug):
 class ContactView(FormView):
     template_name = "blog/contact.html"
     form_class = EmailForm
-    success_url = '/'
+    success_url = '/sucess/'
 
     def form_valid(self, form):
         try:
@@ -201,10 +208,7 @@ class ContactView(FormView):
         except Exception:
             logger.exception("Email problems")
 
-        return HttpResponse(
-            "There was a problem sending the email, please send me "
-            "an email to eduardoaenriquez@gmail.com"
-        )
+        return redirect("/error/")
 
 
 class PostMonthArchiveView(MonthArchiveView):
