@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from .base import *  # NOQA
 import sentry_sdk
+
+from .base import *  # NOQA
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
@@ -22,8 +23,6 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 STATIC_URL = "https://static.eduzen.com.ar/"
 MEDIA_URL = "https://media.eduzen.com.ar/"
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DATABASES = {
     "default": {
@@ -37,7 +36,6 @@ DATABASES = {
 }
 
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 SERVER_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
 ANYMAIL = {

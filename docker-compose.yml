@@ -49,8 +49,6 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_SERVICE=${DB_SERVICE}
       - DEBUG=${DEBUG}
-      - NORECAPTCHA_SECRET_KEY=${NORECAPTCHA_SECRET_KEY}
-      - NORECAPTCHA_SITE_KEY=${NORECAPTCHA_SITE_KEY}
       - MAILGUN_API_KEY=${MAILGUN_API_KEY}
       - SENTRY_DSN=${SENTRY_DSN}
     links:
@@ -59,7 +57,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:11-alpine
+    image: postgres:alpine
     restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data/
