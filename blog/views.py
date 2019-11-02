@@ -1,7 +1,6 @@
 import logging
 import requests
 from collections import defaultdict
-from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.postgres.search import SearchVector
 from django.views.generic.dates import (
