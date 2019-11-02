@@ -20,10 +20,5 @@ after_success:
   - VERSION=$(sentry-cli releases propose-version)
   - sentry-cli releases new -p eduzencomar $VERSION
   - sentry-cli releases set-commits --auto $VERSION
-
-deploy:
-  script:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push eduzen/eduzen
-  on:
-    branch: master
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push eduzen/eduzen
