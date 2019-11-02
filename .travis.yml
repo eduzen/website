@@ -13,3 +13,9 @@ install: echo OK
 script:
   - docker-compose run --rm django flake8
   - docker-compose run --rm django pytest --ds=website.settings.test
+
+after_success:
+  - curl -sL https://sentry.io/get-cli/ | sh
+  - VERSION=$(sentry-cli releases propose-version)
+  - sentry-cli releases new -p eduzencomar $VERSION
+  - sentry-cli releases set-commits --auto $VERSION
