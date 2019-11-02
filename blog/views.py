@@ -26,6 +26,10 @@ class SucessView(TemplateView):
     template_name = "blog/success.html"
 
 
+class StuffView(TemplateView):
+    template_name = "blog/stuff.html"
+
+
 class ErrorView(TemplateView):
     template_name = "blog/error.html"
 
@@ -148,20 +152,6 @@ def advance_search(request):
     advance_search_form = AdvanceSearchForm()
     data = {'advance_search_form': advance_search_form}
     return render(request, "blog/advance_search.html", data)
-
-
-def stuff(request):
-    data = {
-        "tweet": "",
-        "name": "",
-        "bid": "",
-        "ask": "",
-        "rate": "",
-        "date": "",
-        "bdate": datetime.today(),
-        "busd": "",
-    }
-    return render(request, "blog/stuff.html", data)
 
 
 def post_slug(request, slug):
