@@ -25,7 +25,7 @@ class EmailForm(forms.Form):
         data["recipient_list"] = ["eduardo.a.enriquez@gmail.com"]
         data["message"] = self.data['message']
         data["html_message"] = (
-            f"<html><body><h1>eduzen.com.ar</h1><h2>{self.data['subject']} - self.data['from_email']</h2>"
+            f"<html><body><p>eduzen.com.ar<p><hr/><p>{self.data['subject']} - {self.data['from_email']}</p>"
             f"<hr/><p>{self.data['message']}</p></body></html>"
         )
         data["from_email"] = settings.DEFAULT_FROM_EMAIL
