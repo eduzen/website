@@ -13,9 +13,17 @@ install: echo OK
 script:
   - docker-compose run --rm django flake8
   - docker-compose run --rm django pytest --ds=website.settings.test
+  - docker build -t eduzen/eduzen:${TRAVIS_BRANCH} .
 
 after_success:
   - curl -sL https://sentry.io/get-cli/ | bash
   - VERSION=$(sentry-cli releases propose-version)
   - sentry-cli releases new -p eduzencomar $VERSION
   - sentry-cli releases set-commits --auto $VERSION
+
+deploy:
+  script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker push eduzen/eduzen
+  on:
+    branch: master
