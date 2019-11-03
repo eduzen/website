@@ -8,7 +8,7 @@ from .sitemap import sitemaps
 
 urlpatterns = [
     re_path(r"^$", views.HomeListView.as_view(), name="home"),
-    path("post", views.PostListView.as_view(), name="post_list"),
+    path("post/", views.PostListView.as_view(), name="post_list"),
     re_path(r"^blog/$", views.PostListView.as_view(), name="blog"),
     path("about/", views.AboutView.as_view(), name="about"),
     path("bio/", views.AboutView.as_view(), name="about"),
@@ -16,8 +16,8 @@ urlpatterns = [
     re_path(r"^tags/(?P<tag>[\w-]+)/$", views.PostTagsList.as_view(), name="bytag"),
     path("stuff/", views.StuffView.as_view(), name="stuff"),
     path("util/", views.StuffView.as_view(), name="stuff"),
-    path("search/", views.advance_search, name="search"),
-    path("buscar/", views.advance_search, name="search"),
+    path("search/", views.AdvanceSearch.as_view(), name="search"),
+    path("buscar/", views.AdvanceSearch.as_view(), name="search"),
     path("contactar/", views.ContactView.as_view(), name="contact"),
     path("contacto/", views.ContactView.as_view(), name="contact"),
     path("contact/", views.ContactView.as_view(), name="contact"),

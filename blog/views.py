@@ -33,6 +33,12 @@ class ErrorView(TemplateView):
     template_name = "blog/error.html"
 
 
+class AdvanceSearch(FormView):
+    template_name = "blog/advance_search.html"
+    form_class = AdvanceSearchForm
+    success_url = '/sucess/'
+
+
 def _count_tags(slug, word, tags):
     if slug not in tags:
         tags[slug]["word"] = word
@@ -63,7 +69,6 @@ class HomeListView(ListView):
 
 
 class PostListView(ListView):
-    model = Post
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/post_list.html"
@@ -136,21 +141,6 @@ class PostTagsList(ListView):
 
     def get_queryset(self):
         return self.queryset.filter(tags__slug=self.kwargs.get("tag"))
-
-
-def get_coin_value(url):
-    try:
-        response = requests.get(url)
-    except requests.exceptions.ConnectionError:
-        return
-
-    return response
-
-
-def advance_search(request):
-    advance_search_form = AdvanceSearchForm()
-    data = {'advance_search_form': advance_search_form}
-    return render(request, "blog/advance_search.html", data)
 
 
 def post_slug(request, slug):
