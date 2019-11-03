@@ -5,6 +5,7 @@ volumes:
 
 services:
   nginx-proxy:
+    restart: always
     image: jwilder/nginx-proxy:alpine
     ports:
       - "80:80"
@@ -13,6 +14,7 @@ services:
 
   static:
     image: nginx:alpine
+    restart: always
     expose:
       - "8080"
     environment:
@@ -22,6 +24,7 @@ services:
 
   media:
     image: nginx:alpine
+    restart: always
     expose:
       - "8080"
     environment:
@@ -32,6 +35,7 @@ services:
   django:
     build: .
     command: sh ./scripts/gunicorn_start.sh
+    restart: always
     volumes:
       - .:/code
     expose:
@@ -74,5 +78,5 @@ services:
     image: v2tec/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:/config.json
+      - /home/eduzen/.docker/config.json:/config.json
     command: --interval 300
