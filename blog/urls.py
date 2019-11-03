@@ -1,5 +1,5 @@
 # from django.urls import path
-from django.conf.urls import url
+from django.urls import path, re_path
 from django.contrib.sitemaps.views import sitemap
 
 from . import views
@@ -7,52 +7,52 @@ from .sitemap import sitemaps
 
 
 urlpatterns = [
-    url(r"^$", views.HomeListView.as_view(), name="home"),
-    url(r"post", views.PostListView.as_view(), name="post_list"),
-    url(r"^blog/$", views.PostListView.as_view(), name="blog"),
-    url(r"^about/$", views.AboutView.as_view(), name="about"),
-    url(r"^bio/$", views.AboutView.as_view(), name="about"),
-    url(r"^clases/$", views.ClasesView.as_view(), name="clases"),
-    url(r"^tags/(?P<tag>[\w-]+)/$", views.PostTagsList.as_view(), name="bytag"),
-    url(r"^stuff/$", views.StuffView.as_view(), name="stuff"),
-    url(r"^util/$", views.StuffView.as_view(), name="stuff"),
-    url(r"^search/$", views.advance_search, name="search"),
-    url(r"^buscar/$", views.advance_search, name="search"),
-    url(r"^contactar/$", views.ContactView.as_view(), name="contact"),
-    url(r"^contacto/$", views.ContactView.as_view(), name="contact"),
-    url(r"^contact/$", views.ContactView.as_view(), name="contact"),
-    url(r"^custom/(?P<slug>[\w-]+)/$", views.custom_page, name="custom_page"),
-    url(r"^blog/(?P<pk>[0-9]+)/$", views.post_detail, name="post_detail"),
-    url(r"^blog/(?P<slug>[\w-]+)/$", views.post_slug, name="post_slug"),
-    url(r"^sucess/$", views.SucessView.as_view(), name="sucess"),
-    url(r"^error/$", views.ErrorView.as_view(), name="error"),
+    re_path(r"^$", views.HomeListView.as_view(), name="home"),
+    path("post", views.PostListView.as_view(), name="post_list"),
+    re_path(r"^blog/$", views.PostListView.as_view(), name="blog"),
+    path("about/", views.AboutView.as_view(), name="about"),
+    path("bio/", views.AboutView.as_view(), name="about"),
+    re_path(r"^clases/$", views.ClasesView.as_view(), name="clases"),
+    re_path(r"^tags/(?P<tag>[\w-]+)/$", views.PostTagsList.as_view(), name="bytag"),
+    path("stuff/", views.StuffView.as_view(), name="stuff"),
+    path("util/", views.StuffView.as_view(), name="stuff"),
+    path("search/", views.advance_search, name="search"),
+    path("buscar/", views.advance_search, name="search"),
+    path("contactar/", views.ContactView.as_view(), name="contact"),
+    path("contacto/", views.ContactView.as_view(), name="contact"),
+    path("contact/", views.ContactView.as_view(), name="contact"),
+    re_path(r"^custom/(?P<slug>[\w-]+)/$", views.custom_page, name="custom_page"),
+    re_path(r"^blog/(?P<pk>[0-9]+)/$", views.post_detail, name="post_detail"),
+    re_path(r"^blog/(?P<slug>[\w-]+)/$", views.post_slug, name="post_slug"),
+    path("sucess/", views.SucessView.as_view(), name="sucess"),
+    path("error/", views.ErrorView.as_view(), name="error"),
     # Example: /2012/aug/
-    url(
+    re_path(
         r"^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/$",
         views.PostMonthArchiveView.as_view(),
         name="archive_month",
     ),
     # Example: /2012/08/
-    url(
+    re_path(
         r"^(?P<year>[0-9]{4})/(?P<month>[0-9]+)/$",
         views.PostMonthArchiveView.as_view(month_format="%m"),
         name="archive_month_numeric",
     ),
     # Example: /2012/week/23/
-    url(
+    re_path(
         r"^(?P<year>[0-9]{4})/week/(?P<week>[0-9]+)/$",
         views.PostWeekArchiveView.as_view(),
         name="archive_week",
     ),
     # Example: /2012/nov/10/
-    url(
+    re_path(
         r"^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/(?P<day>[0-9]+)/$",
         views.PostDayArchiveView.as_view(),
         name="archive_day",
     ),
-    url(r"^archive/$", views.PostArchiveIndex.as_view(), name="post_archive"),
-    url(r"^sitemap-(?P<section>.+)\.xml$", sitemap, {"sitemaps": sitemaps}),
-    url(
+    path("archive/", views.PostArchiveIndex.as_view(), name="post_archive"),
+    re_path(r"^sitemap-(?P<section>.+)\.xml$", sitemap, {"sitemaps": sitemaps}),
+    re_path(
         r"^sitemap\.xml$",
         sitemap,
         {"sitemaps": sitemaps},
