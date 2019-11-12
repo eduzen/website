@@ -32,7 +32,7 @@ class Post(models.Model):
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Titulo")
     pompadour = models.CharField(
-        max_length=800, null=True, blank=True, verbose_name="Resumen para portada"
+        max_length=800, blank=True, verbose_name="Resumen para portada"
     )
     slug = AutoSlugField(
         editable=True,

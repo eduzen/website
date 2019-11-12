@@ -7,7 +7,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 class BioConfiguration(SingletonModel):
     title = models.CharField(max_length=255, default="Quién les escribe")
-    subtitle = models.CharField(max_length=255, null=True, blank=True)
+    subtitle = models.CharField(max_length=255, blank=True)
     body = RichTextUploadingField(null=True, blank=True)
 
     def __unicode__(self):
@@ -19,7 +19,7 @@ class BioConfiguration(SingletonModel):
 
 class ContactConfiguration(SingletonModel):
     title = models.CharField(max_length=255, default="Contacto")
-    subtitle = models.CharField(max_length=255, null=True, blank=True)
+    subtitle = models.CharField(max_length=255, blank=True)
     body = RichTextUploadingField(null=True, blank=True)
 
     def __unicode__(self):

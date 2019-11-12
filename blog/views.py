@@ -38,21 +38,6 @@ class AdvanceSearch(FormView):
     success_url = '/sucess/'
 
 
-def _count_tags(slug, word, tags):
-    if slug not in tags:
-        tags[slug]["word"] = word
-        tags[slug]["size"] = 1
-        return
-
-    if tags[slug]["size"] < 12:
-        tags[slug]["size"] += 1
-
-
-def _parse_post_tags(post, tags):
-    for tag in post.tags.all():
-        _count_tags(tag.slug, tag.word, tags)
-
-
 class HomeListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
@@ -60,7 +45,7 @@ class HomeListView(ListView):
     ordering = ["-published_date"]
     paginate_by = 12
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["tags"] = Post.objects.count_tags()
         context["search_form"] = SearchForm()
@@ -82,7 +67,7 @@ class PostListView(ListView):
 
         return query_set.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
 
-    def _count_tags(self, slug, word, tags):
+    def _count_tags(self, slug, word, tags) -> None:
         if slug not in tags:
             tags[slug]["word"] = word
             tags[slug]["size"] = 1
@@ -91,11 +76,11 @@ class PostListView(ListView):
         if tags[slug]["size"] < 12:
             tags[slug]["size"] += 1
 
-    def _parse_post_tags(self, post, tags):
+    def _parse_post_tags(self, post, tags) -> None:
         for tag in post.tags.all():
             self._count_tags(tag.slug, tag.word, tags)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["tags"] = Post.objects.count_tags()
 
@@ -109,7 +94,7 @@ class PostListView(ListView):
 
         tags = defaultdict(dict)
         for post in posts:
-            _parse_post_tags(post, tags)
+            self._parse_post_tags(post, tags)
 
         search_form = SearchForm()
         context.update({"tags": dict(tags), "search_form": search_form, "tag": query})
