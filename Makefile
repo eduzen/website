@@ -1,18 +1,38 @@
+ifneq (,$(wildcard ./.env111))
+    include .env111
+endif
 include .env
 
-RUNDJANGO=docker-compose run --rm django
-UP=docker-compose up
+# Colors
+red=`tput setaf 1`
+green=`tput setaf 2`
+yellow=`tput setaf 3`
+orange=`tput setaf 4`
+violet=`tput setaf 5`
+lightblue=`tput setaf 6`
+reset=`tput sgr0`
+
+DCO=${green}docker-compose${yellow}
+RUNDJANGO=${DOC} run --rm ${lightblue}django
+UP=${DCO} up${lightblue}
 EXEC=docker-compose exec
 DJMANAGE=$(RUNDJANGO) python manage.py
 
-build:
-	docker-compose build --no-cache web
-
 start:
-	docker-compose up -d
+	@echo "${UP} -d django postgres${reset}"
+	@docker-compose up -d django postgres
 
-up:
-	docker-compose up
+build:
+	@echo "${DCO} build ${lightblue}django${reset}"
+	@docker-compose build django
+
+logs:
+	@echo "${DCO}${red} logs ${green}-f --tail=50 ${lightblue}django postgres${reset}"
+	@docker-compose logs -f --tail=50 django postgres
+
+pgcli:
+	@echo "${green} pgcli ${red}postgres://$(DB_USER):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)${reset}"
+	docker-compose run --rm django pgcli postgres://$(DB_USER):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)
 
 psql:
 	docker-compose exec postgres psql -U postgres
@@ -44,7 +64,7 @@ pep8:
 test: pep8 only_test
 
 dockershell:
-	$(RUNDJANGO) sh
+	$(RUNDJANGO) ash
 
 showmigrations:
 	$(DJMANAGE) showmigrations
@@ -53,7 +73,8 @@ superuser:
 	$(DJMANAGE) createsuperuser
 
 migrate:
-	$(DJMANAGE) migrate
+	@echo "${DCO}${red} run --rm ${yellow}python manage.py ${lightblue}migrate${reset}"
+	@docker-compose run --rm django python manage.py migrate
 
 migrations:
 	$(DJMANAGE) makemigrations

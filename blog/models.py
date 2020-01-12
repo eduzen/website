@@ -2,7 +2,6 @@ from django.contrib.sitemaps import ping_google
 from django.db import models
 from django.db.models import Count
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 
@@ -130,7 +129,6 @@ class CustomPage(models.Model):
         verbose_name_plural = "Páginas custom"
 
 
-@python_2_unicode_compatible
 class DolarPeso(models.Model):
     balance = MoneyField(max_digits=10, decimal_places=2)
     name = models.CharField(verbose_name="Nombre", max_length=250)

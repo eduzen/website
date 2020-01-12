@@ -4,48 +4,17 @@ volumes:
   pgdata:
 
 services:
-  nginx-proxy:
-    restart: always
-    image: jwilder/nginx-proxy:alpine
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  static:
-    image: nginx:alpine
-    restart: always
-    expose:
-      - "8080"
-    environment:
-      - VIRTUAL_HOST=static.eduzen.com.ar
-    volumes:
-      - ./website/static:/usr/share/nginx/html:ro
-
-  media:
-    image: nginx:alpine
-    restart: always
-    expose:
-      - "8080"
-    environment:
-      - VIRTUAL_HOST=media.eduzen.com.ar
-    volumes:
-      - ./website/media:/usr/share/nginx/html:ro
-
   django:
     build: .
-    command: sh ./scripts/gunicorn_start.sh
-    restart: always
+    command: sh scripts/runserver.sh
     volumes:
       - .:/code
-    expose:
-      - "8080"
+      - ./.pdbrc.py:/root/.pdbrc.py
+    ports:
+      - "8000:8000"
+      - "3000:3000"
     environment:
-      - VIRTUAL_HOST=${VIRTUAL_HOSTS}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-      - LOG_LEVEL=${LOG_LEVEL}
-      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}
       - SECRET_KEY=${SECRET_KEY}
       - DB_USER=${DB_USER}
       - DB_NAME=${DB_NAME}
@@ -53,16 +22,15 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_SERVICE=${DB_SERVICE}
       - DEBUG=${DEBUG}
-      - MAILGUN_API_KEY=${MAILGUN_API_KEY}
-      - SENTRY_DSN=${SENTRY_DSN}
+      - WDB_SOCKET_SERVER=wdb
+      - WDB_NO_BROWSER_AUTO_OPEN=1
     links:
       - postgres
     depends_on:
       - postgres
 
   postgres:
-    image: postgres:11-alpine
-    restart: always
+    image: postgres:alpine
     volumes:
       - pgdata:/var/lib/postgresql/data/
       - ./scripts/db/:/docker-entrypoint-initdb.d/
@@ -74,9 +42,15 @@ services:
       - DB_PASS=${DB_PASS}
       - DB_NAME=${DB_NAME}
 
-  watchtower:
-    image: v2tec/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /home/eduzen/.docker/config.json:/config.json
-    command: --interval 300
+  wdb:
+    image: eduzen/wdb
+    expose:
+      - 1984
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    healthcheck:
+      test: echo | telnet 127.0.0.1 25

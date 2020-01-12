@@ -25,7 +25,7 @@ FROM python:3.7-alpine
 COPY --from=base /usr/local/lib/python3.7/site-packages/ /usr/local/lib/python3.7/site-packages/
 COPY --from=base /usr/local/bin/ /usr/local/bin/
 
-RUN apk add --update --no-cache libpq libjpeg-turbo zlib freetype
+RUN apk add --update --no-cache libpq libjpeg-turbo zlib freetype postgresql-client
 WORKDIR /code
 
 ENV PYTHONUNBUFFERED 1
@@ -34,3 +34,5 @@ ENV PYTHONPATH /code:$PYTHONPATH
 EXPOSE 8080
 
 COPY . /code/
+
+CMD ["sh", "/code/scripts/gunicorn_start.sh"]

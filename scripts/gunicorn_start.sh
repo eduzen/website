@@ -1,29 +1,22 @@
 #!/bin/sh
 
-NAME="website"                       # Name of the application
-DJANGODIR=/code/website              # Django project directory
-NUM_WORKERS=3                        # how many worker processes should Gunicorn spawn
-DJANGO_WSGI_MODULE=website.wsgi      # WSGI module name
+# Name of the application
+NAME="website"
+# Django project directory
+DJANGODIR=/code/website
+# how many worker processes should Gunicorn spawn
+NUM_WORKERS=3
+# WSGI module name
+DJANGO_WSGI_MODULE=website.wsgi
 BIND=0.0.0.0:8080
 TIMEOUT=120
+LOG_FORMAT="%(h)s %(l)s %(u)s %(t)s [GUNICORN] \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\""
 
-function postgres_ready(){
-python << END
-import sys
-import psycopg2
-try:
-    conn = psycopg2.connect(dbname="$DB_NAME", user="$DB_USER", password="$DB_PASS", host="$DB_SERVICE")
-except psycopg2.OperationalError:
-    sys.exit(-1)
-sys.exit(0)
-END
-}
-
-until postgres_ready; do
+until pg_isready -h ${DB_SERVICE} -d ${DB_NAME} -U ${DB_USER}; do
   >&2 echo "Postgres is unavailable - sleeping"
-  sleep 1
+  sleep 2
 done
->&2 echo "Postgres is up - continuing..."
+>&2 echo "Postgres is up - continuing...""
 
 echo "### Starting $NAME as `whoami` with $DJANGO_SETTINGS_MODULE"
 
@@ -35,4 +28,5 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --timeout $TIMEOUT \
   --bind=$BIND \
   --log-level=$LOG_LEVEL \
+  --access-logformat="${LOG_FORMAT}" \
   --log-file=-

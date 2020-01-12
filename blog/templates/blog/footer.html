@@ -1,128 +1,128 @@
-{% extends 'blog/navbar.html' %}
-{% load static %}
-{% load solo_tags %}
+{% extends 'blog/navbar.html' %} {% load static %} {% load solo_tags %} {% block footer %} {% get_solo 'config.SiteConfiguration' as site_config %}
 
-
-{% block footer %}
-{% get_solo 'config.SiteConfiguration' as site_config %}
-
-    <footer>
-        <div class="container social">
-            <br>
-            <div class="row side-boxes">
-              <div class="col-md-4">
-                    <h4 class='title-img'>Python</h4>
-                    <a href="http://www.python.org/">
-                        <img src="{% static 'blog/img/python-logo.png' %}" alt="python" class="img-rounded center">
-                    </a>
-              </div>
-              <div class="col-md-4">
-                    <h4 class='title-img'>Python Argentina</h4>
-                    <a href="http://www.python.org.ar/">
-                        <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">
-                    </a>
-              </div>
-              <div class="col-md-4">
-                    <h4 class='title-img'>PyVideo</h4>
-                    <a href="http://pyvideo.org/">
-                        <img src="{% static 'blog/img/pyvideo-logo.png' %}" alt="pyvideo" class="img-rounded center" width="100">
-                    </a>
-              </div>
-
+<footer>
+    <div class="container social">
+        <br>
+        <div class="row side-boxes">
+            <div class="col-md-4">
+                <h4 class='title-img'>Python</h4>
+                <a href="http://www.python.org/">
+                    <img src="{% static 'blog/img/python-logo.png' %}" alt="python" class="img-rounded center">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h4 class='title-img'>Python Argentina</h4>
+                <a href="http://www.python.org.ar/">
+                    <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h4 class='title-img'>PyVideo</h4>
+                <a href="http://pyvideo.org/">
+                    <img src="{% static 'blog/img/pyvideo-logo.png' %}" alt="pyvideo" class="img-rounded center" width="100">
+                </a>
             </div>
 
-            <div class="row">
-              <div class="col-md-4"></div>
-              <div class="col-md-4">
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                       &copy; 2017 <a href="{{ site_config.home }}">Eduardo Enriquez</a>
+                        &copy; 2017 <a href="{{ site_config.home }}">Eduardo Enriquez</a>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
-              </div>
-              <div class="col-md-4"></div>
             </div>
-            <div class="row">
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
 
-              <div class="col-md-4"></div>
-              <div class="col-md-4">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-4">
-                         <a class="btn btn-social-icon btn-linkedin" href="{{ site_config.url_linkedin }}">
-                         <span class="fa fa-linkedin"></span></a>
+                        <a class="btn btn-social-icon btn-linkedin" href="{{ site_config.url_linkedin }}">
+                            <span class="fa fa-linkedin"></span></a>
                     </div>
                     <div class="col-md-4">
-                         <a class="btn btn-social-icon btn-github" href="{{ site_config.url_github }}">
-                         <span class="fa fa-github"></span></a>
+                        <a class="btn btn-social-icon btn-github" href="{{ site_config.url_github }}">
+                            <span class="fa fa-github"></span></a>
                     </div>
                     <div class="col-md-4">
-                         <a class="btn btn-social-icon btn-twitter"
-                         href="https://twitter.com/_eduzen_">
-                         <span class="fa fa-twitter"></span></a>
+                        <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/_eduzen_">
+                            <span class="fa fa-twitter"></span></a>
                     </div>
                 </div>
-              </div>
-              <div class="col-md-4"></div>
             </div>
-
-
+            <div class="col-md-4"></div>
         </div>
-    </footer>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!-- JS PLUGINS -->
-    <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
+    </div>
+</footer>
 
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));</script>
-    <script>window.twttr = (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0],
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="{% static 'blog/js/menu.js' %}"></script>
+<!-- JS PLUGINS -->
+<script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+<script>
+    window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
             t = window.twttr || {};
-          if (d.getElementById(id)) return t;
-          js = d.createElement(s);
-          js.id = id;
-          js.src = "https://platform.twitter.com/widgets.js";
-          fjs.parentNode.insertBefore(js, fjs);
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
 
-          t._e = [];
-          t.ready = function(f) {
+        t._e = [];
+        t.ready = function(f) {
             t._e.push(f);
-          };
+        };
 
-          return t;
-        }(document, "script", "twitter-wjs"));
-    </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99020204-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
+<script>
+    window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
 
-        gtag('js', new Date());
-        gtag('config', 'UA-99020204-2');
-    </script>
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-99020204-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-99020204-2');
+</script>
 
 {% endblock %}
-
