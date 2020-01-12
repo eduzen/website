@@ -171,3 +171,8 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ),
 }
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
+CAPTCHA_LENGTH = 10
+CAPTCHA_TIMEOUT = 1
+CAPTCHA_LETTER_ROTATION = (-45, 45)

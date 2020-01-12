@@ -41,7 +41,6 @@ SERVER_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 ANYMAIL = {
     "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
 }
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 
 sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
 
