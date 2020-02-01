@@ -6,20 +6,21 @@ from .models import Post
 
 
 class StaticViewSitemap(Sitemap):
+    """ Sitemap for improving google indexing """
     priority = 0.5
     changefreq = "daily"
 
     def items(self):
         return ["home", "blog", "about", "clases", "contact"]
 
-    def location(self, item):
-        return reverse(item)
+    def location(self, obj):
+        return reverse(obj)
 
 
-info_dict = {
+INFO_DICT = {
     "queryset": Post.objects.filter(published_date__isnull=False),
     "date_field": "published_date",
 }
 
 
-sitemaps = {"static": StaticViewSitemap, "blog": GenericSitemap(info_dict, priority=0.6)}
+sitemaps = {"static": StaticViewSitemap, "blog": GenericSitemap(INFO_DICT, priority=0.6)}
