@@ -15,7 +15,7 @@ from .base import show_toolbar
 from .base import *  # NOQA
 
 
-DEBUG = bool(os.environ.get("DEBUG"))
+DEBUG = os.getenv("DEBUG", False) in ("True", "true", "on")
 ALLOWED_HOSTS = ["*"]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SECRET_KEY = os.environ.get("SECRET_KEY")
