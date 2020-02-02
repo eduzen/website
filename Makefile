@@ -12,8 +12,8 @@ violet=`tput setaf 5`
 lightblue=`tput setaf 6`
 reset=`tput sgr0`
 
-DCO=${green}docker-compose${yellow}
-RUNDJANGO=${DOC} run --rm ${lightblue}django
+DCO=docker-compose
+RUNDJANGO=$(DOC) run --rm django
 UP=${DCO} up${lightblue}
 EXEC=docker-compose exec
 DJMANAGE=$(RUNDJANGO) python manage.py
@@ -64,7 +64,7 @@ pep8:
 test: pep8 only_test
 
 dockershell:
-	$(RUNDJANGO) ash
+	docker-compose run --rm django  ash
 
 showmigrations:
 	$(DJMANAGE) showmigrations

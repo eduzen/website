@@ -10,13 +10,9 @@ NUM_WORKERS=3
 DJANGO_WSGI_MODULE=website.wsgi
 BIND=0.0.0.0:8080
 TIMEOUT=120
-LOG_FORMAT="%(h)s %(l)s %(u)s %(t)s [GUNICORN] \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\""
+LOG_FORMAT="[GUNICORN] %(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\""
 
-until pg_isready -h ${DB_SERVICE} -d ${DB_NAME} -U ${DB_USER}; do
-  >&2 echo "Postgres is unavailable - sleeping"
-  sleep 2
-done
->&2 echo "Postgres is up - continuing...""
+sh /code/scripts/wait_for_db.sh
 
 echo "### Starting $NAME as `whoami` with $DJANGO_SETTINGS_MODULE"
 
