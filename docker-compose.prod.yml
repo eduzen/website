@@ -33,7 +33,7 @@ services:
       - ./website/media:/usr/share/nginx/html:ro
 
   django:
-    build: .
+    image: eduzen/eduzen:latest
     command: sh ./scripts/gunicorn_start.sh
     restart: always
     volumes:
