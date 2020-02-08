@@ -13,7 +13,7 @@ lightblue=`tput setaf 6`
 reset=`tput sgr0`
 
 DCO=docker-compose
-RUNDJANGO=$(DOC) run --rm django
+RUNDJANGO=${DCO} run --rm django
 UP=${DCO} up${lightblue}
 EXEC=docker-compose exec
 DJMANAGE=$(RUNDJANGO) python manage.py
@@ -39,9 +39,6 @@ psql:
 
 dbshell:
 	$(DJMANAGE) dbshell
-
-load-dump:
-	docker-compose exec postgres sh psql -U postgres < /docker-entrypoint-initdb.d/dump.sql
 
 collectstatic:
 	docker-compose exec django python manage.py collectstatic --no-input --settings=${DJANGO_SETTINGS_MODULE}
