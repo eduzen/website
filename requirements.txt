@@ -24,7 +24,6 @@ djangorestframework==3.10.3
 enum34==1.1.6
 fancycompleter==0.8
 future==0.16.0
-gunicorn==19.9.0
 idna==2.5
 ipaddress==1.0.18
 ipython==7.9.0
@@ -54,7 +53,7 @@ pytz==2019.1
 requests-oauthlib==1.2.0
 requests==2.21.0
 scandir==1.5
-sentry-sdk==0.13.1
+sentry-sdk~=0.14
 simplegeneric==0.8.1
 simplejson==3.16.0
 six==1.11.0

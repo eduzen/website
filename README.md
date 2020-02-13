@@ -15,14 +15,13 @@ cp .env.sample .env
 
 ```
 
-
-2. Then you need to create migration, migrate, create superuser and run the app.
+2. Run
 
 ```bash
-python manage.py makemigration --settings=website.settings-local
-python manage.py migrate --settings=website.settings-local
-python manage.py createsuperuser --settings=website.settings-local
+make start
 
-python manage.py runserver --settings=website.settings-local
+make logs
+
+make migrate
 ```
 
