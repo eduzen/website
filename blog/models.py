@@ -24,7 +24,7 @@ class PostQuerySet(models.QuerySet):
         return self.filter(published_date__isnull=False).prefetch_related("tags")
 
     def count_tags(self):
-        return self.published().values("tags__word").annotate(total=Count('tags__slug'))
+        return self.published().values("tags__slug").annotate(total=Count('tags__slug')).order_by("-total")
 
 
 class Post(models.Model):
@@ -80,7 +80,7 @@ class Post(models.Model):
             pass
 
     def __str__(self):
-        return self.title
+        return self.slug
 
     class Meta:
         verbose_name = "post"

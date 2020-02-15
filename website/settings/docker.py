@@ -44,6 +44,8 @@ ANYMAIL = {
 }
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "WARN").upper()
+SHELL_PLUS_PRINT_SQL = True
+SHELL_PLUS_PRINT_SQL_TRUNCATE = None
 
 LOGGING = {
     'version': 1,

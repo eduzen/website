@@ -11,7 +11,6 @@ from .forms import EmailForm, SearchForm, AdvanceSearchForm
 
 logger = logging.getLogger(__name__)
 
-
 class AboutView(TemplateView):
     template_name = "blog/about.html"
 
@@ -60,44 +59,18 @@ class PostListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        query_set = super(PostListView, self).get_queryset()
+        queryset = super(PostListView, self).get_queryset()
         query = self.request.GET.get("q")
         if not query:
-            return query_set
+            return queryset
 
-        return query_set.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
-
-    def _count_tags(self, slug, word, tags) -> None:
-        if slug not in tags:
-            tags[slug]["word"] = word
-            tags[slug]["size"] = 1
-            return
-
-        if tags[slug]["size"] < 12:
-            tags[slug]["size"] += 1
-
-    def _parse_post_tags(self, post, tags) -> None:
-        for tag in post.tags.all():
-            self._count_tags(tag.slug, tag.word, tags)
+        return queryset.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
+        context["search_form"] = SearchForm()
         context["tags"] = Post.objects.count_tags()
-
-        query = self.request.GET.get("q")
-        if not query:
-            return context
-
-        posts = context.get('posts')
-        if not posts:
-            return context
-
-        tags = defaultdict(dict)
-        for post in posts:
-            self._parse_post_tags(post, tags)
-
-        search_form = SearchForm()
-        context.update({"tags": dict(tags), "search_form": search_form, "tag": query})
+        context['tag'] = self.request.GET.get("q", "")
         return context
 
     def render_to_response(self, context):

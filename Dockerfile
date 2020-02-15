@@ -14,6 +14,7 @@ RUN apk add --update --no-cache --virtual .build-deps \
     musl-dev \
     libpq \
     pcre-dev \
+    && pip install -U pip \
     && pip install --no-cache-dir -r requirements_dev.txt \
     && find /usr/local \
         \( -type d -a -name test -o -name tests \) \

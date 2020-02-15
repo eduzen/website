@@ -62,17 +62,17 @@
 
             <!-- TAGS LIST -->
             <div class="col-xs-4">
-                <h2>Tags</h2>
+                <h3>Tags</h3>
                 <hr/>
                 <div class="tag-cloud">
                     <ul class="tags">
-                        {% for count_tag in tags %}
-                            <li class="tag-item">
-                                <a href="/tags/{{ count_tag.tags__word }}" class="size-{{ count_tag.total }}">
-                                    {{ count_tag.tags__word }}
-                                </a>
-                            </li>
-                        {% endfor %}
+                        {% for tag in tags %}
+                        <li class="tag-item">
+                          <a href="/tags/{{ tag.tags__slug }}" class="size-{% if tag.total > 10 %}10{% else %}{{tag.total}}{% endif %}">
+                            {{ tag.tags__slug }}
+                          </a>
+                        </li>
+                      {% endfor %}
                     </ul>
                 </div>
                 {% if tag == 'python' %}
