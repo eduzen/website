@@ -34,13 +34,13 @@ services:
 
   django:
     image: eduzen/eduzen:latest
-    command: sh ./scripts/gunicorn_start.sh
     restart: always
     volumes:
       - .:/code
     expose:
       - "8080"
     environment:
+      - VIRTUAL_PROTO=uwsgi
       - VIRTUAL_HOST=${VIRTUAL_HOSTS}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
