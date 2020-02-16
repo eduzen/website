@@ -62,7 +62,8 @@ h4.title-img {
 }
 
 h2.post_detail_title {
-    font-size: x-large;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: xx-large;
     text-align: left;
 }
 div.post_detail {
@@ -111,19 +112,19 @@ div.menu {
     padding-left: 0px;
 }
 
-.size-1 { font-size: .7em }
-.size-2 { font-size: .75em }
-.size-3 { font-size: .77em }
-.size-4 { font-size: .8em }
-.size-5 { font-size: .9em }
-.size-6 { font-size: 1.0em }
-.size-7 { font-size: 1.1em }
-.size-8 { font-size: 1.2em }
-.size-9 { font-size: 1.3em }
-.size-10 { font-size: 1.4em }
-.size-11 { font-size: 1.5em }
-.size-12 { font-size: 1.6em }
-.size-13 { font-size: 1.7em }
+.size-1 { font-size: 1em }
+.size-2 { font-size: 1.2em }
+.size-3 { font-size: 1.25em }
+.size-4 { font-size: 1.3em }
+.size-5 { font-size: 1.35em }
+.size-6 { font-size: 1.4em }
+.size-7 { font-size: 1.45em }
+.size-8 { font-size: 1.5em }
+.size-9 { font-size: 1.55em }
+.size-10 { font-size: 1.6em }
+.size-11 { font-size: 1.65em }
+.size-12 { font-size: 1.7em }
+.size-13 { font-size: 1.75em }
 .size-14 { font-size: 1.8em }
 .size-15 { font-size: 1.9em }
 .size-16 { font-size: 2em }
@@ -141,4 +142,10 @@ div.menu {
   max-width: 130%;
   margin-left: -25px;
   margin-top: 15px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

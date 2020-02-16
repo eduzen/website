@@ -13,9 +13,18 @@
             <h2>{{ contac_config.title }}</h2>
             <h3>{{ contac_config.subtitle }}</h3>
             {% autoescape off %}
-                {{ contac_config.short }}
-                {{ contac_config.long }}
-                {{ contac_config.body }}
+                {% if contact_config.short %}
+                    <h2>Short</h2>
+                    {{ contac_config.short }}
+                {% endif %}
+                {% if contact_config.long %}
+                    <h2>Long</h2>
+                    {{ contac_config.long }}
+                {% endif %}
+                {% if contact_config.body %}
+                    <h2>Super long</h2>
+                    {{ contac_config.body }}
+                {% endif %}
             {% endautoescape %}
             {% if form %}
                 {% csrf_token %}

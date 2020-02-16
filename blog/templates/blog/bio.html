@@ -9,11 +9,24 @@
 
     <div class="row">
         <div class="col-md-8">
+            {% if bio_config.title %}
                 <h2>{{ bio_config.title }}</h2>
+            {% endif %}
                 <h3>{{ bio_config.subtitle }}</h3>
                 {% autoescape off %}
+                {% if bio_config.short %}
+                    <h2>Short</h2>
+                    {{ bio_config.short }}
+                {% endif %}
+                {% if bio_config.long %}
+                    <h2>Long</h2>
+                    {{ bio_config.long }}
+                {% endif %}
+                {% if bio_config.body %}
+                    <h2>Super long</h2>
                     {{ bio_config.body }}
-                {% endautoescape %}
+                {% endif %}
+            {% endautoescape %}
 
         </div>
         <div class="col-md-4">

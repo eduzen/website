@@ -8,11 +8,15 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class BioConfiguration(SingletonModel):
     title = models.CharField(max_length=255, default="Quién les escribe")
     subtitle = models.CharField(max_length=255, blank=True)
-    body = RichTextUploadingField(null=True, blank=True)
     small = RichTextUploadingField(null=True, blank=True)
     long = RichTextUploadingField(null=True, blank=True)
+    body = RichTextUploadingField(null=True, blank=True)
+    bio_pic = models.ImageField(null=True, upload_to="bio-pic/%Y/%m/%d", )
+    pic_0 = models.ImageField(blank=True, upload_to="bio-pic/%Y/%m/%d", )
+    pic_1 = models.ImageField(blank=True, upload_to="bio-pic/%Y/%m/%d", )
+    pic_2 = models.ImageField(blank=True, upload_to="bio-pic/%Y/%m/%d", )
 
-    def __unicode__(self):
+    def __str__(self):
         return "Pagina de Bio/About"
 
     class Meta:
@@ -24,7 +28,7 @@ class ContactConfiguration(SingletonModel):
     subtitle = models.CharField(max_length=255, blank=True)
     body = RichTextUploadingField(null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return "Contact config"
 
     class Meta:
@@ -40,7 +44,7 @@ class SiteConfiguration(SingletonModel):
     url_github = models.URLField(max_length=500, default="github")
     url_twitter = models.URLField(max_length=500, default="twitter")
 
-    def __unicode__(self):
+    def __str__(self):
         return "Site Configuration"
 
     class Meta:
@@ -63,7 +67,7 @@ class TwitterConfiguration(SingletonModel):
         }
         return response
 
-    def __unicode__(self):
+    def __str__(self):
         return "Twitter api Configuration"
 
     class Meta:

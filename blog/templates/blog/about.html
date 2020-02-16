@@ -9,11 +9,45 @@
 
     <div class="row">
         <div class="col-md-8">
-                <h2>{{ bio_config.title }}</h2>
-                <h3>{{ bio_config.subtitle }}</h3>
+            <div class="row">
+                <div class="col-xs-6 col-md-8 col-lg-5 vcenter">
+                    {% if bio_config.bio_pic %}
+                    <img class='img-thumbnail' src="{{ bio_config.bio_pic.url }}" alt="eduzen">
+                    {% endif %}
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-5 vcenter">
+                    {% if bio_config.title %}
+                        <h2 class="vcenter text-info">{{ bio_config.title }}</h2>
+                        <h3 class="vcenter text-muted">
+                            <p>{% autoescape off %}{{ bio_config.subtitle }}{% endautoescape %}</p>
+                        </h3>
+                    {% endif %}
+                </div>
+            </div>
+
                 {% autoescape off %}
+                {% if bio_config.small %}
+                    <h2 class="text-primary">Short</h2>
+                    {{ bio_config.small }}
+                {% endif %}
+                {% if bio_config.pic_0 %}
+                    <img class='img-thumbnail' src="{{ bio_config.pic_0.url }}" alt="eduzen">
+                {% endif %}
+                {% if bio_config.long %}
+                    <h2 class="text-warning">Long</h2>
+                    {{ bio_config.long }}
+                {% endif %}
+                {% if bio_config.pic_1 %}
+                    <img class='img-thumbnail' src="{{ bio_config.pic_1.url }}" alt="eduzen">
+                {% endif %}
+                {% if bio_config.body %}
+                    <h2 class="text-success">Super long</h2>
                     {{ bio_config.body }}
+                {% endif %}
                 {% endautoescape %}
+                {% if bio_config.pic_2 %}
+                    <img class='img-thumbnail' src="{{ bio_config.pic_2.url }}" alt="eduzen">
+                {% endif %}
 
         </div>
         <div class="col-md-4">
