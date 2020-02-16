@@ -62,12 +62,6 @@ LOGGING = {
     },
     "handlers": {
         "console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"},
-        'file': {
-            'level': LOG_LEVEL,
-            'class': 'logging.FileHandler',
-            'filename': 'mysite.log',
-            'formatter': 'verbose',
-        },
     },
     "loggers": {
         "*": {

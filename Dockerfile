@@ -24,7 +24,7 @@ RUN apk add --update --no-cache --virtual .build-deps \
 # Now multistage
 FROM python:3.7-alpine
 
-RUN addgroup -S uwsgi && adduser -S uwsgi -G uwsgi
+# RUN addgroup -S uwsgi && adduser -S uwsgi -G uwsgi
 
 COPY --from=base /usr/local/lib/python3.7/site-packages/ /usr/local/lib/python3.7/site-packages/
 COPY --from=base /usr/local/bin/ /usr/local/bin/
@@ -36,7 +36,7 @@ ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONPATH /code:$PYTHONPATH
 EXPOSE 8080
-USER uwsgi
+# USER uwsgi
 
 COPY . /code/
 
