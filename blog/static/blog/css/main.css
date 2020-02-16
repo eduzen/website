@@ -1,4 +1,5 @@
 body {
+  font-family: 'Roboto Mono', monospace;
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -12,6 +13,7 @@ p {
 }
 
 .navbar {
+  font-size: 1em;
   margin-bottom: 20px;
 }
 
@@ -60,7 +62,8 @@ h4.title-img {
 }
 
 h2.post_detail_title {
-    font-size: 30px;
+    font-size: x-large;
+    text-align: left;
 }
 div.post_detail {
     background-color: gainsboro;
@@ -92,6 +95,7 @@ li.grey {
 }
 
 div.menu {
+    font-size: medium;
     padding: 0px;
 }
 
@@ -107,16 +111,22 @@ div.menu {
     padding-left: 0px;
 }
 
-.size-1 { font-size: 1.1em }
-.size-2 { font-size: 1.2em }
-.size-3 { font-size: 1.3em }
-.size-4 { font-size: 1.4em }
-.size-5 { font-size: 1.5em }
-.size-6 { font-size: 1.6em }
-.size-7 { font-size: 1.7em }
-.size-8 { font-size: 1.8em }
-.size-9 { font-size: 1.9em }
-.size-10 { font-size: 2em }
+.size-1 { font-size: .7em }
+.size-2 { font-size: .75em }
+.size-3 { font-size: .77em }
+.size-4 { font-size: .8em }
+.size-5 { font-size: .9em }
+.size-6 { font-size: 1.0em }
+.size-7 { font-size: 1.1em }
+.size-8 { font-size: 1.2em }
+.size-9 { font-size: 1.3em }
+.size-10 { font-size: 1.4em }
+.size-11 { font-size: 1.5em }
+.size-12 { font-size: 1.6em }
+.size-13 { font-size: 1.7em }
+.size-14 { font-size: 1.8em }
+.size-15 { font-size: 1.9em }
+.size-16 { font-size: 2em }
 
 .clase{
     padding-left: 10px;

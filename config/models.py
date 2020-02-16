@@ -9,6 +9,8 @@ class BioConfiguration(SingletonModel):
     title = models.CharField(max_length=255, default="Quién les escribe")
     subtitle = models.CharField(max_length=255, blank=True)
     body = RichTextUploadingField(null=True, blank=True)
+    small = RichTextUploadingField(null=True, blank=True)
+    long = RichTextUploadingField(null=True, blank=True)
 
     def __unicode__(self):
         return "Pagina de Bio/About"

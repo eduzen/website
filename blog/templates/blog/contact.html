@@ -13,6 +13,8 @@
             <h2>{{ contac_config.title }}</h2>
             <h3>{{ contac_config.subtitle }}</h3>
             {% autoescape off %}
+                {{ contac_config.short }}
+                {{ contac_config.long }}
                 {{ contac_config.body }}
             {% endautoescape %}
             {% if form %}
