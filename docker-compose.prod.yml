@@ -34,6 +34,7 @@ services:
 
   django:
     image: eduzen/eduzen:latest
+    command: sh ./scripts/gunicorn_start.sh
     restart: always
     volumes:
       - .:/code
@@ -73,10 +74,3 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - DB_NAME=${DB_NAME}
-
-  watchtower:
-    image: v2tec/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /home/eduzen/.docker/config.json:/config.json
-    command: --interval 300

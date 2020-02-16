@@ -68,3 +68,4 @@ wcwidth==0.1.7
 werkzeug~=1.0
 wmctrl==0.3
 yahoo-finance==1.4.0
+gunicorn
