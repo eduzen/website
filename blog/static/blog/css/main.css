@@ -149,3 +149,19 @@ div.menu {
     vertical-align: middle;
     float: none;
 }
+
+.linkedin {
+    color: #355a82;
+}
+.github{
+    color: #355a82;
+}
+.twitter{
+    color: #337ab7;
+}
+.instagram{
+    color: #337ab7;
+}
+.email{
+    color: #355a82;
+}
