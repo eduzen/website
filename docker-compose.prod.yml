@@ -39,8 +39,8 @@ services:
       - .:/code
     expose:
       - "8000"
-    env_files:
-        - .env
+    env_file:
+      - .env
     links:
       - postgres
     depends_on:
