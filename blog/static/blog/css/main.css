@@ -65,7 +65,15 @@ h2.post_detail_title {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: xx-large;
     text-align: left;
+    margin-left: 12px;
 }
+
+h2.post_detail_title_alone {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: xx-large;
+    text-align: left;
+}
+
 div.post_detail {
     background-color: gainsboro;
 }
