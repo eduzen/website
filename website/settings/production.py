@@ -44,6 +44,11 @@ ANYMAIL = {
 
 sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
 
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_OAUTH2_TOKEN")
+DROPBOX_ROOT_PATH = os.getenv("DROPBOX_ROOT_PATH")
+DROPBOX_TIMEOUT = os.getenv("DROPBOX_TIMEOUT")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

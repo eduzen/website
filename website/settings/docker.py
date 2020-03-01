@@ -46,19 +46,3 @@ ANYMAIL = {
 LOG_LEVEL = os.getenv("LOG_LEVEL", "WARN").upper()
 SHELL_PLUS_PRINT_SQL = True
 SHELL_PLUS_PRINT_SQL_TRUNCATE = None
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} [{asctime}] [{name}.{funcName}:{lineno}]: {message}',
-            'datefmt': "%d/%b/%Y %H:%M:%S",
-            'style': '{',
-        }
-    },
-    'handlers': {'console': {'class': 'logging.StreamHandler', 'formatter': 'verbose'}},
-    'loggers': {
-        '': {'handlers': ['console'], 'level': 'DEBUG'}  # 'catch all' loggers by referencing it with the empty string
-    },
-}
