@@ -143,7 +143,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, "assets")]
 
 CKEDITOR_JQUERY_URL = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min."
-CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_UPLOAD_PATH = "/"
 CKEDITOR_CONFIGS = {
     "awesome_ckeditor": {"toolbar": "full"},
     "default": {

@@ -35,6 +35,8 @@ DATABASES = {
     }
 }
 
+INSTALLED_APPS += ( 'storages', )
+
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 SERVER_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
@@ -47,7 +49,7 @@ sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegratio
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_OAUTH2_TOKEN")
 DROPBOX_ROOT_PATH = os.getenv("DROPBOX_ROOT_PATH")
-DROPBOX_TIMEOUT = os.getenv("DROPBOX_TIMEOUT")
+DROPBOX_TIMEOUT = int(os.getenv("DROPBOX_TIMEOUT"))
 
 LOGGING = {
     "version": 1,

@@ -39,6 +39,8 @@ services:
       - .:/code
     expose:
       - 80
+    env_file:
+      - "./.env"
     environment:
       - VIRTUAL_PROTO=${VIRTUAL_PROTO}
       - VIRTUAL_HOST=${VIRTUAL_HOSTS}
