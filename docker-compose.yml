@@ -4,7 +4,7 @@ volumes:
   pgdata:
 
 services:
-  django:
+  web:
     build: .
     command: sh scripts/runserver.sh
     volumes:
@@ -16,11 +16,11 @@ services:
     env_file:
       - .env
     links:
-      - postgres
+      - db
     depends_on:
-      - postgres
+      - db
 
-  postgres:
+  db:
     image: postgres:12-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data/
