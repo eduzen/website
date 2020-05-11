@@ -1,7 +1,6 @@
 from rest_framework import routers
 
-from .views import ExpenseViewSet, CategoryViewSet
-
+from .views import CategoryViewSet, ExpenseViewSet
 
 router = routers.DefaultRouter()
 router.register(r"expense", ExpenseViewSet)

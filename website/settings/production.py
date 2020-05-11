@@ -9,13 +9,12 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
 import os
-import sentry_sdk
 
-from .base import *  # NOQA
+import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+from .base import *  # NOQA
 
 DEBUG = False
 LOG_LEVEL = os.getenv("LOG_LEVEL", "WARN").upper()
@@ -35,18 +34,16 @@ DATABASES = {
     }
 }
 
-INSTALLED_APPS += ( 'storages', )
+INSTALLED_APPS += ("storages",)  # NOQA
 
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 SERVER_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-ANYMAIL = {
-    "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
-}
+ANYMAIL = {"MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY")}
 
 sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
 
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropBoxStorage"
 DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_OAUTH2_TOKEN")
 DROPBOX_ROOT_PATH = os.getenv("DROPBOX_ROOT_PATH")
 DROPBOX_TIMEOUT = int(os.getenv("DROPBOX_TIMEOUT"))
@@ -56,30 +53,17 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "default": {
-            "format": (
-                "[DJANGO] %(levelname)s %(asctime)s %(module)s "
-                "%(name)s.%(funcName)s:%(lineno)s: %(message)s"
-            )
+            "format": ("[DJANGO] %(levelname)s %(asctime)s %(module)s " "%(name)s.%(funcName)s:%(lineno)s: %(message)s")
         },
-        'verbose': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S",
+        "verbose": {
+            "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
         },
-        'simple': {'format': '%(levelname)s %(message)s'},
+        "simple": {"format": "%(levelname)s %(message)s"},
     },
-    "handlers": {
-        "console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"},
-    },
+    "handlers": {"console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"}},
     "loggers": {
-        "*": {
-            "handlers": ["console"],
-            "level": LOG_LEVEL,
-            "propagate": True,
-        },
-        'django': {
-            'handlers': ['console'],
-            'propagate': False,
-            'level': LOG_LEVEL,
-        },
+        "*": {"handlers": ["console"], "level": LOG_LEVEL, "propagate": True},
+        "django": {"handlers": ["console"], "propagate": False, "level": LOG_LEVEL},
     },
 }

@@ -1,7 +1,8 @@
-import pytest
 from datetime import datetime
 
+import pytest
 from django.contrib.auth.models import User
+
 from blog.tests.factories.post import PostFactory
 
 

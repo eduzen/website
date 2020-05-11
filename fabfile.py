@@ -1,9 +1,6 @@
 from contextlib import contextmanager
 
-from fabric.api import run
-from fabric.api import sudo
-from fabric.api import hosts
-from fabric.api import prefix
+from fabric.api import hosts, prefix, run, sudo
 from fabric.context_managers import cd
 
 
@@ -42,7 +39,7 @@ def source_virtualenv():
 
 
 def purge_pyc():
-    sudo("find . -name \*.pyc -delete")  # NOQA
+    sudo(r"find . -name \*.pyc -delete")  # NOQA
 
 
 @hosts(["eduzen.com.ar"])

@@ -1,8 +1,7 @@
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import permissions, viewsets
 
-from .serializers import ExpenseSerializer, CategorySerializer
-from .models import Expense, Category
+from .models import Category, Expense
+from .serializers import CategorySerializer, ExpenseSerializer
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):

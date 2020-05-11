@@ -14,15 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.urls import path, include
-
 from django.conf.urls.static import static
 from django.contrib import admin
-
+from django.urls import include, path
 from rest_framework.documentation import include_docs_urls
 
-from .views import favicon_view, MediaView, StaticView
-
+from .views import MediaView, StaticView, favicon_view
 
 urlpatterns = [
     path("api/", include("api.urls")),
@@ -36,12 +33,13 @@ urlpatterns = [
     path("telegram/", include("expenses.urls")),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("docs/", include_docs_urls(title="My eduzen API title")),
-    path('captcha/', include('captcha.urls')),
+    path("captcha/", include("captcha.urls")),
     path("", include("blog.urls")),
 ]
 
 if settings.DEBUG:
     import debug_toolbar  # NOQA
-    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))] + static(
+
+    urlpatterns += [path("__debug__/", include(debug_toolbar.urls))] + static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )

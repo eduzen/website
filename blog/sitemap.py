@@ -1,5 +1,4 @@
-from django.contrib.sitemaps import Sitemap
-from django.contrib.sitemaps import GenericSitemap
+from django.contrib.sitemaps import GenericSitemap, Sitemap
 from django.urls import reverse
 
 from .models import Post
@@ -7,6 +6,7 @@ from .models import Post
 
 class StaticViewSitemap(Sitemap):
     """ Sitemap for improving google indexing """
+
     priority = 0.5
     changefreq = "daily"
 
@@ -17,10 +17,7 @@ class StaticViewSitemap(Sitemap):
         return reverse(obj)
 
 
-INFO_DICT = {
-    "queryset": Post.objects.filter(published_date__isnull=False),
-    "date_field": "published_date",
-}
+INFO_DICT = {"queryset": Post.objects.filter(published_date__isnull=False), "date_field": "published_date"}
 
 
 sitemaps = {"static": StaticViewSitemap, "blog": GenericSitemap(INFO_DICT, priority=0.6)}

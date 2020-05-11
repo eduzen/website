@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from .models import Expense
-from .models import Category
+from .models import Category, Expense
 
 
 class ExpenseSerializer(serializers.ModelSerializer):

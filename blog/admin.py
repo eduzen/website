@@ -1,12 +1,8 @@
 from django.contrib import admin
-from django.forms import TextInput, ModelForm
 from django.db import models
+from django.forms import TextInput
 
-from .models import Post
-from .models import Comment
-from .models import Tag
-from .models import CustomPage
-from .models import DolarPeso
+from .models import Comment, CustomPage, DolarPeso, Post, Tag
 
 
 @admin.register(Post)
@@ -22,10 +18,10 @@ class PostAdmin(admin.ModelAdmin):
     filter_horizontal = ("tags",)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('tags')
+        return super().get_queryset(request).prefetch_related("tags")
 
     def tag_list(self, obj):
-        return u", ".join(o.word for o in obj.tags.all())
+        return ", ".join(o.word for o in obj.tags.all())
 
 
 @admin.register(Comment)
@@ -38,31 +34,31 @@ class CommentAdmin(admin.ModelAdmin):
 @admin.register(DolarPeso)
 class DolarPesoAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
-        'balance_currency',
-        'balance',
-        'name',
-        'bid_currency',
-        'bid',
-        'ask_currency',
-        'ask',
-        'rate_currency',
-        'rate',
-        'created_date',
+        "id",
+        "balance_currency",
+        "balance",
+        "name",
+        "bid_currency",
+        "bid",
+        "ask_currency",
+        "ask",
+        "rate_currency",
+        "rate",
+        "created_date",
     )
-    list_filter = ('created_date',)
-    search_fields = ('name',)
+    list_filter = ("created_date",)
+    search_fields = ("name",)
 
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('id', 'word', 'slug')
-    search_fields = ('slug',)
+    list_display = ("id", "word", "slug")
+    search_fields = ("slug",)
 
 
 @admin.register(CustomPage)
 class CustomPageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'slug', 'include_header', 'include_footer', 'include_contact_form', 'content')
-    list_filter = ('include_header', 'include_footer', 'include_contact_form')
-    search_fields = ('name', 'slug')
-    prepopulated_fields = {'slug': ['name']}
+    list_display = ("id", "name", "slug", "include_header", "include_footer", "include_contact_form", "content")
+    list_filter = ("include_header", "include_footer", "include_contact_form")
+    search_fields = ("name", "slug")
+    prepopulated_fields = {"slug": ["name"]}

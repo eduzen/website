@@ -1,10 +1,8 @@
 """ Serializers for api app """
-from django.contrib.auth.models import User, Group
-
+from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 
-from blog.models import Post
-from blog.models import Tag
+from blog.models import Post, Tag
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -14,16 +12,7 @@ class PostSerializer(serializers.ModelSerializer):
         """Meta class to map serializer's fields with the model fields."""
 
         model = Post
-        fields = (
-            "author",
-            "title",
-            "pompadour",
-            "tags",
-            "text",
-            "slug",
-            "created_date",
-            "published_date",
-        )
+        fields = ("author", "title", "pompadour", "tags", "text", "slug", "created_date", "published_date")
 
 
 class TagSerializer(serializers.ModelSerializer):

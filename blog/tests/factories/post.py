@@ -19,6 +19,6 @@ class PostFactory(factory.Factory):
         model = Post
 
     author = factory.SubFactory(UserFactory)
-    title = factory.Faker('sentence', nb_words=4)
+    title = factory.Faker("sentence", nb_words=4)
     pompadour = factory.Faker("sentence")
     text = factory.Faker("text")

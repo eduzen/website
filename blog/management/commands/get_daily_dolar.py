@@ -1,7 +1,7 @@
-from datetime import datetime, timedelta, time
-from yahoo_finance import Currency
+from datetime import datetime, time, timedelta
 
 from django.core.management.base import BaseCommand
+from yahoo_finance import Currency
 
 from blog.models import DolarPeso
 
@@ -16,9 +16,7 @@ class Command(BaseCommand):
         today_start = datetime.combine(today, time())
         today_end = datetime.combine(tomorrow, time())
 
-        current_peso = DolarPeso.objects.filter(
-            created_date__lte=today_end, created_date__gte=today_start
-        )
+        current_peso = DolarPeso.objects.filter(created_date__lte=today_end, created_date__gte=today_start)
         if not current_peso.exists():
             currency = Currency("ARS")
             end_date = currency.data_set.get("DateTimeUTC")

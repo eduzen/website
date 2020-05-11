@@ -1,12 +1,12 @@
 import logging
-from django import forms
-from django.core.mail import send_mail
-from django.conf import settings
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout
-from crispy_forms.bootstrap import AppendedText
-from captcha.fields import CaptchaField
 
+from captcha.fields import CaptchaField
+from crispy_forms.bootstrap import AppendedText
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit
+from django import forms
+from django.conf import settings
+from django.core.mail import send_mail
 
 from .models import Comment
 
@@ -23,7 +23,7 @@ class EmailForm(forms.Form):
         data = {}
         data["subject"] = f"{self.data['subject']} Nuevo contacto a traves de la eduzen.com.ar"
         data["recipient_list"] = ["eduardo.a.enriquez@gmail.com"]
-        data["message"] = self.data['message']
+        data["message"] = self.data["message"]
         data["html_message"] = (
             f"<html><body><p>eduzen.com.ar<p><hr/><p>{self.data['subject']} - {self.data['from_email']}</p>"
             f"<hr/><p>{self.data['message']}</p></body></html>"
@@ -37,7 +37,7 @@ class EmailForm(forms.Form):
         logger.info(f"{data} sent to me")
 
     def __init__(self, *args, **kwargs):
-        super(EmailForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit("submit", "Enviar", css_class="btn-block", style=""))
         self.helper.form_tag = True
@@ -51,7 +51,7 @@ class CommentForm(forms.ModelForm):
     captcha = CaptchaField()
 
     def __init__(self, *args, **kwargs):
-        super(CommentForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit("submit", "Enviar", css_class="btn-block", style=""))
         self.helper.form_tag = True
@@ -65,7 +65,7 @@ class SearchForm(forms.Form):
     q = forms.CharField(label="", max_length=100, required=True)
 
     def __init__(self, *args, **kwargs):
-        super(SearchForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = "navbar-form"
         self.helper.form_tag = True
@@ -88,7 +88,7 @@ class AdvanceSearchForm(forms.Form):
     captcha = CaptchaField()
 
     def __init__(self, *args, **kwargs):
-        super(AdvanceSearchForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = True
         self.helper.layout = Layout(

@@ -66,12 +66,7 @@ THIRD_PARTY_APPS = [
 ]
 
 # Application definition
-APPS = [
-    "config",
-    "blog",
-    "api",
-    "expenses",
-]
+APPS = ["config", "blog", "api", "expenses"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + APPS
 
@@ -172,7 +167,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
+CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.random_char_challenge"
 CAPTCHA_LENGTH = 10
 CAPTCHA_TIMEOUT = 1
 CAPTCHA_LETTER_ROTATION = (-45, 45)

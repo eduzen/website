@@ -1,15 +1,15 @@
 import logging
-from collections import defaultdict
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+
 from django.contrib.postgres.search import SearchVector
-from django.views.generic.dates import (
-    MonthArchiveView, WeekArchiveView, DayArchiveView, ArchiveIndexView
-)
-from django.views.generic import ListView, TemplateView, FormView
-from .models import Post, CustomPage
-from .forms import EmailForm, SearchForm, AdvanceSearchForm
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
+from django.views.generic import FormView, ListView, TemplateView
+from django.views.generic.dates import ArchiveIndexView, DayArchiveView, MonthArchiveView, WeekArchiveView
+
+from .forms import AdvanceSearchForm, EmailForm, SearchForm
+from .models import CustomPage, Post
 
 logger = logging.getLogger(__name__)
+
 
 class AboutView(TemplateView):
     template_name = "blog/about.html"
@@ -34,7 +34,7 @@ class ErrorView(TemplateView):
 class AdvanceSearch(FormView):
     template_name = "blog/advance_search.html"
     form_class = AdvanceSearchForm
-    success_url = '/sucess/'
+    success_url = "/sucess/"
 
 
 class HomeListView(ListView):
@@ -59,7 +59,7 @@ class PostListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        queryset = super(PostListView, self).get_queryset()
+        queryset = super().get_queryset()
         query = self.request.GET.get("q")
         if not query:
             return queryset
@@ -70,15 +70,15 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         context["search_form"] = SearchForm()
         context["tags"] = Post.objects.count_tags()
-        context['tag'] = self.request.GET.get("q", "")
+        context["tag"] = self.request.GET.get("q", "")
         return context
 
     def render_to_response(self, context):
-        posts = context.get('posts')
+        posts = context.get("posts")
         if not posts:
-            return redirect('search')
+            return redirect("search")
 
-        return super(PostListView, self).render_to_response(context)
+        return super().render_to_response(context)
 
 
 class PostTagsList(ListView):
@@ -135,7 +135,7 @@ def custom_page(request, slug):
 class ContactView(FormView):
     template_name = "blog/contact.html"
     form_class = EmailForm
-    success_url = '/sucess/'
+    success_url = "/sucess/"
 
     def form_valid(self, form):
         try:

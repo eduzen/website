@@ -1,8 +1,9 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group, User
 from rest_framework import viewsets
 
 from blog.models import Post, Tag
-from .serializers import PostSerializer, TagSerializer, UserSerializer, GroupSerializer
+
+from .serializers import GroupSerializer, PostSerializer, TagSerializer, UserSerializer
 
 
 class PostCreateView(viewsets.ReadOnlyModelViewSet):

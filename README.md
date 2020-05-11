@@ -24,4 +24,3 @@ make logs
 
 make migrate
 ```
-
