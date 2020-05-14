@@ -228,3 +228,8 @@ class Prod(Base):
         """Sentry initialization"""
         super().post_setup()
         sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration()])
+
+
+class Test(Base):
+    MIDDLEWARE = []
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}

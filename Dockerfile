@@ -15,7 +15,7 @@ RUN apt-get update && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements_dev.txt
 
 WORKDIR /code
 ENV PYTHONPATH /code:$PYTHONPATH

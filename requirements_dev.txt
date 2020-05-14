@@ -3,7 +3,6 @@
 black>=19.10b0
 codecov
 coverage
-django-debug-toolbar~=2.0
 factory_boy
 flake8
 flake8-assertive

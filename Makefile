@@ -1,7 +1,6 @@
-ifneq (,$(wildcard ./.env111))
-    include .env111
+ifneq (,$(wildcard ./.env))
+    include .env
 endif
-include .env
 
 # Colors
 red=`tput setaf 1`
@@ -31,11 +30,10 @@ logs:
 	@docker-compose logs -f --tail=50 web db
 
 pgcli:
-	@echo "${green} pgcli ${red}postgres://$(DB_USER):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)${reset}"
-	docker-compose run --rm web pgcli postgres://$(DB_USER):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+	docker-compose run --rm web pgcli ${DATABASE_URL}
 
 psql:
-	docker-compose exec db psql -U postgres
+	docker-compose run --rm python manage.py dbshell
 
 dbshell:
 	$(DJMANAGE) dbshell
@@ -53,10 +51,10 @@ clean: stop
 	docker-compose rm --force -v
 
 only_test:
-	docker-compose -f docker-compose.dev.yml run --rm web pytest
+	docker-compose run --rm web pytest
 
 pep8:
-	docker-compose -f docker-compose.dev.yml run --rm web flake8
+	docker-compose run --rm web flake8
 
 test: pep8 only_test
 
