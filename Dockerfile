@@ -1,43 +1,27 @@
-FROM python:3.7-alpine as base
+FROM python:3.8-slim-buster
 
 ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 COPY requirements.txt requirements_dev.txt ./
-RUN apk add --update --no-cache --virtual .build-deps \
-    build-base \
-    postgresql-dev \
-    libffi-dev \
-    python3-dev \
-    jpeg-dev \
-    zlib-dev \
-    freetype-dev \
-    musl-dev \
-    libpq \
-    pcre-dev \
-    && pip install -U pip \
-    && pip install --no-cache-dir -r requirements_dev.txt \
-    && find /usr/local \
-        \( -type d -a -name test -o -name tests \) \
-        -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-        -exec rm -rf '{}' +
+RUN apt-get update && \
+    apt-get install -y \
+        build-essential \
+        apt-utils \
+        libpq-dev \
+        postgresql-client \
+        httpie && \
+    apt-get autoremove -y && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/*
 
-# Now multistage
-FROM python:3.7-alpine
+RUN pip install -r requirements.txt
 
-# RUN addgroup -S uwsgi && adduser -S uwsgi -G uwsgi
-
-COPY --from=base /usr/local/lib/python3.7/site-packages/ /usr/local/lib/python3.7/site-packages/
-COPY --from=base /usr/local/bin/ /usr/local/bin/
-
-RUN apk add --update --no-cache libpq libjpeg-turbo zlib freetype postgresql-client pcre-dev
 WORKDIR /code
-
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONPATH /code:$PYTHONPATH
-EXPOSE 80
-# USER uwsgi
 
+# USER uwsgi
+EXPOSE 80
 COPY . /code/
 
 CMD ["uwsgi", "--ini", "/code/scripts/uwsgi.ini"]

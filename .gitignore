@@ -124,7 +124,7 @@ website/static
 website/mydatabase
 media/
 .pytest_*/
-.env
+.env*
 dump-eduzen-20-04-2019.sql
 scripts/db/02dump-eduzen-21-04-2019.sql
 *dump*.sql

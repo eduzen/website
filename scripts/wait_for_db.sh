@@ -5,7 +5,12 @@ python << END
 import sys
 import psycopg2
 try:
-    conn = psycopg2.connect(dbname="$DB_NAME", user="$DB_USER", password="$DB_PASS", host="$DB_SERVICE")
+    conn = psycopg2.connect(
+      dbname="$DJANGO_DB_NAME",
+      user="$DJANGO_DB_USER",
+      password="$DJANGO_DB_PASS",
+      host="$DJANGO_DB_SERVICE",
+    )
 except psycopg2.OperationalError:
     sys.exit(-1)
 sys.exit(0)

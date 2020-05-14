@@ -8,8 +8,9 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 import os
 
-from django.core.wsgi import get_wsgi_application
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
+os.environ.setdefault("DJANGO_CONFIGURATION", "Dev")
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings.docker")
+from configurations.wsgi import get_wsgi_application  # NOQA
 
 application = get_wsgi_application()

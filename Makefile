@@ -61,7 +61,7 @@ pep8:
 test: pep8 only_test
 
 dockershell:
-	docker-compose run --rm web  ash
+	docker-compose run --rm web bash
 
 showmigrations:
 	$(DJMANAGE) showmigrations
@@ -70,7 +70,7 @@ superuser:
 	$(DJMANAGE) createsuperuser
 
 migrate:
-	@echo "${DCO}${red} run --rm ${yellow}python manage.py ${lightblue}migrate${reset}"
+	@echo "${DCO}${red} run --rm web ${yellow}python manage.py ${lightblue}migrate${reset}"
 	@docker-compose run --rm web python manage.py migrate
 
 migrations:

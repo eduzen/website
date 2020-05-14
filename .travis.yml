@@ -1,5 +1,8 @@
 language: bash
-cache: pip
+cache:
+  directories:
+  - $HOME/.cache/pre-commit
+  - $HOME/.pip
 
 env:
   - DOCKER_COMPOSE_VERSION=1.22.0

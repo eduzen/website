@@ -9,7 +9,7 @@ services:
     command: sh scripts/runserver.sh
     volumes:
       - .:/code
-      - ./.pdbrc.py:/root/.pdbrc.py
+      # - ./.pdbrc.py:/root/.pdbrc.py
     ports:
       - "8000:8000"
       - "3000:3000"
@@ -25,10 +25,8 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data/
       - ./scripts/db/:/docker-entrypoint-initdb.d/
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASS}
-      - POSTGRES_DB=${DB_NAME}
+    env_file:
+      - .env.db
 
   wdb:
     image: eduzen/wdb
