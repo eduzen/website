@@ -51,7 +51,7 @@ clean: stop
 	docker-compose rm --force -v
 
 only_test:
-	docker-compose run --rm web pytest
+	docker-compose run --rm web sh scripts/test.sh
 
 pep8:
 	docker-compose run --rm web flake8

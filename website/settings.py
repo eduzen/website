@@ -145,6 +145,7 @@ class Base(Configuration):
     CAPTCHA_LENGTH = 10
     CAPTCHA_TIMEOUT = 1
     CAPTCHA_LETTER_ROTATION = (-45, 45)
+    TEST_RUNNER = "website.runner.PytestTestRunner"
 
     @property
     def INSTALLED_APPS(self):
@@ -167,6 +168,7 @@ class Dev(Base):
 
     SHELL_PLUS_PRINT_SQL = True
     SHELL_PLUS_PRINT_SQL_TRUNCATE = None
+    INTERNAL_IPS = ["127.0.0.1"]
 
     @property
     def DEBUG_TOOLBAR_CONFIG(self):
