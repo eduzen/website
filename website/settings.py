@@ -234,5 +234,10 @@ class Prod(Base):
 
 class Test(Base):
     SECRET_KEY = "sometestingkey"
-    MIDDLEWARE = []
+    MIDDLEWARE = [
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+    ]
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
