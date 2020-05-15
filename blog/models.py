@@ -51,23 +51,22 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
+    @property
     def published(self):
         return True if self.published_date else False
-
-    published.boolean = True
-    published.short_description = "Published"
 
     def get_absolute_url(self):
         return reverse("post_slug", args=[self.slug])
 
-    def save(self, force_insert=False, force_update=False):
-        super().save(force_insert, force_update)
+    def save(self, *args, **kwargs):
         try:
             ping_google()
         except Exception:
             # Bare 'except' because we could get a variety
             # of HTTP-related exceptions.
             pass
+
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.slug

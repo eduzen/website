@@ -13,11 +13,11 @@ ipython-sql
 pdbpp>=0.9.2
 pluggy>=0.7
 pyinstrument
+pytest
 pytest-cov
 pytest-django
 pytest-mock
 pytest-sugar
 pytest-xdist
-pytest
 termcolor
 wdb

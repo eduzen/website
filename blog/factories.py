@@ -1,6 +1,5 @@
 import factory
-
-from blog.models import Post
+from django.utils import timezone
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -14,12 +13,20 @@ class UserFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall("set_password", "eduzen!")
 
 
-class PostFactory(factory.Factory):
+class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = Post
+        model = "blog.Tag"
+        django_get_or_create = ("slug",)
+
+
+class PostFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = "blog.Post"
+        django_get_or_create = ("slug",)
 
     author = factory.SubFactory(UserFactory)
     title = factory.Faker("sentence", nb_words=4)
     pompadour = factory.Faker("sentence")
     text = factory.Faker("text")
-    slug = factory.LazyAttribute(lambda obj: obj.title.replace(" ", "-"))
+    slug = factory.LazyAttribute(lambda obj: obj.title.replace(" ", "-").replace(".", ""))
+    published_date = factory.Faker("date_time", tzinfo=timezone.get_current_timezone())

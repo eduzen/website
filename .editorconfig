@@ -1,16 +1,12 @@
-
-
 # EditorConfig is awesome: https://EditorConfig.org
-
 # top-most EditorConfig file
 root = true
 
 # Unix-style newlines with a newline ending every file
 [*]
 end_of_line = lf
-insert_final_newline = true
 indent_style = space
-indent_size = 4
+indent_size = 2
 trim_trailing_whitespace = true
 
 # Matches multiple files with brace expansion notation
@@ -22,35 +18,12 @@ charset = utf-8
 [*.py]
 indent_style = space
 indent_size = 4
-max_line_length = 119
+max_line_length = 120
+insert_final_newline = true
 
 # Tab indentation (no size specified)
 [Makefile]
 indent_style = tab
-
-# Indentation override for all JS under lib directory
-[lib/**.js]
-indent_style = space
-indent_size = 2
-
-# Matches the exact files either package.json or .travis.yml
-[{package.json,.travis.yml}]
-indent_style = space
-indent_size = 2
-
-# Use 2 spaces for the HTML files
-[*.html]
-indent_size = 2
-
-# Use 2 spaces for the HTML files
-[*.yml]
-indent_style = space
-indent_size = 2
-
-# The JSON files contain newlines inconsistently
-[*.json]
-indent_size = 2
-insert_final_newline = ignore
 
 [**/admin/js/vendor/**]
 indent_style = ignore
@@ -59,7 +32,6 @@ indent_size = ignore
 # Minified JavaScript files shouldn't be changed
 [**.min.js]
 indent_style = ignore
-insert_final_newline = ignore
 
 # Batch files use tabs for indentation
 [*.bat]

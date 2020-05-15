@@ -233,5 +233,6 @@ class Prod(Base):
 
 
 class Test(Base):
+    SECRET_KEY = "sometestingkey"
     MIDDLEWARE = []
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}

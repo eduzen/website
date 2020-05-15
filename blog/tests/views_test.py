@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse_lazy
 
-from blog.tests.factories.post import PostFactory
+from blog.factories import PostFactory
 
 
 @pytest.fixture()
@@ -24,7 +24,8 @@ def test_get_post(client, posts):
 
 @pytest.mark.django_db
 def test_get_post_list(client, posts):
-    response = client.get(reverse_lazy("post_list"))
+    url = reverse_lazy("post_list")
+    response = client.get(url)
     assert response.status_code == 200
 
 
