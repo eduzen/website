@@ -154,8 +154,6 @@ class Base(Configuration):
 
 class Dev(Base):
     DEBUG = True
-    TEMPLATE_DEBUG = DEBUG
-    ALLOWED_HOSTS = values.ListValue(["*"])
 
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = "mailhog"  # Your Mailhog Host

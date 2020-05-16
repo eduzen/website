@@ -34,9 +34,16 @@ def test_home_view(client, url, posts):
 
 
 @pytest.mark.django_db
-def test_get_post(client, posts):
+def test_get_post_by_pk(client, posts):
     for post in posts:
         response = client.get(reverse_lazy("post_detail", kwargs={"pk": post.id}))
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_get_post_by_slug(client, posts):
+    for post in posts:
+        response = client.get(reverse_lazy("post_slug", kwargs={"slug": post.slug}))
         assert response.status_code == 200
 
 
@@ -49,12 +56,7 @@ def test_get_post_list(client, posts):
 
 
 @pytest.mark.django_db
-def test_get_about(client, posts):
-    response = client.get(reverse_lazy("about"))
-    assert response.status_code == 200
-
-
-@pytest.mark.django_db
-def test_get_bad_about(client, posts):
-    response = client.get("wp/admin")
+@pytest.mark.parametrize("url", ["wp/admin", "admin"])
+def test_get_bad_about(client, url):
+    response = client.get(url)
     assert response.status_code == 404
