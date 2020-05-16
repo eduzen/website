@@ -97,30 +97,6 @@ class Comment(models.Model):
         return self.text
 
 
-class CustomPage(models.Model):
-    name = models.CharField(verbose_name="Nombre", max_length=250)
-
-    slug = AutoSlugField(populate_from="name")
-
-    include_header = models.BooleanField(default=True, verbose_name="Incluir header")
-
-    include_footer = models.BooleanField(default=True, verbose_name="Incluir footer")
-
-    include_contact_form = models.BooleanField(default=True, verbose_name="Incluir formulario de contacto")
-
-    content = RichTextUploadingField(verbose_name="Contenido", null=True, blank=True)
-
-    def get_absolute_url(self):
-        return reverse("blog:post", args=(self.slug,))
-
-    def __str__(self):
-        return "{}".format(self.name)
-
-    class Meta:
-        verbose_name = "Páginas custom"
-        verbose_name_plural = "Páginas custom"
-
-
 class DolarPeso(models.Model):
     balance = MoneyField(max_digits=10, decimal_places=2)
     name = models.CharField(verbose_name="Nombre", max_length=250)

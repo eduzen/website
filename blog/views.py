@@ -1,12 +1,11 @@
 import logging
 
 from django.contrib.postgres.search import SearchVector
-from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
-from django.views.generic import FormView, ListView, TemplateView
+from django.shortcuts import redirect
+from django.views.generic import FormView, ListView, TemplateView, DetailView
 from django.views.generic.dates import ArchiveIndexView, DayArchiveView, MonthArchiveView, WeekArchiveView
-
 from .forms import AdvanceSearchForm, EmailForm, SearchForm
-from .models import CustomPage, Post
+from .models import Post
 
 logger = logging.getLogger(__name__)
 
@@ -100,36 +99,21 @@ class PostTagsList(ListView):
         return self.queryset.filter(tags__slug=self.kwargs.get("tag"))
 
 
-def post_slug(request, slug):
-    post = get_object_or_404(Post, slug=slug)
+class PostDetail(DetailView):
+    queryset = Post.objects.prefetch_related("tags").published()
+    context_object_name = "post"
 
-    return render(request, "blog/post_detail.html", {"post": post})
-
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    related_posts = (
-        Post.objects.published()
-        .filter(tags__in=post.tags.all())
-        .order_by("-published_date")
-        .distinct()
-        .exclude(id=post.id)
-    )
-    data = {"post": post, "related_posts": related_posts, "title": post.title}
-    return render(request, "blog/post_detail.html", data)
-
-
-def custom_page(request, slug):
-    custom_page = get_list_or_404(CustomPage, slug=slug)[0]
-
-    data = {
-        "title": custom_page.name,
-        "custom_page": custom_page,
-        "hide_navbar": not custom_page.include_header,
-        "hide_footer": not custom_page.include_footer,
-    }
-
-    return render(request, "blog/custom_page.html", data)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = self.object.title
+        context["related_posts"] = (
+            Post.objects.published()
+            .filter(tags__in=self.object.tags.all())
+            .order_by("-published_date")
+            .distinct()
+            .exclude(pk=self.object.pk)
+        )
+        return context
 
 
 class ContactView(FormView):

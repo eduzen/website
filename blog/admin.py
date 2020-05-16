@@ -2,18 +2,29 @@ from django.contrib import admin
 from django.db import models
 from django.forms import TextInput
 
-from .models import Comment, CustomPage, DolarPeso, Post, Tag
+from .models import Comment, DolarPeso, Post, Tag
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     date_hierarchy = "created_date"
-    search_fields = ["author", "title", "published", "published_date", "created_date"]
-    list_filter = ["published_date", "author", "title", "created_date"]
+    search_fields = ["text", "title", "slug", "pompadour"]
+    list_filter = ["published_date", "created_date"]
     list_display = ["published", "author", "title", "slug", "created_date", "published_date", "image_tag", "tag_list"]
     list_display_links = ("title", "author")
-    readonly_fields = ("image_tag",)
+    readonly_fields = ("image_tag", "pk")
 
+    fields = [
+        ("author", "created_date",),
+        "title",
+        "pompadour",
+        "slug",
+        "published_date",
+        "tags",
+        "text",
+        "image",
+        "image_tag",
+    ]
     formfield_overrides = {models.CharField: {"widget": TextInput(attrs={"size": "130"})}}
     filter_horizontal = ("tags",)
 
@@ -54,11 +65,3 @@ class DolarPesoAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ("id", "word", "slug")
     search_fields = ("slug",)
-
-
-@admin.register(CustomPage)
-class CustomPageAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "slug", "include_header", "include_footer", "include_contact_form", "content")
-    list_filter = ("include_header", "include_footer", "include_contact_form")
-    search_fields = ("name", "slug")
-    prepopulated_fields = {"slug": ["name"]}
