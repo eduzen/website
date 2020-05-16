@@ -11,7 +11,12 @@ from djmoney.models.fields import MoneyField
 
 class Tag(models.Model):
     word = models.CharField(max_length=50)
-    slug = models.CharField(max_length=250)
+    slug = models.CharField(null=True, max_length=250)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self.word.lower().replace(" ", "-")
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.slug

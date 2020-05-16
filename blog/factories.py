@@ -16,7 +16,9 @@ class UserFactory(factory.django.DjangoModelFactory):
 class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = "blog.Tag"
-        django_get_or_create = ("slug",)
+        django_get_or_create = ("word",)
+
+    word = factory.Faker("word")
 
 
 class PostFactory(factory.django.DjangoModelFactory):
@@ -25,8 +27,18 @@ class PostFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ("slug",)
 
     author = factory.SubFactory(UserFactory)
-    title = factory.Faker("sentence", nb_words=4)
+    title = factory.Faker("sentence", nb_words=7)
     pompadour = factory.Faker("sentence")
-    text = factory.Faker("text")
+    text = factory.Faker("paragraph", nb_sentences=50)
     slug = factory.LazyAttribute(lambda obj: obj.title.replace(" ", "-").replace(".", ""))
     published_date = factory.Faker("date_time", tzinfo=timezone.get_current_timezone())
+
+    @factory.post_generation
+    def tags(self, create, tags, **kwargs):
+        if not create:
+            return
+
+        if not tags:
+            return
+        for tag in tags:
+            self.tags.add(tag)

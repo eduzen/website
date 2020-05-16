@@ -5,23 +5,9 @@
     <section>
         <div class="container">
             <div class="row">
-
-                <!-- POST BODY -->
-                <div class="col-md-9 post_detail_body">
-                    <h3><strong>{{ post.title }}</strong></h3>
-                    {% if post.published_date %}
-                        <small>{{ post.published_date|date:"SHORT_DATE_FORMAT" }} | Autor: {{ post.author.first_name }} {{post.author.last_name}}</small>
-                    {% endif %}
-                    <hr>
-                    <div class="post_detail">
-                        {% autoescape off %}
-                        {{ post.text }}
-                        {% endautoescape %}
-                    </div>
-                    <hr>
-
-                </div>
-
+              <div class="col-md-9 post_detail_body">
+              {% include 'blog/extras/post.html' with post=post %}
+              </div>
                 <!-- SIDEBAR -->
                 <div class="col-md-3">
                     <ul class="post_detail_ul">
