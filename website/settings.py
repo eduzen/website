@@ -182,6 +182,7 @@ class Dev(Base):
 
 
 class Prod(Base):
+    DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
     STATIC_URL = "https://static.eduzen.com.ar/"
     MEDIA_URL = "https://media.eduzen.com.ar/"
@@ -231,6 +232,7 @@ class Prod(Base):
 
 
 class Test(Base):
+    DEBUG = False
     SECRET_KEY = "sometestingkey"
     MIDDLEWARE = [
         "django.contrib.sessions.middleware.SessionMiddleware",
