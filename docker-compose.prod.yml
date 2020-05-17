@@ -44,19 +44,6 @@ services:
     environment:
       - VIRTUAL_PROTO=${VIRTUAL_PROTO}
       - VIRTUAL_HOST=${VIRTUAL_HOSTS}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-      - LOG_LEVEL=${LOG_LEVEL}
-      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}
-      - SECRET_KEY=${SECRET_KEY}
-      - DB_USER=${DB_USER}
-      - DB_NAME=${DB_NAME}
-      - DB_PASS=${DB_PASS}
-      - DB_PORT=${DB_PORT}
-      - DB_SERVICE=${DB_SERVICE}
-      - DEBUG=${DEBUG}
-      - MAILGUN_API_KEY=${MAILGUN_API_KEY}
-      - SENTRY_DSN=${SENTRY_DSN}
     links:
       - postgres
     depends_on:
