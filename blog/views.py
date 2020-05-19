@@ -2,8 +2,9 @@ import logging
 
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
-from django.views.generic import FormView, ListView, TemplateView, DetailView
+from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, DayArchiveView, MonthArchiveView, WeekArchiveView
+
 from .forms import AdvanceSearchForm, EmailForm, SearchForm
 from .models import Post
 
@@ -22,10 +23,6 @@ class SucessView(TemplateView):
     template_name = "blog/success.html"
 
 
-class StuffView(TemplateView):
-    template_name = "blog/stuff.html"
-
-
 class ErrorView(TemplateView):
     template_name = "blog/error.html"
 
@@ -39,7 +36,7 @@ class AdvanceSearch(FormView):
 class HomeListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
-    template_name = "blog/body.html"
+    template_name = "blog/home.html"
     ordering = ["-published_date"]
     paginate_by = 12
 
@@ -111,7 +108,7 @@ class PostDetail(DetailView):
             .filter(tags__in=self.object.tags.all())
             .order_by("-published_date")
             .distinct()
-            .exclude(pk=self.object.pk)
+            .exclude(pk=self.object.pk)[:15]
         )
         return context
 

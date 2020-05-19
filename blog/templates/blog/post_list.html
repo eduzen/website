@@ -1,4 +1,4 @@
-{% extends 'blog/footer.html' %}
+{% extends 'blog/base.html' %}
 {% load static %}
 
 {% block body %}
@@ -26,7 +26,7 @@
                     <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
                     </div>
                 </div>
-                <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
+                <h2><a href="{{post.get_absolute_url}}">{{ post.title }}</a></h2>
               </div>
                 <div class="row">
                   <div class="col-md-12">
@@ -62,7 +62,7 @@
 
         <!-- TAGS LIST -->
         <div class="col-xs-4">
-          {% include 'blog/extras/tags.html' with tags=tags %}
+          {% include 'blog/extras/tags_cloud.html' with tags=tags %}
           {% if tag == 'python' %}
             {% include 'blog/extras/zen.html' %}
           {% endif %}

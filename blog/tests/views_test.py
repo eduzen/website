@@ -19,7 +19,6 @@ def posts():
         "blog",
         "about",
         "clases",
-        "stuff",
         "search",
         "contact",
         "sucess",

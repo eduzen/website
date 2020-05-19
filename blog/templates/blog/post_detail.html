@@ -1,57 +1,20 @@
-{% extends 'blog/footer_disqus.html' %}
+{% extends 'blog/base.html' %}
 {% load static %}
 
 {% block body %}
-    <section>
-        <div class="container">
-            <div class="row">
-              <div class="col-md-9 post_detail_body">
-              {% include 'blog/extras/post.html' with post=post %}
-              </div>
-                <!-- SIDEBAR -->
-                <div class="col-md-3">
-                    <ul class="post_detail_ul">
-                        <li class="post_detail_li">
-                            <h3 class="post_detail_title">Notas relacionadas</h3>
-                        </li>
-                        {% for related_post in related_posts %}
-                        <li class="post_detail_li">
-                            <a href="/blog/{{ related_post.id }}" class="list-group-item post_detail_a">
-                                <span style="color: #581845;">
-                                    {{ related_post.title }}
-                                </span><br>
-                                <small>
-                                    Publicado el d&iacute;a {{ related_post.published_date }}
-                                </small>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 post_detail_body">
+        {% include 'blog/extras/post.html' with post=post %}
+      </div>
+      <!-- SIDEBAR -->
+      <div class="col-md-3">
+        {% include 'blog/extras/related_posts.html' with post=related_posts %}
+        {% include 'blog/extras/tags.html' with tags=post.tags.all %}
 
-                    <ul class="post_detail_ul">
-                        <li class="post_detail_li">
-                            <h4 class="post_detail_title">Tags</h4>
-                        </li>
-                    </ul>
-
-                    <div class="tag-cloud">
-                        <ul class="tags">
-                            {% for count_tag in tags %}
-                                --
-                                {{ count_tag}}
-                                --
-                                <li class="tag-item">
-                                    <a href="/tags/{{ count_tag.tags__word }}" class="size-{{ count_tag.total }}">
-                                        {{ count_tag.tags__word }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
+    </div>
+  </div>
+</section>
+{% include 'blog/extras/disqus.html' %}
 {% endblock %}

@@ -1,0 +1,19 @@
+<ul class="post_detail_ul">
+  <li class="post_detail_li">
+      <h3 class="post_detail_title">Notas relacionadas</h3>
+  </li>
+  {% for post in posts %}
+  <li class="post_detail_li">
+      <a href="{{ post.get_absolute_url }}" class="list-group-item post_detail_a">
+          <span style="color: #581845;">
+              {{ post.title }}
+          </span><br>
+          <small>
+              Publicado el d&iacute;a {{post.published_date }}
+          </small>
+      </a>
+  </li>
+  {% empty %}
+    <p>Nothing yet! </p>
+  {% endfor %}
+</ul>

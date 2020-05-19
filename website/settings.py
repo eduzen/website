@@ -2,9 +2,9 @@ import os
 from pathlib import Path
 
 import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
 from configurations import Configuration, values
+from easy_thumbnails.conf import Settings as thumbnail_settings
+from sentry_sdk.integrations.django import DjangoIntegration
 
 
 class Base(Configuration):
@@ -51,6 +51,8 @@ class Base(Configuration):
         "djmoney",
         "rest_framework",
         "django_extensions",
+        "easy_thumbnails",
+        "image_cropping",
     ]
 
     # Application definition
@@ -147,6 +149,10 @@ class Base(Configuration):
     CAPTCHA_LETTER_ROTATION = (-45, 45)
     TEST_RUNNER = "website.runner.PytestTestRunner"
 
+    THUMBNAIL_PROCESSORS = (
+        "image_cropping.thumbnail_processors.crop_corners",
+    ) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
     @property
     def INSTALLED_APPS(self):
         return self.DJANGO_APPS + self.THIRD_PARTY_APPS + self.APPS
@@ -194,6 +200,16 @@ class Prod(Base):
     DROPBOX_ROOT_PATH = values.Value()
     DROPBOX_TIMEOUT = values.IntegerValue()
 
+    MAILGUN_API_KEY = values.Value()
+    MAILGUN_SENDER_DOMAIN = values.Value()
+
+    @property
+    def ANYMAIL(self):
+        return {
+            "MAILGUN_API_KEY": self.MAILGUN_API_KEY,
+            "MAILGUN_SENDER_DOMAIN": self.MAILGUN_SENDER_DOMAIN,
+        }
+
     @property
     def INSTALLED_APPS(self):
         return super().INSTALLED_APPS + ["storages"]
@@ -231,8 +247,8 @@ class Prod(Base):
         sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration()])
 
 
-class Test(Base):
-    DEBUG = False
+class Test(Dev):
+    DEBUG = True
     SECRET_KEY = "sometestingkey"
     MIDDLEWARE = [
         "django.contrib.sessions.middleware.SessionMiddleware",

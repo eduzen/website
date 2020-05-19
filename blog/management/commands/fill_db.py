@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from blog.factories import TagFactory, PostFactory
+from blog.factories import PostFactory, TagFactory
 
 
 class Command(BaseCommand):

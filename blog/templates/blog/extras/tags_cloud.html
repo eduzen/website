@@ -4,8 +4,8 @@
     <ul class="tags">
       {% for tag in tags %}
         <li class="tag-item">
-          <a href="/tags/{{tag.slug}}" class="size-2">
-            {{ tag.word}}
+          <a href="/tags/{{ tag.tags__slug }}" class="size-{% if tag.total > 16 %}16{% else %}{{tag.total}}{% endif %}">
+            {{ tag.tags__slug }}
           </a>
         </li>
       {% endfor %}

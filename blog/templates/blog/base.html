@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        {% block head %}
-        {% endblock %}
-    </head>
 
-    <body id="page-top" class="index">
-        <div class="container">
+<head>
+{% include 'blog/utils/head.html'%}
+</head>
 
-            {% block navbar %}
-            {% endblock %}
+<body id="page-top" class="index">
+  <div class="container">
+    {% include 'blog/utils/navbar.html' %}
 
-            {% block content %}
-            {% endblock %}
+    {% block content %}
+    {% endblock %}
 
-            {% block body %}
-            {% endblock %}
+    {% block body %}
+    {% endblock %}
 
-            {% block footer %}
-            {% endblock%}
+    {% include 'blog/utils/footer.html' %}
+  </div>
+</body>
 
-        </div>
-    </body>
 </html>

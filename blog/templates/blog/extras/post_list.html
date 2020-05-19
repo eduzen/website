@@ -1,0 +1,43 @@
+{% for post in posts %}
+<div class="side-boxes titles">
+  <div class="row">
+    <div class="col-xs-6">
+      <p>
+        Tags:
+        {% for tag in post.tags.all %}
+          <a href="/tags/{{tag}}">{{ tag }}</a>
+        {% endfor %}
+      </p>
+    </div>
+    <div class="col-xs-6">
+      <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+    </div>
+
+    {% if post.image %}
+      <div class="col-xs-12">
+        <div class="col-xs-3">
+          <a href="{{post.get_absolute_url}}">
+            <img class='portrait' src="{{ post.image.url }}" alt="{{ post.image.name }}">
+          </a>
+        </div>
+        <div class="col-xs-9">
+          <h2 class="post_detail_title"><a href="{{post.get_absolute_url}}">{{ post.title }}</a></h2>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-xs-12">
+        <h2 class="post_detail_title_alone"><a href="{{post.get_absolute_url}}">{{ post.title }}</a></h2>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <p>{{post.pompadour}}</p>
+    <hr />
+  </div>
+</div>
+{% empty %}
+<p> Empty posts </p>
+{% endfor %}

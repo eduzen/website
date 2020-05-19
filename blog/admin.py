@@ -1,18 +1,22 @@
 from django.contrib import admin
 from django.db import models
 from django.forms import TextInput
+from django.utils.safestring import mark_safe
+from image_cropping import ImageCroppingMixin
 
-from .models import Comment, DolarPeso, Post, Tag
+from .models import Post, Tag
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     date_hierarchy = "created_date"
+    empty_value_display = "unknown"
     search_fields = ["text", "title", "slug", "pompadour"]
-    list_filter = ["published_date", "created_date"]
-    list_display = ["published", "author", "title", "slug", "created_date", "published_date", "image_tag", "tag_list"]
+    # list_filter = ["published_date", "created_date"]
+    list_display = ["published", "author", "title", "slug", "created_date", "published_date", "preview", "tag_list"]
     list_display_links = ("title", "author")
-    readonly_fields = ("image_tag", "pk")
+    readonly_fields = ("preview", "pk")
+    prepopulated_fields = {"slug": ("title",)}
 
     fields = [
         ("author", "created_date",),
@@ -22,11 +26,18 @@ class PostAdmin(admin.ModelAdmin):
         "published_date",
         "tags",
         "text",
-        "image",
-        "image_tag",
+        ("image", "preview",),
+        "cropping",
     ]
     formfield_overrides = {models.CharField: {"widget": TextInput(attrs={"size": "130"})}}
     filter_horizontal = ("tags",)
+    list_filter = (("published", admin.BooleanFieldListFilter),)
+
+    @mark_safe
+    def preview(self, obj):
+        if not obj.image:
+            return ""
+        return f"<img src='{obj.image.url}' width='100' height='100'/>"
 
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related("tags")
@@ -35,33 +46,8 @@ class PostAdmin(admin.ModelAdmin):
         return ", ".join(o.word for o in obj.tags.all())
 
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    search_fields = ["author", "created_date", "approved_comment"]
-    list_filter = ["author", "created_date", "approved_comment"]
-    list_display = ["author", "post", "created_date", "approved_comment"]
-
-
-@admin.register(DolarPeso)
-class DolarPesoAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "balance_currency",
-        "balance",
-        "name",
-        "bid_currency",
-        "bid",
-        "ask_currency",
-        "ask",
-        "rate_currency",
-        "rate",
-        "created_date",
-    )
-    list_filter = ("created_date",)
-    search_fields = ("name",)
-
-
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ("id", "word", "slug")
     search_fields = ("slug",)
+    prepopulated_fields = {"slug": ("word",)}

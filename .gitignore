@@ -131,3 +131,4 @@ scripts/db/02dump-eduzen-21-04-2019.sql
 docker-compose.override.yml
 .pdbrc.py
 .mypy_cache/
+dumps/

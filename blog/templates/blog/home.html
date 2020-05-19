@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-10">
+    {% include 'blog/extras/post_list.html' with posts=posts %}
+
+    {% if is_paginated %}
+
+    <nav aria-label="Page navigation">
+      <ul class="pager">
+        <li>
+          {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}" aria-label="previous"> previous</a>
+          {% endif %}
+        </li>
+        <li>
+          {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+    {% endif %}
+
+  </div>
+
+  <div class="col-md-2">
+    <div class="row">
+      {% include 'blog/extras/tags_cloud.html' %}
+    </div>
+  </div>
+</div>
+{% endblock %}

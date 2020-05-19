@@ -8,8 +8,6 @@ from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
 
-from .models import Comment
-
 logger = logging.getLogger("blog.views")
 
 
@@ -45,20 +43,6 @@ class EmailForm(forms.Form):
 
     def __str__(self):
         return f"<Form from {self.data}>"
-
-
-class CommentForm(forms.ModelForm):
-    captcha = CaptchaField()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.add_input(Submit("submit", "Enviar", css_class="btn-block", style=""))
-        self.helper.form_tag = True
-
-    class Meta:
-        model = Comment
-        fields = ("author", "text")
 
 
 class SearchForm(forms.Form):
