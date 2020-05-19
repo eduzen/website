@@ -2,32 +2,20 @@
 
 {% block body %}
 <div class="row">
-  <div class="col-md-10">
-    {% include 'blog/extras/post_list.html' with posts=posts %}
-
-    {% if is_paginated %}
-
-    <nav aria-label="Page navigation">
-      <ul class="pager">
-        <li>
-          {% if page_obj.has_previous %}
-          <a href="?page={{ page_obj.previous_page_number }}" aria-label="previous"> previous</a>
-          {% endif %}
-        </li>
-        <li>
-          {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">next</a>
-          {% endif %}
-        </li>
-      </ul>
-    </nav>
+  <div class="col-xs-9">
+    {% if tag %}
+    <div class="row">
+      <h3 class="text-center">{{ tag }}</h3>
+    </div>
     {% endif %}
-
+    {% include 'blog/extras/post_list.html' with posts=posts %}
   </div>
-
-  <div class="col-md-2">
+  <div class="col-xs-3">
     <div class="row">
       {% include 'blog/extras/tags_cloud.html' %}
+      {% if tag == 'Python' %}
+        {% include 'blog/extras/zen.html' %}
+      {% endif %}
     </div>
   </div>
 </div>

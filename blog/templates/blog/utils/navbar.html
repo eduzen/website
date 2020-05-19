@@ -19,7 +19,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" rel="home" href="/#">eduzen.com.ar</a>
+      <a class="navbar-brand" rel="home" href="/">eduzen</a>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse navbar-ex1-collapse">
@@ -54,9 +54,11 @@
         </li>
       </ul>
 
-
       <ul class="nav navbar-nav navbar-right">
-        {% if search_form %} {% csrf_token %} {% crispy search_form %} {% endif %}
+        {% if search_form %}
+          {% csrf_token %}
+          {% crispy search_form %}
+        {% endif %}
       </ul>
 
     </div>

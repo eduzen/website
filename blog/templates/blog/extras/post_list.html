@@ -1,3 +1,5 @@
+{% load tools %}
+
 {% for post in posts %}
 <div class="side-boxes titles">
   <div class="row">
@@ -41,3 +43,6 @@
 {% empty %}
 <p> Empty posts </p>
 {% endfor %}
+{% if is_paginated %}
+  {% show_paginator page_obj %}
+{% endif %}

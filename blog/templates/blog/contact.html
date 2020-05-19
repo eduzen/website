@@ -1,52 +1,35 @@
-{% extends 'blog/footer.html' %}
-{% load static %}
+{% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
 {% load solo_tags %}
 
 {% block body %}
-    {% get_solo 'config.ContactConfiguration' as contac_config %}
+{% get_solo 'config.ContactConfiguration' as contac_config %}
+<div class="row">
+  <div class="col-md-8">
+    <h2>{{ contac_config.title }}</h2>
+    <h3>{{ contac_config.subtitle }}</h3>
+    {% autoescape off %}
+    {% if contact_config.short %}
+    <h2>Short</h2>
+    {{ contac_config.short }}
+    {% endif %}
+    {% if contact_config.long %}
+    <h2>Long</h2>
+    {{ contac_config.long }}
+    {% endif %}
+    {% if contact_config.body %}
+    <h2>Super long</h2>
+    {{ contac_config.body }}
+    {% endif %}
+    {% endautoescape %}
+    {% if form %}
+    {% csrf_token %}
+    {% crispy form %}
+    {% endif %}
+  </div>
 
-    <!-- /container -->
-
-    <div class="row">
-        <div class="col-md-8">
-            <h2>{{ contac_config.title }}</h2>
-            <h3>{{ contac_config.subtitle }}</h3>
-            {% autoescape off %}
-                {% if contact_config.short %}
-                    <h2>Short</h2>
-                    {{ contac_config.short }}
-                {% endif %}
-                {% if contact_config.long %}
-                    <h2>Long</h2>
-                    {{ contac_config.long }}
-                {% endif %}
-                {% if contact_config.body %}
-                    <h2>Super long</h2>
-                    {{ contac_config.body }}
-                {% endif %}
-            {% endautoescape %}
-            {% if form %}
-                {% csrf_token %}
-                {% crispy form %}
-            {% endif %}
-        </div>
-
-        <div class="col-md-4">
-            <div class="block social-block social-twitter">
-            {% load twitter_tags %}
-            <a class="twitter-timeline"
-               href="https://twitter.com/_eduzen_}}"
-               data-height="100px" data-chrome="nofooter"
-               data-aria-polite="assertive"
-              data-tweet-limit="4">
-                follow @{{ tweet.user.screen_name }}</a>
-            <a  class="twitter-follow-button" href="https://twitter.com/_eduzen_"
-                data-size="default">
-                follow @{{ tweet.user.screen_name }}</a>
-            </div>
-
-        </div>
-    </div>
-
+  <div class="col-md-4">
+    {% include 'blog/extras/twitter.html' %}
+  </div>
+</div>
 {% endblock %}

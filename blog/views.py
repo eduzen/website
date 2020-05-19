@@ -81,15 +81,15 @@ class PostTagsList(ListView):
     model = Post
     queryset = Post.objects.published()
     context_object_name = "posts"
-    template_name = "blog/post_list.html"
+    template_name = "blog/home.html"
     ordering = ["-published_date"]
-    paginate_by = 12
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Post.objects.count_tags()
         context["search_form"] = SearchForm()
-        context["tag"] = self.kwargs.get("tag").lower()
+        context["tag"] = self.kwargs.get("tag").title()
         return context
 
     def get_queryset(self):
@@ -151,7 +151,7 @@ class PostArchiveIndex(ArchiveIndexView):
     model = Post
     paginate_by = 50
     queryset = Post.objects.published()
-    template_name = "blog/post_list.html"
+    template_name = "blog/home.html"
     date_field = "published_date"
     allow_future = True
     context_object_name = "posts"
