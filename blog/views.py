@@ -15,10 +15,6 @@ class AboutView(TemplateView):
     template_name = "blog/about.html"
 
 
-class ClasesView(TemplateView):
-    template_name = "blog/clases.html"
-
-
 class SucessView(TemplateView):
     template_name = "blog/success.html"
 
@@ -50,7 +46,7 @@ class HomeListView(ListView):
 class PostListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
-    template_name = "blog/post_list.html"
+    template_name = "blog/home.html"
     ordering = ["-published_date"]
     paginate_by = 12
 

@@ -11,7 +11,6 @@ urlpatterns = [
     path("blog/", views.PostListView.as_view(), name="blog"),
     path("about/", views.AboutView.as_view(), name="about"),
     path("bio/", views.AboutView.as_view(), name="about"),
-    path("clases/", views.ClasesView.as_view(), name="clases"),
     path("tags/<str:tag>/", views.PostTagsList.as_view(), name="bytag"),
     path("search/", views.AdvanceSearch.as_view(), name="search"),
     path("buscar/", views.AdvanceSearch.as_view(), name="search"),

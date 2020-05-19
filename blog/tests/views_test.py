@@ -18,7 +18,6 @@ def posts():
         "post_archive",
         "blog",
         "about",
-        "clases",
         "search",
         "contact",
         "sucess",

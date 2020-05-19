@@ -58,7 +58,7 @@ class SearchForm(forms.Form):
                 "q",
                 (
                     '<i class="fa fa-search" onclick='
-                    "\"document.getElementsByClassName('form-inline')[0].submit()\">"
+                    "\"document.getElementsByClassName('navbar-form')[0].submit()\">"
                     "</i>"
                 ),
             )

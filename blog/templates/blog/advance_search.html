@@ -1,76 +1,34 @@
-{% extends 'blog/footer.html' %}
+{% extends 'blog/base.html' %}
 {% load static %}
-{% load solo_tags %}
 {% load crispy_forms_tags %}
 
-
 {% block body %}
-
-    <!-- /container -->
-
+<!-- /container -->
+<div class="row">
+  <div class="col-md-8">
     <div class="row">
-        <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-12">
-                <h2>Búsqueda avanzada</h2>
-                {% if advance_search_form %}
-                  <p class="text-muted">Búsqueda en el cuerpo del texto, título y copete de mis post.</p>
-                  {% csrf_token %}
-                  {% crispy advance_search_form %}
-                {% endif %}
-              </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="block social-block social-twitter">
-            <a class="twitter-timeline"
-               href="https://twitter.com/_eduzen_"
-               data-height="100px" data-chrome="nofooter"
-               data-aria-polite="assertive"
-              data-tweet-limit="4">
-                follow @{{ tweet.user.screen_name }}</a>
-            <a  class="twitter-follow-button" href="https://twitter.com/_eduzen_"
-                data-size="default">
-                follow @{{ tweet.user.screen_name }}</a>
-            </div>
+      <div class="col-md-12">
+        <h2>Búsqueda avanzada</h2>
+        {% if form %}
+        <p>No se han encontrado resultados.</p> </p>
+        <p class="text-muted">Por favor utilice esta nueva búsqueda que buscará en el cuerpo del texto, título y copete de mis post.</p>
+          {% csrf_token %}
+          {% crispy form %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    {% include 'blog/extras/twitter.html' %}
+    {% include 'blog/extras/zen.html' %}
+    <div class="side-boxes">
 
-            <div class="side-boxes">
-            <a href="http://www.python.org">
-            <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">
-            </a>
-              <h4 class='title-img'>The Zen of Python, by Tim Peters</h4>
-              <p class="zen">Beautiful is better than ugly.</p>
-              <p class="zen">Explicit is better than implicit.</p>
-              <p class="zen">Simple is better than complex.</p>
-              <p class="zen">Complex is better than complicated.</p>
-              <p class="zen">Flat is better than nested.</p>
-              <p class="zen">Sparse is better than dense.</p>
-              <p class="zen">Readability counts.</p>
-              <p class="zen">Special cases aren't special enough to break the rules.</p>
-              <p class="zen">Although practicality beats purity.</p>
-              <p class="zen">Errors should never pass silently.</p>
-              <p class="zen">Unless explicitly silenced.</p>
-              <p class="zen">In the face of ambiguity, refuse the temptation to guess.</p>
-              <p class="zen">There should be one-- and preferably only one --obvious way to do it.</p>
-              <p class="zen">Although that way may not be obvious at first unless you're Dutch.</p>
-              <p class="zen">Now is better than never.</p>
-              <p class="zen">Although never is often better than *right* now.</p>
-              <p class="zen">If the implementation is hard to explain, it's a bad idea.</p>
-              <p class="zen">If the implementation is easy to explain, it may be a good idea.</p>
-              <p class="zen">Namespaces are one honking great idea -- let's do more of those!</p>
-              <br>
-              <p class="bg-info"><a href="https://www.python.org/dev/peps/pep-0020/">Este Zen se puede leer en el pep-0020</a></p>
-            </div>
-
-            <div class="side-boxes">
-
-                <h4 class='title-img'>Python Argentina</h4>
-                <a href="http://www.python.org.ar/">
-                <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">
-                </a>
-            </div>
-
-        </div>
+      <h4 class='title-img'>Python Argentina</h4>
+      <a href="http://www.python.org.ar/">
+        <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">
+      </a>
     </div>
 
+  </div>
+</div>
 {% endblock %}
