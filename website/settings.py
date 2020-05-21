@@ -204,6 +204,18 @@ class Dev(Base):
         ]
 
 
+class Test(Dev):
+    DEBUG = True
+    SECRET_KEY = "sometestingkey"
+    MIDDLEWARE = [
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+    ]
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+
+
 class Prod(Base):
     DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
@@ -219,6 +231,33 @@ class Prod(Base):
 
     MAILGUN_API_KEY = values.Value()
     MAILGUN_SENDER_DOMAIN = values.Value()
+
+    MIDDLEWARE = [
+        "django.middleware.cache.UpdateCacheMiddleware",
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "django.middleware.cache.FetchFromCacheMiddleware",
+    ]
+
+    CACHE = values.CacheURLValue()
+    CACHE_MIDDLEWARE_ALIAS = "default"
+    CACHE_MIDDLEWARE_KEY_PREFIX = ""
+
+    # Cache key TTL in seconds
+    MINUTE = 60
+    HOUR = MINUTE * 60
+    DAY = HOUR * 24
+    CACHE_MIDDLEWARE_SECONDS = DAY
+
+    @property
+    def CACHES(self):
+        self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
+        return self.CACHE
 
     @property
     def ANYMAIL(self):
@@ -262,15 +301,3 @@ class Prod(Base):
         """Sentry initialization"""
         super().post_setup()
         sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration()])
-
-
-class Test(Dev):
-    DEBUG = True
-    SECRET_KEY = "sometestingkey"
-    MIDDLEWARE = [
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-    ]
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}

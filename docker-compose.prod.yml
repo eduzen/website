@@ -62,3 +62,10 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - DB_NAME=${DB_NAME}
+
+    redis:
+      image: redis:6-alpine
+      environment:
+        - REDIS_PASSWORD=eduzen
+      expose:
+        - "6379"

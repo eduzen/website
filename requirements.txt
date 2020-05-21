@@ -10,6 +10,7 @@ django-debug-toolbar~=2.2
 django-extensions~=2.2
 django-image-cropping~=1.4
 django-money~=1.1
+django-redis~=4.11
 django-robots~=4.0
 django-simple-captcha~=0.5
 django-solo==1.1.3
