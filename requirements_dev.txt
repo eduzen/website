@@ -1,9 +1,7 @@
 #pgcli
 -r requirements.txt
-black>=19.10b0
 codecov
 coverage
-factory_boy
 flake8
 flake8-assertive
 flake8-bugbear
@@ -12,7 +10,6 @@ flake8-django
 ipython-sql
 pdbpp>=0.9.2
 pluggy>=0.7
-pyinstrument
 pytest
 pytest-cov
 pytest-django

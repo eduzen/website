@@ -15,6 +15,7 @@ RUN apt-get update && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
+RUN pip install -U pip
 RUN pip install -r requirements_dev.txt
 
 WORKDIR /code
