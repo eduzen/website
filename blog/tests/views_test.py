@@ -15,7 +15,6 @@ def posts():
     [
         "home",
         "post_list",
-        "post_archive",
         "blog",
         "about",
         "search",

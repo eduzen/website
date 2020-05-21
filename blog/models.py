@@ -5,7 +5,6 @@ from django.db.models import Count
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
-from djmoney.models.fields import MoneyField
 from image_cropping import ImageRatioField
 
 
@@ -80,19 +79,3 @@ class Post(models.Model):
         verbose_name = "post"
         verbose_name_plural = "posts"
         ordering = ["-published_date"]
-
-
-class DolarPeso(models.Model):
-    balance = MoneyField(max_digits=10, decimal_places=2)
-    name = models.CharField(verbose_name="Nombre", max_length=250)
-    bid = MoneyField(max_digits=10, decimal_places=2)
-    ask = MoneyField(max_digits=10, decimal_places=2)
-    rate = MoneyField(max_digits=10, decimal_places=2)
-    created_date = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return f"{self.name} - {self.created_date}"
-
-    class Meta:
-        verbose_name = "Cambio dolar"
-        verbose_name_plural = "Historial pesos/dolar"

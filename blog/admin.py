@@ -12,7 +12,6 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     date_hierarchy = "created_date"
     empty_value_display = "unknown"
     search_fields = ["text", "title", "slug", "pompadour"]
-    # list_filter = ["published_date", "created_date"]
     list_display = ["published", "author", "title", "slug", "created_date", "published_date", "preview", "tag_list"]
     list_display_links = ("title", "author")
     readonly_fields = ("preview", "pk")
