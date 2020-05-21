@@ -155,11 +155,14 @@ class Base(Configuration):
 
     @property
     def INSTALLED_APPS(self):
-        return self.DJANGO_APPS + self.THIRD_PARTY_APPS + self.APPS
+        return self.DJANGO_APPS + self.APPS + self.THIRD_PARTY_APPS
 
 
 class Dev(Base):
     DEBUG = True
+
+    STATIC_URL = "/static/"
+    MEDIA_URL = "/media/"
 
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = "mailhog"  # Your Mailhog Host
@@ -176,7 +179,12 @@ class Dev(Base):
 
     @property
     def DEBUG_TOOLBAR_CONFIG(self):
-        return {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
+        return {
+            "SHOW_TOOLBAR_CALLBACK": lambda r: (
+                r.environ.get("SERVER_NAME", None) != "testserver"
+                and (r.META.get("REMOTE_ADDR", None) in self.INTERNAL_IPS)  # NOQA
+            )
+        }
 
     @property
     def INSTALLED_APPS(self):
@@ -184,7 +192,16 @@ class Dev(Base):
 
     @property
     def MIDDLEWARE(self):
-        return super().MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # NOQA
+        return [
+            "debug_toolbar.middleware.DebugToolbarMiddleware",
+            "django.middleware.security.SecurityMiddleware",
+            "django.contrib.sessions.middleware.SessionMiddleware",
+            "django.middleware.common.CommonMiddleware",
+            "django.middleware.csrf.CsrfViewMiddleware",
+            "django.contrib.auth.middleware.AuthenticationMiddleware",
+            "django.contrib.messages.middleware.MessageMiddleware",
+            "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        ]
 
 
 class Prod(Base):

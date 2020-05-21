@@ -16,6 +16,12 @@ jobs:
         python-version: [3.8]
 
     steps:
+    - uses: actions/cache@v1
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_dev.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
@@ -32,4 +38,4 @@ jobs:
         python manage.py test
       env:
         DJANGO_SETTINGS_MODULE: website.settings
-        DJANGO_CONFIGURATION: Test
+        DJANGO_CONFIGURATION: Dev
