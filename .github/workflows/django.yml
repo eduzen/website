@@ -27,6 +27,8 @@ jobs:
         pip install -r requirements_dev.txt
     - name: Run Tests
       run: |
+        echo $DJANGO_SETTINGS_MODULE
+        echo $DJANGO_CONFIGURATION
         python manage.py test
       env:
         DJANGO_SETTINGS_MODULE: website.settings
