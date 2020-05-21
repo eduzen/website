@@ -83,6 +83,9 @@ shell_plus_sql:
 black:
 	docker-compose run --rm --no-deps web black --py36 -l 99 -S .
 
+show_urls:
+	docker-compose run --rm web python manage.py show_urls
+
 clean-python: clean-build clean-pyc
 
 clean-build:

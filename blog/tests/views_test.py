@@ -32,16 +32,9 @@ def test_home_view(client, url, posts):
 
 
 @pytest.mark.django_db
-def test_get_post_by_pk(client, posts):
-    for post in posts:
-        response = client.get(reverse_lazy("post_detail", kwargs={"pk": post.id}))
-        assert response.status_code == 200
-
-
-@pytest.mark.django_db
 def test_get_post_by_slug(client, posts):
     for post in posts:
-        response = client.get(reverse_lazy("post_slug", kwargs={"slug": post.slug}))
+        response = client.get(reverse_lazy("post_detail", kwargs={"slug": post.slug}))
         assert response.status_code == 200
 
 

@@ -61,7 +61,7 @@ class Post(models.Model):
     published.boolean = True
 
     def get_absolute_url(self):
-        return reverse("post_slug", args=[self.slug])
+        return reverse("post_detail", args=[self.slug])
 
     def save(self, *args, **kwargs):
         try:

@@ -25,28 +25,28 @@
     <div id="navbar" class="navbar-collapse collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
         <li class="menu active grey">
-          <a href="/">
+          <a href="{% url 'home' %}">
             <div class="col-xs-5 menu"><img src="{% static 'blog/img/house_blue.png' %}"
                 class="img-responsive pic-link"></div>
             <div class="col-xs-7 menu">Home</div>
           </a>
         </li>
         <li class="menu">
-          <a href="/bio/">
+          <a href="{% url 'about' %}">
             <div class="col-xs-5 menu"><img src="{% static 'blog/img/diskette.png' %}" class="img-responsive pic-link">
             </div>
             <div class="col-xs-7 menu">About</div>
           </a>
         </li>
         <li class="menu">
-          <a href="/tags/python/">
+          <a href="{% url 'bytag' 'python' %}">
             <div class="col-xs-5 menu"><img src="{% static 'config/img/favicon.ico' %}" class="img-responsive pic-link">
             </div>
             <div class="col-xs-7 menu">Python</div>
           </a>
         </li>
         <li class="menu">
-          <a href="/contact/">
+          <a href="{% url 'contact' %}">
             <div class="col-xs-5 menu"><img src="{% static 'blog/img/email-red.png' %}" class="img-responsive pic-link">
             </div>
             <div class="col-xs-7 menu">Contact</div>

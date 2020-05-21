@@ -3,7 +3,6 @@ import logging
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
 from django.views.generic import DetailView, FormView, ListView, TemplateView
-from django.views.generic.dates import ArchiveIndexView, DayArchiveView, MonthArchiveView, WeekArchiveView
 
 from .forms import AdvanceSearchForm, EmailForm, SearchForm
 from .models import Post
@@ -122,32 +121,3 @@ class ContactView(FormView):
             logger.exception("Email problems")
 
         return redirect("/error/")
-
-
-class PostMonthArchiveView(MonthArchiveView):
-    queryset = Post.objects.published()
-    date_field = "published_date"
-    allow_future = True
-
-
-class PostWeekArchiveView(WeekArchiveView):
-    queryset = Post.objects.published()
-    date_field = "published_date"
-    week_format = "%W"
-    allow_future = True
-
-
-class PostDayArchiveView(DayArchiveView):
-    queryset = Post.objects.published()
-    date_field = "published_date"
-    allow_future = True
-
-
-class PostArchiveIndex(ArchiveIndexView):
-    model = Post
-    paginate_by = 50
-    queryset = Post.objects.published()
-    template_name = "blog/home.html"
-    date_field = "published_date"
-    allow_future = True
-    context_object_name = "posts"
