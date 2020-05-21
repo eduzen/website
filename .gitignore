@@ -19,6 +19,8 @@ tests/report/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+.mypy_cache/
+.pytest_cache/
 *.py[cod]
 *$py.class
 
@@ -99,6 +101,9 @@ celerybeat-schedule
 
 # dotenv
 .env
+.env.db
+.env.prod
+.env.django
 
 # virtualenv
 .venv/
@@ -118,17 +123,9 @@ ENV/
 eduzen.sublime-project
 eduzen.sublime-workspace
 
-keysettings.*
-website/__init__.py
-website/static
-website/mydatabase
 media/
 .pytest_*/
-.env*
-dump-eduzen-20-04-2019.sql
 scripts/db/02dump-eduzen-21-04-2019.sql
 *dump*.sql
 docker-compose.override.yml
 .pdbrc.py
-.mypy_cache/
-dumps/
