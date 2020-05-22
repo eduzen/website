@@ -10,8 +10,8 @@
       </div>
       <!-- SIDEBAR -->
       <div class="col-md-3">
-        {% include 'blog/extras/related_posts.html' with post=related_posts %}
         {% include 'blog/extras/tags.html' with tags=post.tags.all %}
+        {% include 'blog/extras/related_posts.html' with posts=related_posts %}
 
     </div>
   </div>

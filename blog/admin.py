@@ -30,7 +30,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     ]
     formfield_overrides = {models.CharField: {"widget": TextInput(attrs={"size": "130"})}}
     filter_horizontal = ("tags",)
-    list_filter = (("published", admin.BooleanFieldListFilter),)
+    # list_filter = (("published", admin.BooleanFieldListFilter),)
 
     @mark_safe
     def preview(self, obj):

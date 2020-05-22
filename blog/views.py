@@ -2,6 +2,8 @@ import logging
 
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 from .forms import AdvanceSearchForm, EmailForm, SearchForm
@@ -9,15 +11,22 @@ from .models import Post
 
 logger = logging.getLogger(__name__)
 
+MIN = 60
+HOUR = 60 * MIN
+DAY = 24 * HOUR
 
+
+@method_decorator(cache_page(DAY), name="dispatch")
 class AboutView(TemplateView):
     template_name = "blog/about.html"
 
 
+@method_decorator(cache_page(DAY), name="dispatch")
 class SucessView(TemplateView):
     template_name = "blog/success.html"
 
 
+@method_decorator(cache_page(DAY), name="dispatch")
 class ErrorView(TemplateView):
     template_name = "blog/error.html"
 
@@ -28,6 +37,7 @@ class AdvanceSearch(FormView):
     success_url = "/sucess/"
 
 
+@method_decorator(cache_page(HOUR), name="dispatch")
 class HomeListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
@@ -42,6 +52,7 @@ class HomeListView(ListView):
         return context
 
 
+@method_decorator(cache_page(HOUR), name="dispatch")
 class PostListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
@@ -72,6 +83,7 @@ class PostListView(ListView):
         return super().render_to_response(context)
 
 
+@method_decorator(cache_page(HOUR), name="dispatch")
 class PostTagsList(ListView):
     model = Post
     queryset = Post.objects.published()
@@ -91,6 +103,7 @@ class PostTagsList(ListView):
         return self.queryset.filter(tags__slug=self.kwargs.get("tag"))
 
 
+@method_decorator(cache_page(DAY), name="dispatch")
 class PostDetail(DetailView):
     queryset = Post.objects.prefetch_related("tags").published()
     context_object_name = "post"
@@ -108,6 +121,7 @@ class PostDetail(DetailView):
         return context
 
 
+@method_decorator(cache_page(DAY), name="get")
 class ContactView(FormView):
     template_name = "blog/contact.html"
     form_class = EmailForm

@@ -153,6 +153,21 @@ class Base(Configuration):
         "image_cropping.thumbnail_processors.crop_corners",
     ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
+    CACHE = values.CacheURLValue()
+    CACHE_MIDDLEWARE_ALIAS = "default"
+    CACHE_MIDDLEWARE_KEY_PREFIX = ""
+
+    # Cache key TTL in seconds
+    MINUTE = 60
+    HOUR = MINUTE * 60
+    DAY = HOUR * 24
+    CACHE_MIDDLEWARE_SECONDS = DAY
+
+    @property
+    def CACHES(self):
+        self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
+        return self.CACHE
+
     @property
     def INSTALLED_APPS(self):
         return self.DJANGO_APPS + self.APPS + self.THIRD_PARTY_APPS
@@ -179,12 +194,7 @@ class Dev(Base):
 
     @property
     def DEBUG_TOOLBAR_CONFIG(self):
-        return {
-            "SHOW_TOOLBAR_CALLBACK": lambda r: (
-                r.environ.get("SERVER_NAME", None) != "testserver"
-                and (r.META.get("REMOTE_ADDR", None) in self.INTERNAL_IPS)  # NOQA
-            )
-        }
+        return {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
 
     @property
     def INSTALLED_APPS(self):
@@ -215,6 +225,15 @@ class Test(Dev):
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
+    @property
+    def DEBUG_TOOLBAR_CONFIG(self):
+        return {
+            "SHOW_TOOLBAR_CALLBACK": lambda r: (
+                r.environ.get("SERVER_NAME", None) != "testserver"
+                and (r.META.get("REMOTE_ADDR", None) in self.INTERNAL_IPS)  # NOQA
+            )
+        }
+
 
 class Prod(Base):
     DEBUG = False
@@ -244,20 +263,11 @@ class Prod(Base):
         "django.middleware.cache.FetchFromCacheMiddleware",
     ]
 
-    CACHE = values.CacheURLValue()
-    CACHE_MIDDLEWARE_ALIAS = "default"
-    CACHE_MIDDLEWARE_KEY_PREFIX = ""
-
     # Cache key TTL in seconds
     MINUTE = 60
     HOUR = MINUTE * 60
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
-
-    @property
-    def CACHES(self):
-        self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
-        return self.CACHE
 
     @property
     def ANYMAIL(self):

@@ -69,7 +69,7 @@ superuser:
 
 migrate:
 	@echo "${DCO}${red} run --rm web ${yellow}python manage.py ${lightblue}migrate${reset}"
-	@docker-compose run --rm web python manage.py migrate
+	@$(DJMANAGE) migrate
 
 migrations:
 	$(DJMANAGE) makemigrations
@@ -80,8 +80,11 @@ shell_plus:
 shell_plus_sql:
 	$(DJMANAGE) shell_plus --print-sql
 
+clear_cache:
+	$(DJMANAGE) clear_cache
+
 black:
-	docker-compose run --rm --no-deps web black --py36 -l 99 -S .
+	$(RUNDJANGO) black -l 120 .
 
 show_urls:
 	docker-compose run --rm web python manage.py show_urls
