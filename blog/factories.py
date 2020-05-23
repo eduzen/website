@@ -19,6 +19,7 @@ class TagFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ("word",)
 
     word = factory.Faker("word")
+    slug = factory.LazyAttribute(lambda obj: obj.word.replace(" ", "-").replace(".", "")[:50])
 
 
 class PostFactory(factory.django.DjangoModelFactory):

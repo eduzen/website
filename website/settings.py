@@ -10,7 +10,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 class Base(Configuration):
     SITE_ID = 1
     SECRET_KEY = values.SecretValue()
-    BASE_DIR = Path(".").resolve(strict=True).parent.parent
+    BASE_DIR = Path(".").resolve(strict=True)
     USE_I18N = True
     USE_L10N = True
     USE_TZ = True
@@ -56,10 +56,16 @@ class Base(Configuration):
     ]
 
     # Application definition
-    APPS = ["config", "blog", "api", "expenses"]
+    APPS = [
+        "config",
+        "blog",
+        "expenses",
+        "snippets",
+    ]
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
+        "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
@@ -108,7 +114,8 @@ class Base(Configuration):
     STATIC_URL = "/static/"
     MEDIA_URL = "/media/"
 
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    STATIC_ROOT = os.path.join(BASE_DIR, "website/static")
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, "assets")]
@@ -175,9 +182,8 @@ class Base(Configuration):
 
 class Dev(Base):
     DEBUG = True
-
-    STATIC_URL = "/static/"
-    MEDIA_URL = "/media/"
+    SECRET_KEY = "s0m3r4nd0mk3yford3v!"
+    ALLOWED_HOSTS = values.ListValue(["*"])
 
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = "mailhog"  # Your Mailhog Host
@@ -192,6 +198,8 @@ class Dev(Base):
     SHELL_PLUS_PRINT_SQL_TRUNCATE = None
     INTERNAL_IPS = ["127.0.0.1"]
 
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+
     @property
     def DEBUG_TOOLBAR_CONFIG(self):
         return {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
@@ -202,27 +210,12 @@ class Dev(Base):
 
     @property
     def MIDDLEWARE(self):
-        return [
-            "debug_toolbar.middleware.DebugToolbarMiddleware",
-            "django.middleware.security.SecurityMiddleware",
-            "django.contrib.sessions.middleware.SessionMiddleware",
-            "django.middleware.common.CommonMiddleware",
-            "django.middleware.csrf.CsrfViewMiddleware",
-            "django.contrib.auth.middleware.AuthenticationMiddleware",
-            "django.contrib.messages.middleware.MessageMiddleware",
-            "django.middleware.clickjacking.XFrameOptionsMiddleware",
-        ]
+        return ["debug_toolbar.middleware.DebugToolbarMiddleware"] + super().MIDDLEWARE
 
 
 class Test(Dev):
     DEBUG = True
-    SECRET_KEY = "sometestingkey"
-    MIDDLEWARE = [
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-    ]
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
     @property
@@ -238,7 +231,6 @@ class Test(Dev):
 class Prod(Base):
     DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
-    STATIC_URL = "https://static.eduzen.com.ar/"
     MEDIA_URL = "https://media.eduzen.com.ar/"
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
@@ -250,18 +242,6 @@ class Prod(Base):
 
     MAILGUN_API_KEY = values.Value()
     MAILGUN_SENDER_DOMAIN = values.Value()
-
-    MIDDLEWARE = [
-        "django.middleware.cache.UpdateCacheMiddleware",
-        "django.middleware.security.SecurityMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-        "django.middleware.cache.FetchFromCacheMiddleware",
-    ]
 
     # Cache key TTL in seconds
     MINUTE = 60

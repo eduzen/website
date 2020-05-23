@@ -17,13 +17,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.documentation import include_docs_urls
 
-from .views import MediaView, StaticView, favicon_view
+from .views import MediaView, favicon_view
 
 urlpatterns = [
-    path("api/", include("api.urls")),
-    path("static/<path>", StaticView.as_view()),
+    path("api/", include("snippets.urls")),
     path("media/<path>", MediaView.as_view()),
     path("favicon.ico", favicon_view),
     path("eduardo/", admin.site.urls),
@@ -32,7 +30,6 @@ urlpatterns = [
     path("google448c52311d45450b.html", include("config.urls")),
     path("telegram/", include("expenses.urls")),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
-    path("docs/", include_docs_urls(title="My eduzen API title")),
     path("captcha/", include("captcha.urls")),
     path("", include("blog.urls")),
 ]
