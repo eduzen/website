@@ -65,7 +65,6 @@ class Base(Configuration):
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
-        "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
@@ -114,11 +113,8 @@ class Base(Configuration):
     STATIC_URL = "/static/"
     MEDIA_URL = "/media/"
 
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     STATIC_ROOT = os.path.join(BASE_DIR, "website/static")
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-    # STATICFILES_DIRS = [os.path.join(BASE_DIR, "assets")]
 
     CKEDITOR_JQUERY_URL = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min."
     CKEDITOR_UPLOAD_PATH = "/"
@@ -215,8 +211,13 @@ class Dev(Base):
 
 class Test(Dev):
     DEBUG = True
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+    MIDDLEWARE = [
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+    ]
 
     @property
     def DEBUG_TOOLBAR_CONFIG(self):
@@ -235,7 +236,10 @@ class Prod(Base):
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
     SENTRY_DSN = values.Value()
+
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropBoxStorage"
+
     DROPBOX_OAUTH2_TOKEN = values.SecretValue()
     DROPBOX_ROOT_PATH = values.Value()
     DROPBOX_TIMEOUT = values.IntegerValue()
@@ -248,6 +252,17 @@ class Prod(Base):
     HOUR = MINUTE * 60
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
+
+    MIDDLEWARE = [
+        "django.middleware.security.SecurityMiddleware",
+        "whitenoise.middleware.WhiteNoiseMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ]
 
     @property
     def ANYMAIL(self):
