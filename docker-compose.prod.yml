@@ -12,16 +12,6 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  static:
-    image: nginx:alpine
-    restart: always
-    expose:
-      - "8080"
-    environment:
-      - VIRTUAL_HOST=static.eduzen.com.ar
-    volumes:
-      - ./website/static:/usr/share/nginx/html:ro
-
   media:
     image: nginx:alpine
     restart: always
@@ -46,8 +36,10 @@ services:
       - VIRTUAL_HOST=${VIRTUAL_HOSTS}
     links:
       - postgres
+      - redis
     depends_on:
       - postgres
+      - redis
 
   postgres:
     image: postgres:11-alpine
@@ -63,9 +55,9 @@ services:
       - DB_PASS=${DB_PASS}
       - DB_NAME=${DB_NAME}
 
-    redis:
-      image: redis:6-alpine
-      environment:
-        - REDIS_PASSWORD=eduzen
-      expose:
-        - "6379"
+  redis:
+    image: redis:6-alpine
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    expose:
+      - "6379"
