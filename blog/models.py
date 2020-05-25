@@ -38,6 +38,8 @@ class Post(models.Model):
     text = RichTextUploadingField(verbose_name="Cuerpo de texto")
 
     image = models.ImageField(upload_to="post-img/%Y/%m/%d", blank=True, null=True)
+    images = models.ManyToManyField("files.PublicImage", related_name="post")
+    snippets = models.ManyToManyField("snippets.Snippet", related_name="post")
     cropping = ImageRatioField("image", "260x120")
 
     objects = PostQuerySet.as_manager()

@@ -1,56 +1,51 @@
 {% extends 'blog/utils/base.html' %}
 {% load static %}
-{% load solo_tags %}
 
 {% block body %}
-{% get_solo 'config.BioConfiguration' as bio_config %}
 
 <div class="row">
   <div class="col-md-8">
     <div class="row">
       <div class="col-xs-6 col-md-8 col-lg-5 vcenter">
-        {% if bio_config.bio_pic %}
-        <img class='img-thumbnail' src="{{ bio_config.bio_pic.url }}" alt="eduzen">
+        {% if config.bio_pic %}
+        <img class='img-thumbnail' src="{{ config.bio_pic.url }}" alt="eduzen">
         {% endif %}
       </div>
       <div class="col-xs-6 col-md-4 col-lg-5 vcenter">
-        {% if bio_config.title %}
-        <h2 class="vcenter text-info">{{ bio_config.title }}</h2>
+        {% if config.title %}
+        <h2 class="vcenter text-info">{{ config.title }}</h2>
         <h3 class="vcenter text-muted">
-          <p>{% autoescape off %}{{ bio_config.subtitle }}{% endautoescape %}</p>
+          <p>{% autoescape off %}{{ config.subtitle }}{% endautoescape %}</p>
         </h3>
         {% endif %}
       </div>
     </div>
+
     {% autoescape off %}
-    {% if bio_config.small %}
-    <h2 class="text-primary">Short</h2>
-    {{ bio_config.small }}
-    {% endif %}
-    {% if bio_config.pic_0 %}
-    <img class='img-thumbnail' src="{{ bio_config.pic_0.url }}" alt="eduzen">
-    {% endif %}
-    {% if bio_config.long %}
-    <h2 class="text-warning">Long</h2>
-    {{ bio_config.long }}
-    {% endif %}
-    {% if bio_config.pic_1 %}
-    <img class='img-thumbnail' src="{{ bio_config.pic_1.url }}" alt="eduzen">
-    {% endif %}
-    {% if bio_config.body %}
-    <h2 class="text-success">Super long</h2>
-    {{ bio_config.body }}
-    {% endif %}
+      {% if config.small %}
+      <h2 class="text-primary">Short</h2>
+      {{ config.small }}
+      {% endif %}
+      {% if config.pic_0 %}
+      <img class='img-thumbnail' src="{{ config.pic_0.url }}" alt="eduzen">
+      {% endif %}
+      {% if config.long %}
+      <h2 class="text-warning">Long</h2>
+      {{ config.long }}
+      {% endif %}
+      {% if config.pic_1 %}
+      <img class='img-thumbnail' src="{{ config.pic_1.url }}" alt="eduzen">
+      {% endif %}
     {% endautoescape %}
-    {% if bio_config.pic_2 %}
-    <img class='img-thumbnail' src="{{ bio_config.pic_2.url }}" alt="eduzen">
+    {% if config.pic_2 %}
+    <img class='img-thumbnail' src="{{ config.pic_2.url }}" alt="eduzen">
     {% endif %}
 
-    <a class="linkedin" href="https://www.linkedin.com/in/enriquezeduardo/">linkedin</a>
-    <a class="twitter" href="https://twitter.com/_eduzen_">twitter</a>
-    <a class="github" href="https://github.com/eduzen">github</a>
-    <a class="instagram" href="https://www.instagram.com/_eduzen_/">instagram</a>
-    <a class="email" href="mailto:eduardoaenriquez+eduzen@gmail.com">email</a>
+    <a class="linkedin" href="{{config.linkedin}}">linkedin</a>
+    <a class="twitter" href="{{config.twitter}}">twitter</a>
+    <a class="github" href="{{config.github}}">github</a>
+    <a class="instagram" href="{{config.instagram}}">instagram</a>
+    <a class="email" href="{{config.email}}">email</a>
   </div>
   <div class="col-md-4">
     {% include 'blog/extras/twitter.html' %}

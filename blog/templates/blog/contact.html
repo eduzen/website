@@ -3,28 +3,17 @@
 {% load solo_tags %}
 
 {% block body %}
-{% get_solo 'config.ContactConfiguration' as contac_config %}
 <div class="row">
   <div class="col-md-8">
-    <h2>{{ contac_config.title }}</h2>
-    <h3>{{ contac_config.subtitle }}</h3>
+    <h2>{{ config.contact_title }}</h2>
+    <h3>{{ config.contact_subtitle }}</h3>
     {% autoescape off %}
-    {% if contact_config.short %}
-    <h2>Short</h2>
-    {{ contac_config.short }}
-    {% endif %}
-    {% if contact_config.long %}
-    <h2>Long</h2>
-    {{ contac_config.long }}
-    {% endif %}
     {% if contact_config.body %}
-    <h2>Super long</h2>
-    {{ contac_config.body }}
+      {{ config.contact_body }}
     {% endif %}
     {% endautoescape %}
     {% if form %}
-    {% csrf_token %}
-    {% crispy form %}
+      {% csrf_token %}{% crispy form %}
     {% endif %}
   </div>
 

@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
+from constance import config
 
 from .forms import AdvanceSearchForm, EmailForm, SearchForm
 from .models import Post
@@ -16,8 +17,15 @@ HOUR = 60 * MIN
 DAY = 24 * HOUR
 
 
+class ConfigMixin:
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context["config"] = config
+        return context
+
+
 @method_decorator(cache_page(DAY), name="dispatch")
-class AboutView(TemplateView):
+class AboutView(ConfigMixin, TemplateView):
     template_name = "blog/about.html"
 
 
@@ -122,7 +130,7 @@ class PostDetail(DetailView):
 
 
 @method_decorator(cache_page(DAY), name="get")
-class ContactView(FormView):
+class ContactView(ConfigMixin, FormView):
     template_name = "blog/contact.html"
     form_class = EmailForm
     success_url = "/sucess/"
