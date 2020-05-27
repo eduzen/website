@@ -6,11 +6,12 @@ from configurations import Configuration, values
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from sentry_sdk.integrations.django import DjangoIntegration
 
-BASE_DIR = Path(".").resolve(strict=True)
+BASE_DIR = Path(".").resolve(strict=True).parent
 
 
 class ConstanceConfig:
     CONSTANCE_DATABASE_CACHE_BACKEND = "default"
+    CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 
     CONSTANCE_ADDITIONAL_FIELDS = {
         "image_field": ["django.forms.ImageField", {}],
@@ -86,7 +87,44 @@ class ConstanceConfig:
     }
 
 
-class Base(ConstanceConfig, Configuration):
+class DropboxStorage:
+    DROPBOX_OAUTH2_TOKEN = values.SecretValue()
+    DROPBOX_ROOT_PATH = values.Value()
+    DROPBOX_TIMEOUT = values.IntegerValue()
+    DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropBoxStorage"
+    MEDIA_URL = None
+    MEDIA_ROOT = None
+
+
+class WhitenoiseStatic:
+    STATIC_URL = "/static/"
+    STATIC_ROOT = os.path.join(BASE_DIR, "website/static")
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+class SelfHostedStorage:
+    MEDIA_URL = "https://media.eduzen.com.ar/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+class StaticMedia:
+    STATIC_URL = "/static/"
+    MEDIA_URL = "/media/"
+    STATIC_ROOT = os.path.join(BASE_DIR, "website/static")
+    MEDIA_ROOT = os.path.join(BASE_DIR, "website/media")
+
+
+class Sentry:
+    SENTRY_DSN = values.Value()
+
+    @classmethod
+    def post_setup(cls):
+        """Sentry initialization"""
+        super().post_setup()  # NOQA
+        sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration()])
+
+
+class Base(ConstanceConfig, StaticMedia, Configuration):
     SITE_ID = 1
     SECRET_KEY = values.SecretValue()
     BASE_DIR = BASE_DIR
@@ -102,7 +140,6 @@ class Base(ConstanceConfig, Configuration):
     DEBUG = False
     SECRET_KEY = values.SecretValue()
 
-    CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
     ANYMAIL = values.Value({})
     DEFAULT_FROM_EMAIL = values.Value()
     DATABASES = values.DatabaseURLValue()
@@ -192,13 +229,7 @@ class Base(ConstanceConfig, Configuration):
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-    STATIC_URL = "/static/"
-    MEDIA_URL = "/media/"
-
-    STATIC_ROOT = os.path.join(BASE_DIR, "website/static")
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-    CKEDITOR_JQUERY_URL = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min."
+    CKEDITOR_JQUERY_URL = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
     CKEDITOR_UPLOAD_PATH = "/"
     CKEDITOR_CONFIGS = {
         "awesome_ckeditor": {"toolbar": "full"},
@@ -315,20 +346,11 @@ class Test(Dev):
         }
 
 
-class Prod(Base):
+class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
-    MEDIA_URL = "https://media.eduzen.com.ar/"
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
-    SENTRY_DSN = values.Value()
-
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropBoxStorage"
-
-    DROPBOX_OAUTH2_TOKEN = values.SecretValue()
-    DROPBOX_ROOT_PATH = values.Value()
-    DROPBOX_TIMEOUT = values.IntegerValue()
 
     MAILGUN_API_KEY = values.Value()
     MAILGUN_SENDER_DOMAIN = values.Value()
@@ -386,9 +408,3 @@ class Prod(Base):
                 "django": {"handlers": ["console"], "propagate": False, "level": self.LOG_LEVEL},
             },
         }
-
-    @classmethod
-    def post_setup(cls):
-        """Sentry initialization"""
-        super().post_setup()
-        sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration()])

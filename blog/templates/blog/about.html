@@ -1,6 +1,8 @@
 {% extends 'blog/utils/base.html' %}
 {% load static %}
 
+{% get_media_prefix as MEDIA_URL %}
+
 {% block body %}
 
 <div class="row">
@@ -8,7 +10,7 @@
     <div class="row">
       <div class="col-xs-6 col-md-8 col-lg-5 vcenter">
         {% if config.bio_pic %}
-        <img class='img-thumbnail' src="{{ config.bio_pic.url }}" alt="eduzen">
+        <img class='img-thumbnail' src="{{MEDIA_URL}}{{config.bio_pic}}" alt="eduzen">
         {% endif %}
       </div>
       <div class="col-xs-6 col-md-4 col-lg-5 vcenter">
@@ -27,18 +29,18 @@
       {{ config.small }}
       {% endif %}
       {% if config.pic_0 %}
-      <img class='img-thumbnail' src="{{ config.pic_0.url }}" alt="eduzen">
+      <img class='img-thumbnail' src="{{MEDIA_URL}}{{config.pic_0}}" alt="eduzen">
       {% endif %}
       {% if config.long %}
       <h2 class="text-warning">Long</h2>
       {{ config.long }}
       {% endif %}
       {% if config.pic_1 %}
-      <img class='img-thumbnail' src="{{ config.pic_1.url }}" alt="eduzen">
+      <img class='img-thumbnail' src="{{MEDIA_URL}}{{config.pic_1}}" alt="eduzen">
       {% endif %}
     {% endautoescape %}
     {% if config.pic_2 %}
-    <img class='img-thumbnail' src="{{ config.pic_2.url }}" alt="eduzen">
+    <img class='img-thumbnail' src="{{MEDIA_URL}}{{config.pic_2}}" alt="eduzen">
     {% endif %}
 
     <a class="linkedin" href="{{config.linkedin}}">linkedin</a>
