@@ -6,7 +6,7 @@ from configurations import Configuration, values
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from sentry_sdk.integrations.django import DjangoIntegration
 
-BASE_DIR = Path(".").resolve(strict=True).parent
+BASE_DIR = Path(".").resolve(strict=True)
 
 
 class ConstanceConfig:
