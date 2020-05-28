@@ -66,10 +66,9 @@ class ConstanceConfig:
         "contact_title": ("Contacto", "Contacto", str),
         "contact_subtitle": ("me arroba eduzen.com.ar", "me arroba eduzen.com.ar", str),
         "contact_body": ("0", "0", "richtext_field"),
-        "bio_pic": ("nopic.png", "", "image_field"),
-        "pic_0": ("nopic.png", "", "image_field"),
-        "pic_1": ("nopic.png", "", "image_field"),
-        "pic_2": ("nopic.png", "", "image_field"),
+        "bio_pic": ("bio_pic.jpg", "", "image_field"),
+        "pic_0": ("pic_0.jpg", "", "image_field"),
+        "pic_1": ("pic_1.jpg", "", "image_field"),
         "title": ("Eduardo Enriquez", "Eduardo Enriquez", str),
         "subtitle": (
             "Software Engineer in <s>Buenos Aires</s> München",

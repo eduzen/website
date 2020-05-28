@@ -1,11 +1,11 @@
 import logging
 
+from constance import config
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
-from constance import config
 
 from .forms import AdvanceSearchForm, EmailForm, SearchForm
 from .models import Post
