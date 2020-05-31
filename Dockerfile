@@ -2,6 +2,7 @@ FROM python:3.8-slim-buster
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+RUN echo 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
 
 COPY requirements.txt requirements_dev.txt ./
 RUN apt-get update && \
