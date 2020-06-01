@@ -141,7 +141,7 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
 
     ANYMAIL = values.Value({})
     DEFAULT_FROM_EMAIL = values.Value()
-    DATABASES = values.DatabaseURLValue()
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=True)
 
     DJANGO_APPS = [
         "django.contrib.admin",
@@ -268,7 +268,7 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
         "image_cropping.thumbnail_processors.crop_corners",
     ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
-    CACHE = values.CacheURLValue()
+    CACHE = values.CacheURLValue(environ_name="REDIS_URL")
     CACHE_MIDDLEWARE_ALIAS = "default"
     CACHE_MIDDLEWARE_KEY_PREFIX = ""
 

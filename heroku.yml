@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: echo $PORT; echo $IP; python manage.py runserver 0.0.0.0:$PORT
+  web: uwsgi --socket 0.0.0.0:$PORT --ini scripts/uwsgi.ini
