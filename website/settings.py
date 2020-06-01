@@ -271,7 +271,7 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
     REDIS_URL = values.Value()
     CACHES = {
         "default": {
-            "BACKEND": "redis_cache.RedisCache",
+            "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": REDIS_URL,
             "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
         }
