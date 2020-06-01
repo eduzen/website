@@ -5,6 +5,7 @@ import sentry_sdk
 from configurations import Configuration, values
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
 
 BASE_DIR = Path(".").resolve(strict=True)
 
@@ -97,7 +98,7 @@ class DropboxStorage:
 
 class WhitenoiseStatic:
     STATIC_URL = "/static/"
-    STATIC_ROOT = os.path.join(BASE_DIR, "website/static")
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
@@ -120,7 +121,7 @@ class Sentry:
     def post_setup(cls):
         """Sentry initialization"""
         super().post_setup()  # NOQA
-        sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration()])
+        sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration(), RedisIntegration])
 
 
 class Base(ConstanceConfig, StaticMedia, Configuration):
@@ -281,7 +282,7 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
         return {
             "default": {
                 "BACKEND": "django_redis.cache.RedisCache",
-                "LOCATION": self.REDIS_URL,
+                "LOCATION": os.environ.get("REDIS_URL"),
                 "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
             }
         }
