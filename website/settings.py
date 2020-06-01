@@ -268,20 +268,23 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
         "image_cropping.thumbnail_processors.crop_corners",
     ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
-    REDIS_URL = values.Value()
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": REDIS_URL,
-            "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        }
-    }
+    REDIS_URL = values.Value(environ_name="REDIS_URL")
 
     # Cache key TTL in seconds
     MINUTE = 60
     HOUR = MINUTE * 60
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
+
+    @property
+    def CACHES(self):
+        return {
+            "default": {
+                "BACKEND": "django_redis.cache.RedisCache",
+                "LOCATION": self.REDIS_URL,
+                "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+            }
+        }
 
     @property
     def INSTALLED_APPS(self):
