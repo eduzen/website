@@ -268,9 +268,13 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
         "image_cropping.thumbnail_processors.crop_corners",
     ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
-    CACHE = values.CacheURLValue(environ_name="REDIS_URL")
-    CACHE_MIDDLEWARE_ALIAS = "default"
-    CACHE_MIDDLEWARE_KEY_PREFIX = ""
+    CACHES = {
+        "default": {
+            "BACKEND": "redis_cache.RedisCache",
+            "LOCATION": os.getenv("REDIS_URL"),
+            "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+        }
+    }
 
     # Cache key TTL in seconds
     MINUTE = 60
