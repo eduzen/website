@@ -8,8 +8,6 @@ COPY requirements.txt requirements_dev.txt ./
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
         build-essential \
-        apt-utils \
-        libpq-dev \
         postgresql-client \
         httpie && \
     apt-get autoremove -y && \
