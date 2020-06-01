@@ -283,7 +283,7 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
     CACHE_MIDDLEWARE_SECONDS = DAY
 
     @property
-    def CACHES(self):
+    def CACHE(self):
         self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
         return self.CACHE
 
