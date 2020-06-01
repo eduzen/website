@@ -121,7 +121,7 @@ class Sentry:
     def post_setup(cls):
         """Sentry initialization"""
         super().post_setup()  # NOQA
-        sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration(), RedisIntegration])
+        sentry_sdk.init(dsn=cls.SENTRY_DSN, integrations=[DjangoIntegration(), RedisIntegration()])
 
 
 class Base(ConstanceConfig, StaticMedia, Configuration):
