@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: echo $PORT; echo $IP; python manage.py runserver $IP:$PORT
+  web: echo $PORT; echo $IP; python manage.py runserver 0.0.0.0:$PORT
