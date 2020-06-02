@@ -88,9 +88,9 @@ class ConstanceConfig:
 
 
 class DropboxStorage:
-    DROPBOX_OAUTH2_TOKEN = values.SecretValue()
-    DROPBOX_ROOT_PATH = values.Value()
-    DROPBOX_TIMEOUT = values.IntegerValue()
+    DROPBOX_OAUTH2_TOKEN = values.Value("somekey")
+    DROPBOX_ROOT_PATH = values.Value("another")
+    DROPBOX_TIMEOUT = values.IntegerValue(100)
     DEFAULT_FILE_STORAGE = "storages.backends.dropbox.DropBoxStorage"
     MEDIA_URL = None
     MEDIA_ROOT = None
@@ -127,7 +127,7 @@ class Sentry:
 
 class Base(ConstanceConfig, StaticMedia, Configuration):
     SITE_ID = 1
-    SECRET_KEY = values.SecretValue()
+    SECRET_KEY = values.Value("som3secret")
     BASE_DIR = BASE_DIR
     USE_I18N = True
     USE_L10N = True
@@ -351,6 +351,7 @@ class Test(Dev):
 
 
 class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
+    SECRET_KEY = values.Value("som3s3cr3t")
     DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
