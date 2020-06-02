@@ -98,8 +98,9 @@ class DropboxStorage:
 
 class WhitenoiseStatic:
     STATIC_URL = "/static/"
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    STATIC_ROOT = "/code/assets/"
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
 class SelfHostedStorage:
@@ -142,7 +143,7 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
 
     ANYMAIL = values.Value({})
     DEFAULT_FROM_EMAIL = values.Value()
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=True)
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
     DJANGO_APPS = [
         "django.contrib.admin",
@@ -363,6 +364,7 @@ class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     HOUR = MINUTE * 60
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=True)
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",

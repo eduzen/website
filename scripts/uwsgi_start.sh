@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec uwsgi --ini scripts/uwsgi.in
+exec uwsgi --ini /code/scripts/uwsgi.ini
