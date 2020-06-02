@@ -23,5 +23,5 @@ ENV PYTHONPATH /code:$PYTHONPATH
 # USER uwsgi
 EXPOSE 80
 COPY . /code/
-RUN python manage.py collectstatic --settings=website.settings --configurations=Prod
+RUN python manage.py collectstatic --no-input --settings=website.settings --configuration=Prod
 CMD ["uwsgi", "--ini", "/code/scripts/uwsgi.ini"]
