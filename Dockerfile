@@ -24,4 +24,6 @@ ENV PYTHONPATH /code:$PYTHONPATH
 EXPOSE 80
 COPY . /code/
 
-CMD ["uwsgi", "--ini", "/code/scripts/uwsgi.ini"]
+RUN python manage.py collectstatic --no-input --settings=website.settings --configuration=Prod
+
+CMD python manage.py runserver 0.0.0.0:80 --settings=website.settings --configuration=Test

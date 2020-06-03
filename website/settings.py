@@ -296,7 +296,7 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
 class Dev(Base):
     DEBUG = True
     SECRET_KEY = "s0m3r4nd0mk3yford3v!"
-    ALLOWED_HOSTS = values.ListValue(["*"])
+    ALLOWED_HOSTS = values.ListValue(["*", "eduzen-dev.us-east-1.elasticbeanstalk.com"])
 
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = "mailhog"  # Your Mailhog Host
