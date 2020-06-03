@@ -143,7 +143,6 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
 
     ANYMAIL = values.Value({})
     DEFAULT_FROM_EMAIL = values.Value()
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
     DJANGO_APPS = [
         "django.contrib.admin",
@@ -292,6 +291,23 @@ class Base(ConstanceConfig, StaticMedia, Configuration):
     def INSTALLED_APPS(self):
         return self.DJANGO_APPS + self.APPS + self.THIRD_PARTY_APPS
 
+    @property
+    def DATABASES(self):
+        if os.getenv("DATABASE_URL"):
+            DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
+            return DATABASES
+        return {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": os.getenv("RDS_DB_NAME"),
+                "USER": os.getenv("RDS_USERNAME"),
+                "PASSWORD": os.getenv("RDS_PASSWORD"),
+                "HOST": os.getenv("RDS_HOSTNAME"),
+                "PORT": os.getenv("RDS_PORT"),
+                "CONN_MAX_AGE": 600,
+            }
+        }
+
 
 class Dev(Base):
     DEBUG = True
@@ -330,8 +346,34 @@ class LocalDev(Dev):
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
 
 
+class Amazon(Dev):
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("RDS_DB_NAME"),
+            "USER": os.getenv("RDS_USERNAME"),
+            "PASSWORD": os.getenv("RDS_PASSWORD"),
+            "HOST": os.getenv("RDS_HOSTNAME"),
+            "PORT": os.getenv("RDS_PORT"),
+            "CONN_MAX_AGE": 600,
+        }
+    }
+
+    @property
+    def DEBUG_TOOLBAR_CONFIG(self):
+        return {
+            "SHOW_TOOLBAR_CALLBACK": lambda r: (
+                r.environ.get("SERVER_NAME", None) != "testserver"
+                and (r.META.get("REMOTE_ADDR", None) in self.INTERNAL_IPS)  # NOQA
+            )
+        }
+
+
 class Test(Dev):
     DEBUG = True
+
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
     MIDDLEWARE = [
@@ -339,6 +381,21 @@ class Test(Dev):
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
     ]
+
+    @property
+    def DATABASES(self):
+        if not os.getenv("DATABASE_URL"):
+            return {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
+        return {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": os.getenv("RDS_DB_NAME"),
+                "USER": os.getenv("RDS_USERNAME"),
+                "PASSWORD": os.getenv("RDS_PASSWORD"),
+                "HOST": os.getenv("RDS_HOSTNAME"),
+                "PORT": os.getenv("RDS_PORT"),
+            }
+        }
 
     @property
     def DEBUG_TOOLBAR_CONFIG(self):
