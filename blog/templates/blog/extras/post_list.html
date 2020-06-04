@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="col-xs-6">
-      <h6 class="date">Publicado el {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+      <h6 class="date">Published: {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
     </div>
 
     {% if post.image %}

@@ -6,7 +6,7 @@ volumes:
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000 --settings=website.settings --configuration=Test
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:

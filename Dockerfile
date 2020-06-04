@@ -24,6 +24,6 @@ ENV PYTHONPATH /code:$PYTHONPATH
 EXPOSE 80
 COPY . /code/
 
-RUN python manage.py collectstatic --no-input --settings=website.settings --configuration=Amazon
+RUN python manage.py collectstatic --no-input --configuration=Amazon
 
-CMD python manage.py runserver 0.0.0.0:80
+CMD ["uwsgi", "--ini", "/code/scripts/uwsgi.ini"]
