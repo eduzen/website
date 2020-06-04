@@ -2,12 +2,18 @@ import os
 from pathlib import Path
 
 import sentry_sdk
+from boto3.session import Session
 from configurations import Configuration, values
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
 BASE_DIR = Path(".").resolve(strict=True)
+boto3_session = Session(
+    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+    region_name=os.getenv("AWS_REGION_NAME"),
+)
 
 
 class ConstanceConfig:
@@ -395,6 +401,37 @@ class Test(Dev):
                 "HOST": os.getenv("RDS_HOSTNAME"),
                 "PORT": os.getenv("RDS_PORT"),
             }
+        }
+
+    @property
+    def LOGGING(self):
+        return {
+            "version": 1,
+            "disable_existing_loggers": False,
+            "formatters": {
+                "aws": {
+                    # you can add specific format for aws here
+                    # if you want to change format, you can read:
+                    #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
+                    "format": "%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
+                    "datefmt": "%Y-%m-%d %H:%M:%S",
+                },
+            },
+            "handlers": {
+                "watchtower": {
+                    "level": self.LOG_LEVEL,
+                    "class": "watchtower.CloudWatchLogHandler",
+                    "boto3_session": boto3_session,
+                    "log_group": "/aws/elasticbeanstalk/eduzen-dev/var/log/website/",
+                    "stream_name": "uwgsgi",
+                    "formatter": "aws",  # use custom format
+                },
+            },
+            "loggers": {
+                "*": {"handlers": ["console"], "level": self.LOG_LEVEL, "propagate": True},
+                "django": {"handlers": ["console"], "propagate": False, "level": self.LOG_LEVEL},
+                "watchtower-logger": {"level": self.LOG_LEVEL, "handlers": ["watchtower"], "propagate": False},
+            },
         }
 
     @property
