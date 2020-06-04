@@ -121,6 +121,7 @@ ve/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+.ebextensions/*
 
 # sqlite
 *.sqlite3

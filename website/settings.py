@@ -10,9 +10,9 @@ from sentry_sdk.integrations.redis import RedisIntegration
 
 BASE_DIR = Path(".").resolve(strict=True)
 boto3_session = Session(
-    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
-    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
-    region_name=os.getenv("AWS_REGION_NAME"),
+    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID", "us-east-1"),
+    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY", "somekey"),
+    region_name=os.getenv("AWS_REGION_NAME", "somekey"),
 )
 
 
