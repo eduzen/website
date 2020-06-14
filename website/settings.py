@@ -509,7 +509,6 @@ class Amazon(DropboxStorage, Sentry, WhitenoiseStatic, Base):
         ALLOWED_HOSTS = [
             ".eduzen.com.ar",
             ".eduardoenriquez.com.ar",
-            ".elasticbeanstalk.com",
             "eduzen-dev.us-east-1.elasticbeanstalk.com",
             "eduzen-dev.us-east-1.elb.amazonaws.com",
         ]
