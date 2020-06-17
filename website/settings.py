@@ -378,8 +378,15 @@ class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     HOUR = MINUTE * 60
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=True)
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
+    CACHE = values.CacheURLValue()
+    @property
+    def CACHES(self):
+        self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
+        return self.CACHE
+
+    # CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
