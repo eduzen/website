@@ -509,5 +509,4 @@ class Dokku(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     ALLOWED_HOSTS = [
         ".eduzen.com.ar",
         ".eduardoenriquez.com.ar",
-        "167.99.230.241",
     ]
