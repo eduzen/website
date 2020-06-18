@@ -1,26 +1,13 @@
 import os
 from pathlib import Path
 
-import requests
 import sentry_sdk
-from boto3.session import Session
 from configurations import Configuration, values
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
 BASE_DIR = Path(".").resolve(strict=True)
-boto3_session = Session(
-    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
-    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
-    region_name="us-east-1",
-)
-
-
-try:
-    EC2_PRIVATE_IP = requests.get("http://169.254.169.254/latest/meta-data/local-ipv4", timeout=0.01).text
-except requests.exceptions.RequestException:
-    EC2_PRIVATE_IP = None
 
 
 class ConstanceConfig:
@@ -381,6 +368,7 @@ class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
     CACHE = values.CacheURLValue()
+
     @property
     def CACHES(self):
         self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
@@ -436,28 +424,34 @@ class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
         }
 
 
-class Amazon(DropboxStorage, Sentry, WhitenoiseStatic, Base):
+class Dokku(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     DEBUG = False
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
+    REDIS_URL = values.Value(environ_name="REDIS_URL")
+
+    # Cache key TTL in seconds
+    MINUTE = 60
+    HOUR = MINUTE * 60
+    DAY = HOUR * 24
+    CACHE_MIDDLEWARE_SECONDS = DAY
+
+    @property
+    def CACHES(self):
+        return {
+            "default": {
+                "BACKEND": "django_redis.cache.RedisCache",
+                "LOCATION": os.environ.get("REDIS_URL"),
+                "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+            }
+        }
+
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
     MAILGUN_API_KEY = values.Value()
     MAILGUN_SENDER_DOMAIN = values.Value()
 
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("RDS_DB_NAME"),
-            "USER": os.getenv("RDS_USERNAME"),
-            "PASSWORD": os.getenv("RDS_PASSWORD"),
-            "HOST": os.getenv("RDS_HOSTNAME"),
-            "PORT": os.getenv("RDS_PORT"),
-            "CONN_MAX_AGE": 600,
-        }
-    }
-
     MIDDLEWARE = [
-        "website.middleware.HealthCheckMiddleware",
         "django.middleware.security.SecurityMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
@@ -479,48 +473,27 @@ class Amazon(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     def INSTALLED_APPS(self):
         return super().INSTALLED_APPS + ["storages"]
 
-    @property
-    def LOGGING(self):
-        return {
-            "version": 1,
-            "disable_existing_loggers": False,
-            "formatters": {
-                "aws": {
-                    # you can add specific format for aws here
-                    # if you want to change format, you can read:
-                    #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
-                    "format": "%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
-                    "datefmt": "%Y-%m-%d %H:%M:%S",
-                },
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "aws": {
+                # you can add specific format for aws here
+                # if you want to change format, you can read:
+                #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
+                "format": "%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
+                "datefmt": "%Y-%m-%d %H:%M:%S",
             },
-            "handlers": {
-                "watchtower": {
-                    "level": self.LOG_LEVEL,
-                    "class": "watchtower.CloudWatchLogHandler",
-                    "boto3_session": boto3_session,
-                    "log_group": "/aws/elasticbeanstalk/eduzen-dev/var/log/website/",
-                    "stream_name": "uwgsgi",
-                    "formatter": "aws",  # use custom format
-                },
-                "console": {"level": self.LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "aws"},
-            },
-            "loggers": {
-                "*": {"handlers": ["console", "watchtower"], "level": "ERROR", "propagate": True},
-                "django": {"handlers": ["console", "watchtower"], "propagate": False, "level": "ERROR"},
-                "watchtower-logger": {"level": self.LOG_LEVEL, "handlers": ["watchtower"], "propagate": False},
-            },
-        }
+        },
+        "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "aws"}},
+        "loggers": {
+            "*": {"handlers": ["console", "watchtower"], "level": "ERROR", "propagate": True},
+            "django": {"handlers": ["console", "watchtower"], "propagate": False, "level": "ERROR"},
+        },
+    }
 
-    @property
-    def ALLOWED_HOSTS(self):
-        ALLOWED_HOSTS = [
-            ".eduzen.com.ar",
-            ".eduardoenriquez.com.ar",
-            "eduzen-dev.us-east-1.elasticbeanstalk.com",
-            "eduzen-dev.us-east-1.elb.amazonaws.com",
-        ]
-
-        if EC2_PRIVATE_IP:
-            ALLOWED_HOSTS.append(EC2_PRIVATE_IP)
-
-        return ALLOWED_HOSTS
+    ALLOWED_HOSTS = [
+        ".eduzen.com.ar",
+        ".eduardoenriquez.com.ar",
+        "167.99.230.241",
+    ]
