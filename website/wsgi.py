@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
-os.environ.setdefault("DJANGO_CONFIGURATION", "Dev")
+os.environ.setdefault("DJANGO_CONFIGURATION", "Dokku")
 
 from configurations.wsgi import get_wsgi_application  # NOQA
 
