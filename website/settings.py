@@ -328,7 +328,7 @@ class Dev(StaticMedia, Base):
 
 
 class Test(Dev):
-    DEBUG = True
+    DEBUG = False
 
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
