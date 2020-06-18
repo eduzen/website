@@ -24,6 +24,6 @@ ENV PYTHONPATH /code:$PYTHONPATH
 EXPOSE 80
 COPY . /code/
 
-RUN python manage.py collectstatic --no-input --settings=mysite.settings --configuration=Dokku
+RUN python manage.py collectstatic --no-input --settings=website.settings --configuration=Dokku
 
 CMD ["uwsgi", "--ini", "/code/scripts/uwsgi.ini"]
