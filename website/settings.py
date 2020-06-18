@@ -293,7 +293,7 @@ class Base(ConstanceConfig, Configuration):
 
 
 class Dev(StaticMedia, Base):
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = "s0m3r4nd0mk3yford3v!"
     ALLOWED_HOSTS = values.ListValue(["*"])
 
