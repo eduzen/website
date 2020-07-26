@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse_lazy
 
-from blog.factories import PostFactory
+from .factories import PostFactory
 
 
 @pytest.fixture()

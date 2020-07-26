@@ -83,7 +83,7 @@ class ConstanceConfig:
     CONSTANCE_CONFIG_FIELDSETS = {
         "General Options": ("site_name", "tab_title", "github", "linkedin", "instagram", "twitter", "email"),
         "Contact": ("contact_title", "contact_subtitle", "contact_body"),
-        "About me": ("title", "subtitle", "small", "long", "bio_pic", "pic_0", "pic_1", "pic_2",),
+        "About me": ("title", "subtitle", "small", "long", "bio_pic", "pic_0", "pic_1"),
     }
 
 
@@ -293,7 +293,7 @@ class Base(ConstanceConfig, Configuration):
 
 
 class Dev(StaticMedia, Base):
-    DEBUG = False
+    DEBUG = True
     SECRET_KEY = "s0m3r4nd0mk3yford3v!"
     ALLOWED_HOSTS = values.ListValue(["*"])
 
@@ -329,16 +329,22 @@ class Dev(StaticMedia, Base):
 
 class Test(Dev):
     DEBUG = False
+    TEMPLATE_DEBUG = False
+    DEBUG_LOGGING = False
 
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
+    PASSWORD_HASHERS = [
+        "django.contrib.auth.hashers.MD5PasswordHasher",
+    ]
+    EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+    DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
+
     MIDDLEWARE = [
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
     ]
-
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
 
     @property
     def DEBUG_TOOLBAR_CONFIG(self):

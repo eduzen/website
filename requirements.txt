@@ -16,7 +16,7 @@ django-simple-captcha~=0.5
 django-solo==1.1.3
 django-storages[dropbox]~=1.9
 djangorestframework~=3.11
-django~=3.0
+django~=3.1rc1
 easy-thumbnails~=2.7
 factory_boy~=2.12
 ipython~=7.14
