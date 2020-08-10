@@ -10,11 +10,11 @@ flake8-django
 ipdb
 ipython-sql
 pluggy>=0.7
+pytest
 pytest-cov
 pytest-django
 pytest-mock
 pytest-sugar
 pytest-xdist
-pytest>=6.0.0rc1
 termcolor
 wdb
