@@ -26,4 +26,4 @@ pygments~=2.6
 requests~=2.24
 sentry-sdk~=0.16
 uwsgi~=2.0
-whitenoise~=5.1
+whitenoise~=5.2
