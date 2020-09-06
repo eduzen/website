@@ -15,7 +15,7 @@ django-redis~=4.11
 django-robots~=4.0
 django-simple-captcha~=0.5
 django-solo==1.1.3
-django-storages[dropbox]~=1.9
+django-storages[dropbox]~=1.10
 djangorestframework~=3.11
 easy-thumbnails~=2.7
 factory_boy~=2.12
