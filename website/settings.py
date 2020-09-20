@@ -512,8 +512,30 @@ class Dokku(DropboxStorage, Sentry, WhitenoiseStatic, Base):
             },
         }
 
+    """
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "aws": {
+                # you can add specific format for aws here
+                # if you want to change format, you can read:
+                #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
+                "format": "%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
+                "datefmt": "%Y-%m-%d %H:%M:%S",
+            },
+        },
+        "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "aws"}},
+        "loggers": {
+            "*": {"handlers": ["console", "watchtower"], "level": "ERROR", "propagate": True},
+            "django": {"handlers": ["console", "watchtower"], "propagate": False, "level": "ERROR"},
+        },
+    }
+    """
+
     ALLOWED_HOSTS = [
         ".eduzen.com.ar",
         ".eduardoenriquez.com.ar",
         ".eduzen.ar",
+        "167.99.230.241",
     ]
