@@ -10,5 +10,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(model_name="tag", name="slug", field=models.CharField(max_length=250, null=True),),
+        migrations.AlterField(
+            model_name="tag",
+            name="slug",
+            field=models.CharField(max_length=250, null=True),
+        ),
     ]

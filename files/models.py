@@ -1,5 +1,4 @@
 from django.db import models
-
 from image_cropping import ImageRatioField
 
 

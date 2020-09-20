@@ -15,8 +15,8 @@ def twitter_date(value):
 
 @register.filter()
 def urlize_tweet_text(tweet):
-    """ Turn #hashtag and @username in status text to Twitter hyperlinks,
-        similar to the ``urlize()`` function in Django.
+    """Turn #hashtag and @username in status text to Twitter hyperlinks,
+    similar to the ``urlize()`` function in Django.
     """
     try:
         from urllib import quote
@@ -34,12 +34,12 @@ def urlize_tweet_text(tweet):
 
 @register.filter()
 def expand_tweet_urls(tweet):
-    """ Replace shortened URLs with long URLs in the twitter status
-        Should be used before urlize_tweet
+    """Replace shortened URLs with long URLs in the twitter status
+    Should be used before urlize_tweet
     """
     text = tweet.text
     urls = tweet.urls
     for url in urls:
-        text = text.replace(url.url, '<a href="{}" target="_blank">{}</a>'.format(url.expanded_url, url.url))
+        text = text.replace(url.url, f'<a href="{url.expanded_url}" target="_blank">{url.url}</a>')
     tweet.SetText(text)
     return tweet
