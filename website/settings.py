@@ -301,8 +301,8 @@ class Dev(StaticMedia, Base):
     EMAIL_HOST = "mailhog"  # Your Mailhog Host
     EMAIL_PORT = "1025"
 
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
-
+    # DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase"}}
     ANYMAIL = {
         "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
         "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
@@ -515,4 +515,5 @@ class Dokku(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     ALLOWED_HOSTS = [
         ".eduzen.com.ar",
         ".eduardoenriquez.com.ar",
+        ".eduzen.ar",
     ]
