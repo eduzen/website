@@ -6,13 +6,18 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
+      - id: check-ast
+      - id: check-byte-order-marker
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
       - id: check-yaml
+      - id: check-json
+      - id: pretty-format-json
+      - id: mixed-line-ending
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: debug-statements
-      - id: end-of-file-fixer
       - id: requirements-txt-fixer
-
 
   - repo: https://github.com/psf/black
     rev: 19.10b0
