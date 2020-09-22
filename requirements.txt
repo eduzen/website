@@ -7,7 +7,7 @@ django-ckeditor~=6.0
 django-configurations[cache,database,email,search]
 django-constance[database]~=2.7
 django-crispy-forms~=1.9
-django-debug-toolbar~=2.2
+django-debug-toolbar~=3.1
 django-extensions~=3.0.8
 django-image-cropping~=1.4
 django-money~=1.1
