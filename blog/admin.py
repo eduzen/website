@@ -18,14 +18,20 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
     fields = [
-        ("author", "created_date",),
+        (
+            "author",
+            "created_date",
+        ),
         "title",
         "pompadour",
         "slug",
         "published_date",
         "tags",
         "text",
-        ("image", "preview",),
+        (
+            "image",
+            "preview",
+        ),
         "cropping",
     ]
     formfield_overrides = {models.CharField: {"widget": TextInput(attrs={"size": "130"})}}

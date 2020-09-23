@@ -1,6 +1,6 @@
 black>=19.10b0
 coreapi~=2.3
-django~=3.1
+django>=3.1
 django-anymail~=8.0
 django-autoslug~=1.9
 django-ckeditor~=6.0
@@ -9,7 +9,7 @@ django-constance[database]~=2.7
 django-crispy-forms~=1.9
 django-debug-toolbar~=2.2
 django-extensions~=3.0.9
-django-image-cropping~=1.4
+django-image-cropping~=1.5
 django-money~=1.1
 django-redis~=4.12
 django-robots~=4.0

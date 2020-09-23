@@ -10,7 +10,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(name="ContactConfiguration",),
-        migrations.DeleteModel(name="SiteConfiguration",),
-        migrations.DeleteModel(name="TwitterConfiguration",),
+        migrations.DeleteModel(
+            name="ContactConfiguration",
+        ),
+        migrations.DeleteModel(
+            name="SiteConfiguration",
+        ),
+        migrations.DeleteModel(
+            name="TwitterConfiguration",
+        ),
     ]

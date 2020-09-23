@@ -10,5 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(name="CustomPage",),
+        migrations.DeleteModel(
+            name="CustomPage",
+        ),
     ]

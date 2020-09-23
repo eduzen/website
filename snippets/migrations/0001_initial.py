@@ -551,6 +551,8 @@ class Migration(migrations.Migration):
                 ),
                 ("highlighted", models.TextField(null=True)),
             ],
-            options={"ordering": ["created"],},
+            options={
+                "ordering": ["created"],
+            },
         ),
     ]

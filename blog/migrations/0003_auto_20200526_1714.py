@@ -13,7 +13,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name="post", name="images", field=models.ManyToManyField(related_name="post", to="files.PublicImage"),
+            model_name="post",
+            name="images",
+            field=models.ManyToManyField(related_name="post", to="files.PublicImage"),
         ),
         migrations.AddField(
             model_name="post",
