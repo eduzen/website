@@ -5,7 +5,7 @@ from .factories import PostFactory
 
 
 @pytest.fixture()
-def posts():
+def posts(db):
     return PostFactory.create_batch(3)
 
 
