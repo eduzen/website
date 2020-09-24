@@ -34,7 +34,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: pre-commit check
-      run: pre-commit run --all-files 
+      run: |
+        pip install pre-commit
+        pre-commit run --all-files 
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
