@@ -36,7 +36,7 @@ jobs:
     - name: pre-commit check
       run: |
         pip install pre-commit
-        pre-commit run --all-files
+        pre-commit run --files $(git diff --diff-filter=d --name-only master)
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
