@@ -1,2 +1,11 @@
 [tool.pytest.ini_options]
-addopts = "--dc=Test --pdbcls=IPython.terminal.debugger:Pdb"
+addopts = "--ds=website.settings --dc=Test --pdbcls=IPython.terminal.debugger:Pdb"
+
+[tool.black]
+line-length = 120
+safe = true
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+include_trailing_comma = true
