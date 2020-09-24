@@ -1,3 +1,5 @@
+import logging
+
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.sitemaps import ping_google
 from django.db import models
@@ -6,6 +8,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from image_cropping import ImageRatioField
+
+logger = logging.getLogger(__name__)
 
 
 class Tag(models.Model):
@@ -16,7 +20,7 @@ class Tag(models.Model):
         unique_together = (("word", "slug"),)
 
     def __str__(self):
-        return self.slug
+        return self.slug or "-"
 
 
 class PostQuerySet(models.QuerySet):
@@ -64,18 +68,19 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("post_detail", args=[self.slug])
 
-    def save(self, *args, **kwargs):
+    def notify_google(self):
         try:
             ping_google()
         except Exception:
-            # Bare 'except' because we could get a variety
-            # of HTTP-related exceptions.
-            pass
+            logger.warn("Error trying to inform google")
 
+    def save(self, *args, **kwargs):
+        if self.published_date:
+            ping_google()
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.slug
+        return self.slug or "-"
 
     class Meta:
         verbose_name = "post"

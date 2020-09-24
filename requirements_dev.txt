@@ -7,6 +7,7 @@ flake8-assertive
 flake8-bugbear
 flake8-comprehensions
 flake8-django
+hypothesis
 ipdb
 ipython-sql
 pluggy>=0.7
