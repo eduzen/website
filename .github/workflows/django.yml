@@ -16,37 +16,47 @@ jobs:
         python-version: [3.8]
 
     steps:
-    - name: set PY
-      run: echo "::set-env name=PY::$(python -VV | sha256sum | cut -d' ' -f1)"
-    - uses: actions/cache@v1
+    - name: Checkout code # checking our the code at current commit that triggers the workflow
+      uses: actions/checkout@v2
+      
+    - name: Cache dependency # caching dependency will make our build faster.
+      uses: actions/cache@v2 # for more info checkout pip section documentation at https://github.com/actions/cache
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_dev.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-    - uses: actions/cache@v1
-      with:
-        path: ~/.cache/pre-commit
-        key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
-    - uses: actions/checkout@v2
+    
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    
+    - name: set PY
+      run: echo "::set-env name=PY::$(python -VV | sha256sum | cut -d' ' -f1)"
+    
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
     - name: pre-commit check
       run: |
         pip install pre-commit
         pre-commit run --files $(git diff --diff-filter=d --name-only master)
+  
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements_dev.txt
+    
     - name: Run Django Check
       run: |
         python manage.py check
       env:
         DJANGO_SETTINGS_MODULE: website.settings
         DJANGO_CONFIGURATION: Test
+    
     - name: Run Tests
       run: |
         python manage.py test
