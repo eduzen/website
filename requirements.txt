@@ -24,6 +24,6 @@ markdown~=3.2
 psycopg2-binary~=2.8
 pygments~=2.7
 requests~=2.24
-sentry-sdk~=0.17
+sentry-sdk~=0.18
 uwsgi~=2.0
 whitenoise~=5.2
