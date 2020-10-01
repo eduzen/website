@@ -16,20 +16,16 @@ jobs:
         python-version: [3.8]
 
     steps:
+    - name: Checkout code # checking our the code at current commit that triggers the workflow
+      uses: actions/checkout@v2
 
-    - uses: actions/cache@v1
+    - name: Cache dependency # caching dependency will make our build faster.
+      uses: actions/cache@v2 # for more info checkout pip section documentation at https://github.com/actions/cache
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_dev.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
-    - uses: actions/checkout@v2
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
 
     - name: Check Code Style
       uses: pre-commit/action@v2.0.0
@@ -40,7 +36,6 @@ jobs:
         pip install -r requirements_dev.txt
 
     - name: Run Django Check
-      run: |
         python manage.py check
       env:
         DJANGO_SETTINGS_MODULE: website.settings
