@@ -1,7 +1,7 @@
 black>=19.10b0
 coreapi~=2.3
 django>=3.1
-django-anymail~=8.0
+django-anymail~=8.1
 django-autoslug~=1.9
 django-ckeditor~=6.0
 django-configurations[cache,database,email,search]
