@@ -1,6 +1,7 @@
 import logging
 
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.conf import settings
 from django.contrib.sitemaps import ping_google
 from django.db import models
 from django.db.models import Count
@@ -75,8 +76,13 @@ class Post(models.Model):
             logger.warn("Error trying to inform google")
 
     def save(self, *args, **kwargs):
-        if self.published_date:
-            ping_google()
+        if not settings.DEBUG:
+            return super().save(*args, **kwargs)
+
+        if not self.published_date:
+            return super().save(*args, **kwargs)
+
+        ping_google()
         return super().save(*args, **kwargs)
 
     def __str__(self):

@@ -327,17 +327,23 @@ class Dev(StaticMedia, Base):
         return ["debug_toolbar.middleware.DebugToolbarMiddleware"] + super().MIDDLEWARE
 
 
-class Test(Dev):
+class Test(Base):
     DEBUG = False
     TEMPLATE_DEBUG = False
     DEBUG_LOGGING = False
 
+    STATIC_URL = "static"
+
     PASSWORD_HASHERS = [
         "django.contrib.auth.hashers.MD5PasswordHasher",
     ]
+
     EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
+
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+
     DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
 
     MIDDLEWARE = [
@@ -346,14 +352,14 @@ class Test(Dev):
         "django.contrib.messages.middleware.MessageMiddleware",
     ]
 
-    @property
-    def DEBUG_TOOLBAR_CONFIG(self):
-        return {
-            "SHOW_TOOLBAR_CALLBACK": lambda r: (
-                r.environ.get("SERVER_NAME", None) != "testserver"
-                and (r.META.get("REMOTE_ADDR", None) in self.INTERNAL_IPS)  # NOQA
-            )
-        }
+    # @property
+    # def DEBUG_TOOLBAR_CONFIG(self):
+    #     return {
+    #         "SHOW_TOOLBAR_CALLBACK": lambda r: (
+    #             r.environ.get("SERVER_NAME", None) != "testserver"
+    #             and (r.META.get("REMOTE_ADDR", None) in self.INTERNAL_IPS)  # NOQA
+    #         )
+    #     }
 
 
 class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
