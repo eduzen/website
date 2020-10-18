@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['python', 'javascript']
+        language: ['python']
 
     steps:
     - name: Checkout repository
@@ -48,9 +48,6 @@ jobs:
         # that includes the dependencies
         echo "::set-env name=CODEQL_PYTHON::$(which python)"
         # echo "CODEQL_PYTHON=$(which python3)" >> $GITHUB_ENV
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
