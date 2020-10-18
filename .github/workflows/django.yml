@@ -36,14 +36,10 @@ jobs:
         pip install -r requirements_dev.txt
 
     - name: Run Django Check
-        python manage.py check
+      run: python manage.py check
       env:
         DJANGO_SETTINGS_MODULE: website.settings
         DJANGO_CONFIGURATION: Test
 
     - name: Run Tests
-      run: |
-        python manage.py test
-      env:
-        DJANGO_SETTINGS_MODULE: website.settings
-        DJANGO_CONFIGURATION: Test
+      run: pytest
