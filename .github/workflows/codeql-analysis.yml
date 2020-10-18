@@ -49,12 +49,6 @@ jobs:
         echo "::set-env name=CODEQL_PYTHON::$(which python)"
         # echo "CODEQL_PYTHON=$(which python3)" >> $GITHUB_ENV
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
-      with:
-        languages: ${{ matrix.language }}
-
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1
 
