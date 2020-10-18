@@ -21,6 +21,7 @@ easy-thumbnails~=2.7
 factory_boy~=3.1
 ipython~=7.18
 markdown~=3.3
+pre-commit>=2.6.0
 psycopg2-binary~=2.8
 pygments~=2.7
 requests~=2.24
