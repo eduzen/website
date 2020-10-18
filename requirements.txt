@@ -13,7 +13,6 @@ django-money~=1.1
 django-redis~=4.12
 django-robots~=4.0
 django-simple-captcha~=0.5
-django-solo==1.1.3
 django-storages[dropbox]~=1.10
 djangorestframework~=3.12
 easy-thumbnails~=2.7

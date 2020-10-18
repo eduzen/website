@@ -8,17 +8,20 @@ from django.db.models import Count
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from image_cropping import ImageRatioField
 
 logger = logging.getLogger(__name__)
 
 
 class Tag(models.Model):
-    word = models.CharField(unique=True, max_length=50)
-    slug = models.SlugField(null=True, max_length=50)
+    word = models.CharField(unique=True, max_length=50, verbose_name=_("word"))
+    slug = models.SlugField(null=True, max_length=50, verbose_name=_("slug"))
 
     class Meta:
         unique_together = (("word", "slug"),)
+        verbose_name = _("tag")
+        verbose_name_plural = _("tags")
 
     def __str__(self):
         return self.slug or "-"

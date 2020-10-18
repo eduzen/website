@@ -16,12 +16,14 @@ services:
       - .env
 
   db:
-    image: postgres:12-alpine
+    image: postgres:13-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data/
+      - ./01.sql:/tmp/01.sql
       - ./scripts/db/:/docker-entrypoint-initdb.d/
-    env_file:
-      - .env.db
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
 
   redis:
     image: redis:6-alpine
@@ -30,15 +32,15 @@ services:
     expose:
       - "6379"
 
-  wdb:
-    image: eduzen/wdb
-    expose:
-      - 1984
+  # wdb:
+  #   image: eduzen/wdb
+  #   expose:
+  #     - 1984
 
-  mailhog:
-    image: mailhog/mailhog:latest
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-    healthcheck:
-      test: echo | telnet 127.0.0.1 25
+  # mailhog:
+  #   image: mailhog/mailhog:latest
+  #   ports:
+  #     - "1025:1025"
+  #     - "8025:8025"
+  #   healthcheck:
+  #     test: echo | telnet 127.0.0.1 25

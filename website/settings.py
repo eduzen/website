@@ -3,6 +3,7 @@ from pathlib import Path
 
 import sentry_sdk
 from configurations import Configuration, values
+from django.utils.translation import gettext_lazy as _
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
@@ -133,7 +134,12 @@ class Base(ConstanceConfig, Configuration):
     USE_I18N = True
     USE_L10N = True
     USE_TZ = True
-    LANGUAGE_CODE = "es-ar"
+    LANGUAGE_CODE = "es"
+
+    LANGUAGES = [
+        ("es", _("Spanish")),
+        ("en", _("English")),
+    ]
     LOG_LEVEL = values.Value("INFO")
     TIME_ZONE = "America/Argentina/Buenos_Aires"
 
@@ -162,7 +168,6 @@ class Base(ConstanceConfig, Configuration):
         "crispy_forms",
         "ckeditor",
         "ckeditor_uploader",
-        "solo",
         "robots",
         "djmoney",
         "rest_framework",
@@ -175,7 +180,6 @@ class Base(ConstanceConfig, Configuration):
 
     # Application definition
     APPS = [
-        "config",
         "blog",
         "expenses",
         "snippets",
@@ -185,6 +189,7 @@ class Base(ConstanceConfig, Configuration):
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.locale.LocaleMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -301,8 +306,8 @@ class Dev(StaticMedia, Base):
     EMAIL_HOST = "mailhog"  # Your Mailhog Host
     EMAIL_PORT = "1025"
 
-    # DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase"}}
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
+    # DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase"}}
     ANYMAIL = {
         "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
         "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
