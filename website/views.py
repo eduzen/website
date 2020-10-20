@@ -4,7 +4,7 @@ from django.views.generic.base import RedirectView
 
 logger = logging.getLogger("website.views")
 
-favicon_view = RedirectView.as_view(url="https://static.eduzen.com.ar/config/img/favicon.ico", permanent=True)
+favicon_view = RedirectView.as_view(url="https://static.eduzen.com.ar/blog/img/favicon.ico", permanent=True)
 
 
 class MediaView(RedirectView):

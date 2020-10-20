@@ -28,7 +28,7 @@ services:
   redis:
     image: redis:6-alpine
     environment:
-      - REDIS_PASSWORD=eduzen
+      - REDIS_PASSWORD=$REDIS_PASSWORD
     expose:
       - "6379"
 

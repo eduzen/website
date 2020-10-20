@@ -1,13 +1,15 @@
 {% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!DOCTYPE html>
-<html lang="{{ get_current_language }}">
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
 {% include 'blog/utils/head.html'%}
 </head>
 
 <body id="page-top" class="index">
-  <div class="container">
+  <div id="app" class="container">
     {% include 'blog/utils/navbar.html' %}
 
     {% block body %}
