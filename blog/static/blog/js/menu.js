@@ -1,24 +1,25 @@
-const english = document.getElementById('english');
-const spanish = document.getElementById('spanish');
-
-english.addEventListener('click', function() {
-  english.style.display = 'none';
-  spanish.style.display = 'block';
-});
-
-spanish.addEventListener('click', function() {
-  spanish.style.display = 'none';
-  english.style.display = 'block';
-});
+const english = "<i class='flag-icon flag-icon-us'> </i>";
+const spanish = "<i class='flag-icon flag-icon-es'> </i>";
 
 $(document).ready(function() {
+    const path = window.location.href;
+    const lenguage = $("#lenguage");
+
+    lenguage.empty();
+    if (path.includes("/en/")) {
+      lenguage.attr("href", "/es/");
+      lenguage.append(spanish);
+    } else {
+      lenguage.attr("href", "/en/");
+      lenguage.append(english);
+    }
+
     $("li.menu").each(function() {
-        const path = window.location.href;
         const elementPath = this.firstElementChild.href;
         if (elementPath === path) {
-            $(this).addClass("active grey");
+          $(this).addClass("active grey");
         } else {
-            $(this).removeClass("active grey");
+          $(this).removeClass("active grey");
         }
     });
 
