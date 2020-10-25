@@ -5,8 +5,13 @@ volumes:
 
 services:
   web:
-    build: .
-    # command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
+      args:
+        - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+        - DJANGO_CONFIGURATION=$DJANGO_CONFIGURATION
+        - DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
@@ -20,11 +25,10 @@ services:
     image: postgres:13-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data/
-      - ./01.sql:/tmp/01.sql
       - ./scripts/db/:/docker-entrypoint-initdb.d/
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=$DJANGO_POSTGRES_PASSWORD
+      - POSTGRES_USER=$DJANGO_POSTGRES_USER
 
   redis:
     image: redis:6-alpine

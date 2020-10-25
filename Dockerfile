@@ -1,6 +1,10 @@
 FROM python:3.8-slim-buster
 EXPOSE 80
 
+ARG DJANGO_SETTINGS_MODULE=website.settings.dev
+ARG DJANGO_CONFIGURATION=Dev
+ARG DJANGO_SECRET_KEY
+
     # python
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc files
@@ -25,7 +29,10 @@ ENV PYTHONUNBUFFERED=1 \
     # paths
     # this is where our requirements + virtual environment will live
     PYSETUP_PATH="/opt/pysetup/" \
-    VENV_PATH="/opt/pysetup/.venv"
+    VENV_PATH="/opt/pysetup/.venv" \
+    DJANGO_CONFIGURATION=${DJANGO_CONFIGURATION} \
+    DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE} \
+    DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
@@ -56,6 +63,6 @@ WORKDIR /code
 
 COPY . /code/
 
-RUN python manage.py collectstatic --no-input --settings=website.settings.prod --configuration=Prod
+RUN python manage.py collectstatic --no-input
 
 CMD ["uwsgi", "--ini", "/code/scripts/uwsgi.ini"]

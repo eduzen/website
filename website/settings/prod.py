@@ -24,12 +24,17 @@ class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     CACHE_MIDDLEWARE_SECONDS = DAY
     DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
-    CACHE = values.CacheURLValue()
+    # CACHE = values.CacheURLValue()
 
     @property
     def CACHES(self):
-        self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
-        return self.CACHE
+        return {
+            "default": {
+                "BACKEND": "django_redis.cache.RedisCache",
+                "LOCATION": os.getenv("REDIS_URL"),
+                "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+            }
+        }
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
