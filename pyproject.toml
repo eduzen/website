@@ -1,5 +1,5 @@
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -x"
+addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -x"
 filterwarnings = [
   "ignore::django.utils.deprecation.RemovedInDjango40Warning"
 ]
@@ -12,3 +12,67 @@ target-version = ['py38']
 [tool.isort]
 profile = "black"
 include_trailing_comma = true
+
+[tool.poetry]
+name = "website"
+version = "0.1.0"
+description = "eduzen.ar"
+authors = ["eduzen <eduardo.a.enriquez@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.1.2"
+django-configurations = {extras = ["cache", "database", "email", "search"], version = "^2.2"}
+django-anymail = "^8.1"
+django-ckeditor = "^6.0.0"
+django-crispy-forms = "^1.9.2"
+django-constance = {extras = ["database"], version = "^2.7.0"}
+django-extensions = "^3.0.9"
+django-image-cropping = "^1.5.0"
+django-robots = "^4.0"
+django-redis = "^4.12.1"
+whitenoise = "^5.2.0"
+uWSGI = "^2.0.19"
+psycopg2-binary = "^2.8.6"
+djangorestframework = "^3.12.1"
+django-storages = {extras = ["dropbox"], version = "^1.10.1"}
+ipython = "^7.18.1"
+requests = "^2.24.0"
+sentry-sdk = "^0.19.1"
+pre-commit = "^2.7.1"
+Markdown = "^3.3.2"
+easy-thumbnails = "^2.7"
+django-filter = "^2.4.0"
+django-simple-captcha = "^0.5.13"
+django-money = "^1.1"
+django-debug-toolbar = "^3.1.1"
+django-autoslug = "^1.9.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.1"
+factory-boy = "^3.1.0"
+hypothesis = "^5.37.4"
+coverage = "^5.3"
+codecov = "^2.1.10"
+flake8 = "^3.8.4"
+flake8-assertive = "^1.3.0"
+flake8-django = "^1.1.1"
+flake8-bugbear = "^20.1.4"
+flake8-comprehensions = "^3.3.0"
+pytest-cov = "^2.10.1"
+pytest-django = "^4.1.0"
+pytest-mock = "^3.3.1"
+pytest-sugar = "^0.9.4"
+pytest-xdist = "^2.1.0"
+ipdb = "^0.13.4"
+wdb = "^3.3.0"
+django-debug-toolbar = "^3.1.1"
+
+[virtualenvs]
+create = true
+local = true
+in-project = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
