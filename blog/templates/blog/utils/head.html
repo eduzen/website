@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -5,14 +6,14 @@
 <title>eduzen</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Hi! I'm Eduardo. I write mostly about python. Thank you for reading me.">
+<meta name="description" content="{% translate 'description'%}">
 <meta name="keywords" content="python">
-<meta name="author" content="eduzen.com.ar">
-<link rel="apple-touch-icon" sizes="180x180" href="{% static 'config/img/favicon/apple-touch-icon.png' %}">
-<link rel="icon" type="image/png" sizes="32x32" href="{% static 'config/img/favicon/favicon-32x32.png' %}">
-<link rel="icon" type="image/png" sizes="16x16" href="{% static 'config/img/favicon/favicon-16x16.png' %}">
-<link rel="manifest" href="{% static 'config/img/favicon/site.webmanifest' %}">
-<link rel="mask-icon" href="{% static 'config/img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+<meta name="author" content="eduzen.ar">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'blog/img/favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'blog/img/favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'blog/img/favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'blog/img/favicon/site.webmanifest' %}">
+<link rel="mask-icon" href="{% static 'blog/img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 
@@ -24,6 +25,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap-theme.min.css"
   integrity="sha256-8uHMIn1ru0GS5KO+zf7Zccf8Uw12IA5DrdEcmMuWLFM=" crossorigin="anonymous" />
 <!-- Style -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}" />
 <link href="{% static 'blog/css/main.css' %}" rel="stylesheet">
 <!-- Icons Font -->

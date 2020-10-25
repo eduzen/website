@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 
 {% load crispy_forms_tags %}
@@ -9,8 +10,7 @@
 
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
-        <img alt="Brand" width="20" src="{% static 'config/img/favicon/favicon.ico' %}" class="img-responsive"
-          alt="eduzen.com.ar">
+        <img alt="Brand" width="20" src="{% static 'blog/img/favicon/favicon.ico' %}" class="img-responsive" alt="eduzen.ar">
       </a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
         aria-expanded="false" aria-controls="navbar">
@@ -26,21 +26,20 @@
       <ul class="nav navbar-nav">
         <li class="menu active grey">
           <a href="{% url 'home' %}">
-            <div class="col-xs-5 menu"><img src="{% static 'blog/img/house_blue.png' %}"
-                class="img-responsive pic-link"></div>
-            <div class="col-xs-7 menu">Home</div>
+            <div class="col-xs-5 menu"><img src="{% static 'blog/img/house_blue.png' %}" class="img-responsive pic-link"></div>
+            <div class="col-xs-7 menu">{% translate 'Home' %}</div>
           </a>
         </li>
         <li class="menu">
           <a href="{% url 'about' %}">
             <div class="col-xs-5 menu"><img src="{% static 'blog/img/diskette.png' %}" class="img-responsive pic-link">
             </div>
-            <div class="col-xs-7 menu">About</div>
+            <div class="col-xs-7 menu">{% translate 'About' %}</div>
           </a>
         </li>
-        <li class="menu">
+        <li>
           <a href="{% url 'bytag' 'python' %}">
-            <div class="col-xs-5 menu"><img src="{% static 'config/img/favicon.ico' %}" class="img-responsive pic-link">
+            <div class="col-xs-5 menu"><img src="{% static 'blog/img/favicon.ico' %}" class="img-responsive pic-link">
             </div>
             <div class="col-xs-7 menu">Python</div>
           </a>
@@ -49,16 +48,23 @@
           <a href="{% url 'contact' %}">
             <div class="col-xs-5 menu"><img src="{% static 'blog/img/email-red.png' %}" class="img-responsive pic-link">
             </div>
-            <div class="col-xs-7 menu">Contact</div>
+            <div class="col-xs-7 menu">{% translate 'Contact' %}</div>
           </a>
         </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        {% if search_form %}
-          {% csrf_token %}
-          {% crispy search_form %}
-        {% endif %}
+        <li class="menu">
+            {% if search_form %}
+              {% csrf_token %}
+              {% crispy search_form %}
+            {% endif %}
+        </li>
+        <li class="menu">
+            <a id="lenguage" href="/es">
+              <i class="flag-icon flag-icon-es"> </i>
+            </a>
+        </li>
       </ul>
 
     </div>

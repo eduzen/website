@@ -133,7 +133,11 @@ class Base(ConstanceConfig, Configuration):
     USE_I18N = True
     USE_L10N = True
     USE_TZ = True
-    LANGUAGE_CODE = "es-ar"
+    LANGUAGE_CODE = "es"
+    LENGUAGES = [
+        ("en", "English"),
+        ("es", "Español"),
+    ]
     LOG_LEVEL = values.Value("INFO")
     TIME_ZONE = "America/Argentina/Buenos_Aires"
 
@@ -162,7 +166,6 @@ class Base(ConstanceConfig, Configuration):
         "crispy_forms",
         "ckeditor",
         "ckeditor_uploader",
-        "solo",
         "robots",
         "djmoney",
         "rest_framework",
@@ -175,7 +178,6 @@ class Base(ConstanceConfig, Configuration):
 
     # Application definition
     APPS = [
-        "config",
         "blog",
         "expenses",
         "snippets",
@@ -290,258 +292,3 @@ class Base(ConstanceConfig, Configuration):
     @property
     def INSTALLED_APPS(self):
         return self.DJANGO_APPS + self.APPS + self.THIRD_PARTY_APPS
-
-
-class Dev(StaticMedia, Base):
-    DEBUG = True
-    SECRET_KEY = "s0m3r4nd0mk3yford3v!"
-    ALLOWED_HOSTS = values.ListValue(["*"])
-
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = "mailhog"  # Your Mailhog Host
-    EMAIL_PORT = "1025"
-
-    # DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase"}}
-    ANYMAIL = {
-        "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
-        "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
-    }
-
-    SHELL_PLUS_PRINT_SQL = True
-    SHELL_PLUS_PRINT_SQL_TRUNCATE = None
-    INTERNAL_IPS = ["127.0.0.1"]
-
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
-
-    @property
-    def DEBUG_TOOLBAR_CONFIG(self):
-        return {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
-
-    @property
-    def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + ["debug_toolbar"]
-
-    @property
-    def MIDDLEWARE(self):
-        return ["debug_toolbar.middleware.DebugToolbarMiddleware"] + super().MIDDLEWARE
-
-
-class Test(Base):
-    DEBUG = False
-    TEMPLATE_DEBUG = False
-    DEBUG_LOGGING = False
-
-    STATIC_URL = "static"
-
-    PASSWORD_HASHERS = [
-        "django.contrib.auth.hashers.MD5PasswordHasher",
-    ]
-
-    EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
-
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
-
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
-
-    DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
-
-    MIDDLEWARE = [
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-    ]
-
-    # @property
-    # def DEBUG_TOOLBAR_CONFIG(self):
-    #     return {
-    #         "SHOW_TOOLBAR_CALLBACK": lambda r: (
-    #             r.environ.get("SERVER_NAME", None) != "testserver"
-    #             and (r.META.get("REMOTE_ADDR", None) in self.INTERNAL_IPS)  # NOQA
-    #         )
-    #     }
-
-
-class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
-    SECRET_KEY = values.Value("som3s3cr3t")
-    DEBUG = False
-    ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
-    EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-    SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
-
-    MAILGUN_API_KEY = values.Value()
-    MAILGUN_SENDER_DOMAIN = values.Value()
-
-    # Cache key TTL in seconds
-    MINUTE = 60
-    HOUR = MINUTE * 60
-    DAY = HOUR * 24
-    CACHE_MIDDLEWARE_SECONDS = DAY
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
-
-    CACHE = values.CacheURLValue()
-
-    @property
-    def CACHES(self):
-        self.CACHE["default"]["OPTIONS"] = {"CLIENT_CLASS": "django_redis.client.DefaultClient"}
-        return self.CACHE
-
-    # CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
-    MIDDLEWARE = [
-        "django.middleware.security.SecurityMiddleware",
-        "whitenoise.middleware.WhiteNoiseMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    ]
-
-    @property
-    def ANYMAIL(self):
-        return {
-            "MAILGUN_API_KEY": self.MAILGUN_API_KEY,
-            "MAILGUN_SENDER_DOMAIN": self.MAILGUN_SENDER_DOMAIN,
-        }
-
-    @property
-    def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + ["storages"]
-
-    @property
-    def LOGGING(self):
-        return {
-            "version": 1,
-            "disable_existing_loggers": False,
-            "formatters": {
-                "default": {
-                    "format": (
-                        "[DJANGO] %(levelname)s %(asctime)s %(module)s " "%(name)s.%(funcName)s:%(lineno)s: %(message)s"
-                    )
-                },
-                "verbose": {
-                    "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-                    "datefmt": "%d/%b/%Y %H:%M:%S",
-                },
-                "simple": {"format": "%(levelname)s %(message)s"},
-            },
-            "handlers": {
-                "console": {"level": self.LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"}
-            },
-            "loggers": {
-                "*": {"handlers": ["console"], "level": self.LOG_LEVEL, "propagate": True},
-                "django": {"handlers": ["console"], "propagate": False, "level": self.LOG_LEVEL},
-            },
-        }
-
-
-class Dokku(DropboxStorage, Sentry, WhitenoiseStatic, Base):
-    DEBUG = False
-
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
-    REDIS_URL = values.Value(environ_name="REDIS_URL")
-
-    # Cache key TTL in seconds
-    MINUTE = 60
-    HOUR = MINUTE * 60
-    DAY = HOUR * 24
-    CACHE_MIDDLEWARE_SECONDS = DAY
-
-    @property
-    def CACHES(self):
-        return {
-            "default": {
-                "BACKEND": "django_redis.cache.RedisCache",
-                "LOCATION": os.environ.get("REDIS_URL"),
-                "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-            }
-        }
-
-    EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-    SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
-    MAILGUN_API_KEY = values.Value()
-    MAILGUN_SENDER_DOMAIN = values.Value()
-
-    MIDDLEWARE = [
-        "django.middleware.security.SecurityMiddleware",
-        "whitenoise.middleware.WhiteNoiseMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    ]
-
-    @property
-    def ANYMAIL(self):
-        return {
-            "MAILGUN_API_KEY": self.MAILGUN_API_KEY,
-            "MAILGUN_SENDER_DOMAIN": self.MAILGUN_SENDER_DOMAIN,
-        }
-
-    @property
-    def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + ["storages"]
-
-    @property
-    def LOGGING(self):
-        return {
-            "version": 1,
-            "disable_existing_loggers": False,
-            "formatters": {
-                "default": {
-                    "format": (
-                        "[DJANGO] %(levelname)s %(asctime)s %(module)s " "%(name)s.%(funcName)s:%(lineno)s: %(message)s"
-                    )
-                },
-                "verbose": {
-                    "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-                    "datefmt": "%d/%b/%Y %H:%M:%S",
-                },
-                "aws": {
-                    # you can add specific format for aws here
-                    # if you want to change format, you can read:
-                    #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
-                    "format": "%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
-                    "datefmt": "%Y-%m-%d %H:%M:%S",
-                },
-                "simple": {"format": "%(levelname)s %(message)s"},
-            },
-            "handlers": {
-                "console": {"level": self.LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"}
-            },
-            "loggers": {
-                "*": {"handlers": ["console"], "level": self.LOG_LEVEL, "propagate": True},
-                "django": {"handlers": ["console"], "propagate": False, "level": self.LOG_LEVEL},
-            },
-        }
-
-    """
-    LOGGING = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "formatters": {
-            "aws": {
-                # you can add specific format for aws here
-                # if you want to change format, you can read:
-                #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
-                "format": "%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
-                "datefmt": "%Y-%m-%d %H:%M:%S",
-            },
-        },
-        "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "aws"}},
-        "loggers": {
-            "*": {"handlers": ["console", "watchtower"], "level": "ERROR", "propagate": True},
-            "django": {"handlers": ["console", "watchtower"], "propagate": False, "level": "ERROR"},
-        },
-    }
-    """
-
-    ALLOWED_HOSTS = [
-        ".eduzen.com.ar",
-        ".eduardoenriquez.com.ar",
-        ".eduzen.ar",
-        "167.99.230.241",
-    ]

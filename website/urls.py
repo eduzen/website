@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path
 
@@ -32,6 +33,14 @@ urlpatterns = [
     path("captcha/", include("captcha.urls")),
     path("", include("blog.urls")),
 ]
+
+urlpatterns += i18n_patterns(
+    path(
+        "",
+        include("blog.urls"),
+    )
+)
+
 
 if settings.DEBUG:
     import debug_toolbar  # NOQA

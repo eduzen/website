@@ -8,8 +8,8 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
-os.environ.setdefault("DJANGO_CONFIGURATION", "Dokku")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings.prod")
+os.environ.setdefault("DJANGO_CONFIGURATION", "Prod")
 
 from configurations.wsgi import get_wsgi_application  # NOQA
 
