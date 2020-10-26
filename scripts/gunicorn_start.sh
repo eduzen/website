@@ -14,7 +14,7 @@ LOG_FORMAT="[GUNICORN] %(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \
 
 sh /code/scripts/wait_for_db.sh
 
-echo "### Starting $NAME as `whoami` with $DJANGO_SETTINGS_MODULE"
+echo "### Starting $NAME as `whoami` with $DJANGO_SETTINGS_MODULE and $DJANGO_CONFIGURATION"
 
 # Start your Django Unicorn
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)

@@ -128,7 +128,7 @@ class Sentry:
 
 class Base(ConstanceConfig, Configuration):
     SITE_ID = 1
-    SECRET_KEY = values.Value("som3secret")
+    SECRET_KEY = values.Value(default="som3secrettob3chang3")
     BASE_DIR = BASE_DIR
     USE_I18N = True
     USE_L10N = True

@@ -7,8 +7,6 @@ from .base import Base, DropboxStorage, Sentry, WhitenoiseStatic
 
 class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     DEBUG = True
-
-    SECRET_KEY = values.Value()
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
@@ -23,8 +21,6 @@ class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
     DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
-
-    # CACHE = values.CacheURLValue()
 
     @property
     def CACHES(self):

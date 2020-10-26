@@ -7,7 +7,6 @@ from .base import Base, StaticMedia
 
 class Dev(StaticMedia, Base):
     DEBUG = True
-    SECRET_KEY = "s0m3r4nd0mk3yford3v!"
     ALLOWED_HOSTS = values.ListValue(["*"])
 
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

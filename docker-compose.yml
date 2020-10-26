@@ -5,11 +5,7 @@ volumes:
 
 services:
   web:
-    build:
-      context: .
-      args:
-        - DJANGO_CONFIGURATION=$DJANGO_CONFIGURATION
-        - DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
+    build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code

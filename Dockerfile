@@ -1,9 +1,6 @@
 FROM python:3.8-slim-buster
 EXPOSE 80
 
-ARG DJANGO_CONFIGURATION=Dev
-ARG DJANGO_SECRET_KEY
-
     # python
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc files
@@ -28,9 +25,7 @@ ENV PYTHONUNBUFFERED=1 \
     # paths
     # this is where our requirements + virtual environment will live
     PYSETUP_PATH="/opt/pysetup/" \
-    VENV_PATH="/opt/pysetup/.venv" \
-    DJANGO_CONFIGURATION=${DJANGO_CONFIGURATION} \
-    DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+    VENV_PATH="/opt/pysetup/.venv"
 
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
