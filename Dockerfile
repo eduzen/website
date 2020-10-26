@@ -63,4 +63,4 @@ COPY . /code/
 
 RUN python manage.py collectstatic --no-input
 
-CMD ["uwsgi", "--ini", "/code/scripts/uwsgi.ini"]
+CMD ["sh", "/code/scripts/gunicorn_start.sh"]

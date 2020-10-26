@@ -8,7 +8,7 @@ DJANGODIR=/code/website
 NUM_WORKERS=3
 # WSGI module name
 DJANGO_WSGI_MODULE=website.wsgi
-BIND=0.0.0.0:8080
+BIND=0.0.0.0:80
 TIMEOUT=120
 LOG_FORMAT="[GUNICORN] %(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\""
 

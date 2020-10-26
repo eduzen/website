@@ -6,51 +6,56 @@ volumes:
 services:
   nginx-proxy:
     restart: always
-    image: jwilder/nginx-proxy:alpine
+    image: index.docker.io/jwilder/nginx-proxy:alpine
     ports:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  # media:
-  #   image: nginx:alpine
-  #   restart: always
-  #   expose:
-  #     - "8080"
-  #   environment:
-  #     - VIRTUAL_HOST=media.eduzen.com.ar
-  #   volumes:
-  #     - ./website/media:/usr/share/nginx/html:ro
+  media:
+    image: nginx:alpine
+    restart: always
+    expose:
+      - "8080"
+    environment:
+      - VIRTUAL_HOST=media.eduzen.com.ar
+    volumes:
+      - ./website/media:/usr/share/nginx/html:ro
 
   web:
     image: index.docker.io/eduzen/website:latest
     restart: always
-    volumes:
-      - .:/code
     expose:
       - 80
     env_file:
       - .env
     links:
-      - postgres
+      - db
       - redis
     depends_on:
-      - postgres
+      - db
       - redis
 
   db:
-    image: postgres:13-alpine
+    image: index.docker.io/postgres:13-alpine
     restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data/
       - ./scripts/db/:/docker-entrypoint-initdb.d/
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${DJANG0_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DJANGO_POSTGRES_PASSWORD}
 
   redis:
-    image: redis:6-alpine
+    image: index.docker.io/redis:6-alpine
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     expose:
       - "6379"
+
+  watchtower:
+    image: index.docker.io/containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/eduzen/.docker/config.json:/config.json:ro
+    command: --interval 120

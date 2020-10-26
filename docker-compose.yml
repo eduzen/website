@@ -8,14 +8,12 @@ services:
     build:
       context: .
       args:
-        - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
         - DJANGO_CONFIGURATION=$DJANGO_CONFIGURATION
         - DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
-      - "80:80"
       - "8000:8000"
       - "3000:3000"
     env_file:
