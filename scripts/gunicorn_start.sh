@@ -25,4 +25,5 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --bind=$BIND \
   --log-level=$LOG_LEVEL \
   --access-logformat="${LOG_FORMAT}" \
-  --log-file=-
+  --log-file=- \
+  -k gevent
