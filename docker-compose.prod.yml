@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 volumes:
   pgdata:
@@ -12,15 +12,15 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  media:
-    image: nginx:alpine
-    restart: always
-    expose:
-      - "8080"
-    environment:
-      - VIRTUAL_HOST=media.eduzen.com.ar
-    volumes:
-      - ./website/media:/usr/share/nginx/html:ro
+  # media:
+  #   image: nginx:alpine
+  #   restart: always
+  #   expose:
+  #     - "8080"
+  #   environment:
+  #     - VIRTUAL_HOST=media.eduzen.com.ar
+  #   volumes:
+  #     - ./website/media:/usr/share/nginx/html:ro
 
   web:
     image: index.docker.io/eduzen/website:latest
@@ -30,7 +30,7 @@ services:
     expose:
       - 80
     env_file:
-      - "./.env"
+      - .env
     links:
       - postgres
       - redis
@@ -38,7 +38,7 @@ services:
       - postgres
       - redis
 
-  postgres:
+  db:
     image: postgres:13-alpine
     restart: always
     volumes:

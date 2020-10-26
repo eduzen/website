@@ -139,4 +139,4 @@ docker-compose.override.yml
 .pdbrc.py
 .DS_Store
 zappa_settings.json
-scripts/db
+scripts/db/*
