@@ -22,8 +22,8 @@ services:
     volumes:
       - ./website/media:/usr/share/nginx/html:ro
 
-  django:
-    image: eduzen/eduzen:latest
+  web:
+    image: index.docker.io/eduzen/website:latest
     restart: always
     volumes:
       - .:/code
@@ -31,9 +31,6 @@ services:
       - 80
     env_file:
       - "./.env"
-    environment:
-      - VIRTUAL_PROTO=${VIRTUAL_PROTO}
-      - VIRTUAL_HOST=${VIRTUAL_HOSTS}
     links:
       - postgres
       - redis
@@ -42,7 +39,7 @@ services:
       - redis
 
   postgres:
-    image: postgres:11-alpine
+    image: postgres:13-alpine
     restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data/
@@ -50,10 +47,6 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
-      - DB_NAME=${DB_NAME}
 
   redis:
     image: redis:6-alpine
