@@ -714,7 +714,7 @@ python-versions = "*"
 
 [[package]]
 name = "markdown"
-version = "3.3.2"
+version = "3.3.3"
 description = "Python implementation of Markdown."
 category = "main"
 optional = false
@@ -1263,7 +1263,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f4ba263b805f610e2f1dcbadca0bb4b3e87d264d8537f21ea639d0b4c65be32c"
+content-hash = "234998f3ca605d306488da6bec46c2115877e4b90673b6220a96dfb2b52a18e5"
 
 [metadata.files]
 apipkg = [
@@ -1543,8 +1543,8 @@ log-colorizer = [
     {file = "log_colorizer-1.8.6.tar.gz", hash = "sha256:cff6a54eb213560ded0e3f62319a1a950aea8dc88557c97612607dd7380eccc2"},
 ]
 markdown = [
-    {file = "Markdown-3.3.2-py3-none-any.whl", hash = "sha256:77b7bff443b1f97b4814fa438c181fd5882e31edb01b422856b3feca91475f3e"},
-    {file = "Markdown-3.3.2.tar.gz", hash = "sha256:4b71fbd2db30c1dfb400f22b25f41cb823fc1db0aa8b7b67d120644f92cc1011"},
+    {file = "Markdown-3.3.3-py3-none-any.whl", hash = "sha256:c109c15b7dc20a9ac454c9e6025927d44460b85bd039da028d85e2b6d0bcc328"},
+    {file = "Markdown-3.3.3.tar.gz", hash = "sha256:5d9f2b5ca24bc4c7a390d22323ca4bad200368612b5aaa7796babf971d2b2f18"},
 ]
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
