@@ -39,7 +39,7 @@ jobs:
         poetry-version: ${{ matrix.poetry-version }}
 
     - name: Install dependencies
-      run: poetry Install
+      run: poetry install
 
     - name: Check Code Style
       uses: pre-commit/action@v2.0.0
