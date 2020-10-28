@@ -32,8 +32,6 @@ jobs:
         # Set the `CODEQL-PYTHON` environment variable to the Python executable
         # that includes the dependencies
         echo "::set-env name=CODEQL_PYTHON::$(which python)"
-    - run: git checkout HEAD^2
-      if: $
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:
