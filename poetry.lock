@@ -634,7 +634,7 @@ tornado = ["tornado (>=0.2)"]
 
 [[package]]
 name = "hypothesis"
-version = "5.38.1"
+version = "5.39.0"
 description = "A library for property-based testing"
 category = "dev"
 optional = false
@@ -1342,7 +1342,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "9070a8582a16f9482c487e29ead8805685b86d09c4994f3c4208c75797cd8539"
+content-hash = "5269ad1aa040704d20091be8a0523574ea41e3bc6fa54cc909c033c7c003bcde"
 
 [metadata.files]
 apipkg = [
@@ -1673,8 +1673,8 @@ gunicorn = [
     {file = "gunicorn-20.0.4.tar.gz", hash = "sha256:1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626"},
 ]
 hypothesis = [
-    {file = "hypothesis-5.38.1-py3-none-any.whl", hash = "sha256:84a83d3d1f05c82e80c04e50d0e4d9ae233676734baa60e488047102f9d5420a"},
-    {file = "hypothesis-5.38.1.tar.gz", hash = "sha256:49d87a00e904d9bd4468f89130932c947410cbf9bd5ec18937b40b045486bc27"},
+    {file = "hypothesis-5.39.0-py3-none-any.whl", hash = "sha256:3f1d356818a490d0aa1c7a1ca29935300c003ae8f99a44293398d0dfd7c0b186"},
+    {file = "hypothesis-5.39.0.tar.gz", hash = "sha256:c97cb378bdecb548b69b40e3cab3e78d22ad9fb4d10f0ef55132efd82c9624ec"},
 ]
 identify = [
     {file = "identify-1.5.6-py2.py3-none-any.whl", hash = "sha256:3139bf72d81dfd785b0a464e2776bd59bdc725b4cc10e6cf46b56a0db931c82e"},
