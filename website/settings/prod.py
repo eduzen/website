@@ -2,12 +2,16 @@ import os
 
 from configurations import values
 
-from .base import Base, DropboxStorage, Sentry, WhitenoiseStatic
+from .base import BASE_DIR, Base, Sentry, WhitenoiseStatic
 
 
-class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
+class Prod(Sentry, WhitenoiseStatic, Base):
     DEBUG = True
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
+
+    MEDIA_URL = "https://media.eduzen.ar/"
+    MEDIA_ROOT = BASE_DIR / "media"
+
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
 
@@ -19,7 +23,7 @@ class Prod(DropboxStorage, Sentry, WhitenoiseStatic, Base):
 
     HOUR = MINUTE * 60
     DAY = HOUR * 24
-    CACHE_MIDDLEWARE_SECONDS = DAY
+    CACHE_MIDDLEWARE_SECONDS = HOUR
     DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
     @property

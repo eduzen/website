@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 volumes:
   pgdata:
@@ -8,19 +8,19 @@ services:
     restart: always
     image: index.docker.io/jwilder/nginx-proxy:alpine
     ports:
-      - "80:80"
+      - 80:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   media:
-    image: nginx:alpine
+    image: index.docker.io/nginx:alpine
     restart: always
     expose:
       - "8080"
     environment:
-      - VIRTUAL_HOST=media.eduzen.com.ar
+      - VIRTUAL_HOST=media.eduzen.ar
     volumes:
-      - ./website/media:/usr/share/nginx/html:ro
+      - ./media:/usr/share/nginx/html:ro
 
   web:
     image: index.docker.io/eduzen/website:latest
@@ -28,7 +28,7 @@ services:
     expose:
       - 80
     env_file:
-      - .env
+      - "./.env"
     links:
       - db
       - redis
@@ -41,15 +41,13 @@ services:
     restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data/
-      - ./scripts/db/:/docker-entrypoint-initdb.d/
+      - ./dump-2020-10-18.sql:/docker-entrypoint-initdb.d/01.sql:ro
     environment:
-      - POSTGRES_USER=${DJANG0_POSTGRES_USER}
+      - POSTGRES_USER=${DJANGO_POSTGRES_USER}
       - POSTGRES_PASSWORD=${DJANGO_POSTGRES_PASSWORD}
 
   redis:
-    image: index.docker.io/redis:6-alpine
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    image: index.docker.io/redis:latest
     expose:
       - "6379"
 
@@ -58,4 +56,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/eduzen/.docker/config.json:/config.json:ro
-    command: --interval 120
+    command: --interval 30 --cleanup
