@@ -1,4 +1,5 @@
 {% extends 'blog/utils/base.html' %}
+{% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -8,10 +9,12 @@
   <div class="col-md-8">
     <div class="row">
       <div class="col-md-12">
-        <h2>Búsqueda avanzada</h2>
+        <h2>{% translate 'Advance Search' %}</h2>
         {% if form %}
-        <p>No se han encontrado resultados.</p> </p>
-        <p class="text-muted">Por favor utilice esta nueva búsqueda que buscará en el cuerpo del texto, título y copete de mis post.</p>
+          <p>{% translate 'No results'%}</p>
+          <p class="text-muted">
+            {% translate 'How-to-look' %}
+          </p>
           {% csrf_token %}
           {% crispy form %}
         {% endif %}

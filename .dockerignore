@@ -122,6 +122,8 @@ media/
 .pytest_*/
 dump-eduzen-20-04-2019.sql
 scripts/db/*
-docker-compose*.yml
+docker-compose.yml
+docker-compose.prod.yml
+Dockerfile
 .git
 .mypy_cache/

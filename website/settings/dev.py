@@ -2,10 +2,10 @@ import os
 
 from configurations import values
 
-from .base import Base, StaticMedia
+from .base import Base, DropboxStorage, WhitenoiseStatic
 
 
-class Dev(StaticMedia, Base):
+class Dev(WhitenoiseStatic, DropboxStorage, Base):
     DEBUG = True
     ALLOWED_HOSTS = values.ListValue(["*"])
 

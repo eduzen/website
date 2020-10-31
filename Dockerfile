@@ -57,5 +57,6 @@ WORKDIR /code
 COPY . /code/
 
 RUN python manage.py collectstatic --no-input
+RUN python manage.py compilemessages
 
 CMD ["sh", "/code/scripts/gunicorn_start.sh"]

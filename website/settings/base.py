@@ -133,7 +133,7 @@ class Base(ConstanceConfig, Configuration):
     USE_I18N = True
     USE_L10N = True
     USE_TZ = True
-    LANGUAGE_CODE = "es"
+    LANGUAGE_CODE = "en"
     LENGUAGES = [
         ("en", "English"),
         ("es", "Español"),
