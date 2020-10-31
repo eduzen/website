@@ -35,6 +35,7 @@ RUN echo 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
         gettext \
+        curl \
         build-essential \
         postgresql-client \
         httpie && \
