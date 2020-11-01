@@ -1,5 +1,5 @@
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -x"
+addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
 filterwarnings = [
   "ignore::django.utils.deprecation.RemovedInDjango40Warning"
 ]

@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse_lazy
+from django.utils.translation import activate
 
 from .factories import PostFactory
 
@@ -50,3 +51,11 @@ def test_get_post_list(client, posts):
 def test_get_bad_about(client, url):
     response = client.get(url)
     assert response.status_code == 404
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("lang", ("en", "es"))
+def test_uses_index_template(client, lang):
+    activate(lang)
+    response = client.get(reverse_lazy("home"))
+    assert response.request["PATH_INFO"] == f"/{lang}/"

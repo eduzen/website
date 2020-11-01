@@ -24,15 +24,12 @@ urlpatterns = [
     path("api/", include("snippets.urls")),
     path("media/<path>", MediaView.as_view()),
     path("favicon.ico", favicon_view),
-    path("eduardo/", admin.site.urls),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("robots.txt", include("robots.urls")),
     path("google448c52311d45450b.html", include("config.urls")),
     path("telegram/", include("expenses.urls")),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("captcha/", include("captcha.urls")),
-    path("", include("blog.urls")),
-    path("i18n/", include("django.conf.urls.i18n")),
 ]
 
 urlpatterns += i18n_patterns(
