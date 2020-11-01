@@ -1,18 +1,19 @@
 {% load tools %}
+{% load i18n %}
 
 {% for post in posts %}
 <div class="side-boxes titles">
   <div class="row">
     <div class="col-xs-6">
       <p>
-        Tags:
+        {% translate "Tags" %}:
         {% for tag in post.tags.all %}
           <a href="/tags/{{tag}}">{{ tag }}</a>
         {% endfor %}
       </p>
     </div>
     <div class="col-xs-6">
-      <h6 class="date">Published: {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+      <h6 class="date">{% translate 'Published'%}: {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
     </div>
 
     {% if post.image %}

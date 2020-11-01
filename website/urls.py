@@ -32,13 +32,12 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("captcha/", include("captcha.urls")),
     path("", include("blog.urls")),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
 
 urlpatterns += i18n_patterns(
-    path(
-        "",
-        include("blog.urls"),
-    )
+    path("", include("blog.urls")),
+    path("eduardo/", admin.site.urls),
 )
 
 

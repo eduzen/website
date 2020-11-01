@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-31 18:47-0300\n"
+"POT-Creation-Date: 2020-11-01 15:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,62 +18,90 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: blog/models.py:18
+#: models.py:18
 msgid "word"
 msgstr "palabra"
 
-#: blog/models.py:19
+#: models.py:19
 msgid "slug"
 msgstr "slug"
 
-#: blog/models.py:23
+#: models.py:23
 msgid "tag"
 msgstr "etiqueta"
 
-#: blog/models.py:24
+#: models.py:24
 msgid "tags"
 msgstr "etiqueta"
 
-#: blog/templates/blog/advance_search.html:12
+#: templates/blog/advance_search.html:12
 msgid "Advance Search"
-msgstr ""
+msgstr "Busqueda avanzada"
 
-#: blog/templates/blog/advance_search.html:14
+#: templates/blog/advance_search.html:14
 msgid "No results"
 msgstr "No hay ningun resultado 😞"
 
-#: blog/templates/blog/advance_search.html:16
+#: templates/blog/advance_search.html:16
 msgid "How-to-look"
 msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
 
-#: blog/templates/blog/clases.html:10
+#: templates/blog/clases.html:10
 msgid "clases title"
 msgstr "Clases particulares"
 
-#: blog/templates/blog/clases.html:11
+#: templates/blog/clases.html:11
 msgid "clases copete"
 msgstr "Online o en Amsterdam"
 
-#: blog/templates/blog/error.html:8
+#: templates/blog/error.html:9
 msgid "email problem"
 msgstr "Hubo un problema al enviar el mail 🙈"
 
-#: blog/templates/blog/error.html:10
+#: templates/blog/error.html:11
 msgid "Gracias por contactarte!"
 msgstr "Gracias por contactarte!"
 
-#: blog/templates/blog/utils/head.html:9
+#: templates/blog/extras/post.html:6
+msgid "Autor"
+msgstr "Autor"
+
+#: templates/blog/extras/post_list.html:9 templates/blog/extras/tags.html:3
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: templates/blog/extras/post_list.html:16
+msgid "Published"
+msgstr "Publicado"
+
+#: templates/blog/extras/related_posts.html:5
+msgid "Notas relacionadas"
+msgstr "Notas relacionadas"
+
+#: templates/blog/extras/related_posts.html:14
+msgid "Publicado el dia"
+msgstr "Publicado el dia"
+
+#: templates/blog/extras/related_posts.html:19
+msgid "Nothing yet!"
+msgstr "Todavia nada!"
+
+#: templates/blog/extras/zen.html:27
+msgid "Este Zen se puede leer en el pep-0020"
+msgstr "Este Zen se puede leer en el pep-0020"
+
+#: templates/blog/utils/head.html:9
 msgid "description"
 msgstr "Hola! Soy Eduardo 🤓 y escribo, en general, sobre python. Gracias por leerme."
 
-#: blog/templates/blog/utils/navbar.html:30
+#: templates/blog/utils/navbar.html:30
 msgid "Home"
 msgstr "Inicio"
 
-#: blog/templates/blog/utils/navbar.html:37
+#: templates/blog/utils/navbar.html:37
 msgid "About"
 msgstr "Acerca"
 
-#: blog/templates/blog/utils/navbar.html:51
+#: templates/blog/utils/navbar.html:51
 msgid "Contact"
 msgstr "Contacto"

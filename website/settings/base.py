@@ -3,6 +3,7 @@ from pathlib import Path
 
 import sentry_sdk
 from configurations import Configuration, values
+from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
@@ -98,22 +99,16 @@ class DropboxStorage:
 
 class WhitenoiseStatic:
     STATIC_URL = "/static/"
-    STATIC_ROOT = "/code/assets/"
+    STATIC_ROOT = BASE_DIR / "assets"
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 
 class SelfHostedStorage:
     STATIC_URL = "static/"
+    STATIC_ROOT = BASE_DIR / "assets"
     MEDIA_URL = "https://media.eduzen.com.ar/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-
-class StaticMedia:
-    STATIC_URL = "/static/"
-    MEDIA_URL = "/media/"
-    STATIC_ROOT = os.path.join(BASE_DIR, "website/static")
-    MEDIA_ROOT = os.path.join(BASE_DIR, "website/media")
+    MEDIA_ROOT = BASE_DIR / "media"
 
 
 class Sentry:
@@ -135,9 +130,11 @@ class Base(ConstanceConfig, Configuration):
     USE_TZ = True
     LANGUAGE_CODE = "en"
     LENGUAGES = [
-        ("en", "English"),
-        ("es", "Español"),
+        ("en", _("English")),
+        ("es", _("Español")),
     ]
+    LOCALE_PATHS = (BASE_DIR / "website/locale",)
+
     LOG_LEVEL = values.Value("INFO")
     TIME_ZONE = "America/Argentina/Buenos_Aires"
 
@@ -187,6 +184,7 @@ class Base(ConstanceConfig, Configuration):
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.locale.LocaleMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",

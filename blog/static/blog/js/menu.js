@@ -6,12 +6,12 @@ $(document).ready(function() {
     const lenguage = $("#lenguage");
 
     lenguage.empty();
-    if (path.includes("/en/")) {
-      lenguage.attr("href", "/es/");
-      lenguage.append(spanish);
-    } else {
+    if (path.includes("/es/")) {
       lenguage.attr("href", "/en/");
       lenguage.append(english);
+    } else {
+      lenguage.attr("href", "/es/");
+      lenguage.append(spanish);
     }
 
     $("li.menu").each(function() {

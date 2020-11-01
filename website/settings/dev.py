@@ -2,10 +2,10 @@ import os
 
 from configurations import values
 
-from .base import Base, DropboxStorage, WhitenoiseStatic
+from .base import Base, SelfHostedStorage
 
 
-class Dev(WhitenoiseStatic, DropboxStorage, Base):
+class Dev(SelfHostedStorage, Base):
     DEBUG = True
     ALLOWED_HOSTS = values.ListValue(["*"])
 
@@ -25,6 +25,8 @@ class Dev(WhitenoiseStatic, DropboxStorage, Base):
     INTERNAL_IPS = ["127.0.0.1"]
 
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+
+    MEDIA_URL = "https://media.eduzen.ar/"
 
     @property
     def DEBUG_TOOLBAR_CONFIG(self):

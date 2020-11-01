@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-31 18:47-0300\n"
+"POT-Creation-Date: 2020-11-01 15:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,62 +18,90 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: blog/models.py:18
+#: models.py:18
 msgid "word"
 msgstr "word"
 
-#: blog/models.py:19
+#: models.py:19
 msgid "slug"
 msgstr "slug"
 
-#: blog/models.py:23
+#: models.py:23
 msgid "tag"
 msgstr "tag"
 
-#: blog/models.py:24
+#: models.py:24
 msgid "tags"
 msgstr "tag"
 
-#: blog/templates/blog/advance_search.html:12
+#: templates/blog/advance_search.html:12
 msgid "Advance Search"
 msgstr ""
 
-#: blog/templates/blog/advance_search.html:14
+#: templates/blog/advance_search.html:14
 msgid "No results"
 msgstr "We couldn't find it 🥺"
 
-#: blog/templates/blog/advance_search.html:16
+#: templates/blog/advance_search.html:16
 msgid "How-to-look"
 msgstr "Please, search again 🙏!"
 
-#: blog/templates/blog/clases.html:10
+#: templates/blog/clases.html:10
 msgid "clases title"
 msgstr "Private classes"
 
-#: blog/templates/blog/clases.html:11
+#: templates/blog/clases.html:11
 msgid "clases copete"
 msgstr "Online class or in Amsterdam!"
 
-#: blog/templates/blog/error.html:8
+#: templates/blog/error.html:9
 msgid "email problem"
 msgstr "There was a problem sending the email 🙈, please send me an email to:"
 
-#: blog/templates/blog/error.html:10
+#: templates/blog/error.html:11
 msgid "Gracias por contactarte!"
 msgstr "Thank you for writing to me!"
 
-#: blog/templates/blog/utils/head.html:9
+#: templates/blog/extras/post.html:6
+msgid "Autor"
+msgstr "Author"
+
+#: templates/blog/extras/post_list.html:9 templates/blog/extras/tags.html:3
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/blog/extras/post_list.html:16
+msgid "Published"
+msgstr "Published"
+
+#: templates/blog/extras/related_posts.html:5
+msgid "Notas relacionadas"
+msgstr "Related posts"
+
+#: templates/blog/extras/related_posts.html:14
+msgid "Publicado el dia"
+msgstr "Published on"
+
+#: templates/blog/extras/related_posts.html:19
+msgid "Nothing yet!"
+msgstr "Nothing yet!"
+
+#: templates/blog/extras/zen.html:27
+msgid "Este Zen se puede leer en el pep-0020"
+msgstr "You can read this Zen in pep-0020"
+
+#: templates/blog/utils/head.html:9
 msgid "description"
 msgstr "Hi! I'm Eduardo 🤓. I write mostly about python. Thank you for reading me."
 
-#: blog/templates/blog/utils/navbar.html:30
+#: templates/blog/utils/navbar.html:30
 msgid "Home"
 msgstr "Home"
 
-#: blog/templates/blog/utils/navbar.html:37
+#: templates/blog/utils/navbar.html:37
 msgid "About"
 msgstr "About"
 
-#: blog/templates/blog/utils/navbar.html:51
+#: templates/blog/utils/navbar.html:51
 msgid "Contact"
 msgstr "Contact"

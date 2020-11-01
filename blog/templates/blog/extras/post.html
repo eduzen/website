@@ -1,7 +1,9 @@
+{% load i18n %}
+
 <div class="row">
   <h3><strong>{{ post.title }}</strong></h3>
   {% if post.published_date %}
-      <small>{{ post.published_date|date:"SHORT_DATE_FORMAT" }} | Autor: {{ post.author.first_name }} {{post.author.last_name}}</small>
+      <small>{{ post.published_date|date:"SHORT_DATE_FORMAT" }} | {% translate 'Autor'%}: {{ post.author.first_name }} {{post.author.last_name}}</small>
   {% endif %}
   <hr>
   <div class="post_detail">

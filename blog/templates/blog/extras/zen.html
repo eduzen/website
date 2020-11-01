@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <div class="side-boxes">
   <a href="http://www.python.org">
   <img src="{% static 'blog/img/python-banner.png' %}" alt="python-argentina" class="img-rounded center">
@@ -24,5 +26,5 @@
     <p class="zen">If the implementation is easy to explain, it may be a good idea.</p>
     <p class="zen">Namespaces are one honking great idea -- let's do more of those!</p>
     <br>
-    <p class="bg-info"><a href="https://www.python.org/dev/peps/pep-0020/">Este Zen se puede leer en el pep-0020</a></p>
+    <p class="bg-info"><a href="https://www.python.org/dev/peps/pep-0020/">{% translate 'Este Zen se puede leer en el pep-0020' %}</a></p>
 </div>
