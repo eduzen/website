@@ -37,7 +37,7 @@ djangorestframework = "^3.12.1"
 django-storages = {extras = ["dropbox"], version = "^1.10.1"}
 ipython = "^7.18.1"
 requests = "^2.25.0"
-sentry-sdk = "^0.19.1"
+sentry-sdk = "^0.19.2"
 pre-commit = "^2.8.1"
 Markdown = "^3.3.3"
 easy-thumbnails = "^2.7"
