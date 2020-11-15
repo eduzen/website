@@ -449,7 +449,7 @@ sftp = ["paramiko"]
 
 [[package]]
 name = "djangorestframework"
-version = "3.12.1"
+version = "3.12.2"
 description = "Web APIs for Django, made easy."
 category = "main"
 optional = false
@@ -1342,7 +1342,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "343502c96c99317ebaaa2840d9afd392821b0934deaa6c4e3fb5438df4e637cb"
+content-hash = "be80cbba990da2a2b8bce4aa2660a5b87ac8b44dcdfe4577931fa80a98faa9bc"
 
 [metadata.files]
 apipkg = [
@@ -1575,8 +1575,7 @@ django-storages = [
     {file = "django_storages-1.10.1-py3-none-any.whl", hash = "sha256:12de8fb2605b9b57bfaf54b075280d7cbb3b3ee1ca4bc9b9add147af87fe3a2c"},
 ]
 djangorestframework = [
-    {file = "djangorestframework-3.12.1-py3-none-any.whl", hash = "sha256:5c5071fcbad6dce16f566d492015c829ddb0df42965d488b878594aabc3aed21"},
-    {file = "djangorestframework-3.12.1.tar.gz", hash = "sha256:d54452aedebb4b650254ca092f9f4f5df947cb1de6ab245d817b08b4f4156249"},
+    {file = "djangorestframework-3.12.2-py3-none-any.whl", hash = "sha256:0209bafcb7b5010fdfec784034f059d512256424de2a0f084cb82b096d6dd6a7"},
 ]
 dropbox = [
     {file = "dropbox-10.8.0-py2-none-any.whl", hash = "sha256:0f16e9abec6b677cae7580395ea656b25ea135366ef00a41946501f1e818fcf2"},
