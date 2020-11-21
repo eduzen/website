@@ -143,3 +143,7 @@ class ContactView(ConfigMixin, FormView):
             logger.exception("Email problems")
 
         return redirect("/error/")
+
+
+class Google(TemplateView):
+    template_name = "blog/google.html"
