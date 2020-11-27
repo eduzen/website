@@ -351,7 +351,7 @@ python-versions = "*"
 
 [[package]]
 name = "django-money"
-version = "1.1"
+version = "1.2"
 description = "Adds support for using money and currency fields in django models and forms. Uses py-moneyed as the money implementation."
 category = "main"
 optional = false
@@ -1342,7 +1342,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3af0b11bbf6464e742cd4c6829af38cd8de9051cbd81be65e6acf7d81b347ae3"
+content-hash = "91372432c660f8cedddfb33cf3767484f8400dad0509a5d0923d8616d0ecb076"
 
 [metadata.files]
 apipkg = [
@@ -1548,8 +1548,8 @@ django-js-asset = [
     {file = "django_js_asset-1.2.2-py2.py3-none-any.whl", hash = "sha256:8ec12017f26eec524cab436c64ae73033368a372970af4cf42d9354fcb166bdd"},
 ]
 django-money = [
-    {file = "django-money-1.1.tar.gz", hash = "sha256:06507ac17aa0af548f241838bb0dd646bb5782ff2450be941b040f2857a97c1c"},
-    {file = "django_money-1.1-py3-none-any.whl", hash = "sha256:4ad7f5a82ccd24a6c0303173cc773b14cc9a51b3f0e6053bf25354282d1cf16d"},
+    {file = "django-money-1.2.tar.gz", hash = "sha256:7d6d04245416775bd38a01524ccd7ff1976ba305f1b3f19567284a763fa5b0e0"},
+    {file = "django_money-1.2-py3-none-any.whl", hash = "sha256:ab95d4925d12e2d58ed5429cedd06062b1a852fd2344d09e90cb1d3534ce4573"},
 ]
 django-picklefield = [
     {file = "django-picklefield-3.0.1.tar.gz", hash = "sha256:15ccba592ca953b9edf9532e64640329cd47b136b7f8f10f2939caa5f9ce4287"},
