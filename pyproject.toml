@@ -52,7 +52,7 @@ gevent = "^20.9.0"
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.1"
 factory-boy = "^3.1.0"
-hypothesis = "^5.39.0"
+hypothesis = "^5.42.1"
 coverage = "^5.3"
 codecov = "^2.1.10"
 flake8 = "^3.8.4"
