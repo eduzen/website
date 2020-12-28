@@ -301,11 +301,11 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "django-debug-toolbar"
-version = "3.1.1"
+version = "3.2"
 description = "A configurable set of panels that display various debug information about the current request/response."
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 Django = ">=2.2"
@@ -1346,7 +1346,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "5a85a13f30d5889ba47397c7c1365af38fc32cba22f99420b29ae70484c2667b"
+content-hash = "a4485a052db1b440abec4e12604da2ad93bca7e625e080a1f1a95d5e89572499"
 
 [metadata.files]
 apipkg = [
@@ -1532,8 +1532,8 @@ django-crispy-forms = [
     {file = "django_crispy_forms-1.10.0-py3-none-any.whl", hash = "sha256:92ed3fdc52c08d21d60adbb9de24e432c590e66e894f43cee0974fc959209976"},
 ]
 django-debug-toolbar = [
-    {file = "django-debug-toolbar-3.1.1.tar.gz", hash = "sha256:c97921a9cd421d392e7860dc4b464db8e06c8628df4dc58fedab012888c293c6"},
-    {file = "django_debug_toolbar-3.1.1-py3-none-any.whl", hash = "sha256:a1ce0665f7ef47d27b8df4b5d1058748e1f08500a01421a30d35164f38aaaf4c"},
+    {file = "django-debug-toolbar-3.2.tar.gz", hash = "sha256:84e2607d900dbd571df0a2acf380b47c088efb787dce9805aefeb407341961d2"},
+    {file = "django_debug_toolbar-3.2-py3-none-any.whl", hash = "sha256:9e5a25d0c965f7e686f6a8ba23613ca9ca30184daa26487706d4829f5cfb697a"},
 ]
 django-extensions = [
     {file = "django-extensions-3.1.0.tar.gz", hash = "sha256:7cd002495ff0a0e5eb6cdd6be759600905b4e4079232ea27618fc46bdd853651"},
