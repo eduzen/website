@@ -36,7 +36,7 @@ psycopg2-binary = "^2.8.6"
 djangorestframework = "^3.12.2"
 django-storages = {extras = ["dropbox"], version = "^1.10.1"}
 ipython = "^7.18.1"
-requests = "^2.25.0"
+requests = "^2.25.1"
 sentry-sdk = "^0.19.4"
 pre-commit = "^2.9.3"
 Markdown = "^3.3.3"
