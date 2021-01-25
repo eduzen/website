@@ -18,4 +18,5 @@ urlpatterns = [
     path("error/", views.ErrorView.as_view(), name="error"),
     path("sitemap-<section>.xml", sitemap, {"sitemaps": sitemaps}),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemaps"),
+    path("config", views.Google.as_view(), name="google"),
 ]
