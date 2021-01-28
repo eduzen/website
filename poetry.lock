@@ -873,7 +873,7 @@ python-versions = "*"
 
 [[package]]
 name = "pre-commit"
-version = "2.9.3"
+version = "2.10.0"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "main"
 optional = false
@@ -1370,7 +1370,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "2f1c860ad8b52587870dd460231f4167b7a47783c5f7240efef07db12df6987a"
+content-hash = "e24c52051fc7568dc873671573adc5a612b9fbe68b49ac6d05afc7335d846fb0"
 
 [metadata.files]
 apipkg = [
@@ -1852,8 +1852,8 @@ ply = [
     {file = "ply-3.11.tar.gz", hash = "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"},
 ]
 pre-commit = [
-    {file = "pre_commit-2.9.3-py2.py3-none-any.whl", hash = "sha256:6c86d977d00ddc8a60d68eec19f51ef212d9462937acf3ea37c7adec32284ac0"},
-    {file = "pre_commit-2.9.3.tar.gz", hash = "sha256:ee784c11953e6d8badb97d19bc46b997a3a9eded849881ec587accd8608d74a4"},
+    {file = "pre_commit-2.10.0-py2.py3-none-any.whl", hash = "sha256:391ed331fdd0a21d0be48c1b9919921e9d372dfd60f6dc77b8f01dd6b13161c1"},
+    {file = "pre_commit-2.10.0.tar.gz", hash = "sha256:f413348d3a8464b77987e36ef6e02c3372dadb823edf0dfe6fb0c3dc2f378ef9"},
 ]
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.14-py3-none-any.whl", hash = "sha256:c96b30925025a7635471dc083ffb6af0cc67482a00611bd81aeaeeeb7e5a5e12"},
@@ -1893,6 +1893,8 @@ psycopg2-binary = [
     {file = "psycopg2_binary-2.8.6-cp39-cp39-macosx_10_9_x86_64.macosx_10_9_intel.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:89705f45ce07b2dfa806ee84439ec67c5d9a0ef20154e0e475e2b2ed392a5b83"},
     {file = "psycopg2_binary-2.8.6-cp39-cp39-manylinux1_i686.whl", hash = "sha256:42ec1035841b389e8cc3692277a0bd81cdfe0b65d575a2c8862cec7a80e62e52"},
     {file = "psycopg2_binary-2.8.6-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:7312e931b90fe14f925729cde58022f5d034241918a5c4f9797cac62f6b3a9dd"},
+    {file = "psycopg2_binary-2.8.6-cp39-cp39-win32.whl", hash = "sha256:6422f2ff0919fd720195f64ffd8f924c1395d30f9a495f31e2392c2efafb5056"},
+    {file = "psycopg2_binary-2.8.6-cp39-cp39-win_amd64.whl", hash = "sha256:15978a1fbd225583dd8cdaf37e67ccc278b5abecb4caf6b2d6b8e2b948e953f6"},
 ]
 ptyprocess = [
     {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
