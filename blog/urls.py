@@ -1,8 +1,6 @@
-from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
 from . import views
-from .sitemap import sitemaps
 
 urlpatterns = [
     path("", views.HomeListView.as_view(), name="home"),
@@ -16,7 +14,5 @@ urlpatterns = [
     path("tags/<str:tag>/", views.PostTagsList.as_view(), name="bytag"),
     path("sucess/", views.SucessView.as_view(), name="sucess"),
     path("error/", views.ErrorView.as_view(), name="error"),
-    path("sitemap-<section>.xml", sitemap, {"sitemaps": sitemaps}),
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemaps"),
     path("config", views.Google.as_view(), name="google"),
 ]
