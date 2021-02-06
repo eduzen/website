@@ -6,7 +6,7 @@ from .base import BASE_DIR, Base, Sentry, WhitenoiseStatic
 
 
 class Prod(Sentry, WhitenoiseStatic, Base):
-    DEBUG = True
+    DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
 
     MEDIA_URL = "https://media.eduzen.ar/"
