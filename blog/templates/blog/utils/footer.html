@@ -81,4 +81,9 @@
 {% url 'about' as about %}
 {% if request.get_full_path == 'about' %}
   {% include 'blog/extras/twitter_script.html' %}
+  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+{% endif %}
+{% if request.get_full_path == 'contact' %}
+  {% include 'blog/extras/twitter_script.html' %}
+  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endif %}
