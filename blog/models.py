@@ -85,7 +85,7 @@ class Post(models.Model):
         if not self.published_date:
             return super().save(*args, **kwargs)
 
-        ping_google()
+        # ping_google()
         return super().save(*args, **kwargs)
 
     def __str__(self):
