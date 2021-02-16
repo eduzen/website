@@ -1146,7 +1146,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
 name = "sentry-sdk"
-version = "0.19.5"
+version = "0.20.2"
 description = "Python client for Sentry (https://sentry.io)"
 category = "main"
 optional = false
@@ -1370,7 +1370,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "8cae5525645d2a32eda1c6c41a442ac12fa3582a5ee91d614be93b7065d0e77e"
+content-hash = "51cf2b35a5e977cd0c782b1f7a956d560ead81e6597d0f6aa7adb8a28b37b5b5"
 
 [metadata.files]
 apipkg = [
@@ -2000,8 +2000,8 @@ requests = [
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
 ]
 sentry-sdk = [
-    {file = "sentry-sdk-0.19.5.tar.gz", hash = "sha256:737a094e49a529dd0fdcaafa9e97cf7c3d5eb964bd229821d640bc77f3502b3f"},
-    {file = "sentry_sdk-0.19.5-py2.py3-none-any.whl", hash = "sha256:0a711ec952441c2ec89b8f5d226c33bc697914f46e876b44a4edd3e7864cf4d0"},
+    {file = "sentry-sdk-0.20.2.tar.gz", hash = "sha256:9044b616ec6663cd50794fb3362efd87586e476e7b51ef2439a711d6569aede7"},
+    {file = "sentry_sdk-0.20.2-py2.py3-none-any.whl", hash = "sha256:efc65e5ffd38324797a7e1dfc8a4e74b62ea6f56a59df5bb03217b84d58dff6a"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
