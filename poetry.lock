@@ -331,6 +331,23 @@ python-versions = ">=3.5"
 Django = ">=2.2"
 
 [[package]]
+name = "django-healthchecks"
+version = "1.4.2"
+description = "Simple Django app/framework to publish health checks"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=1.7"
+requests = ">=2.18.4"
+six = ">=1.1"
+
+[package.extras]
+docs = ["sphinx (>=1.4.0)"]
+test = ["coverage (==4.5.1)", "pytest (==3.0.5)", "pytest-django (==3.1.2)", "requests-mock (==1.4.0)", "isort (==4.2.5)", "flake8 (==3.0.3)", "flake8-blind-except (==0.1.1)", "flake8-debugger (==1.4.0)"]
+
+[[package]]
 name = "django-image-cropping"
 version = "1.5.0"
 description = "A reusable app for cropping images easily and non-destructively in Django"
@@ -1370,7 +1387,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.8.1"
-content-hash = "4380207df852f69821ccf1b3eb59ff0ac677aa484373cbf60a07bfa4f240a75f"
+content-hash = "3e2ca9e66e605e9565b088b9a04b1c3dc5dcfd5faaf216941f3d23b7ed5d3327"
 
 [metadata.files]
 apipkg = [
@@ -1583,6 +1600,10 @@ django-filter = [
     {file = "django-filter-2.4.0.tar.gz", hash = "sha256:84e9d5bb93f237e451db814ed422a3a625751cbc9968b484ecc74964a8696b06"},
     {file = "django_filter-2.4.0-py3-none-any.whl", hash = "sha256:e00d32cebdb3d54273c48f4f878f898dced8d5dfaad009438fe61ebdf535ace1"},
 ]
+django-healthchecks = [
+    {file = "django-healthchecks-1.4.2.tar.gz", hash = "sha256:482d30ce69f259641ca10a268de38f0af19c6b8a2ebd3072fee23948881826e5"},
+    {file = "django_healthchecks-1.4.2-py2.py3-none-any.whl", hash = "sha256:08109852971d5e688f8e9e931cf44fa11ff4977d345e50b14df7fc44e94f710c"},
+]
 django-image-cropping = [
     {file = "django-image-cropping-1.5.0.tar.gz", hash = "sha256:59744e8df88db7e46e37b526fc715fdde665d9efa345922745f50411a6dadb3f"},
     {file = "django_image_cropping-1.5.0-py3-none-any.whl", hash = "sha256:81dbcabb6421c5a1e88fac9d96f336d6109a23dcb8fa6c678329d3688c9973c4"},
@@ -1620,6 +1641,7 @@ django-storages = [
 ]
 djangorestframework = [
     {file = "djangorestframework-3.12.2-py3-none-any.whl", hash = "sha256:0209bafcb7b5010fdfec784034f059d512256424de2a0f084cb82b096d6dd6a7"},
+    {file = "djangorestframework-3.12.2.tar.gz", hash = "sha256:0898182b4737a7b584a2c73735d89816343369f259fea932d90dc78e35d8ac33"},
 ]
 dropbox = [
     {file = "dropbox-11.2.0-py2-none-any.whl", hash = "sha256:ea8ed65604216744f2fadc3aee3c2aaa3cbfc00cef5d13778d5547c22a41c374"},

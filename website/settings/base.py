@@ -290,3 +290,12 @@ class Base(ConstanceConfig, Configuration):
     @property
     def INSTALLED_APPS(self):
         return self.DJANGO_APPS + self.APPS + self.THIRD_PARTY_APPS
+
+    HEALTH_CHECKS = {
+        "postgresql": "django_healthchecks.contrib.check_database",
+        "cache_default": "django_healthchecks.contrib.check_cache_default",
+        "check_remote_addr": "django_healthchecks.contrib.check_remote_addr",
+        # 'check_expired_heartbeats': 'django_healthchecks.contrib.check_expired_heartbeats',
+        # 'check_heartbeats': 'django_healthchecks.contrib.check_heartbeats',
+        # 'check_open_migrations': 'django_healthchecks.contrib.check_open_migrations',
+    }

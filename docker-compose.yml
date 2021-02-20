@@ -12,6 +12,9 @@ services:
     ports:
       - "8000:8000"
       - "3000:3000"
+    links:
+      - wdb
+      - db
     env_file:
       - .env
 
@@ -31,10 +34,10 @@ services:
     expose:
       - "6379"
 
-  # wdb:
-  #   image: eduzen/wdb
-  #   expose:
-  #     - 1984
+  wdb:
+    image: kozea/wdb
+    ports:
+      - "1984:1984"
 
   # mailhog:
   #   image: mailhog/mailhog:latest

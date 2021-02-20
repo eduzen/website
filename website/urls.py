@@ -8,6 +8,7 @@ from .sitemap import sitemaps
 from .views import MediaView, favicon_view
 
 urlpatterns = [
+    path("healthchecks/", include("django_healthchecks.urls")),
     path("api/", include("snippets.urls")),
     path("media/<path>", MediaView.as_view()),
     path("favicon.ico", favicon_view),
