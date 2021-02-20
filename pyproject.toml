@@ -41,7 +41,7 @@ django-storages = {extras = ["dropbox"], version = "^1.10.1"}
 psycopg2-binary = "^2.8.6"
 ipython = "^7.20.0"
 requests = "^2.25.1"
-sentry-sdk = "^0.19.5"
+sentry-sdk = "^0.20.3"
 pre-commit = "^2.10.1"
 Markdown = "^3.3.3"
 easy-thumbnails = "^2.7"
