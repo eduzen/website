@@ -293,7 +293,7 @@ redis = ["redis"]
 
 [[package]]
 name = "django-crispy-forms"
-version = "1.11.0"
+version = "1.11.1"
 description = "Best way to have Django DRY forms"
 category = "main"
 optional = false
@@ -1387,7 +1387,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.8.1"
-content-hash = "3e2ca9e66e605e9565b088b9a04b1c3dc5dcfd5faaf216941f3d23b7ed5d3327"
+content-hash = "0e30bd6152a0030eb7c9ce4fcaa7bbee8e8878426bd0117dbe22e62a730b826c"
 
 [metadata.files]
 apipkg = [
@@ -1585,8 +1585,8 @@ django-constance = [
     {file = "django_constance-2.8.0-py3-none-any.whl", hash = "sha256:60fec73e397d5f4f7440f611b18d3e7ce5342647f316fedc47b62e1411c849e7"},
 ]
 django-crispy-forms = [
-    {file = "django-crispy-forms-1.11.0.tar.gz", hash = "sha256:21cf717b621f93cdf01bac0a419b520fe3b17bffd67e140b6c16558d9b75ab80"},
-    {file = "django_crispy_forms-1.11.0-py3-none-any.whl", hash = "sha256:a2aa34ee3fccafdebb33c016cbd60246b37df85dae717637c6419b929fa24b25"},
+    {file = "django-crispy-forms-1.11.1.tar.gz", hash = "sha256:5c600dea66e2f435f774fe2c4cacfb5b5eb9914dd6da0728edd174b95f6956fd"},
+    {file = "django_crispy_forms-1.11.1-py3-none-any.whl", hash = "sha256:2ea206f35a9554597b89315ea52737d32d2fd9f5304e79a469a08887aa0824b0"},
 ]
 django-debug-toolbar = [
     {file = "django-debug-toolbar-3.2.tar.gz", hash = "sha256:84e2607d900dbd571df0a2acf380b47c088efb787dce9805aefeb407341961d2"},
