@@ -28,8 +28,7 @@ services:
 
   redis:
     image: redis:6-alpine
-    environment:
-      - REDIS_PASSWORD=$REDIS_PASSWORD
+    command: redis-server --requirepass $REDIS_PASSWORD
     expose:
       - "6379"
 

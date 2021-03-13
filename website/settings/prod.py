@@ -26,16 +26,6 @@ class Prod(Sentry, WhitenoiseStatic, Base):
     CACHE_MIDDLEWARE_SECONDS = HOUR
     DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
-    @property
-    def CACHES(self):
-        return {
-            "default": {
-                "BACKEND": "django_redis.cache.RedisCache",
-                "LOCATION": os.getenv("REDIS_URL"),
-                "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-            }
-        }
-
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
