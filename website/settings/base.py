@@ -275,7 +275,7 @@ class Base(ConstanceConfig, Configuration):
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
 
-    CACHES ={
+    CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": os.getenv("REDIS_URL"),

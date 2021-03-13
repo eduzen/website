@@ -21,7 +21,7 @@ repos:
       - id: requirements-txt-fixer
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v7.20.0
+    rev: v7.22.0
     hooks:
       - id: eslint
 
