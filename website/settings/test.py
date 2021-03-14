@@ -1,3 +1,5 @@
+from configurations import values
+
 from .base import Base
 
 
@@ -6,6 +8,8 @@ class Test(Base):
     TEMPLATE_DEBUG = False
     DEBUG_LOGGING = False
     STATIC_URL = "/static/"
+
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
     PASSWORD_HASHERS = [
         "django.contrib.auth.hashers.MD5PasswordHasher",
