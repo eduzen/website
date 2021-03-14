@@ -78,12 +78,5 @@
 <script type="application/javascript" src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
 <script type="application/javascript">hljs.initHighlightingOnLoad();</script>
 {% include 'blog/extras/analytics.html' %}
-{% url 'about' as about %}
-{% if request.get_full_path == 'about' %}
-  {% include 'blog/extras/twitter_script.html' %}
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-{% endif %}
-{% if request.get_full_path == 'contact' %}
-  {% include 'blog/extras/twitter_script.html' %}
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-{% endif %}
+<script type="application/javascript" src="{% static 'blog/js/twitter.js' %}"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
