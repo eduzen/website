@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       POSTGRES_PASSWORD: postgres
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
       DJANGO_CONFIGURATION: Test
     strategy:
       max-parallel: 4
@@ -61,7 +61,7 @@ jobs:
       run: poetry run python manage.py check
 
     - name: Run Tests
-      run: poetry run pytest
+      run: echo $DATABASE_URL; poetry run pytest
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
