@@ -5,6 +5,7 @@ class Test(Base):
     DEBUG = False
     TEMPLATE_DEBUG = False
     DEBUG_LOGGING = False
+    STATIC_URL = "/static/"
 
     PASSWORD_HASHERS = [
         "django.contrib.auth.hashers.MD5PasswordHasher",
