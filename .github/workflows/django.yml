@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       POSTGRES_PASSWORD: postgres
-      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
-      DJANGO_CONFIGURATION: test
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      DJANGO_CONFIGURATION: Test
     strategy:
       max-parallel: 4
       matrix:
