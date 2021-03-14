@@ -14,8 +14,6 @@ class Test(Base):
 
     EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
-
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
     DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
