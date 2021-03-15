@@ -10,11 +10,25 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/github_actions
+      DJANGO_CONFIGURATION: Test
     strategy:
       max-parallel: 4
       matrix:
         python-version: [3.8]
-        poetry-version: [1.1.2]
+        poetry-version: [1.1.5]
+
+    services:
+      postgres:
+        image: postgres:13-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - name: Checkout code # checking our the code at current commit that triggers the workflow
@@ -48,7 +62,7 @@ jobs:
       run: poetry run python manage.py check
 
     - name: Run Tests
-      run: poetry run pytest
+      run: echo $DATABASE_URL; poetry run pytest
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1

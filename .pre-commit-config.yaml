@@ -20,10 +20,10 @@ repos:
       - id: debug-statements
       - id: requirements-txt-fixer
 
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v7.20.0
-    hooks:
-      - id: eslint
+  # - repo: https://github.com/pre-commit/mirrors-eslint
+  #   rev: v7.22.0
+  #   hooks:
+  #     - id: eslint
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.7.0

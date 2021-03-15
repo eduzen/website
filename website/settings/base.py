@@ -269,23 +269,24 @@ class Base(ConstanceConfig, Configuration):
         "image_cropping.thumbnail_processors.crop_corners",
     ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
-    REDIS_URL = values.Value(environ_name="REDIS_URL")
-
     # Cache key TTL in seconds
     MINUTE = 60
     HOUR = MINUTE * 60
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = DAY
 
-    @property
-    def CACHES(self):
-        return {
-            "default": {
-                "BACKEND": "django_redis.cache.RedisCache",
-                "LOCATION": os.environ.get("REDIS_URL"),
-                "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-            }
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": os.getenv("REDIS_URL"),
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "PASSWORD": os.getenv("REDIS_PASSWORD"),
+                "CONNECTION_POOL_KWARGS": {"max_connections": 500, "retry_on_timeout": True},
+                "CLOSE_CONNECTION": True,
+            },
         }
+    }
 
     @property
     def INSTALLED_APPS(self):

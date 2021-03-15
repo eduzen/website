@@ -43,11 +43,11 @@ services:
       - pgdata:/var/lib/postgresql/data/
       - ./dump-2020-10-18.sql:/docker-entrypoint-initdb.d/01.sql:ro
     environment:
-      - POSTGRES_USER=${DJANGO_POSTGRES_USER}
       - POSTGRES_PASSWORD=${DJANGO_POSTGRES_PASSWORD}
 
   redis:
     image: index.docker.io/redis:latest
+    command: redis-server --requirepass $REDIS_PASSWORD
     expose:
       - "6379"
 
