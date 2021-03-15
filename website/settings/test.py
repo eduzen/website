@@ -1,4 +1,4 @@
-# from configurations import values
+from configurations import values
 
 from .base import Base
 
@@ -9,16 +9,7 @@ class Test(Base):
     DEBUG_LOGGING = False
     STATIC_URL = "/static/"
 
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "github_actions",
-            "USER": "postgres",
-            "PASSWORD": "postgres",
-            "HOST": "127.0.0.1",
-            "PORT": "5432",
-        }
-    }
+    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
 
     PASSWORD_HASHERS = [
         "django.contrib.auth.hashers.MD5PasswordHasher",
