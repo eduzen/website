@@ -721,7 +721,7 @@ python-versions = "*"
 
 [[package]]
 name = "ipdb"
-version = "0.13.6"
+version = "0.13.7"
 description = "IPython-enabled pdb"
 category = "dev"
 optional = false
@@ -1388,7 +1388,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.8.1"
-content-hash = "c00d2d43d9d873e42e1465f08ff33a6f1b7580e7c74159b48476fc2274b4b6c2"
+content-hash = "0eb596977ce926b36e074ede0ac5eadda048493d4a12cd3404562bf8c0bb1969"
 
 [metadata.files]
 apipkg = [
@@ -1790,7 +1790,7 @@ iniconfig = [
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
 ]
 ipdb = [
-    {file = "ipdb-0.13.6.tar.gz", hash = "sha256:1aa37e19e5b3b96c930fe7fe97193a54202c23a8d1b1c7763f76553f5b275731"},
+    {file = "ipdb-0.13.7.tar.gz", hash = "sha256:178c367a61c1039e44e17c56fcc4a6e7dc11b33561261382d419b6ddb4401810"},
 ]
 ipython = [
     {file = "ipython-7.21.0-py3-none-any.whl", hash = "sha256:34207ffb2f653bced2bc8e3756c1db86e7d93e44ed049daae9814fed66d408ec"},
