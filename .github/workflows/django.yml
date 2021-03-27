@@ -81,7 +81,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: eduzen/website:latest
+        tags: eduzen/website:${GITHUB_REF##*/}
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
