@@ -25,7 +25,7 @@ Django = "^3.1.7"
 django-configurations = {extras = ["cache", "database", "email", "search"], version = "^2.2"}
 django-anymail = "^8.2"
 django-ckeditor = "^6.0.0"
-django-crispy-forms = "^1.11.1"
+django-crispy-forms = "^1.11.2"
 django-constance = {extras = ["database"], version = "^2.7.0"}
 django-extensions = "^3.1.1"
 django-image-cropping = "^1.5.0"
@@ -46,7 +46,7 @@ pre-commit = "^2.11.1"
 Markdown = "^3.3.4"
 easy-thumbnails = "^2.7"
 whitenoise = "^5.2.0"
-gunicorn = "^20.0.4"
+gunicorn = "^20.1.0"
 gevent = "^21.1.2"
 django_healthchecks = "^1.4.2"
 
