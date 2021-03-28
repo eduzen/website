@@ -24,7 +24,7 @@ class Prod(Sentry, WhitenoiseStatic, Base):
     HOUR = MINUTE * 60
     DAY = HOUR * 24
     CACHE_MIDDLEWARE_SECONDS = HOUR
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
+    DATABASES = values.DatabaseURLValue()
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",

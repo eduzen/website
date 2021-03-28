@@ -282,8 +282,7 @@ class Base(ConstanceConfig, Configuration):
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
                 "PASSWORD": os.getenv("REDIS_PASSWORD"),
-                "CONNECTION_POOL_KWARGS": {"max_connections": 500, "retry_on_timeout": True},
-                "CLOSE_CONNECTION": True,
+                "CONNECTION_POOL_KWARGS": {"max_connections": 5000, "retry_on_timeout": True},
             },
         }
     }
