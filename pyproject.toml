@@ -75,7 +75,7 @@ django-debug-toolbar = "^3.2"
 
 [virtualenvs]
 create = true
-# local = true
+local = true
 # in-project = true
 
 [build-system]
