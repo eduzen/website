@@ -1,7 +1,9 @@
-version: '3'
+version: '3.9'
 
 volumes:
   pgdata:
+  shell_history:
+  ipy_history:
 
 services:
   web:
@@ -9,11 +11,12 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
+      - shell_history:/root/hist
+      - ipy_history:/root/.ipython/
     ports:
       - "8000:8000"
       - "3000:3000"
     links:
-      - wdb
       - db
     env_file:
       - .env
@@ -34,13 +37,22 @@ services:
 
   wdb:
     image: kozea/wdb
+    profiles: ["debug"]
     ports:
       - "1984:1984"
 
-  # mailhog:
-  #   image: mailhog/mailhog:latest
-  #   ports:
-  #     - "1025:1025"
-  #     - "8025:8025"
-  #   healthcheck:
-  #     test: echo | telnet 127.0.0.1 25
+  adminer:
+    image: adminer:latest
+    profiles: ["debug"]
+    restart: always
+    ports:
+        - 8000:8000
+
+  mailhog:
+     image: mailhog/mailhog:latest
+     profiles: ["debug"]
+     ports:
+       - "1025:1025"
+       - "8025:8025"
+     healthcheck:
+       test: echo | telnet 127.0.0.1 25

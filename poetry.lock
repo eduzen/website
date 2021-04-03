@@ -575,9 +575,9 @@ flake8 = "*"
 
 [[package]]
 name = "flake8-bugbear"
-version = "21.3.2"
+version = "21.4.3"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -658,7 +658,7 @@ tornado = ["tornado (>=0.2)"]
 
 [[package]]
 name = "hypothesis"
-version = "6.8.2"
+version = "6.8.4"
 description = "A library for property-based testing"
 category = "main"
 optional = false
@@ -1388,7 +1388,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.8.1"
-content-hash = "8eef4eb51104112fcd9c680924af5c31a493517176200cdc16a6f03909651529"
+content-hash = "e3dd8aa463a46fecc2070d9c24187465c712ccb5ab5981a91027c0ddfbba849e"
 
 [metadata.files]
 apipkg = [
@@ -1680,8 +1680,8 @@ flake8-assertive = [
     {file = "flake8_assertive-1.3.0-py2.py3-none-any.whl", hash = "sha256:e4901b00c93bdff2357e93af6444ec5ea32efc03add86ad0c946e82f6e5770d7"},
 ]
 flake8-bugbear = [
-    {file = "flake8-bugbear-21.3.2.tar.gz", hash = "sha256:cadce434ceef96463b45a7c3000f23527c04ea4b531d16c7ac8886051f516ca0"},
-    {file = "flake8_bugbear-21.3.2-py36.py37.py38-none-any.whl", hash = "sha256:5d6ccb0c0676c738a6e066b4d50589c408dcc1c5bf1d73b464b18b73cd6c05c2"},
+    {file = "flake8-bugbear-21.4.3.tar.gz", hash = "sha256:2346c81f889955b39e4a368eb7d508de723d9de05716c287dc860a4073dc57e7"},
+    {file = "flake8_bugbear-21.4.3-py36.py37.py38-none-any.whl", hash = "sha256:4f305dca96be62bf732a218fe6f1825472a621d3452c5b994d8f89dae21dbafa"},
 ]
 flake8-comprehensions = [
     {file = "flake8-comprehensions-3.4.0.tar.gz", hash = "sha256:c00039be9f3959a26a98da3024f0fe809859bf1753ccb90e228cc40f3ac31ca7"},
@@ -1770,8 +1770,8 @@ gunicorn = [
     {file = "gunicorn-20.1.0.tar.gz", hash = "sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8"},
 ]
 hypothesis = [
-    {file = "hypothesis-6.8.2-py3-none-any.whl", hash = "sha256:ef56e7ffad9f88faece3b2d9f839244188a558bea0e4f5ec455d7748ac4b1334"},
-    {file = "hypothesis-6.8.2.tar.gz", hash = "sha256:284f0c24e3470f7688f223417ad8624e4ae75afe402919942ded6506c8bdf6fb"},
+    {file = "hypothesis-6.8.4-py3-none-any.whl", hash = "sha256:2caa49d4daf77538ec79731b8b3baaa9cfaf83abd9c7703f05b0d046814654f1"},
+    {file = "hypothesis-6.8.4.tar.gz", hash = "sha256:665486c0c823ae217be96e611882249f6b060799ded7b2393d451fa488b62fcb"},
 ]
 identify = [
     {file = "identify-2.2.1-py2.py3-none-any.whl", hash = "sha256:9cc5f58996cd359b7b72f0a5917d8639de5323917e6952a3bfbf36301b576f40"},
