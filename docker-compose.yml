@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 volumes:
   pgdata:
@@ -17,7 +17,6 @@ services:
       - "8000:8000"
       - "3000:3000"
     links:
-      - wdb
       - db
     env_file:
       - .env
@@ -57,4 +56,3 @@ services:
        - "8025:8025"
      healthcheck:
        test: echo | telnet 127.0.0.1 25
-
