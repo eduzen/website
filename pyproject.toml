@@ -54,7 +54,7 @@ hypothesis = "^6.8.4"
 flake8-bugbear = "^21.4.3"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.2"
+pytest = "^6.2.3"
 factory-boy = "^3.1.0"
 hypothesis = "^6.4.3"
 coverage = "^5.5"
