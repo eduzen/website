@@ -42,7 +42,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Cache dependency # caching dependency will make our build faster.
-      uses: actions/cache@v2.1.4 # for more info checkout pip section documentation at https://github.com/actions/cache
+      uses: actions/cache@v2.1.5 # for more info checkout pip section documentation at https://github.com/actions/cache
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_dev.txt') }}
@@ -50,7 +50,7 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Run image
-      uses: abatilo/actions-poetry@v2.1.0
+      uses: abatilo/actions-poetry@v2.1.2
       with:
         poetry-version: ${{ matrix.poetry-version }}
 
@@ -58,7 +58,7 @@ jobs:
       run: poetry install
 
     - name: Check Code Style
-      uses: pre-commit/action@v2.0.2
+      uses: pre-commit/action@v2.0.3
 
     - name: Run Django Check
       run: poetry run python manage.py check
@@ -79,7 +79,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Cache Docker layers
-      uses: actions/cache@v2
+      uses: actions/cache@v2.1.5
       with:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx-${{ github.sha }}
