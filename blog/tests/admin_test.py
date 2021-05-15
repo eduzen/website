@@ -20,7 +20,13 @@ def test_admin(admin_client, app):
     assert response.status_code == 200
 
 
-@pytest.mark.parametrize("url", ("admin:blog_post_changelist", "admin:blog_post_add",))
+@pytest.mark.parametrize(
+    "url",
+    (
+        "admin:blog_post_changelist",
+        "admin:blog_post_add",
+    ),
+)
 def test_blog_admin(admin_client, url):
     response = admin_client.get(reverse(url))
     assert response.status_code == 200
