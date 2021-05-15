@@ -45,7 +45,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "attrs"
 version = "20.3.0"
 description = "Classes Without Boilerplate"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -182,7 +182,7 @@ tests = ["pytest"]
 
 [[package]]
 name = "django"
-version = "3.2"
+version = "3.2.3"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
@@ -556,7 +556,7 @@ python-versions = "*"
 name = "flake8"
 version = "3.9.1"
 description = "the modular source code checker: pep8 pyflakes and co"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
@@ -580,7 +580,7 @@ flake8 = "*"
 name = "flake8-bugbear"
 version = "21.4.3"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -595,7 +595,7 @@ dev = ["coverage", "black", "hypothesis", "hypothesmith"]
 name = "flake8-comprehensions"
 version = "3.4.0"
 description = "A flake8 plugin to help you write better list/set/dict comprehensions."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -661,7 +661,7 @@ tornado = ["tornado (>=0.2)"]
 
 [[package]]
 name = "hypothesis"
-version = "6.10.1"
+version = "6.12.0"
 description = "A library for property-based testing"
 category = "dev"
 optional = false
@@ -736,7 +736,7 @@ toml = {version = ">=0.10.2", markers = "python_version > \"3.6\""}
 
 [[package]]
 name = "ipython"
-version = "7.23.0"
+version = "7.23.1"
 description = "IPython: Productive Interactive Computing"
 category = "main"
 optional = false
@@ -823,7 +823,7 @@ traitlets = "*"
 name = "mccabe"
 version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -970,7 +970,7 @@ tests = ["pytest (>=2.3.0)", "tox (>=1.6.0)"]
 name = "pycodestyle"
 version = "2.7.0"
 description = "Python style guide checker"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -986,7 +986,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "pyflakes"
 version = "2.3.1"
 description = "passive checker of Python programs"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -1008,7 +1008,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "pytest"
-version = "6.2.3"
+version = "6.2.4"
 description = "pytest: simple powerful testing with Python"
 category = "dev"
 optional = false
@@ -1071,7 +1071,7 @@ pytest = ">=3.10"
 
 [[package]]
 name = "pytest-mock"
-version = "3.6.0"
+version = "3.6.1"
 description = "Thin-wrapper around the mock package for easier use with pytest"
 category = "dev"
 optional = false
@@ -1179,7 +1179,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
 name = "sentry-sdk"
-version = "1.0.0"
+version = "1.1.0"
 description = "Python client for Sentry (https://sentry.io)"
 category = "main"
 optional = false
@@ -1406,8 +1406,8 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = "~3.8.1"
-content-hash = "7987ec12cdb23f71557112693bb6466805355e2182502c8f853ec4af562a6d5e"
+python-versions = "^3.8.1"
+content-hash = "10a99aa8821b872832b740c53d2b27a0f537e30f09908374bbb470118289c23c"
 
 [metadata.files]
 apipkg = [
@@ -1576,8 +1576,8 @@ dj-search-url = [
     {file = "dj-search-url-0.1.tar.gz", hash = "sha256:424d1a5852500b3c118abfdd0e30b3e0016fe68e7ed27b8553a67afa20d4fb40"},
 ]
 django = [
-    {file = "Django-3.2-py3-none-any.whl", hash = "sha256:0604e84c4fb698a5e53e5857b5aea945b2f19a18f25f10b8748dbdf935788927"},
-    {file = "Django-3.2.tar.gz", hash = "sha256:21f0f9643722675976004eb683c55d33c05486f94506672df3d6a141546f389d"},
+    {file = "Django-3.2.3-py3-none-any.whl", hash = "sha256:7e0a1393d18c16b503663752a8b6790880c5084412618990ce8a81cc908b4962"},
+    {file = "Django-3.2.3.tar.gz", hash = "sha256:13ac78dbfd189532cad8f383a27e58e18b3d33f80009ceb476d7fcbfc5dcebd8"},
 ]
 django-anymail = [
     {file = "django-anymail-8.2.tar.gz", hash = "sha256:6381e04c41b2644e2d3ba2f95ee61ee3ee40cb6184506c52a363b9ddef0b098e"},
@@ -1790,8 +1790,8 @@ gunicorn = [
     {file = "gunicorn-20.1.0.tar.gz", hash = "sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8"},
 ]
 hypothesis = [
-    {file = "hypothesis-6.10.1-py3-none-any.whl", hash = "sha256:1d65f58d82d1cbd35b6441bda3bb11cb1adc879d6b2af191aea388fa412171b1"},
-    {file = "hypothesis-6.10.1.tar.gz", hash = "sha256:586b6c46e90878c2546743afbed348bca51e1f30e3461fa701fad58c2c47c650"},
+    {file = "hypothesis-6.12.0-py3-none-any.whl", hash = "sha256:d26f2b7bb6e3edebc6eded70ff99cd15425bf4266608e7a041d75f00b58ac7cb"},
+    {file = "hypothesis-6.12.0.tar.gz", hash = "sha256:a24b2ccb7b84860762df3fabb8faa196bf627cbee62917a5095f3de8ff71050b"},
 ]
 identify = [
     {file = "identify-2.2.4-py2.py3-none-any.whl", hash = "sha256:ad9f3fa0c2316618dc4d840f627d474ab6de106392a4f00221820200f490f5a8"},
@@ -1812,8 +1812,8 @@ ipdb = [
     {file = "ipdb-0.13.7.tar.gz", hash = "sha256:178c367a61c1039e44e17c56fcc4a6e7dc11b33561261382d419b6ddb4401810"},
 ]
 ipython = [
-    {file = "ipython-7.23.0-py3-none-any.whl", hash = "sha256:3455b020a895710c4366e8d1b326e5ee6aa684607907fc96895e7b8359569f49"},
-    {file = "ipython-7.23.0.tar.gz", hash = "sha256:69178f32bf9c6257430b6f592c3ae230c32861a1966d2facec454e09078e232d"},
+    {file = "ipython-7.23.1-py3-none-any.whl", hash = "sha256:f78c6a3972dde1cc9e4041cbf4de583546314ba52d3c97208e5b6b2221a9cb7d"},
+    {file = "ipython-7.23.1.tar.gz", hash = "sha256:714810a5c74f512b69d5f3b944c86e592cee0a5fb9c728e582f074610f6cf038"},
 ]
 ipython-genutils = [
     {file = "ipython_genutils-0.2.0-py2.py3-none-any.whl", hash = "sha256:72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8"},
@@ -1979,8 +1979,8 @@ pyparsing = [
     {file = "pyparsing-2.4.7.tar.gz", hash = "sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1"},
 ]
 pytest = [
-    {file = "pytest-6.2.3-py3-none-any.whl", hash = "sha256:6ad9c7bdf517a808242b998ac20063c41532a570d088d77eec1ee12b0b5574bc"},
-    {file = "pytest-6.2.3.tar.gz", hash = "sha256:671238a46e4df0f3498d1c3270e5deb9b32d25134c99b7d75370a68cfbe9b634"},
+    {file = "pytest-6.2.4-py3-none-any.whl", hash = "sha256:91ef2131a9bd6be8f76f1f08eac5c5317221d6ad1e143ae03894b862e8976890"},
+    {file = "pytest-6.2.4.tar.gz", hash = "sha256:50bcad0a0b9c5a72c8e4e7c9855a3ad496ca6a881a3641b4260605450772c54b"},
 ]
 pytest-cov = [
     {file = "pytest-cov-2.11.1.tar.gz", hash = "sha256:359952d9d39b9f822d9d29324483e7ba04a3a17dd7d05aa6beb7ea01e359e5f7"},
@@ -1995,8 +1995,8 @@ pytest-forked = [
     {file = "pytest_forked-1.3.0-py2.py3-none-any.whl", hash = "sha256:dc4147784048e70ef5d437951728825a131b81714b398d5d52f17c7c144d8815"},
 ]
 pytest-mock = [
-    {file = "pytest-mock-3.6.0.tar.gz", hash = "sha256:f7c3d42d6287f4e45846c8231c31902b6fa2bea98735af413a43da4cf5b727f1"},
-    {file = "pytest_mock-3.6.0-py3-none-any.whl", hash = "sha256:952139a535b5b48ac0bb2f90b5dd36b67c7e1ba92601f3a8012678c4bd7f0bcc"},
+    {file = "pytest-mock-3.6.1.tar.gz", hash = "sha256:40217a058c52a63f1042f0784f62009e976ba824c418cced42e88d5f40ab0e62"},
+    {file = "pytest_mock-3.6.1-py3-none-any.whl", hash = "sha256:30c2f2cc9759e76eee674b81ea28c9f0b94f8f0445a1b87762cadf774f0df7e3"},
 ]
 pytest-sugar = [
     {file = "pytest-sugar-0.9.4.tar.gz", hash = "sha256:b1b2186b0a72aada6859bea2a5764145e3aaa2c1cfbb23c3a19b5f7b697563d3"},
@@ -2057,8 +2057,8 @@ requests = [
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
 ]
 sentry-sdk = [
-    {file = "sentry-sdk-1.0.0.tar.gz", hash = "sha256:71de00c9711926816f750bc0f57ef2abbcb1bfbdf5378c601df7ec978f44857a"},
-    {file = "sentry_sdk-1.0.0-py2.py3-none-any.whl", hash = "sha256:9221e985f425913204989d0e0e1cbb719e8b7fa10540f1bc509f660c06a34e66"},
+    {file = "sentry-sdk-1.1.0.tar.gz", hash = "sha256:c1227d38dca315ba35182373f129c3e2722e8ed999e52584e6aca7d287870739"},
+    {file = "sentry_sdk-1.1.0-py2.py3-none-any.whl", hash = "sha256:c7d380a21281e15be3d9f67a3c4fbb4f800c481d88ff8d8931f39486dd7b4ada"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
