@@ -5,7 +5,7 @@ from blog.models import Post
 
 
 class StaticViewSitemap(Sitemap):
-    """ Sitemap for improving google indexing """
+    """Sitemap for improving google indexing"""
 
     priority = 0.5
     changefreq = "daily"
