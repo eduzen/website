@@ -604,14 +604,14 @@ flake8 = ">=3.0,<3.2.0 || >3.2.0,<4"
 
 [[package]]
 name = "flake8-django"
-version = "1.1.1"
-description = "Plugin to catch bad style specific to Django Projects"
+version = "1.1.2"
+description = "Plugin to catch bad style specific to Django Projects."
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
-flake8 = "*"
+flake8 = ">=3.8.4,<4.0.0"
 
 [[package]]
 name = "gevent"
@@ -1409,7 +1409,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.1"
-content-hash = "694105b019e001253254528a7c459b77d9a800cd02a99f9c4bd107dda35c8967"
+content-hash = "e9a16af5fcef8cdc5fea79c6b45d942247f9c189e3092c4236712d4b15080630"
 
 [metadata.files]
 apipkg = [
@@ -1721,8 +1721,8 @@ flake8-comprehensions = [
     {file = "flake8_comprehensions-3.5.0-py3-none-any.whl", hash = "sha256:b07aef3277623db32310aa241a1cec67212b53c1d18e767d7e26d4d83aa05bf7"},
 ]
 flake8-django = [
-    {file = "flake8-django-1.1.1.tar.gz", hash = "sha256:fb4e8f669d3cf44297bb6e1c5d0a358ab0aba373cd4c69268cf2798de6bcbd9b"},
-    {file = "flake8_django-1.1.1-py3-none-any.whl", hash = "sha256:c71da0e61b6119dae91cbffdbdb00f1d6ebe3f5d0c43f5bf136929997ab0b72d"},
+    {file = "flake8-django-1.1.2.tar.gz", hash = "sha256:b4314abb5bacda450d2eae564a0604447111b1b98188e46bca41682ad2ab59d6"},
+    {file = "flake8_django-1.1.2-py3-none-any.whl", hash = "sha256:f8bfdbe8352c2c5f3788c2a2f6652dd2604af24af07a5aa112206d63ae228fdc"},
 ]
 gevent = [
     {file = "gevent-21.1.2-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:2a9ae0a0fd956cbbc9c326b8f290dcad2b58acfb2e2732855fe1155fb110a04d"},
