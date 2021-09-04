@@ -13,7 +13,7 @@ ENV PYTHONUNBUFFERED=1 \
     \
     # poetry
     # https://python-poetry.org/docs/configuration/#using-environment-variables
-    POETRY_VERSION=1.1.5 \
+    POETRY_VERSION=1.1.8 \
     # make poetry install to this location
     POETRY_HOME="/opt/poetry" \
     # make poetry create the virtual environment in the project's root
@@ -60,6 +60,6 @@ COPY . /code/
 RUN python manage.py collectstatic --no-input
 RUN python manage.py compilemessages
 
-HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://localhost:8000/healthchecks/ || exit 1
+HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://0.0.0.0:80/healthchecks/ || exit 1
 
 CMD ["sh", "/code/scripts/gunicorn_start.sh"]
