@@ -34,7 +34,7 @@ jobs:
 
     steps:
     - name: Checkout code # checking our the code at current commit that triggers the workflow
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2.4.0
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
@@ -42,7 +42,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Cache dependency # caching dependency will make our build faster.
-      uses: actions/cache@v2.1.6 # for more info checkout pip section documentation at https://github.com/actions/cache
+      uses: actions/cache@v2.1.7 # for more info checkout pip section documentation at https://github.com/actions/cache
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_dev.txt') }}
@@ -50,7 +50,7 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Run image
-      uses: abatilo/actions-poetry@v2.1.2
+      uses: abatilo/actions-poetry@v2.1.4
       with:
         poetry-version: ${{ matrix.poetry-version }}
 
