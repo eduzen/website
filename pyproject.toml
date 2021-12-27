@@ -21,7 +21,7 @@ authors = ["eduzen <eduardo.a.enriquez@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
-Django = "^3.2.3"
+Django = "^3.2.10"
 django-configurations = {extras = ["cache", "database", "email", "search"], version = "^2.2"}
 django-anymail = "^8.2"
 django-ckeditor = "^6.0.0"
@@ -72,7 +72,7 @@ django-debug-toolbar = "^3.2"
 
 [virtualenvs]
 create = true
-local = true
+local = false
 # in-project = true
 
 [build-system]
