@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM python:3.10.2-slim-buster
 EXPOSE 80
 
     # python
