@@ -42,7 +42,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Cache dependency # caching dependency will make our build faster.
-      uses: actions/cache@v2.1.7 # for more info checkout pip section documentation at https://github.com/actions/cache
+      uses: actions/cache@v3 # for more info checkout pip section documentation at https://github.com/actions/cache
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_dev.txt') }}
