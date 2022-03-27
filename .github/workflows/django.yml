@@ -15,6 +15,7 @@ jobs:
     env:
       DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/github_actions
       DJANGO_CONFIGURATION: Test
+      DJANGO_SETTINGS_MODULE: website.settings
     strategy:
       max-parallel: 4
       matrix:
