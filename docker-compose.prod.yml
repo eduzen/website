@@ -1,26 +1,53 @@
-version: "3.8"
+version: "3.9"
 
 volumes:
   pgdata:
 
 services:
-  nginx-proxy:
-    restart: always
-    image: index.docker.io/jwilder/nginx-proxy:alpine
+  reverse-proxy:
+    image: traefik:latest
+    restart: unless-stopped
+    command:
+      # Enables the web UI and tells Traefik to listen to docker
+      #  "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=${EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--log.level=ERROR"
+      - "--accesslog"
+      # - "--log"
     ports:
-      - 80:80
+      # The HTTP port
+      - "80:80"
+      - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      # - "8080:8080"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./certificates:/letsencrypt
 
   media:
     image: index.docker.io/nginx:alpine
     restart: always
     expose:
       - "8080"
-    environment:
-      - VIRTUAL_HOST=media.eduzen.ar
     volumes:
       - ./media:/usr/share/nginx/html:ro
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.media.rule=Host(Host(`media.eduzen.ar`)"
+    - "traefik.http.routers.media.entrypoints=websecure"
+    - "traefik.http.routers.media.tls.certresolver=myresolver"
+    - "traefik.http.services.media.loadbalancer.server.port=8080"
+    - "traefik.media.headers.contentTypeNosniff=true"
+    - "traefik.media.headers.forceSTSHeader=true"
+    - "traefik.media.headers.browserXSSFilter=true"
 
   web:
     image: index.docker.io/eduzen/website:latest
@@ -35,6 +62,16 @@ services:
     depends_on:
       - db
       - redis
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.web.rule=Host(Host(`eduzen.ar`) || Host(`eduzen.com.ar`)) || Host(`eduardoenriquez.com.ar`)"
+    - "traefik.http.routers.web.entrypoints=websecure"
+    - "traefik.http.routers.web.tls.certresolver=myresolver"
+    - "traefik.http.services.web.loadbalancer.server.port=8080"
+    - "traefik.web.headers.contentTypeNosniff=true"
+    - "traefik.web.headers.forceSTSHeader=true"
+    - "traefik.web.headers.browserXSSFilter=true"
+
 
   db:
     image: index.docker.io/postgres:13-alpine
@@ -56,4 +93,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/eduzen/.docker/config.json:/config.json:ro
-    command: --interval 30 --cleanup
+    command: --interval 60 --cleanup
