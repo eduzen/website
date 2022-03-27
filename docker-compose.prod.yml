@@ -13,14 +13,9 @@ services:
       - "--providers.docker"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.email=eduardo.a.enriquez@gmail.com"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--log.level=ERROR"
       - "--accesslog"
-      # - "--log"
+      - "--log"
     ports:
       # The HTTP port
       - "80:80"
@@ -36,18 +31,13 @@ services:
     image: index.docker.io/nginx:alpine
     restart: always
     expose:
-      - "8080"
+      - "80"
     volumes:
       - ./media:/usr/share/nginx/html:ro
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.media.rule=Host(Host(`media.eduzen.ar`)"
-    - "traefik.http.routers.media.entrypoints=websecure"
-    - "traefik.http.routers.media.tls.certresolver=myresolver"
-    - "traefik.http.services.media.loadbalancer.server.port=8080"
-    - "traefik.media.headers.contentTypeNosniff=true"
-    - "traefik.media.headers.forceSTSHeader=true"
-    - "traefik.media.headers.browserXSSFilter=true"
+    - "traefik.http.routers.media.rule=Host(`media.eduzen.ar`)"
+    - "traefik.http.services.media.loadbalancer.server.port=80"
 
   web:
     image: index.docker.io/eduzen/website:latest
@@ -64,14 +54,8 @@ services:
       - redis
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.web.rule=Host(Host(`eduzen.ar`) || Host(`eduzen.com.ar`)) || Host(`eduardoenriquez.com.ar`)"
-    - "traefik.http.routers.web.entrypoints=websecure"
-    - "traefik.http.routers.web.tls.certresolver=myresolver"
-    - "traefik.http.services.web.loadbalancer.server.port=8080"
-    - "traefik.web.headers.contentTypeNosniff=true"
-    - "traefik.web.headers.forceSTSHeader=true"
-    - "traefik.web.headers.browserXSSFilter=true"
-
+    - "traefik.http.routers.web.rule=Host(`eduzen.ar`) || Host(`eduzen.com.ar`)) || Host(`eduardoenriquez.com.ar`)"
+    - "traefik.http.services.web.loadbalancer.server.port=80"
 
   db:
     image: index.docker.io/postgres:13-alpine
