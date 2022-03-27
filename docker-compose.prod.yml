@@ -16,7 +16,7 @@ services:
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.email=${EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.email=eduardo.a.enriquez@gmail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--log.level=ERROR"
       - "--accesslog"

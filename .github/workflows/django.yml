@@ -64,4 +64,10 @@ jobs:
       run: poetry run python manage.py check
 
     - name: Run Tests
-      run: echo $DATABASE_URL; poetry run pytest
+      run: echo $DATABASE_URL; poetry run pytest -x -n auto --cov=. --cov-report=term --cov-report=json --cov-report=xml --cov-report=html
+
+    - name: Generate coverage report
+      id: generate-coverage-report
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: ./

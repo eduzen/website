@@ -49,10 +49,10 @@ services:
         - 8000:8000
 
   mailhog:
-     image: mailhog/mailhog:latest
-     profiles: ["debug"]
-     ports:
-       - "1025:1025"
-       - "8025:8025"
-     healthcheck:
-       test: echo | telnet 127.0.0.1 25
+    image: mailhog/mailhog:latest
+    profiles: ["debug"]
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    healthcheck:
+      test: echo | telnet 127.0.0.1 25
