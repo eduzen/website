@@ -50,7 +50,7 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Run image
-      uses: abatilo/actions-poetry@v2.1.4
+      uses: abatilo/actions-poetry@v2.1.5
       with:
         poetry-version: ${{ matrix.poetry-version }}
 
