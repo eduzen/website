@@ -34,7 +34,7 @@ django-redis = "^5.0.0"
 django-filter = "^21.1"
 django-simple-captcha = "^0.5.13"
 django-money = "^2.1.1"
-django-debug-toolbar = "^3.2"
+django-debug-toolbar = "^3.5"
 django-autoslug = "^1.9.8"
 djangorestframework = "^3.12.2"
 django-storages = {extras = ["dropbox"], version = "^1.10.1"}
@@ -68,7 +68,7 @@ pytest-sugar = "^0.9.4"
 pytest-xdist = "^2.2.1"
 ipdb = "^0.13.6"
 wdb = "^3.3.0"
-django-debug-toolbar = "^3.2"
+django-debug-toolbar = "^3.5"
 
 [virtualenvs]
 create = true
