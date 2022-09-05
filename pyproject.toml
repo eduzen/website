@@ -21,7 +21,7 @@ authors = ["eduzen <eduardo.a.enriquez@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
-Django = "^3.2.12"
+Django = "^4.1.1"
 django-configurations = {extras = ["cache", "database", "email", "search"], version = "^2.2"}
 django-anymail = "^8.2"
 django-ckeditor = "^6.0.0"
