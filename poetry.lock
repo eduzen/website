@@ -15,7 +15,7 @@ optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
+tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
 [[package]]
 name = "asttokens"
@@ -56,10 +56,10 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.extras]
-dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "furo", "sphinx", "sphinx-notfound-page", "pre-commit", "cloudpickle"]
-docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
-tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "cloudpickle"]
-tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "cloudpickle"]
+dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six", "sphinx", "sphinx-notfound-page", "zope.interface"]
+docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
+tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six", "zope.interface"]
+tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six"]
 
 [[package]]
 name = "babel"
@@ -176,8 +176,8 @@ tinycss2 = "*"
 webencodings = "*"
 
 [package.extras]
-test = ["coverage", "pytest-isort", "pytest-flake8", "pytest-cov", "pytest"]
-doc = ["sphinx-rtd-theme", "sphinx"]
+doc = ["sphinx", "sphinx_rtd_theme"]
+test = ["coverage[toml]", "pytest", "pytest-cov", "pytest-flake8", "pytest-isort"]
 
 [[package]]
 name = "decorator"
@@ -199,7 +199,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 wrapt = ">=1.10,<2"
 
 [package.extras]
-dev = ["tox", "bump2version (<1)", "sphinx (<2)", "importlib-metadata (<3)", "importlib-resources (<4)", "configparser (<5)", "sphinxcontrib-websupport (<2)", "zipp (<2)", "PyTest (<5)", "PyTest-Cov (<2.6)", "pytest", "pytest-cov"]
+dev = ["PyTest", "PyTest (<5)", "PyTest-Cov", "PyTest-Cov (<2.6)", "bump2version (<1)", "configparser (<5)", "importlib-metadata (<3)", "importlib-resources (<4)", "sphinx (<2)", "sphinxcontrib-websupport (<2)", "tox", "zipp (<2)"]
 
 [[package]]
 name = "distlib"
@@ -332,7 +332,7 @@ cache = ["django-cache-url"]
 database = ["dj-database-url"]
 email = ["dj-email-url"]
 search = ["dj-search-url"]
-testing = ["django-cache-url (>=1.0.0)", "dj-database-url", "dj-email-url", "dj-search-url"]
+testing = ["dj-database-url", "dj-email-url", "dj-search-url", "django-cache-url (>=1.0.0)"]
 
 [[package]]
 name = "django-constance"
@@ -406,7 +406,7 @@ six = ">=1.1"
 
 [package.extras]
 docs = ["sphinx (>=1.4.0)"]
-test = ["coverage (==4.5.1)", "pytest (==3.0.5)", "pytest-django (==3.1.2)", "requests-mock (==1.4.0)", "isort (==4.2.5)", "flake8 (==3.0.3)", "flake8-blind-except (==0.1.1)", "flake8-debugger (==1.4.0)"]
+test = ["coverage (==4.5.1)", "flake8 (==3.0.3)", "flake8-blind-except (==0.1.1)", "flake8-debugger (==1.4.0)", "isort (==4.2.5)", "pytest (==3.0.5)", "pytest-django (==3.1.2)", "requests-mock (==1.4.0)"]
 
 [[package]]
 name = "django-image-cropping"
@@ -444,10 +444,11 @@ python-versions = ">=3.6"
 [package.dependencies]
 Django = ">=2.2"
 py-moneyed = ">=1.2,<2.0"
+setuptools = "*"
 
 [package.extras]
 exchange = ["certifi"]
-test = ["pytest (>=3.1.0)", "pytest-django", "pytest-pythonpath", "pytest-cov", "mixer"]
+test = ["mixer", "pytest (>=3.1.0)", "pytest-cov", "pytest-django", "pytest-pythonpath"]
 
 [[package]]
 name = "django-picklefield"
@@ -603,8 +604,8 @@ python-versions = ">=3.6"
 Faker = ">=0.7.0"
 
 [package.extras]
-dev = ["coverage", "django", "flake8", "isort", "pillow", "sqlalchemy", "mongoengine", "wheel (>=0.32.0)", "tox", "zest.releaser"]
-doc = ["sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
+dev = ["Django", "Pillow", "SQLAlchemy", "coverage", "flake8", "isort", "mongoengine", "tox", "wheel (>=0.32.0)", "zest.releaser[recommended]"]
+doc = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
 
 [[package]]
 name = "faker"
@@ -655,7 +656,7 @@ flake8 = "*"
 
 [[package]]
 name = "flake8-bugbear"
-version = "21.11.29"
+version = "22.9.11"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 category = "dev"
 optional = false
@@ -701,6 +702,7 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5"
 [package.dependencies]
 cffi = {version = ">=1.12.2", markers = "platform_python_implementation == \"CPython\" and sys_platform == \"win32\""}
 greenlet = {version = ">=1.1.0,<2.0", markers = "platform_python_implementation == \"CPython\""}
+setuptools = "*"
 "zope.event" = "*"
 "zope.interface" = "*"
 
@@ -708,8 +710,8 @@ greenlet = {version = ">=1.1.0,<2.0", markers = "platform_python_implementation 
 dnspython = ["dnspython (>=1.16.0,<2.0)", "idna"]
 docs = ["repoze.sphinx.autointerface", "sphinxcontrib-programoutput", "zope.schema"]
 monitor = ["psutil (>=5.7.0)"]
-recommended = ["cffi (>=1.12.2)", "dnspython (>=1.16.0,<2.0)", "idna", "selectors2", "backports.socketpair", "psutil (>=5.7.0)"]
-test = ["requests", "objgraph", "cffi (>=1.12.2)", "dnspython (>=1.16.0,<2.0)", "idna", "selectors2", "futures", "mock", "backports.socketpair", "contextvars (==2.4)", "coverage (>=5.0)", "coveralls (>=1.7.0)", "psutil (>=5.7.0)"]
+recommended = ["backports.socketpair", "cffi (>=1.12.2)", "dnspython (>=1.16.0,<2.0)", "idna", "psutil (>=5.7.0)", "selectors2"]
+test = ["backports.socketpair", "cffi (>=1.12.2)", "contextvars (==2.4)", "coverage (>=5.0)", "coveralls (>=1.7.0)", "dnspython (>=1.16.0,<2.0)", "futures", "idna", "mock", "objgraph", "psutil (>=5.7.0)", "requests", "selectors2"]
 
 [[package]]
 name = "greenlet"
@@ -720,7 +722,7 @@ optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
 
 [package.extras]
-docs = ["sphinx"]
+docs = ["Sphinx"]
 
 [[package]]
 name = "gunicorn"
@@ -729,6 +731,9 @@ description = "WSGI HTTP Server for UNIX"
 category = "main"
 optional = false
 python-versions = ">=3.5"
+
+[package.dependencies]
+setuptools = ">=3.0"
 
 [package.extras]
 eventlet = ["eventlet (>=0.24.1)"]
@@ -749,8 +754,8 @@ attrs = ">=19.2.0"
 sortedcontainers = ">=2.1.0,<3.0.0"
 
 [package.extras]
-all = ["black (>=19.10b0)", "click (>=7.0)", "django (>=2.2)", "dpcontracts (>=0.4)", "lark-parser (>=0.6.5)", "libcst (>=0.3.16)", "numpy (>=1.9.0)", "pandas (>=0.25)", "pytest (>=4.6)", "python-dateutil (>=1.4)", "pytz (>=2014.1)", "redis (>=3.0.0)", "rich (>=9.0.0)", "importlib-metadata (>=3.6)", "backports.zoneinfo (>=0.2.1)", "tzdata (>=2022.1)"]
-cli = ["click (>=7.0)", "black (>=19.10b0)", "rich (>=9.0.0)"]
+all = ["backports.zoneinfo (>=0.2.1)", "black (>=19.10b0)", "click (>=7.0)", "django (>=2.2)", "dpcontracts (>=0.4)", "importlib-metadata (>=3.6)", "lark-parser (>=0.6.5)", "libcst (>=0.3.16)", "numpy (>=1.9.0)", "pandas (>=0.25)", "pytest (>=4.6)", "python-dateutil (>=1.4)", "pytz (>=2014.1)", "redis (>=3.0.0)", "rich (>=9.0.0)", "tzdata (>=2022.1)"]
+cli = ["black (>=19.10b0)", "click (>=7.0)", "rich (>=9.0.0)"]
 codemods = ["libcst (>=0.3.16)"]
 dateutil = ["python-dateutil (>=1.4)"]
 django = ["django (>=2.2)"]
@@ -795,9 +800,9 @@ python-versions = ">=3.7"
 zipp = ">=0.5"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
+docs = ["jaraco.packaging (>=9)", "rst.linker (>=1.9)", "sphinx"]
 perf = ["ipython"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "packaging", "pyfakefs", "flufl.flake8", "pytest-perf (>=0.9.2)", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)", "importlib-resources (>=1.3)"]
+testing = ["flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.0.1)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)"]
 
 [[package]]
 name = "importmagic3"
@@ -806,6 +811,9 @@ description = "Fork of Python Import Magic - automagically add, remove and manag
 category = "dev"
 optional = false
 python-versions = "*"
+
+[package.dependencies]
+setuptools = ">=0.6b1"
 
 [[package]]
 name = "iniconfig"
@@ -826,6 +834,7 @@ python-versions = ">=2.7"
 [package.dependencies]
 decorator = {version = "*", markers = "python_version > \"3.6\""}
 ipython = {version = ">=7.17.0", markers = "python_version > \"3.6\""}
+setuptools = "*"
 toml = {version = ">=0.10.2", markers = "python_version > \"3.6\""}
 
 [[package]]
@@ -847,11 +856,12 @@ pexpect = {version = ">4.3", markers = "sys_platform != \"win32\""}
 pickleshare = "*"
 prompt-toolkit = ">=2.0.0,<3.0.0 || >3.0.0,<3.0.1 || >3.0.1,<3.1.0"
 pygments = ">=2.4.0"
+setuptools = ">=18.5"
 stack-data = "*"
 traitlets = ">=5"
 
 [package.extras]
-all = ["black", "Sphinx (>=1.3)", "ipykernel", "nbconvert", "nbformat", "ipywidgets", "notebook", "ipyparallel", "qtconsole", "pytest (<7.1)", "pytest-asyncio", "testpath", "curio", "matplotlib (!=3.2.0)", "numpy (>=1.19)", "pandas", "trio"]
+all = ["Sphinx (>=1.3)", "black", "curio", "ipykernel", "ipyparallel", "ipywidgets", "matplotlib (!=3.2.0)", "nbconvert", "nbformat", "notebook", "numpy (>=1.19)", "pandas", "pytest (<7.1)", "pytest-asyncio", "qtconsole", "testpath", "trio"]
 black = ["black"]
 doc = ["Sphinx (>=1.3)"]
 kernel = ["ipykernel"]
@@ -861,7 +871,7 @@ notebook = ["ipywidgets", "notebook"]
 parallel = ["ipyparallel"]
 qtconsole = ["qtconsole"]
 test = ["pytest (<7.1)", "pytest-asyncio", "testpath"]
-test_extra = ["pytest (<7.1)", "pytest-asyncio", "testpath", "curio", "matplotlib (!=3.2.0)", "nbformat", "numpy (>=1.19)", "pandas", "trio"]
+test_extra = ["curio", "matplotlib (!=3.2.0)", "nbformat", "numpy (>=1.19)", "pandas", "pytest (<7.1)", "pytest-asyncio", "testpath", "trio"]
 
 [[package]]
 name = "jedi"
@@ -897,7 +907,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, != 3.4.*"
 [package.extras]
 cssselect = ["cssselect (>=0.7)"]
 html5 = ["html5lib"]
-htmlsoup = ["beautifulsoup4"]
+htmlsoup = ["BeautifulSoup4"]
 source = ["Cython (>=0.29.7)"]
 
 [[package]]
@@ -1012,8 +1022,8 @@ optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-testing = ["pytest-benchmark", "pytest"]
-dev = ["tox", "pre-commit"]
+dev = ["pre-commit", "tox"]
+testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "ply"
@@ -1097,7 +1107,7 @@ python-versions = "*"
 babel = ">=2.8.0"
 
 [package.extras]
-tests = ["tox (>=1.6.0)", "pytest (>=2.3.0)"]
+tests = ["pytest (>=2.3.0)", "tox (>=1.6.0)"]
 
 [[package]]
 name = "pycodestyle"
@@ -1176,7 +1186,7 @@ coverage = {version = ">=5.2.1", extras = ["toml"]}
 pytest = ">=4.6"
 
 [package.extras]
-testing = ["virtualenv", "pytest-xdist", "six", "process-tests", "hunter", "fields"]
+testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtualenv"]
 
 [[package]]
 name = "pytest-django"
@@ -1191,7 +1201,7 @@ pytest = ">=5.4.0"
 
 [package.extras]
 docs = ["sphinx", "sphinx-rtd-theme"]
-testing = ["django", "django-configurations (>=2.0)"]
+testing = ["Django", "django-configurations (>=2.0)"]
 
 [[package]]
 name = "pytest-forked"
@@ -1217,7 +1227,7 @@ python-versions = ">=3.7"
 pytest = ">=5.0"
 
 [package.extras]
-dev = ["pre-commit", "tox", "pytest-asyncio"]
+dev = ["pre-commit", "pytest-asyncio", "tox"]
 
 [[package]]
 name = "pytest-sugar"
@@ -1355,15 +1365,28 @@ celery = ["celery (>=3)"]
 chalice = ["chalice (>=1.16.0)"]
 django = ["django (>=1.8)"]
 falcon = ["falcon (>=1.4)"]
-flask = ["flask (>=0.11)", "blinker (>=1.1)"]
+flask = ["blinker (>=1.1)", "flask (>=0.11)"]
 httpx = ["httpx (>=0.16.0)"]
-pure_eval = ["pure-eval", "executing", "asttokens"]
+pure_eval = ["asttokens", "executing", "pure-eval"]
 pyspark = ["pyspark (>=2.4.4)"]
-quart = ["quart (>=0.16.1)", "blinker (>=1.1)"]
+quart = ["blinker (>=1.1)", "quart (>=0.16.1)"]
 rq = ["rq (>=0.6)"]
 sanic = ["sanic (>=0.8)"]
 sqlalchemy = ["sqlalchemy (>=1.2)"]
 tornado = ["tornado (>=5)"]
+
+[[package]]
+name = "setuptools"
+version = "65.3.0"
+description = "Easily download, build, install, upgrade, and uninstall Python packages"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "rst.linker (>=1.9)", "sphinx", "sphinx-favicon", "sphinx-hoverxref (<2)", "sphinx-inline-tabs", "sphinx-notfound-page (==0.8.3)", "sphinx-reredirects", "sphinxcontrib-towncrier"]
+testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8 (<5)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "mock", "pip (>=19.1)", "pip-run (>=8.8)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
+testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
 [[package]]
 name = "six"
@@ -1414,7 +1437,7 @@ executing = "*"
 pure-eval = "*"
 
 [package.extras]
-tests = ["cython", "littleutils", "pygments", "typeguard", "pytest"]
+tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
 name = "stone"
@@ -1462,8 +1485,8 @@ python-versions = ">=3.6"
 webencodings = ">=0.4"
 
 [package.extras]
-test = ["coverage", "pytest-isort", "pytest-flake8", "pytest-cov", "pytest"]
-doc = ["sphinx-rtd-theme", "sphinx"]
+doc = ["sphinx", "sphinx_rtd_theme"]
+test = ["coverage[toml]", "pytest", "pytest-cov", "pytest-flake8", "pytest-isort"]
 
 [[package]]
 name = "toml"
@@ -1502,7 +1525,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "uncompyle6"
-version = "3.8.0"
+version = "3.7.4"
 description = "Python cross-version byte-code decompiler"
 category = "dev"
 optional = false
@@ -1510,7 +1533,7 @@ python-versions = "*"
 
 [package.dependencies]
 spark-parser = ">=1.8.9,<1.9.0"
-xdis = ">=6.0.2,<6.1.0"
+xdis = ">=5.0.4,<5.1.0"
 
 [[package]]
 name = "urllib3"
@@ -1521,8 +1544,8 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 
 [package.extras]
-brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
-secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
+brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
+secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
@@ -1541,7 +1564,7 @@ six = ">=1.9.0,<2"
 
 [package.extras]
 docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=21.3)"]
-testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "packaging (>=20.0)"]
+testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "packaging (>=20.0)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)"]
 
 [[package]]
 name = "wcwidth"
@@ -1583,7 +1606,7 @@ optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-brotli = ["brotli"]
+brotli = ["Brotli"]
 
 [[package]]
 name = "wrapt"
@@ -1595,7 +1618,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [[package]]
 name = "xdis"
-version = "6.0.3"
+version = "5.0.13"
 description = "Python cross-version byte-code disassembler and marshal routines"
 category = "dev"
 optional = false
@@ -1614,8 +1637,8 @@ optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
+docs = ["jaraco.packaging (>=8.2)", "rst.linker (>=1.9)", "sphinx"]
+testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.0.1)", "pytest-flake8", "pytest-mypy"]
 
 [[package]]
 name = "zope.event"
@@ -1625,8 +1648,11 @@ category = "main"
 optional = false
 python-versions = "*"
 
+[package.dependencies]
+setuptools = "*"
+
 [package.extras]
-docs = ["sphinx"]
+docs = ["Sphinx"]
 test = ["zope.testrunner"]
 
 [[package]]
@@ -1637,15 +1663,18 @@ category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
+[package.dependencies]
+setuptools = "*"
+
 [package.extras]
-docs = ["sphinx", "repoze.sphinx.autointerface"]
+docs = ["Sphinx", "repoze.sphinx.autointerface"]
 test = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.1"
-content-hash = "ff09d26958631967244aa38f9b8a35f6cacefd2d91c5123e8965c1e937d57667"
+content-hash = "7005d7bbcbf09aec1b7d29f679d1e349e01da7012a001d34edf317fefe532471"
 
 [metadata.files]
 appnope = [
@@ -1955,8 +1984,8 @@ flake8-assertive = [
     {file = "flake8_assertive-1.3.0-py2.py3-none-any.whl", hash = "sha256:e4901b00c93bdff2357e93af6444ec5ea32efc03add86ad0c946e82f6e5770d7"},
 ]
 flake8-bugbear = [
-    {file = "flake8-bugbear-21.11.29.tar.gz", hash = "sha256:8b04cb2fafc6a78e1a9d873bd3988e4282f7959bb6b0d7c1ae648ec09b937a7b"},
-    {file = "flake8_bugbear-21.11.29-py36.py37.py38-none-any.whl", hash = "sha256:179e41ddae5de5e3c20d1f61736feeb234e70958fbb56ab3c28a67739c8e9a82"},
+    {file = "flake8-bugbear-22.9.11.tar.gz", hash = "sha256:39236c0e97160d1ab05d9f87422173d16e925a6220b3635bfc4aee766bf8194a"},
+    {file = "flake8_bugbear-22.9.11-py3-none-any.whl", hash = "sha256:e74350a4cfc670e184f3433c223b1e7378f1cf8345ded6c8f12ac1a50c5df22b"},
 ]
 flake8-comprehensions = [
     {file = "flake8-comprehensions-3.8.0.tar.gz", hash = "sha256:8e108707637b1d13734f38e03435984f6b7854fa6b5a4e34f93e69534be8e521"},
@@ -2469,6 +2498,10 @@ sentry-sdk = [
     {file = "sentry-sdk-1.5.8.tar.gz", hash = "sha256:38fd16a92b5ef94203db3ece10e03bdaa291481dd7e00e77a148aa0302267d47"},
     {file = "sentry_sdk-1.5.8-py2.py3-none-any.whl", hash = "sha256:32af1a57954576709242beb8c373b3dbde346ac6bd616921def29d68846fb8c3"},
 ]
+setuptools = [
+    {file = "setuptools-65.3.0-py3-none-any.whl", hash = "sha256:2e24e0bec025f035a2e72cdd1961119f557d78ad331bb00ff82efb2ab8da8e82"},
+    {file = "setuptools-65.3.0.tar.gz", hash = "sha256:7732871f4f7fa58fb6bdcaeadb0161b2bd046c85905dbaa066bdcbcc81953b57"},
+]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
@@ -2526,28 +2559,20 @@ typing-extensions = [
     {file = "typing_extensions-4.1.1.tar.gz", hash = "sha256:1a9462dcc3347a79b1f1c0271fbe79e844580bb598bafa1ed208b94da3cdcd42"},
 ]
 uncompyle6 = [
-    {file = "uncompyle6-3.8.0-py2-none-any.whl", hash = "sha256:0314d5558a15a47d00e61b88cc1b7631717de3edc19262643ed3b581ab910396"},
-    {file = "uncompyle6-3.8.0-py2.4.egg", hash = "sha256:e8f0caaf73b71b8336ab3d1cfa8a8fe5adcdc61339d885fe8266758694bc9039"},
-    {file = "uncompyle6-3.8.0-py2.5.egg", hash = "sha256:18d731af7cf6f4d92ccbe2c787b4b0421d927b148b6d4cee7de3e9dd8bea2a57"},
-    {file = "uncompyle6-3.8.0-py2.6.egg", hash = "sha256:2528a0d6c76dde99dc2e4b3b3c0850e8f1f215e12b14c0e15dbeb2e90e76bc58"},
-    {file = "uncompyle6-3.8.0-py2.7.egg", hash = "sha256:1dabbb4278865a2c35ad14d1703ad0dba8c0d32405212d5b9acbff8cbb66b5b4"},
-    {file = "uncompyle6-3.8.0-py3.10.egg", hash = "sha256:4599d12287443e8a196c954bf73c1e5bbec2443c58ec53c7765a9420e109982e"},
-    {file = "uncompyle6-3.8.0-py3.3.egg", hash = "sha256:ab6507d506268942d4e26b903191c173da39751ef6c2019eeea71d458bdfc257"},
-    {file = "uncompyle6-3.8.0-py3.4.egg", hash = "sha256:fa9a920328bb2963ed9ed3c7dc517aeea0ac49a9ef2aed7daf7349a4f2af4645"},
-    {file = "uncompyle6-3.8.0-py3.5.egg", hash = "sha256:a8c0081074802e923b6220c0c2bd25f0011fe72ba3344bbc834fa700f870b93a"},
-    {file = "uncompyle6-3.8.0-py3.6.egg", hash = "sha256:17293ccbfdfb312f2c57a471b743e15b1f3c3d82e35f53c4c818beecaaf746ce"},
-    {file = "uncompyle6-3.8.0-py3.7.egg", hash = "sha256:cff54bcfaddc58812205591e710355646714dd08e9275bb7f0b76b41943d0a09"},
-    {file = "uncompyle6-3.8.0-py3.8.egg", hash = "sha256:908288909814f483b4c0e28a55ff112652692bd7af3dea281c0709474c8ffbc6"},
-    {file = "uncompyle6-3.8.0-py3.9.egg", hash = "sha256:30e22ca70f5472edfb1d4abf35432cf381a54c2038ad78dded67af4d6fddb2a4"},
-    {file = "uncompyle6-3.8.0-py310-none-any.whl", hash = "sha256:157261cb0b0cc91691d3795c375ea35c0d105c83ee4493ef6194f8db703c3052"},
-    {file = "uncompyle6-3.8.0-py33-none-any.whl", hash = "sha256:e0f57660972ef11a4c1da5d23ac0fe19f8ab73b73065d2a0200d71df8580dfc9"},
-    {file = "uncompyle6-3.8.0-py34-none-any.whl", hash = "sha256:a1cfd8add1e38779033dcee245f03e0c9187a75b71d83b0200a1cc1b1bc5d535"},
-    {file = "uncompyle6-3.8.0-py35-none-any.whl", hash = "sha256:7017cda7b9f1e8123899a7b7eda9a555c0ea2c7dfc7805322e7b87b3b36504e5"},
-    {file = "uncompyle6-3.8.0-py36-none-any.whl", hash = "sha256:2792b10d5ef1fe15aaf8a6240a9fd38934bdf9648362367f5bbefa87eb1525e2"},
-    {file = "uncompyle6-3.8.0-py37-none-any.whl", hash = "sha256:368f0efc3c41f0415a19e9cceee2311fb08899ab765a2113471be03a6857127e"},
-    {file = "uncompyle6-3.8.0-py38-none-any.whl", hash = "sha256:1b99fd5634baadaeb4ed4fe9b724ae056b5a2a62ee94d143425c8bfc7e7ee869"},
-    {file = "uncompyle6-3.8.0-py39-none-any.whl", hash = "sha256:c8f3efea49f38d1f5c9cc1cc4771df68c96beca7df1ac6f8251eda73fc63c38b"},
-    {file = "uncompyle6-3.8.0.tar.gz", hash = "sha256:620633618f6dfc1f3e78187e220934d78ffc639c0e39daeca1fc535aab817014"},
+    {file = "uncompyle6-3.7.4-py2-none-any.whl", hash = "sha256:61e91c0d3f58bdc4282833ac71b84c75070d3d4b91d0dada93278e7d32266c1a"},
+    {file = "uncompyle6-3.7.4-py2.4.egg", hash = "sha256:fb9fe09fb9e4b491d9c59d95b7bfa40c096f78f17f07c62d1303f449a5dfd0d6"},
+    {file = "uncompyle6-3.7.4-py2.5.egg", hash = "sha256:3dd03b6b8d851b32fcf56d2e6fb33e52e29f52857b711725258703caf67b9808"},
+    {file = "uncompyle6-3.7.4-py2.6.egg", hash = "sha256:36e90b244129efd75e4c5866827bdf1d8650ee5b227d733197cc5f66db2fa220"},
+    {file = "uncompyle6-3.7.4-py2.7.egg", hash = "sha256:a6544683b1f93f025601c5e0cba6f777e1e0b0f4a4e286a420f34ca977df0845"},
+    {file = "uncompyle6-3.7.4-py3-none-any.whl", hash = "sha256:1d4159c4962ae990bdf903e53b0f52b3a7b50c44e391834fc7dd2f30dd46f49c"},
+    {file = "uncompyle6-3.7.4-py3.2.egg", hash = "sha256:2452e326245998aba5694ae304f74f39605bb327e742483edfa5c147d76a5dbe"},
+    {file = "uncompyle6-3.7.4-py3.3.egg", hash = "sha256:67e9c259444f86f715b98c243017d3f7b70a1ab84f05a4c6dda713b74621474c"},
+    {file = "uncompyle6-3.7.4-py3.4.egg", hash = "sha256:b4a6b375bf0d0348ac13876011a07a01ab169ec1a0f0e95b49616a740f6741ae"},
+    {file = "uncompyle6-3.7.4-py3.5.egg", hash = "sha256:4274b53653dab9249b773ae1110f89a8cac82a38c8e46c236a42c6e3a9164d53"},
+    {file = "uncompyle6-3.7.4-py3.6.egg", hash = "sha256:2f9af225ae2df9cfba005197086a1e9ce08ade021232b491dcad7c235206bede"},
+    {file = "uncompyle6-3.7.4-py3.7.egg", hash = "sha256:ec3b3cfd6c248b210faa0f09a83a6c5a1d7f77394a009675b4ea7cf8ab434f52"},
+    {file = "uncompyle6-3.7.4-py3.8.egg", hash = "sha256:313ff7aed35c7dadb51aa265a54101911046d32000bef1f3ed4c9b0c19f5d88b"},
+    {file = "uncompyle6-3.7.4.tar.gz", hash = "sha256:af8330861bf940e7a3ae0f06d129b8e645191a36bf73ca15ff51997a837d41f8"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.9-py2.py3-none-any.whl", hash = "sha256:44ece4d53fb1706f667c9bd1c648f5469a2ec925fcf3a776667042d645472c14"},
@@ -2639,29 +2664,26 @@ wrapt = [
     {file = "wrapt-1.14.0.tar.gz", hash = "sha256:8323a43bd9c91f62bb7d4be74cc9ff10090e7ef820e27bfe8815c57e68261311"},
 ]
 xdis = [
-    {file = "xdis-6.0.3-py2-none-any.whl", hash = "sha256:8e91c864508f1bbb98ab0365b98a0dac1703fd9409be5c4869350c2a7b7add6a"},
-    {file = "xdis-6.0.3-py2.4.egg", hash = "sha256:2fddcbff21bc1a835d150a04207698bafe0ecfd963449ac8aeffb1fe21ace63a"},
-    {file = "xdis-6.0.3-py2.5.egg", hash = "sha256:ea9d5082814c4761d938c218f5cedfcd58d3227cbd419e57c06172cd137238dd"},
-    {file = "xdis-6.0.3-py2.6.egg", hash = "sha256:4e467adbac75823ebd6b65ce9c2410fb1522957209cd858bb26c64605a74e780"},
-    {file = "xdis-6.0.3-py2.7.egg", hash = "sha256:2640799aadf7585fd0933d240735c96a2a5b1e2bf8e8e832e5208c25e7a83026"},
-    {file = "xdis-6.0.3-py3.1.egg", hash = "sha256:8365c6b290dcaf8aca28ca249b91ba5b12258d6107903c4e2467e37ae10feeb3"},
-    {file = "xdis-6.0.3-py3.10.egg", hash = "sha256:ac1e482e5baec3016acf91e636f9e4462cdbc942620a76938660bf22f834bad3"},
-    {file = "xdis-6.0.3-py3.2.egg", hash = "sha256:fe912f3a5e9534fdc4d1c857f4ddd33e9eb1b27a7a66d73b88faef8ce796b747"},
-    {file = "xdis-6.0.3-py3.3.egg", hash = "sha256:b8e7c2ccc3662438591ad4e2a86246cfd56646dee4ef22ca5ddf5876f7bad5d2"},
-    {file = "xdis-6.0.3-py3.4.egg", hash = "sha256:43021b3e79598686df1a2a5487f2802df27b51260ca91de34fd199e2adf98358"},
-    {file = "xdis-6.0.3-py3.5.egg", hash = "sha256:68c6006417ddf7f255f8e4b3b0e946990dbffd23a1dea6fc0db4198659d92338"},
-    {file = "xdis-6.0.3-py3.6.egg", hash = "sha256:9de257f9cf7217bb0332e4e14120cbce68ed31347d08db6cde0db8c83e9eb982"},
-    {file = "xdis-6.0.3-py3.7.egg", hash = "sha256:174189dccc5a57149841ec9e243507bc35c335f4d3c09b86473c1ee06b18b105"},
-    {file = "xdis-6.0.3-py3.8.egg", hash = "sha256:2040ccc7daf0a276b8d89d10bfea908a74c517d6aeffd5f2b72679aa6d3282b4"},
-    {file = "xdis-6.0.3-py3.9.egg", hash = "sha256:bd32fde51e6ea935b56131623a477073bfb504e325a13acdabd8a2bff3f12075"},
-    {file = "xdis-6.0.3-py310-none-any.whl", hash = "sha256:fd7782ddc8569b8c40f994a59af935521fc8cdc0a1b0dc3fa2cef12ace50be14"},
-    {file = "xdis-6.0.3-py33-none-any.whl", hash = "sha256:e32a99911c2c549be7257758f8778dee5a62de72e1bdb0e7696414e03403b86e"},
-    {file = "xdis-6.0.3-py34-none-any.whl", hash = "sha256:0ea30d313d8ddcd4fc38305a85c49b1698471badc6fb5bc51ac5c332f4a8c451"},
-    {file = "xdis-6.0.3-py35-none-any.whl", hash = "sha256:bf5ad2d846558910f0807edeced94e119c4a27fbaea6e7d16770b7f20fbca345"},
-    {file = "xdis-6.0.3-py36-none-any.whl", hash = "sha256:d3df8c6bdaac1d93f881498516a132961c19843043fed16a39598165c02ed3e5"},
-    {file = "xdis-6.0.3-py37-none-any.whl", hash = "sha256:d30c4293f28679749cbd801ea5ab04387cdc492c6012c01345f6e2043a70652a"},
-    {file = "xdis-6.0.3-py38-none-any.whl", hash = "sha256:5ab1b6c582d7c44ebc1f2c3139277baa4ca5992093b7717a478a9205ae4f3776"},
-    {file = "xdis-6.0.3.tar.gz", hash = "sha256:97f776f1c626e6a9e3babd0c1ca5ef394e879d7027580c54ae0be873122f9ebc"},
+    {file = "xdis-5.0.13-py2.4.egg", hash = "sha256:4290f74032cc7763773b1670e82b3b52e9c1e89e3cf594e8108571ff30ce0117"},
+    {file = "xdis-5.0.13-py2.5.egg", hash = "sha256:46087316a9dec2294f03ed14c4828c8a6e538a6a7a8741658ad55077a464e5f4"},
+    {file = "xdis-5.0.13-py2.6.egg", hash = "sha256:8e7494421c8c9e15ab487e802a27206d31d25c53c846627e7c1faa900ace037a"},
+    {file = "xdis-5.0.13-py2.7.egg", hash = "sha256:9af2b0dc0cf9ad71dbc2613500168066cabe13aa1c44c03d1a5b4d38ec8bcb0c"},
+    {file = "xdis-5.0.13-py3.1.egg", hash = "sha256:37b550aba8172191df963d75d1acdcb6e6bb89e7fee9e061a82259340d91c351"},
+    {file = "xdis-5.0.13-py3.2.egg", hash = "sha256:415bf4cfa6d204c95ae919cf993f701b324dd4212baab911c6c4d9fb52e09e1a"},
+    {file = "xdis-5.0.13-py3.3.egg", hash = "sha256:7c5c30dfc4165d66d5a0ed516a61bbc89e69addacaecd5c923543b222dec7b93"},
+    {file = "xdis-5.0.13-py3.4.egg", hash = "sha256:326d68ddd540b68d146e4906e014dd9e5bb2dd1240d6001abb21308a48ed2eae"},
+    {file = "xdis-5.0.13-py3.5.egg", hash = "sha256:0655fc3a208d417e28265b27cb873ad4815eda60cecd46fda055d366991fb0b3"},
+    {file = "xdis-5.0.13-py3.6.egg", hash = "sha256:ff1485cf6cbb325567c8e1913bee8070cd39d0b77fd9a9e6a970c8b12dfdd3a0"},
+    {file = "xdis-5.0.13-py3.7.egg", hash = "sha256:d9758683753629b82adfd70facde3de2fd6238a5532d8d1f59baa62aa659b71f"},
+    {file = "xdis-5.0.13-py3.8.egg", hash = "sha256:f2aaccbf84f487f80803bfe70c393652a1153c7ece784f28d9b6006b803abc57"},
+    {file = "xdis-5.0.13-py3.9.egg", hash = "sha256:aee621b9cda7627281b32449a2fe30ed9fac7724a5fd295b55ef0cd700a310a6"},
+    {file = "xdis-5.0.13-py33-none-any.whl", hash = "sha256:b6325129b9de31dd9992688b70a07f9dc65aff7f28f3e65774af49966fcf1396"},
+    {file = "xdis-5.0.13-py34-none-any.whl", hash = "sha256:62346108f13d421367bd68c310003836c0e508e3e0063f028b2dbffd8cce5cba"},
+    {file = "xdis-5.0.13-py35-none-any.whl", hash = "sha256:fe597be2f81231bac777b77c7a2df58b67b848e35c6195e504692ba3fb86d42b"},
+    {file = "xdis-5.0.13-py37-none-any.whl", hash = "sha256:1fada0258090133dc8576cb68d772e2b3e819433cc740bf66cd0bfaac81d4c60"},
+    {file = "xdis-5.0.13-py38-none-any.whl", hash = "sha256:12fba740517e4db0d7a5b463f658edd70f1bef9d7dfe85a631af59deaf862efb"},
+    {file = "xdis-5.0.13-py39-none-any.whl", hash = "sha256:88f43fa3938d4ecc51ff39b3788785e915dbbb7701262c1623e18a14be4cb4f3"},
+    {file = "xdis-5.0.13.tar.gz", hash = "sha256:5b8e767a8c38a8d5f45ddaefd3a616808c326a703ce0e51eb71b7ea2fd1f5632"},
 ]
 zipp = [
     {file = "zipp-3.7.0-py3-none-any.whl", hash = "sha256:b47250dd24f92b7dd6a0a8fc5244da14608f3ca90a5efcd37a3b1642fac9a375"},
