@@ -1,3 +1,80 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "website/__about__.py"
+
+[project]
+name = "website"
+description = 'My django blog Repo: http://eduzen.com.ar'
+readme = "README.md"
+requires-python = ">=3.11"
+version = "1.1.1"
+license = "MIT"
+authors = [
+  { name = "Eduardo Enriquez (eduzen)", email = "eduardo.a.enriquez@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+  "django",
+  "django-configurations[cache,database,email,search]",
+  "django-anymail",
+  "django-ckeditor",
+  "django-crispy-forms",
+  "django-constance[database]",
+  "django-extensions",
+  "django-image-cropping",
+  "django-robots",
+  "django-filter",
+  "django-simple-captcha",
+  "django-money",
+  "django-debug-toolbar",
+  "django-autoslug",
+  "djangorestframework",
+  "django-storages[dropbox]",
+  "psycopg2-binary",
+  "pygments",
+  "redis",
+  "sentry-sdk",
+  "requests",
+  "Markdown",
+  "easy-thumbnails",
+  "whitenoise",
+  "gunicorn",
+  "gevent",
+  "django-healthchecks",
+]
+
+
+[project.optional-dependencies]
+dev = [
+  "coverage",
+  "django-debug-toolbar",
+  "ipdb",
+  "ipython",
+  "mypy",
+  "factory-boy",
+  "pytest",
+  "pytest-cov",
+  "pytest-django",
+  "pytest-mock",
+  "pytest-sugar",
+  "pytest-xdist",
+  "pytest-recording",
+  "types-redis",
+  "types-requests",
+  "hypothesis",
+  "coverage",
+  # "wdb",
+]
+
+
 [tool.pytest.ini_options]
 addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
 filterwarnings = [
@@ -7,74 +84,14 @@ filterwarnings = [
 [tool.black]
 line-length = 120
 safe = true
-target-version = ['py38']
+target-version = ['py311']
 
 [tool.isort]
 profile = "black"
 include_trailing_comma = true
 
-[tool.poetry]
-name = "website"
-version = "0.1.2"
-description = "eduzen.ar"
-authors = ["eduzen <eduardo.a.enriquez@gmail.com>"]
+[tool.ruffus]
+line_length = 120
 
-[tool.poetry.dependencies]
-python = "^3.8.1"
-Django = "^3.2.12"
-django-configurations = {extras = ["cache", "database", "email", "search"], version = "^2.2"}
-django-anymail = "^8.2"
-django-ckeditor = "^6.0.0"
-django-crispy-forms = "^1.11.2"
-django-constance = {extras = ["database"], version = "^2.7.0"}
-django-extensions = "^3.1.3"
-django-image-cropping = "^1.5.0"
-django-robots = "^5.0"
-django-redis = "^5.0.0"
-django-filter = "^21.1"
-django-simple-captcha = "^0.5.13"
-django-money = "^2.1.1"
-django-debug-toolbar = "^3.5"
-django-autoslug = "^1.9.8"
-djangorestframework = "^3.12.2"
-django-storages = {extras = ["dropbox"], version = "^1.10.1"}
-psycopg2-binary = "^2.9.3"
-ipython = "^8.1.1"
-requests = "^2.27.1"
-sentry-sdk = "^1.3.1"
-pre-commit = "^2.20.0"
-Markdown = "^3.3.4"
-easy-thumbnails = "^2.7"
-whitenoise = "^6.1.0"
-gunicorn = "^20.1.0"
-gevent = "^21.1.2"
-django_healthchecks = "^1.4.2"
-
-[tool.poetry.dev-dependencies]
-pytest = "^7.1.2"
-factory-boy = "^3.1.0"
-hypothesis = "^6.46.9"
-coverage = "^6.3.2"
-codecov = "^2.1.11"
-flake8 = "^3.9.0"
-flake8-assertive = "^1.3.0"
-flake8-django = "^1.1.1"
-flake8-bugbear = "^21.4.3"
-flake8-comprehensions = "^3.5.0"
-pytest-cov = "^3.0.0"
-pytest-django = "^4.4.0"
-pytest-mock = "^3.6.1"
-pytest-sugar = "^0.9.4"
-pytest-xdist = "^2.2.1"
-ipdb = "^0.13.6"
-wdb = "^3.3.0"
-django-debug-toolbar = "^3.5"
-
-[virtualenvs]
-create = true
-local = false
-# in-project = true
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.mypy]
+ignore_missing_imports = true
