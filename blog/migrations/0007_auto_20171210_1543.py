@@ -13,7 +13,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="dolarpeso",
             name="ask",
-            field=djmoney.models.fields.MoneyField(decimal_places=2, default=Decimal("0.0"), max_digits=10),
+            field=djmoney.models.fields.MoneyField(
+                decimal_places=2, default=Decimal("0.0"), max_digits=10, default_currency="ARS"
+            ),
         ),
         migrations.AlterField(
             model_name="dolarpeso",
@@ -218,7 +220,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="dolarpeso",
             name="balance",
-            field=djmoney.models.fields.MoneyField(decimal_places=2, default=Decimal("0.0"), max_digits=10),
+            field=djmoney.models.fields.MoneyField(
+                decimal_places=2, default=Decimal("0.0"), max_digits=10, default_currency="ARS"
+            ),
         ),
         migrations.AlterField(
             model_name="dolarpeso",
@@ -423,7 +427,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="dolarpeso",
             name="bid",
-            field=djmoney.models.fields.MoneyField(decimal_places=2, default=Decimal("0.0"), max_digits=10),
+            field=djmoney.models.fields.MoneyField(
+                decimal_places=2, default=Decimal("0.0"), max_digits=10, default_currency="ARS"
+            ),
         ),
         migrations.AlterField(
             model_name="dolarpeso",
@@ -628,7 +634,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="dolarpeso",
             name="rate",
-            field=djmoney.models.fields.MoneyField(decimal_places=2, default=Decimal("0.0"), max_digits=10),
+            field=djmoney.models.fields.MoneyField(
+                decimal_places=2, default=Decimal("0.0"), max_digits=10, default_currency="ARS"
+            ),
         ),
         migrations.AlterField(
             model_name="dolarpeso",

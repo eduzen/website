@@ -73,7 +73,6 @@ dev = [
   # "wdb",
 ]
 
-
 [tool.pytest.ini_options]
 addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
 filterwarnings = []
@@ -87,8 +86,43 @@ target-version = ['py311']
 profile = "black"
 include_trailing_comma = true
 
-[tool.ruffus]
-line_length = 120
+[tool.ruff]
+line-length = 120
+exclude = [
+  "website/settings/base.py",
+  "website/settings/test.py",
+]
 
 [tool.mypy]
 ignore_missing_imports = true
+exclude = [
+  "(build|dist)/*",
+  "migrations/*"
+]
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = [
+  "website/runner.py",
+  "website/__init__.py",
+  "website/settings/*",
+  "website/wsgi.py",
+  "website/asgi.py",
+  "*/tests/*",
+  "*/venv/*",
+  "*/manage.py",
+  "*/migrations/*",
+  "*/factories.py",
+]
+
+[tool.coverage.report]
+sort = "Cover"
+show_missing = true
+skip_covered = true
+fail_under = 80
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]

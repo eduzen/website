@@ -291,6 +291,8 @@ class Base(ConstanceConfig, Configuration):
     def INSTALLED_APPS(self):
         return self.DJANGO_APPS + self.APPS + self.THIRD_PARTY_APPS
 
+    DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
     HEALTH_CHECKS = {
         "postgresql": "django_healthchecks.contrib.check_database",
         "cache_default": "django_healthchecks.contrib.check_cache_default",

@@ -18,8 +18,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.9]
-        poetry-version: [1.1.12]
+        python-version: [3.11]
 
     services:
       postgres:
@@ -45,23 +44,18 @@ jobs:
       uses: actions/cache@v3 # for more info checkout pip section documentation at https://github.com/actions/cache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements_dev.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
-    - name: Run image
-      uses: abatilo/actions-poetry@v2.1.5
-      with:
-        poetry-version: ${{ matrix.poetry-version }}
-
-    - name: Install dependencies
-      run: poetry install
 
     - name: Check Code Style
       uses: pre-commit/action@v3.0.0
 
     - name: Run Django Check
-      run: poetry run python manage.py check
+      run: python manage.py check
 
-    - name: Run Tests
-      run: echo $DATABASE_URL; poetry run pytest
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip wheel pip-tools
+        python -m pip install -r requirements-dev.txt
+        coverage run -m pytest -n auto

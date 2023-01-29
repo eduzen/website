@@ -58,7 +58,7 @@ class Post(models.Model):
         img = f"<img src='{self.image.url}' width='100' height='100'/>"
         return mark_safe(img)
 
-    image_tag.short_description = "Image"
+    image_tag.short_description = "Image"  # type: ignore
 
     def publish(self):
         self.published_date = timezone.now()
@@ -67,7 +67,7 @@ class Post(models.Model):
     def published(self):
         return True if self.published_date else False
 
-    published.boolean = True
+    published.boolean = True  # type: ignore
 
     def get_absolute_url(self):
         return reverse("post_detail", args=[self.slug])
