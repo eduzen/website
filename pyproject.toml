@@ -23,32 +23,31 @@ classifiers = [
 ]
 dependencies = [
   "django",
-  "django-configurations[cache,database,email,search]",
   "django-anymail",
-  "django-ckeditor",
+  "django-configurations[cache,database,email,search]",
   "django-crispy-forms",
+  "django-ckeditor",
   "django-constance[database]",
   "django-extensions",
-  "django-image-cropping",
-  "django-robots",
   "django-filter",
-  "django-simple-captcha",
+  "django-healthchecks",
+  "django-image-cropping",
   "django-money",
-  "django-debug-toolbar",
+  "django-robots",
+  "django-simple-captcha",
   "django-autoslug",
   "djangorestframework",
   "django-storages[dropbox]",
+  "easy-thumbnails",
+  "gunicorn",
+  "gevent",
+  "Markdown",
   "psycopg2-binary",
   "pygments",
   "redis",
   "sentry-sdk",
   "requests",
-  "Markdown",
-  "easy-thumbnails",
   "whitenoise",
-  "gunicorn",
-  "gevent",
-  "django-healthchecks",
 ]
 
 
@@ -77,9 +76,7 @@ dev = [
 
 [tool.pytest.ini_options]
 addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
-filterwarnings = [
-  "ignore::django.utils.deprecation.RemovedInDjango40Warning"
-]
+filterwarnings = []
 
 [tool.black]
 line-length = 120

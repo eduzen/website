@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:experimental
-FROM python:3.11-slim-bullseye
+FROM python:3.11-slim-bullseye as production
 EXPOSE 80
 
 # PYTHONUNBUFFERED non empty value force the stdout and stderr streams to be unbuffered.
@@ -33,4 +33,10 @@ RUN python manage.py compilemessages
 
 # HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://0.0.0.0:80/healthchecks/ || exit 1
 
-# CMD ["sh", "/code/scripts/gunicorn_start.sh"]
+CMD ["sh", "/code/scripts/gunicorn_start.sh"]
+
+FROM production as development
+
+RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip install -r requirements-dev.txt
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
