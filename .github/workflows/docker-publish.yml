@@ -35,6 +35,7 @@ jobs:
         with:
           push: true
           tags: eduzen/website:latest
+          target: production
           file: ./Dockerfile
 
       - name: Image digest
