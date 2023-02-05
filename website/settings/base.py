@@ -277,12 +277,10 @@ class Base(ConstanceConfig, Configuration):
 
     CACHES = {
         "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
             "LOCATION": os.getenv("REDIS_URL"),
             "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
                 "PASSWORD": os.getenv("REDIS_PASSWORD"),
-                "CONNECTION_POOL_KWARGS": {"max_connections": 5000, "retry_on_timeout": True},
             },
         }
     }

@@ -31,8 +31,6 @@ COPY . /code/
 RUN python manage.py collectstatic --no-input
 RUN python manage.py compilemessages
 
-# HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://0.0.0.0:80/healthchecks/ || exit 1
-
 CMD ["sh", "/code/scripts/gunicorn_start.sh"]
 
 FROM production as development
