@@ -7,17 +7,21 @@ volumes:
 
 services:
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    command: python manage.py runserver 0.0.0.0:80
     volumes:
       - .:/code
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
     ports:
-      - "8000:8000"
+      - "8000:80"
       - "3000:3000"
-    links:
+    depends_on:
       - db
+      - redis
     env_file:
       - .env
 
@@ -35,24 +39,9 @@ services:
     expose:
       - "6379"
 
-  wdb:
-    image: kozea/wdb
-    profiles: ["debug"]
-    ports:
-      - "1984:1984"
-
   adminer:
     image: adminer:latest
     profiles: ["debug"]
     restart: always
     ports:
         - 8000:8000
-
-  mailhog:
-     image: mailhog/mailhog:latest
-     profiles: ["debug"]
-     ports:
-       - "1025:1025"
-       - "8025:8025"
-     healthcheck:
-       test: echo | telnet 127.0.0.1 25

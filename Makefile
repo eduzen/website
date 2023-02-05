@@ -2,32 +2,26 @@ ifneq (,$(wildcard ./.env))
     include .env
 endif
 
-# Colors
-red=`tput setaf 1`
-green=`tput setaf 2`
-yellow=`tput setaf 3`
-orange=`tput setaf 4`
-violet=`tput setaf 5`
-lightblue=`tput setaf 6`
-reset=`tput sgr0`
-
 DCO=docker-compose
 RUNDJANGO=${DCO} run --rm web
 UP=${DCO} up${lightblue}
 EXEC=docker-compose exec
 DJMANAGE=$(RUNDJANGO) python manage.py
 
+fmt:
+	pre-commit run -a
+
+mypy:
+	mypy .
+
 start:
-	@echo "${UP} -d web db${reset}"
-	@docker-compose up -d web db
+	docker-compose up -d
 
 build:
-	@echo "${DCO} build ${lightblue}web${reset}"
-	@docker-compose build web
+	docker-compose build web
 
 logs:
-	@echo "${DCO}${red} logs ${green}-f --tail=50 ${lightblue}web db${reset}"
-	@docker-compose logs -f --tail=50 web db
+	docker-compose logs -f --tail=50 web
 
 pgcli:
 	docker-compose run --rm web pgcli ${DATABASE_URL}
@@ -50,13 +44,8 @@ ps:
 clean: stop
 	docker-compose rm --force -v
 
-only_test:
+test:
 	docker-compose run --rm web sh scripts/test.sh
-
-pep8:
-	docker-compose run --rm web flake8
-
-test: pep8 only_test
 
 dockershell:
 	docker-compose run --rm web bash
@@ -68,8 +57,7 @@ superuser:
 	$(DJMANAGE) createsuperuser
 
 migrate:
-	@echo "${DCO}${red} run --rm web ${yellow}python manage.py ${lightblue}migrate${reset}"
-	@$(DJMANAGE) migrate
+	$(DJMANAGE) migrate
 
 migrations:
 	$(DJMANAGE) makemigrations
@@ -82,9 +70,6 @@ shell_plus_sql:
 
 clear_cache:
 	$(DJMANAGE) clear_cache
-
-black:
-	$(RUNDJANGO) black -l 120 .
 
 show_urls:
 	docker-compose run --rm web python manage.py show_urls

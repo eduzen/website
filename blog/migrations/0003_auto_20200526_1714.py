@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("snippets", "0001_initial"),
         ("files", "0001_initial"),
