@@ -279,9 +279,6 @@ class Base(ConstanceConfig, Configuration):
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
             "LOCATION": os.getenv("REDIS_URL"),
-            "OPTIONS": {
-                "PASSWORD": os.getenv("REDIS_PASSWORD"),
-            },
         }
     }
 
