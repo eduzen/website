@@ -116,7 +116,7 @@ executing==1.2.0
     # via stack-data
 factory-boy==3.2.1
     # via website (pyproject.toml)
-faker==16.6.0
+faker==16.6.1
     # via factory-boy
 gevent==22.10.2
     # via website (pyproject.toml)
