@@ -28,7 +28,7 @@ RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip install -r requirem
 
 COPY . /code/
 
-RUN python manage.py collectstatic --no-input
+RUN python manage.py collectstatic --no-input --settings=website.settings.prod --configuration=Prod
 RUN python manage.py compilemessages
 
 CMD ["sh", "/code/scripts/gunicorn_start.sh"]
