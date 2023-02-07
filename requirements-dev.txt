@@ -148,7 +148,7 @@ multidict==6.0.4
     # via yarl
 mypy==0.991
     # via website (pyproject.toml)
-mypy-extensions==0.4.3
+mypy-extensions==1.0.0
     # via mypy
 packaging==23.0
     # via
