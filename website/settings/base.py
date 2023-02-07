@@ -101,7 +101,6 @@ class WhitenoiseStatic:
     STATIC_URL = "/static/"
     STATIC_ROOT = BASE_DIR / "assets"
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 
 class SelfHostedStorage:
