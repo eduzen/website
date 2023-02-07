@@ -238,7 +238,7 @@ stone==3.3.1
     # via dropbox
 termcolor==2.2.0
     # via pytest-sugar
-traitlets==5.8.1
+traitlets==5.9.0
     # via
     #   ipython
     #   matplotlib-inline
