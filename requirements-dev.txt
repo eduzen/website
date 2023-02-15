@@ -44,7 +44,7 @@ dj-email-url==1.0.6
     # via django-configurations
 dj-search-url==0.1
     # via django-configurations
-django==4.1.6
+django==4.1.7
     # via
     #   dj-database-url
     #   django-anymail
