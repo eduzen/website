@@ -146,7 +146,7 @@ matplotlib-inline==0.1.6
     # via ipython
 multidict==6.0.4
     # via yarl
-mypy==0.991
+mypy==1.0.1
     # via website (pyproject.toml)
 mypy-extensions==0.4.3
     # via mypy
