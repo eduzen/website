@@ -23,14 +23,14 @@ dj-email-url==1.0.6
     # via django-configurations
 dj-search-url==0.1
     # via django-configurations
-django==4.1.6
+django==4.1.7
     # via
     #   dj-database-url
     #   django-anymail
     #   django-appconf
     #   django-ckeditor
     #   django-configurations
-    #   django-debug-toolbar
+    #   django-crispy-forms
     #   django-extensions
     #   django-filter
     #   django-healthchecks
@@ -57,9 +57,7 @@ django-configurations[cache,database,email,search]==2.4
     # via website (pyproject.toml)
 django-constance[database]==2.9.1
     # via website (pyproject.toml)
-django-crispy-forms==1.14.0
-    # via website (pyproject.toml)
-django-debug-toolbar==3.8.1
+django-crispy-forms==2.0
     # via website (pyproject.toml)
 django-extensions==3.2.1
     # via website (pyproject.toml)
@@ -91,7 +89,7 @@ easy-thumbnails==2.8.5
     # via website (pyproject.toml)
 gevent==22.10.2
     # via website (pyproject.toml)
-greenlet==2.0.1
+greenlet==2.0.2
     # via gevent
 gunicorn==20.1.0
     # via website (pyproject.toml)
@@ -115,7 +113,7 @@ pytz==2022.7.1
     # via
     #   babel
     #   djangorestframework
-redis==4.4.2
+redis==4.5.1
     # via website (pyproject.toml)
 requests==2.28.2
     # via
@@ -123,19 +121,17 @@ requests==2.28.2
     #   django-healthchecks
     #   dropbox
     #   website (pyproject.toml)
-sentry-sdk==1.13.0
+sentry-sdk==1.15.0
     # via website (pyproject.toml)
 six==1.16.0
     # via
     #   dropbox
     #   stone
 sqlparse==0.4.3
-    # via
-    #   django
-    #   django-debug-toolbar
+    # via django
 stone==3.3.1
     # via dropbox
-typing-extensions==4.4.0
+typing-extensions==4.5.0
     # via py-moneyed
 urllib3==1.26.14
     # via

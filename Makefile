@@ -8,6 +8,19 @@ UP=${DCO} up${lightblue}
 EXEC=docker-compose exec
 DJMANAGE=$(RUNDJANGO) python manage.py
 
+upgrade-requirements:
+	$(RUNDJANGO) pip-compile pyproject.toml --upgrade --output-file requirements.txt
+
+upgrade-dev-requirements:
+	$(RUNDJANGO) pip-compile pyproject.toml --extra dev --upgrade --output-file requirements-dev.txt
+
+
+compile-requirements:
+	$(RUNDJANGO) pip-compile pyproject.toml --output-file requirements.txt
+
+compile-dev-requirements:
+	$(RUNDJANGO) pip-compile pyproject.toml --extra dev --output-file requirements-dev.txt
+
 fmt:
 	pre-commit run -a
 
@@ -45,7 +58,7 @@ clean: stop
 	docker-compose rm --force -v
 
 test:
-	docker-compose run --rm web sh scripts/test.sh
+	docker-compose run --rm web coverage run -m pytest
 
 dockershell:
 	docker-compose run --rm web bash

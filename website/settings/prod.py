@@ -8,6 +8,9 @@ from .base import BASE_DIR, Base, Sentry, WhitenoiseStatic
 class Prod(Sentry, WhitenoiseStatic, Base):
     DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
+    CSRF_TRUSTED_ORIGINS = values.ListValue(
+        ["https://*.eduzen.ar", "https://*.eduzen.com.ar", "https://*.eduardoenriquez.com.ar"]
+    )
 
     MEDIA_URL = "https://media.eduzen.ar/"
     MEDIA_ROOT = BASE_DIR / "media"
