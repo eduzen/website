@@ -25,7 +25,7 @@ dependencies = [
   "django",
   "django-anymail",
   "django-configurations[cache,database,email,search]",
-  "django-crispy-forms",
+  "django-crispy-forms~=1.13",
   "django-ckeditor",
   "django-constance[database]",
   "django-extensions",
