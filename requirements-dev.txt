@@ -178,7 +178,7 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
-py-moneyed==2.0
+py-moneyed==3.0
     # via django-money
 pycparser==2.21
     # via cffi
