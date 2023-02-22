@@ -29,7 +29,6 @@ class Prod(Sentry, WhitenoiseStatic, Base):
     CACHE_MIDDLEWARE_SECONDS = HOUR
     DATABASES = values.DatabaseURLValue()
 
-    CORS_ALLOW_ALL_ORIGINS = True
     CORS_ALLOW_METHODS = [
         "GET",
         "OPTIONS",

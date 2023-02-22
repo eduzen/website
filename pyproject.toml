@@ -67,6 +67,7 @@ dev = [
   "pytest-sugar",
   "pytest-xdist",
   "pytest-recording",
+  "pytest-pretty",
   "types-redis",
   "types-requests",
   "hypothesis",
@@ -75,7 +76,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
+addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb"
 filterwarnings = []
 
 [tool.black]
