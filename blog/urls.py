@@ -1,6 +1,10 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
 
 from . import views
+
+router = routers.DefaultRouter()
+router.register(r"posts", views.PostViewSet)
 
 urlpatterns = [
     path("", views.HomeListView.as_view(), name="home"),
@@ -15,4 +19,5 @@ urlpatterns = [
     path("sucess/", views.SucessView.as_view(), name="sucess"),
     path("error/", views.ErrorView.as_view(), name="error"),
     path("config", views.Google.as_view(), name="google"),
+    path("", include(router.urls)),
 ]

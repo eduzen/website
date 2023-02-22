@@ -165,6 +165,7 @@ class Base(ConstanceConfig, Configuration):
         "robots",
         "djmoney",
         "rest_framework",
+        "rest_framework.authtoken",
         "django_extensions",
         "easy_thumbnails",
         "image_cropping",
@@ -255,6 +256,7 @@ class Base(ConstanceConfig, Configuration):
         "DEFAULT_AUTHENTICATION_CLASSES": (
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.SessionAuthentication",
+            "rest_framework.authentication.TokenAuthentication",
         ),
     }
 
