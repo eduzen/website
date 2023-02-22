@@ -25,6 +25,7 @@ dependencies = [
   "django",
   "django-anymail",
   "django-configurations[cache,database,email,search]",
+  "django-cors-headers",
   "django-crispy-forms~=1.13",
   "django-ckeditor",
   "django-constance[database]",
@@ -66,6 +67,7 @@ dev = [
   "pytest-sugar",
   "pytest-xdist",
   "pytest-recording",
+  "pytest-pretty",
   "types-redis",
   "types-requests",
   "hypothesis",
@@ -74,7 +76,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
+addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb"
 filterwarnings = []
 
 [tool.black]

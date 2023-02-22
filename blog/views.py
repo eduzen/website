@@ -10,9 +10,6 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
-from rest_framework import viewsets
-
-from blog.serializers import PostSerializer
 
 from .forms import AdvanceSearchForm, EmailForm, SearchForm
 from .models import Post
@@ -150,11 +147,6 @@ class ContactView(ConfigMixin, FormView):
             logger.exception("Email problems")
 
         return redirect("/error/")
-
-
-class PostViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Post.objects.prefetch_related("tags").published()
-    serializer_class = PostSerializer
 
 
 class Google(TemplateView):

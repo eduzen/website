@@ -23,6 +23,7 @@ class Dev(SelfHostedStorage, Base):
     SHELL_PLUS_PRINT_SQL = True
     SHELL_PLUS_PRINT_SQL_TRUNCATE = None
     INTERNAL_IPS = ["127.0.0.1"]
+    CORS_ALLOW_ALL_ORIGINS = True
 
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
