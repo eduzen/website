@@ -29,7 +29,20 @@ class Prod(Sentry, WhitenoiseStatic, Base):
     CACHE_MIDDLEWARE_SECONDS = HOUR
     DATABASES = values.DatabaseURLValue()
 
+    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ALLOW_METHODS = [
+        "GET",
+        "OPTIONS",
+        "POST",
+    ]
+
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://\w+\.eduzen\.ar$",
+        r"^https://localhost$",
+    ]
+
     MIDDLEWARE = [
+        "corsheaders.middleware.CorsMiddleware",
         "django.middleware.security.SecurityMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",

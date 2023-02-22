@@ -157,20 +157,21 @@ class Base(ConstanceConfig, Configuration):
     ]
 
     THIRD_PARTY_APPS = [
-        "captcha",
         "anymail",
-        "crispy_forms",
+        "captcha",
         "ckeditor",
         "ckeditor_uploader",
-        "robots",
-        "djmoney",
-        "rest_framework",
-        "rest_framework.authtoken",
-        "django_extensions",
-        "easy_thumbnails",
-        "image_cropping",
         "constance",
         "constance.backends.database",
+        "corsheaders",
+        "crispy_forms",
+        "django_extensions",
+        "djmoney",
+        "easy_thumbnails",
+        "image_cropping",
+        "rest_framework",
+        "rest_framework.authtoken",
+        "robots",
     ]
 
     # Application definition
@@ -185,6 +186,7 @@ class Base(ConstanceConfig, Configuration):
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.locale.LocaleMiddleware",
+        "corsheaders.middleware.CorsMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
