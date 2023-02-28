@@ -173,7 +173,7 @@ pluggy==1.0.0
     # via pytest
 ply==3.11
     # via stone
-prompt-toolkit==3.0.36
+prompt-toolkit==3.0.38
     # via ipython
 psycopg2-binary==2.9.5
     # via website (pyproject.toml)
