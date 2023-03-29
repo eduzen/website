@@ -115,7 +115,7 @@ pytz==2022.7.1
     # via
     #   babel
     #   djangorestframework
-redis==4.5.1
+redis==4.5.4
     # via website (pyproject.toml)
 requests==2.28.2
     # via
