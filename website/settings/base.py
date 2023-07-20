@@ -101,7 +101,6 @@ class WhitenoiseStatic:
     STATIC_URL = "/static/"
     STATIC_ROOT = BASE_DIR / "assets"
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 
 class SelfHostedStorage:
@@ -158,19 +157,21 @@ class Base(ConstanceConfig, Configuration):
     ]
 
     THIRD_PARTY_APPS = [
-        "captcha",
         "anymail",
-        "crispy_forms",
+        "captcha",
         "ckeditor",
         "ckeditor_uploader",
-        "robots",
-        "djmoney",
-        "rest_framework",
-        "django_extensions",
-        "easy_thumbnails",
-        "image_cropping",
         "constance",
         "constance.backends.database",
+        "corsheaders",
+        "crispy_forms",
+        "django_extensions",
+        "djmoney",
+        "easy_thumbnails",
+        "image_cropping",
+        "rest_framework",
+        "rest_framework.authtoken",
+        "robots",
     ]
 
     # Application definition
@@ -185,6 +186,7 @@ class Base(ConstanceConfig, Configuration):
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.locale.LocaleMiddleware",
+        "corsheaders.middleware.CorsMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -252,10 +254,13 @@ class Base(ConstanceConfig, Configuration):
     REST_FRAMEWORK = {
         # Use Django's standard `django.contrib.auth` permissions,
         # or allow read-only access for unauthenticated users.
+        "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+        "PAGE_SIZE": 8,
         "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
         "DEFAULT_AUTHENTICATION_CLASSES": (
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.SessionAuthentication",
+            "rest_framework.authentication.TokenAuthentication",
         ),
     }
 
@@ -277,13 +282,8 @@ class Base(ConstanceConfig, Configuration):
 
     CACHES = {
         "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
             "LOCATION": os.getenv("REDIS_URL"),
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-                "PASSWORD": os.getenv("REDIS_PASSWORD"),
-                "CONNECTION_POOL_KWARGS": {"max_connections": 5000, "retry_on_timeout": True},
-            },
         }
     }
 

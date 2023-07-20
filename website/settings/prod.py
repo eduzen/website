@@ -8,6 +8,9 @@ from .base import BASE_DIR, Base, Sentry, WhitenoiseStatic
 class Prod(Sentry, WhitenoiseStatic, Base):
     DEBUG = False
     ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
+    CSRF_TRUSTED_ORIGINS = values.ListValue(
+        ["https://*.eduzen.ar", "https://*.eduzen.com.ar", "https://*.eduardoenriquez.com.ar"]
+    )
 
     MEDIA_URL = "https://media.eduzen.ar/"
     MEDIA_ROOT = BASE_DIR / "media"
@@ -26,7 +29,19 @@ class Prod(Sentry, WhitenoiseStatic, Base):
     CACHE_MIDDLEWARE_SECONDS = HOUR
     DATABASES = values.DatabaseURLValue()
 
+    CORS_ALLOW_METHODS = [
+        "GET",
+        "OPTIONS",
+        "POST",
+    ]
+
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://\w+\.eduzen\.ar$",
+        r"^https://localhost$",
+    ]
+
     MIDDLEWARE = [
+        "corsheaders.middleware.CorsMiddleware",
         "django.middleware.security.SecurityMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
