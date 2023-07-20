@@ -51,6 +51,7 @@ django==4.2.3
     #   django-appconf
     #   django-ckeditor
     #   django-configurations
+    #   django-cors-headers
     #   django-debug-toolbar
     #   django-extensions
     #   django-filter
@@ -79,6 +80,8 @@ django-ckeditor==6.6.1
 django-configurations[cache,database,email,search]==2.4.1
     # via website (pyproject.toml)
 django-constance[database]==2.9.1
+    # via website (pyproject.toml)
+django-cors-headers==4.2.0
     # via website (pyproject.toml)
 django-crispy-forms==1.14.0
     # via website (pyproject.toml)
