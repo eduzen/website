@@ -2,53 +2,70 @@ ifneq (,$(wildcard ./.env))
     include .env
 endif
 
-DCO=docker-compose
+DCO=docker compose
 RUNDJANGO=${DCO} run --rm web
 UP=${DCO} up${lightblue}
-EXEC=docker-compose exec
+EXEC=${DCO} exec
 DJMANAGE=$(RUNDJANGO) python manage.py
+
+
+compile-requirements-prod:
+	${RUNDJANGO} pip-compile pyproject.toml -o requirements.txt
+
+compile-requirements-dev:
+	${RUNDJANGO} pip-compile --all-extras pyproject.toml -o requirements-dev.txt
+
+update-requirements-prod:
+	${RUNDJANGO} pip-compile --upgrade pyproject.toml -o requirements.txt
+
+update-requirements-dev:
+	${RUNDJANGO} pip-compile --upgrade --all-extras pyproject.toml -o requirements-dev.txt
+
+compile-requirements: compile-requirements-prod compile-requirements-dev
+
+update-requirements: update-requirements-prod update-requirements-dev
 
 fmt:
 	pre-commit run -a
 
 mypy:
-	mypy .
+	${RUNDJANGO} mypy .
 
 start:
-	docker-compose up -d
+	${DCO} up -d
 
 build:
-	docker-compose build web
+	${DCO} build web
 
 logs:
-	docker-compose logs -f --tail=50 web
+	${DCO} logs -f --tail=50 web
 
 pgcli:
-	docker-compose run --rm web pgcli ${DATABASE_URL}
+	${DCO} run --rm web pgcli ${DATABASE_URL}
 
 psql:
-	docker-compose run --rm python manage.py dbshell
+	${DCO} run --rm python manage.py dbshell
 
 dbshell:
 	$(DJMANAGE) dbshell
 
 collectstatic:
-	docker-compose exec web python manage.py collectstatic --no-input --settings=${DJANGO_SETTINGS_MODULE}
+	${DCO} exec web python manage.py collectstatic --no-input --settings=${DJANGO_SETTINGS_MODULE}
 
 stop:
-	docker-compose stop
+	${DCO} stop
 
 ps:
-	docker-compose ps
+	${DCO} ps
 
 clean: stop
-	docker-compose rm --force -v
+	${DCO} rm --force -v
 
 test:
-	docker-compose run --rm web sh scripts/test.sh
+	${DCO} run --rm web sh scripts/test.sh
 
 dockershell:
-	docker-compose run --rm web bash
+	${DCO} run --rm web bash
 
 showmigrations:
 	$(DJMANAGE) showmigrations
@@ -72,7 +89,7 @@ clear_cache:
 	$(DJMANAGE) clear_cache
 
 show_urls:
-	docker-compose run --rm web python manage.py show_urls
+	${DCO} run --rm web python manage.py show_urls
 
 clean-python: clean-build clean-pyc
 

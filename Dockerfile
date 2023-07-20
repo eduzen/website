@@ -28,7 +28,7 @@ RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip install -r requirem
 
 COPY . /code/
 
-RUN python manage.py collectstatic --no-input
+RUN python manage.py collectstatic --no-input --settings=website.settings
 RUN python manage.py compilemessages
 
 # HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://0.0.0.0:80/healthchecks/ || exit 1
