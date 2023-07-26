@@ -49,6 +49,7 @@ django==4.2.3
     #   dj-database-url
     #   django-anymail
     #   django-appconf
+    #   django-browser-reload
     #   django-ckeditor
     #   django-configurations
     #   django-cors-headers
@@ -72,6 +73,8 @@ django-anymail==10.0
 django-appconf==1.0.5
     # via django-image-cropping
 django-autoslug==1.9.9
+    # via website (pyproject.toml)
+django-browser-reload==1.11.0
     # via website (pyproject.toml)
 django-cache-url==3.4.4
     # via django-configurations

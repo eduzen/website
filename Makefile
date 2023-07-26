@@ -28,6 +28,12 @@ update-requirements: update-requirements-prod update-requirements-dev
 fmt:
 	pre-commit run -a
 
+remove:
+	${DCO} down -v --remove-orphans
+
+down:
+	${DCO} down
+
 mypy:
 	${RUNDJANGO} mypy .
 
@@ -36,6 +42,9 @@ start:
 
 build:
 	${DCO} build web
+
+restart:
+	${DCO} restart web
 
 logs:
 	${DCO} logs -f --tail=50 web

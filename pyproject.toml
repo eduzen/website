@@ -70,6 +70,7 @@ dev = [
   "types-requests",
   "hypothesis",
   "coverage",
+  "django-browser-reload",
   # "wdb",
 ]
 types = [
