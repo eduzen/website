@@ -1,0 +1,19 @@
+{% load static i18n %}
+
+<header class="p-4 bg-yellow-500 text-black fixed w-full z-10 border-b border-black flex items-center justify-between shadow-lg">
+  <a href="{% url 'home' %}" class="flex items-center">
+    <i class="fa-regular fa-lightbulb fa-fade"></i>
+    <div x-data="{ currentUrl: window.location.pathname }">
+      <span class="ml-2" x-show="currentUrl !== '/'">Eduardo Enriquez</span>
+    </div>
+  </a>
+  <nav class="text-sm font-light">
+    <a href="{% url 'blog' %}">{% trans "Blog" %}</a> -
+    <a href="{% url 'contact' %}">{% trans "Contact" %}</a> -
+    <a href="{% url 'home' %}">{% trans "Consultancy" %}</a> -
+    <a href="{% url 'about' %}">{% trans "About" %}</a>
+    {% if user.is_superuser %}
+      - <a href="{% url 'admin:index' %}">Admin</a>
+    {% endif %}
+</nav>
+</header>

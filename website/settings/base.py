@@ -180,6 +180,7 @@ class Base(ConstanceConfig, Configuration):
         "expenses",
         "snippets",
         "files",
+        "frontend",
     ]
 
     MIDDLEWARE = [
@@ -203,6 +204,7 @@ class Base(ConstanceConfig, Configuration):
             "APP_DIRS": True,
             "OPTIONS": {
                 "context_processors": [
+                    "constance.context_processors.config",
                     "django.template.context_processors.debug",
                     "django.template.context_processors.request",
                     "django.contrib.auth.context_processors.auth",

@@ -27,6 +27,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("", include("blog.urls")),
+    path("", include("frontend.urls")),
     path("eduardo/", admin.site.urls),
 )
 
@@ -34,4 +35,7 @@ urlpatterns += i18n_patterns(
 if settings.DEBUG:
     import debug_toolbar  # NOQA
 
-    urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns  # NOQA
+    urlpatterns = [
+        path("__debug__/", include(debug_toolbar.urls)),
+        path("__reload__/", include("django_browser_reload.urls")),
+    ] + urlpatterns  # NOQA

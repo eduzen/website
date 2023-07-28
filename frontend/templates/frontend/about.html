@@ -1,0 +1,56 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="flex flex-wrap justify-center">
+  <div class="w-full md:w-10/12">
+    <div class="flex flex-col items-center">
+      <img class='w-32 h-32 rounded-full block mx-auto'
+           x-data="{
+              images: [
+                '{% get_static_prefix %}frontend/img/bio_pic_1.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_2.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_3.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_4.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_5.jpg'
+              ],
+              currentIndex: 0
+            }"
+            x-bind:src="images[currentIndex]"
+            x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
+            alt="eduzen">
+
+      <div class="text-center mx-auto max-w-screen-md">
+        {% if config.title %}
+          <h2 class="text-info">{{ config.title }}</h2>
+          <h3 class="text-muted">
+            <p class="text-justify">{% autoescape off %}{{ config.subtitle }}{% endautoescape %}</p>
+          </h3>
+        {% endif %}
+      </div>
+    </div>
+
+    {% autoescape off %}
+      <div class="text-center mx-auto max-w-screen-md">
+      {% if config.small %}
+        <h2 class="text-primary text-center">Short</h2>
+        <div class="text-justify">{{ config.small }}</div>
+      {% endif %}
+      {% if config.pic_0 %}
+        <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_0.jpg' %}" alt="eduzen">
+      {% endif %}
+      {% if config.long %}
+        <h2 class="text-warning text-center">Long</h2>
+        <div class="text-justify">{{ config.long }}</div>
+      {% endif %}
+      {% if config.pic_1 %}
+        <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_1.jpg' %}" alt="eduzen">
+      {% endif %}
+      </div>
+    {% endautoescape %}
+
+  </div>
+
+</div>
+{% endblock %}

@@ -35,8 +35,15 @@ class Dev(SelfHostedStorage, Base):
 
     @property
     def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + ["debug_toolbar"]
+        return super().INSTALLED_APPS + [
+            "debug_toolbar",
+            "django_browser_reload",
+        ]
 
     @property
     def MIDDLEWARE(self):
-        return ["debug_toolbar.middleware.DebugToolbarMiddleware"] + super().MIDDLEWARE
+        return (
+            ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+            + super().MIDDLEWARE
+            + ["django_browser_reload.middleware.BrowserReloadMiddleware"]
+        )
