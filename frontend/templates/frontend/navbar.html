@@ -8,12 +8,17 @@
     </div>
   </a>
   <nav class="text-sm font-light">
-    <a href="{% url 'blog' %}">{% trans "Blog" %}</a> -
-    <a href="{% url 'contact' %}">{% trans "Contact" %}</a> -
-    <a href="{% url 'home' %}">{% trans "Consultancy" %}</a> -
-    <a href="{% url 'about' %}">{% trans "About" %}</a>
+    <a href="{% url 'blog' %}" class="{% if request.resolver_match.url_name == 'blog' %}font-extrabold{% endif %}">{% trans "Blog" %}</a> ·
+    <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}font-extrabold{% endif %}">{% trans "Contact" %}</a> ·
+    <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}font-extrabold{% endif %}">{% trans "Consultancy" %}</a> ·
+    <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}font-extrabold{% endif %}">{% trans "About" %}</a> ·
     {% if user.is_superuser %}
-      - <a href="{% url 'admin:index' %}">Admin</a>
+      <a href="{% url 'admin:index' %}" class="{% if request.resolver_match.url_name == 'admin:index' %}font-extrabold{% endif %}">Admin</a> ·
     {% endif %}
+    <a href="/es" id="lenguage">
+      <span class="fi fi-es"></span>
+    </a>
+
+
 </nav>
 </header>
