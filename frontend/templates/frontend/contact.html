@@ -2,26 +2,44 @@
 
 {% load crispy_forms_tags %}
 
-{% block body %}
+{% block head%}
+{{ block.super }}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.4/htmx.min.js"
+  integrity="sha512-ZM2vxgVBxhBI5Etj/c/qcJV+upate3VzbVQOQRCx1YGuyEX9dYdMh8pRUot4xIwtAay6QwRQC/FdXRjSWIEHrg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+{% endblock %}
 
-<p> contact.html </p>
 
-<div class="flex flex-wrap md:justify-between">
-  <div class="w-full md:w-8/12 mb-4">
-    <h2 class="text-2xl font-bold mb-2">{{ config.contact_title }}</h2>
-    <h3 class="text-lg mb-4">{{ config.contact_subtitle }}</h3>
-    {% autoescape off %}
-    {% if contact_config.body %}
-      <p class="mb-4">{{ config.contact_body }}</p>
-    {% endif %}
-    {% endautoescape %}
-    {% if form %}
-      {% csrf_token %}{% crispy form %}
-    {% endif %}
-  </div>
+{% block content %}
+    <div id="response"></div>
 
-  <div class="w-full md:w-4/12">
-    {% include 'blog/extras/twitter.html' %}
-  </div>
-</div>
+    <form
+      class="bg-gray-900 p-6 rounded shadow-md w-1/2 mx-auto text-white"
+      hx-post="{% url 'contact' %}"
+      hx-trigger="submit"
+      hx-swap="outerHTML"
+      hx-confirm="Are you sure?">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium">Name:</label>
+        <input type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium">Email:</label>
+        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="message" class="block text-sm font-medium">Message:</label>
+        <textarea id="message" name="message" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required></textarea>
+      </div>
+      <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Send</button>
+    </form>
+
+
+
+
 {% endblock %}
