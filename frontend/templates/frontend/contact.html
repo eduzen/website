@@ -1,6 +1,6 @@
 {% extends 'frontend/base.html' %}
 
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags i18n %}
 
 {% block head%}
 {{ block.super }}
@@ -13,14 +13,14 @@
 
 
 {% block content %}
-    <div id="response"></div>
+  <h1 class="text-center text-3xl font-bold mb-4 green">{% trans 'Contact' %}</h1>
 
     <form
       class="bg-gray-900 p-6 rounded shadow-md w-1/2 mx-auto text-white"
       hx-post="{% url 'contact' %}"
       hx-trigger="submit"
       hx-swap="outerHTML"
-      hx-confirm="Are you sure?">
+      hx-confirm="{% trans 'Are you sure?' %}">
       {% csrf_token %}
       <div class="mb-4">
         <label for="name" class="block text-sm font-medium">Name:</label>
@@ -39,7 +39,9 @@
       <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Send</button>
     </form>
 
+{% endblock %}
 
-
-
+{% block footer %}
+  {{ block.super}}
+  <p class="text-center text-xm mt-4">Made with 💜 by Eduardo Enriquez</p>
 {% endblock %}

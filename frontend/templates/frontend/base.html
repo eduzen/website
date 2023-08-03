@@ -31,37 +31,6 @@
       referrerpolicy="no-referrer">
     </script>
 
-    <style>
-      .dracula-bg { background-color: #282a36; }
-      .dracula-text { color: #f8f8f2; }
-      .dracula-border { border-color: #6272a4; }
-      .dracula-border-left { border-left-color: #6272a4; }
-      .nav-link {
-        transition: color 0.3s ease;
-      }
-      .nav-link:hover { color: #bd93f9; }
-      purpura-bg { background-color: #bd93f9; }
-      purpura-color { color: #bd93f9; }
-      .active-link {
-        color: #50fa7b;
-      }
-      .green { color: #50fa7b; }
-
-      @keyframes bulbFade {
-        0% { color: #f8f8f2; }   /* Dracula foreground color */
-        20% { color: #50fa7b; }  /* Green */
-        40% { color: #ff79c6; }  /* Pink */
-        60% { color: #bd93f9; }  /* Purple */
-        80% { color: #ffb86c; }  /* Orange */
-        100% { color: #f8f8f2; } /* Back to foreground color */
-      }
-
-      .bulb-fade {
-        animation: bulbFade 5s infinite;
-      }
-    </style>
-
-    {% comment %} <link href="/static/css/tailwind.min.css" rel="stylesheet"> {% endcomment %}
     <link href="{% static 'frontend/css/base.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'favicon.ico' %}">
   {% endblock head %}
@@ -77,13 +46,13 @@
         {% block content %}
           <div class="text-center">
             <p class="text-2xl font-bold mb-4">Eduardo Enriquez</p>
-            <p class="text-lg font-medium mb-4">Software Engineer &amp; Consultancy</p>
+            <p class="text-lg font-medium mb-4">{% trans 'Software Engineer &amp; Consultancy'%}</p>
           </div>
 
           <blockquote class="text-white text-lg font-semibold italic text-center text-slate-900 mb-4">
-            Based in Amsterdam, available
+            {% trans 'Based in Amsterdam, available' %}
             <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-              <span class="relative text-white">everywhere!</span>
+              <span class="relative text-white">{% trans 'everywhere!'%}</span>
             </span>
           </blockquote>
         {% endblock content %}

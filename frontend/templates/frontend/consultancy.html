@@ -1,0 +1,46 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+  <div class="dracula-bg text-white min-h-screen p-6">
+    <!-- Introduction -->
+    <section class="text-center mb-12">
+      <h1 class="green text-4xl font-bold">Consultancy Services</h1>
+      <p class="text-xl mt-4">Helping businesses and individuals thrive with innovative technology solutions.</p>
+    </section>
+
+    <!-- Services -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold text-center mb-6">Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Example Service -->
+        <div class="bg-dracula-selection p-6 rounded-lg">
+          <h3 class="text-2xl font-bold">Web Development</h3>
+          <p class="mt-4">Creating responsive and user-friendly websites using modern technologies.</p>
+        </div>
+        <!-- Add more services here -->
+      </div>
+    </section>
+
+    <!-- Experience and Skills -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold text-center mb-6">Experience & Skills</h2>
+      <div class="flex flex-wrap justify-between">
+        <div class="w-full md:w-1/2 p-6">
+          <h3 class="text-2xl font-bold">Years of Experience</h3>
+          <p class="mt-4">Describe your professional journey, major projects, and achievements here.</p>
+        </div>
+        <div class="w-full md:w-1/2 p-6">
+          <h3 class="text-2xl font-bold">Key Skills</h3>
+          <p class="mt-4">Highlight your technical expertise, programming languages, frameworks, etc.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="text-center mb-12">
+      <h2 class="text-3xl font-bold">Get in Touch</h2>
+      <p class="text-xl mt-4">Ready to take your project to the next level? Contact me today!</p>
+      <a href="{% url 'contact' %}" class="bg-dracula-pink text-white py-2 px-4 rounded mt-6 inline-block">Contact Me</a>
+    </section>
+  </div>
+{% endblock %}

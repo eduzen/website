@@ -3,3 +3,31 @@
 .sevilla-color {
   background-color: #FFAB60;
 }
+
+.dracula-bg { background-color: #282a36; }
+.dracula-text { color: #f8f8f2; }
+.dracula-border { border-color: #6272a4; }
+.dracula-border-left { border-left-color: #6272a4; }
+.nav-link {
+  transition: color 0.3s ease;
+}
+.nav-link:hover { color: #bd93f9; }
+purpura-bg { background-color: #bd93f9; }
+purpura-color { color: #bd93f9; }
+.active-link {
+  color: #50fa7b;
+}
+.green { color: #50fa7b; }
+
+@keyframes bulbFade {
+  0% { color: #f8f8f2; }   /* Dracula foreground color */
+  20% { color: #50fa7b; }  /* Green */
+  40% { color: #ff79c6; }  /* Pink */
+  60% { color: #bd93f9; }  /* Purple */
+  80% { color: #ffb86c; }  /* Orange */
+  100% { color: #f8f8f2; } /* Back to foreground color */
+}
+
+.bulb-fade {
+  animation: bulbFade 5s infinite;
+}
