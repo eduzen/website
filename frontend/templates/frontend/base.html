@@ -62,7 +62,14 @@
     {% endblock body %}
 
     {% block footer %}
+
       {% include "frontend/personal_links.html" %}
+      <script>
+        document.querySelector('[data-collapse-toggle="navbar-default"]').addEventListener('click', function() {
+          const navbar = document.getElementById('navbar-default');
+          navbar.classList.toggle('hidden');
+        });
+      </script>
     {% endblock %}
 </body>
 </html>

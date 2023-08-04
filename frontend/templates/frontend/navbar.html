@@ -1,14 +1,10 @@
 {% load static i18n %}
 
-<header class="dracula-bg p-4 dracula-border text-white fixed w-full z-10 border-b border-black flex items-center justify-between shadow-lg">
-  <a href="{% url 'home' %}" class="flex items-center">
-
-      <div x-data="{ currentUrl: window.location.pathname }">
-        <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
-          <span {% if 'blog' in request.path %}hidden{% endif %}>eduzen</span>
-        </span>
-      </div>
-
+<header class="dracula-bg p-4 dracula-border text-white fixed w-full z-10 border-black flex items-center justify-between shadow-lg">
+  <a href="{% url 'home' %}" class="flex items-center nav-link">
+    <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
+      <span {% if 'blog' in request.path %}hidden{% endif %}>eduzen</span>
+    </span>
   </a>
 
   <nav class="text-sm font-light">

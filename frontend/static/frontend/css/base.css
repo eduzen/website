@@ -3,7 +3,13 @@
 .sevilla-color {
   background-color: #FFAB60;
 }
-
+/* custom.css */
+.purple-dracula {
+  color: #bd93f9;
+}
+.purple-dracula-hover:hover {
+  color: #bd93f9 !important;
+}
 .dracula-bg { background-color: #282a36; }
 .dracula-text { color: #f8f8f2; }
 .dracula-border { border-color: #6272a4; }
