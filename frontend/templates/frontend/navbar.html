@@ -3,14 +3,14 @@
 <header class="dracula-bg p-4 dracula-border text-white fixed w-full z-10 border-black flex items-center justify-between shadow-lg">
   <a href="{% url 'home' %}" class="flex items-center nav-link">
     <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
-      <span {% if 'blog' in request.path %}hidden{% endif %}>eduzen</span>
+      <span class="nav-link">eduzen</span>
     </span>
   </a>
 
   <nav class="text-sm font-light">
-    <a href="{% url 'home' %}" class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">{% trans "Blog" %}</a> ·
-    <a href="{% url 'contact' %}" class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">{% trans "Contact" %}</a> ·
+    <a href="{% url 'blog' %}" class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">{% trans "Blog" %}</a> ·
     <a href="{% url 'consultancy' %}" class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">{% trans "Consultancy" %}</a> ·
+    <a href="{% url 'contact' %}" class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">{% trans "Contact" %}</a> ·
     <a href="{% url 'about' %}" class="nav-link {% if 'about' in request.path %}active-link{% endif %}">{% trans "About" %}</a> ·
     {% if user.is_superuser %}
       <a href="{% url 'admin:index' %}" class="nav-link {% if request.path == 'admin:index' %}active-link{% endif %}">{% trans "Admin" %}</a> ·
