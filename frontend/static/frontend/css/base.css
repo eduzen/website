@@ -3,6 +3,7 @@
 .sevilla-color {
   background-color: #FFAB60;
 }
+
 /* custom.css */
 .purple-dracula {
   color: #bd93f9;
@@ -24,6 +25,7 @@ purpura-color { color: #bd93f9; }
   color: #50fa7b;
 }
 .green { color: #50fa7b; }
+.pink { color: #ff79c6; }
 
 @keyframes bulbFade {
   0% { color: #f8f8f2; }   /* Dracula foreground color */

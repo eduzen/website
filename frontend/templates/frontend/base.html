@@ -42,15 +42,18 @@
   {% endblock navbar %}
 
   {% block body %}
+
     <main class="p-4 pt-32">
         {% block content %}
           <div class="text-center">
-            <p class="text-2xl font-bold mb-4">Eduardo Enriquez</p>
-            <p class="text-lg font-medium mb-4">{% trans 'Software Engineer &amp; Consultancy'%}</p>
+            <p class="green text-4xl font-bold mb-4 mt-10 nav-link"><a href="{% url 'about' %}">Eduardo Enriquez</a></p>
+            <p class="text-xl font-medium mb-4">
+              {% trans 'Software Engineer' %} &amp;
+              <a class="nav-link" href="{% url 'consultancy' %}">{% trans 'Consultancy'%}</a>
+            </p>
           </div>
-
-          <blockquote class="text-white text-lg font-semibold italic text-center text-slate-900 mb-4">
-            {% trans 'Based in Amsterdam, available' %}
+          <blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mb-4 mt-8">
+            {% trans 'Based in Amsterdam' %}, {% trans 'available' %}
             <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
               <span class="relative text-white">{% trans 'everywhere!'%}</span>
             </span>
@@ -58,18 +61,10 @@
         {% endblock content %}
       </main>
 
-
     {% endblock body %}
 
     {% block footer %}
-
       {% include "frontend/personal_links.html" %}
-      <script>
-        document.querySelector('[data-collapse-toggle="navbar-default"]').addEventListener('click', function() {
-          const navbar = document.getElementById('navbar-default');
-          navbar.classList.toggle('hidden');
-        });
-      </script>
     {% endblock %}
 </body>
 </html>

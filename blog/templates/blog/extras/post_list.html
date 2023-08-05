@@ -2,6 +2,23 @@
 {% load i18n %}
 
 {% for post in posts %}
+
+<div class="dracula-bg p-4 rounded-lg shadow-md">
+  <h2 class="text-xl font-bold mb-2" style="color: #bd93f9;">{{ post.title }}</h2>
+  <p class="mb-2" style="color: #50fa7b;">{{ post.published_date }}</p>
+  <p class="mb-4">{{ post.pompadour }}</p>
+  <div>
+      <strong>Tags:</strong>
+      {% for tag in post.tags.all %}
+      <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2">{{ tag }}</span>
+      {% endfor %}
+  </div>
+</div>
+
+{% endfor %}
+
+{% for post in posts %}
+
 <div class="dracula-bg p-4 mb-4">
   <div class="flex flex-wrap">
     {% if post.tags.all %}
@@ -14,7 +31,7 @@
         </p>
       </div>
       <div class="w-full md:w-1/2 text-right">
-        <h6 class="text-sm dracula-text">{% translate 'Published'%}: {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
+        <h6 class="text-sm dracula-text"><span class="purpura-color">{% translate 'Published'%}:</span> {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
       </div>
     {% else %}
       <div class="w-full text-right">
