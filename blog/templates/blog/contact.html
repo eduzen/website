@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/utils/base.html' %}
 
 {% load crispy_forms_tags i18n %}
 
@@ -39,9 +39,4 @@
       <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Send</button>
     </form>
 
-{% endblock %}
-
-{% block footer %}
-  {{ block.super}}
-  <p class="text-center text-xm mt-4">Made with 💜 by Eduardo Enriquez</p>
 {% endblock %}
