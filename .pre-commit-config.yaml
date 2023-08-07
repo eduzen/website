@@ -26,7 +26,7 @@ repos:
         args: [--target-version, "4.2"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.9.0
+    rev: v3.10.1
     hooks:
       - id: pyupgrade
         args: [--py311]
@@ -42,7 +42,7 @@ repos:
       - id: black
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 'v0.0.278'
+    rev: 'v0.0.282'
     hooks:
       - id: ruff
         # Respect `exclude` and `extend-exclude` settings.

@@ -1,69 +1,50 @@
-{% load tools %}
-{% load i18n %}
+{% load tools i18n %}
 
 {% for post in posts %}
 
-<div class="dracula-bg p-4 rounded-lg shadow-md">
-  <h2 class="text-xl font-bold mb-2" style="color: #bd93f9;">{{ post.title }}</h2>
-  <p class="mb-2" style="color: #50fa7b;">{{ post.published_date }}</p>
-  <p class="mb-4">{{ post.pompadour }}</p>
-  <div>
-      <strong>Tags:</strong>
-      {% for tag in post.tags.all %}
-      <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2">{{ tag }}</span>
-      {% endfor %}
+<article class="dracula-bg p-4 rounded-lg shadow-md flex{% if forloop.counter|divisibleby:2 %} flex-row-reverse{% endif %}">
+  {% if post.image %}
+  <div class="w-1/5 mr-4{% if forloop.counter|divisibleby:2 %} ml-4{% endif %}"> <!-- Adjusted the width to 1/5 -->
+    <img src="{{ post.image.url }}" alt="{{ post.title }} image" class="w-full h-auto" />
   </div>
-</div>
-
-{% endfor %}
-
-{% for post in posts %}
-
-<div class="dracula-bg p-4 mb-4">
-  <div class="flex flex-wrap">
-    {% if post.tags.all %}
-      <div class="w-full md:w-1/2">
-        <p class="dracula-text">
-          {% translate "Tags" %}:
-          {% for tag in post.tags.all %}
-            <a href="/tags/{{tag}}" class="text-blue-400 hover:text-blue-600">{{ tag }}</a>
-          {% endfor %}
-        </p>
-      </div>
-      <div class="w-full md:w-1/2 text-right">
-        <h6 class="text-sm dracula-text"><span class="purpura-color">{% translate 'Published'%}:</span> {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
-      </div>
-    {% else %}
-      <div class="w-full text-right">
-        <h6 class="text-sm dracula-text">{% translate 'Published'%}: {{ post.published_date|date:"SHORT_DATE_FORMAT" }}</h6>
-      </div>
-    {% endif %}
-
-
-
-    {% if post.image %}
-      <div class="w-full flex items-center">
-        <div class="w-1/4">
-          <a href="{{post.get_absolute_url}}">
-            <img class='w-full h-auto' src="{{ post.image.url }}" alt="{{ post.image.name }}">
-          </a>
-        </div>
-        <div class="w-3/4 pl-4">
-          <h2 class="text-xl font-bold dracula-text"><a href="{{post.get_absolute_url}}" class="text-blue-400 hover:text-blue-600">{{ post.title }}</a></h2>
-        </div>
-      </div>
-    {% else %}
-        <h2 class="text-xl"><a href="{{post.get_absolute_url}}" class="active-link">{{ post.title }}</a></h2>
-    {% endif %}
+  {% endif %}
+  <div class="flex-1">
+    <h2 class="text-xl font-bold mb-2 dracula-title">{{ post.title }}</h2>
+    <p class="mb-2 dracula-date"><time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time></p>
+    <p class="mb-4">{{ post.pompadour }}</p>
+    <div class="tags">
+        {% for tag in post.tags.all %}
+        <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2">{{ tag }}</span>
+        {% endfor %}
+    </div>
   </div>
-  <div class="mt-4">
-    <p class="text-md dracula-text">{{post.pompadour}}</p>
-    <hr class="dracula-border" />
-  </div>
-</div>
+</article>
+
 {% empty %}
-<p class="text-lg text-center dracula-text"> Empty posts </p>
+  <p class="text-lg text-center dracula-text"> Empty posts </p>
 {% endfor %}
+
 {% if is_paginated %}
-  {% show_paginator page_obj %}
+
+<div class="flex justify-center mt-4 dracula-bg">
+  {% if page_obj.has_previous %}
+    <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md dracula-text hover:purple-dracula-hover">First</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border dracula-text hover:purple-dracula-hover">Previous</a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% cycle 'purple' 'green' 'pink' 'orange' as color silent %}
+    {% if num == page_obj.number %}
+      <span class="px-3 py-2 border dracula-border bg-dracula-bg {{ color }}">{{ num }}</span>
+    {% else %}
+      <a href="?page={{ num }}" class="px-3 py-2 border dracula-border bg-dracula-bg {{ color }} hover:purple-dracula-hover">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border dracula-text nav-link">Next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md dracula-text nav-link">Last</a>
+  {% endif %}
+</div>
+
 {% endif %}

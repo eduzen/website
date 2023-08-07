@@ -4,23 +4,21 @@
 
 {% block content %}
 
-  <div class="flex flex-wrap dracula-bg">
+  <div class="flex flex-wrap dracula-bg justify-center">
+
     <div class="w-full md:w-4/5">
       {% if tag %}
       <div class="text-center">
         <h3 class="text-xl font-bold dracula-text">{{ tag }}</h3>
       </div>
+      {% else %}
+      <div class="text-center">
+        <h3 class="text-4xl font-bold green mb-4">Blog</h3>
+      </div>
       {% endif %}
       {% include 'blog/extras/post_list.html' with posts=posts %}
     </div>
-    <div class="w-full md:w-1/5">
-      <div>
-        {% include 'blog/extras/tags_cloud.html' %}
-        {% if tag == 'Python' %}
-          {% include 'blog/extras/zen.html' %}
-        {% endif %}
-      </div>
-    </div>
+
   </div>
 
 {% endblock %}

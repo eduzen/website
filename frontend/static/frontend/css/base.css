@@ -12,6 +12,11 @@
   color: #bd93f9 !important;
 }
 .dracula-bg { background-color: #282a36; }
+.dracula-title { color: #bd93f9;}
+.dracula-date {
+  color: #50fa7b;
+}
+
 .dracula-text { color: #f8f8f2; }
 .dracula-border { border-color: #6272a4; }
 .dracula-border-left { border-left-color: #6272a4; }
@@ -26,6 +31,9 @@ purpura-color { color: #bd93f9; }
 }
 .green { color: #50fa7b; }
 .pink { color: #ff79c6; }
+.orange { color: #ffb86c; }
+.purple { color: #bd93f9; }
+.dg-grey { color: #f8f8f2; }
 
 @keyframes bulbFade {
   0% { color: #f8f8f2; }   /* Dracula foreground color */
