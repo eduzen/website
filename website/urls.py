@@ -27,7 +27,6 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("", include("blog.urls")),
-    path("", include("frontend.urls")),
     path("eduardo/", admin.site.urls),
 )
 

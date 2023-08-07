@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 MIN = 60
 HOUR = 60 * MIN
 DAY = 24 * HOUR
+MONTH = 30 * DAY
 
 
 class ConfigMixin:
@@ -26,10 +27,6 @@ class ConfigMixin:
         context = super().get_context_data(**kwargs)  # type: ignore
         context["config"] = config
         return context
-
-
-class ConsultancyView(TemplateView):
-    template_name = "blog/consultancy.html"
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
@@ -53,6 +50,16 @@ class AdvanceSearch(FormView):
     success_url = "/sucess/"
 
 
+@method_decorator(cache_page(MONTH), name="dispatch")
+class HomeView(TemplateView):
+    template_name = "blog/utils/base.html"
+
+
+@method_decorator(cache_page(MONTH), name="dispatch")
+class ConsultancyView(TemplateView):
+    template_name = "blog/consultancy.html"
+
+
 @method_decorator(cache_page(HOUR), name="dispatch")
 class HomeListView(ListView):
     queryset = Post.objects.published()
@@ -72,7 +79,7 @@ class HomeListView(ListView):
 class PostListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
-    template_name = "blog/home.html"
+    template_name = "blog/posts/list.html"
     ordering = ["-published_date"]
     paginate_by = 12
 
@@ -104,7 +111,7 @@ class PostTagsList(ListView):
     model = Post
     queryset = Post.objects.published()
     context_object_name = "posts"
-    template_name = "blog/home.html"
+    template_name = "blog/posts/list.html"
     ordering = ["-published_date"]
     paginate_by = 10
 
