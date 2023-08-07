@@ -1,0 +1,86 @@
+{% extends 'blog/utils/base.html' %}
+
+{% load crispy_forms_tags i18n static %}
+
+{% block head %}
+{{ block.super }}
+<link
+  rel="stylesheet"
+  href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}"
+/>
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="flex flex-wrap dracula-bg justify-center subpixel-antialiased p-4 tracking-wide">
+
+    <!-- Main Post Content -->
+    <div class="w-full ">
+
+      <!-- Post Detail -->
+        {% if post.published_date %}
+          <small class="text-sm">
+            <time class="purple" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
+            |
+            <span class="orange">
+              {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
+            </span>
+          </small>
+        {% endif %}
+
+        <h3 class="text-3xl font-bold green mb-7">{{ post.title }}</h3>
+
+        {% comment %} <hr class="dracula-border mb-4"> {% endcomment %}
+        {% autoescape off %}
+        <div class="dracula-text leading-loose">
+            {{ post.text }}
+        </div>
+        {% endautoescape %}
+
+    </div>
+
+    <hr class="dracula-border">
+
+    <div class="w-full p-4">
+
+      <!-- Related Posts -->
+      <ul class="post_detail_ul">
+        <li class="post_detail_li">
+            <h3 class="post_detail_title dracula-title">{% translate 'Related posts'%}</h3>
+        </li>
+        {% for post in posts %}
+        <li class="post_detail_li">
+            <a href="{{ post.get_absolute_url }}" class="list-group-item post_detail_a dracula-text hover:dracula-hover">
+                <span class="dracula-text">
+                    {{ post.title }}
+                </span><br>
+                <small class="dracula-date">
+                    {% translate 'Published' %}: {{post.published_date }}
+                </small>
+            </a>
+        </li>
+        {% empty %}
+          <p class="dracula-text">{% translate 'Nothing yet!' %}</p>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Disqus Comments -->
+  {% include 'blog/extras/disqus.html' %}
+
+
+{% endblock %}
+
+{% block footer %}
+  {{ block.super }}
+
+  <script
+    type="application/javascript"
+    src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}">
+  </script>
+  <script type="application/javascript">hljs.initHighlightingOnLoad();</script>
+
+{% endblock %}
