@@ -17,4 +17,25 @@
     </div>
   </div>
 
+  <div class="flex justify-center mt-4 dracula-bg text-xs">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md dracula-text hover:purple-dracula-hover">First</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border dracula-text hover:purple-dracula-hover">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% cycle 'orange' 'green' 'pink' 'purple' 'dracula-border' as color silent %}
+      {% if num == page_obj.number %}
+        <span class="px-3 py-2 border dracula-border bg-dracula-bg {{ color }}">{{ num }}</span>
+      {% else %}
+        <a href="?page={{ num }}" class="px-3 py-2 border dracula-border bg-dracula-bg {{ color }} hover:purple-dracula-hover">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border dracula-text hover:purple-dracula-hover">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md dracula-text hover:purple-dracula-hover">Last</a>
+    {% endif %}
+  </div>
+
 {% endblock %}
