@@ -25,10 +25,26 @@
         <a href="{% url 'admin:index' %}" class="nav-link {% if request.path == 'admin:index' %}active-link{% endif %}">{% trans "Admin" %}</a>
       </li>
       {% endif %}
-      <li>
-        <a href="/es" id="lenguage">
-          <span class="fi fi-es"></span>
-        </a>
+
+      <li class="relative" x-data="{ open: false }" @click.away="open = false">
+        <button class="nav-link focus:outline-none" @click="open = !open">
+          {% if LANGUAGE_CODE == "es" %}
+            <span class="fi fi-es"></span>
+          {% else %}
+            <span class="fi fi-gb"></span>
+          {% endif %}
+        </button>
+
+        <div x-show="open" class="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl dracula-bg">
+          <a href="/en" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+            <span class="fi fi-gb"></span>
+            {% trans "English" %}
+          </a>
+          <a href="/es" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+            <span class="fi fi-es"></span>
+            {% trans "Spanish" %}
+          </a>
+        </div>
       </li>
     </ul>
 
