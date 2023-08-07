@@ -112,9 +112,9 @@ django-simple-captcha==0.5.18
     # via website (pyproject.toml)
 django-storages[dropbox]==1.13.2
     # via website (pyproject.toml)
-django-stubs==4.2.3
-    # via website (pyproject.toml)
 django-stubs-ext==4.2.2
+    # via website (pyproject.toml)
+django-stubs[compatible-mypy]==4.2.3
     # via django-stubs
 djangorestframework==3.14.0
     # via website (pyproject.toml)

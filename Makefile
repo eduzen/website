@@ -71,7 +71,10 @@ clean: stop
 	${DCO} rm --force -v
 
 test:
-	${DCO} run --rm web sh scripts/test.sh
+	${DCO} run --rm web coverage run -m pytest
+
+check:
+	${DCO} run --rm web python manage.py check
 
 dockershell:
 	${DCO} run --rm web bash

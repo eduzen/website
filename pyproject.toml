@@ -74,10 +74,9 @@ dev = [
   # "wdb",
 ]
 types = [
-  "mypy",
   "types-redis",
   "types-requests",
-  "django-stubs",
+  "django-stubs[compatible-mypy]",
 ]
 
 [tool.pytest.ini_options]
@@ -101,11 +100,15 @@ exclude = [
 ]
 
 [tool.mypy]
+plugins = ["./configurations_mypy_django_plugin.py"]
 ignore_missing_imports = true
 exclude = [
   "(build|dist)/*",
   "migrations/*"
 ]
+
+[tool.django-stubs]
+django_settings_module = "website.settings.dev"
 
 [tool.coverage.run]
 branch = true
