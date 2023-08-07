@@ -28,6 +28,10 @@ class ConfigMixin:
         return context
 
 
+class ConsultancyView(TemplateView):
+    template_name = "blog/consultancy.html"
+
+
 @method_decorator(cache_page(DAY), name="dispatch")
 class AboutView(ConfigMixin, TemplateView):
     template_name = "blog/about.html"
@@ -147,6 +151,10 @@ class ContactView(ConfigMixin, FormView):
             logger.exception("Email problems")
 
         return redirect("/error/")
+
+    # def post(self, request, *args, **kwargs):
+    #     print(request.POST)
+    #     return HttpResponse("<div class='text-center green'>Sent!</div>")
 
 
 class Google(TemplateView):

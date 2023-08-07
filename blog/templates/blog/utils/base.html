@@ -1,22 +1,45 @@
-{% load i18n %}
+{% load static i18n %}
+
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 
 <head>
-{% include 'blog/utils/head.html'%}
+  {% block head %}
+    {% include 'blog/utils/head.html'%}
+  {% endblock head %}
 </head>
 
-<body id="page-top" class="index">
-  <div id="app" class="container">
-    {% include 'blog/utils/navbar.html' %}
+<body class="dracula-bg dracula-text font-mono">
+  {% block navbar %}
+    {% include "blog/util/navbar.html" %}
+  {% endblock navbar %}
 
-    {% block body %}
+  {% block body %}
+
+    <main class="p-4 pt-32">
+        {% block content %}
+          <div class="text-center">
+            <p class="green text-4xl font-bold mb-4 mt-10 nav-link"><a href="{% url 'about' %}">Eduardo Enriquez</a></p>
+            <p class="text-xl font-medium mb-4">
+              {% trans 'Software Engineer' %} &amp;
+              <a class="nav-link" href="{% url 'consultancy' %}">{% trans 'Consultancy'%}</a>
+            </p>
+          </div>
+          <blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mb-4 mt-8">
+            {% trans 'Based in Amsterdam' %}, {% trans 'available' %}
+            <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+              <span class="relative text-white">{% trans 'everywhere!'%}</span>
+            </span>
+          </blockquote>
+        {% endblock content %}
+      </main>
+
+    {% endblock body %}
+
+    {% block footer %}
+      {% include "frontend/personal_links.html" %}
     {% endblock %}
-
-    {% include 'blog/utils/footer.html' %}
-  </div>
 </body>
-
 </html>

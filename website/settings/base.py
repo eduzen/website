@@ -180,7 +180,6 @@ class Base(ConstanceConfig, Configuration):
         "expenses",
         "snippets",
         "files",
-        "frontend",
     ]
 
     MIDDLEWARE = [

@@ -1,50 +1,56 @@
 {% extends 'blog/utils/base.html' %}
 {% load static %}
 
-{% block body %}
+{% block content %}
 
-<div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <div class="col-xs-6 col-md-8 col-lg-5 vcenter">
-        {% if config.bio_pic %}
-          <img class='img-thumbnail' src="{% static 'about/bio_pic.jpg' %}" alt="eduzen">
-        {% endif %}
-      </div>
-      <div class="col-xs-6 col-md-4 col-lg-5 vcenter">
+<div class="flex flex-wrap justify-center">
+  <div class="w-full md:w-10/12">
+    <div class="flex flex-col items-center">
+      <img class='w-32 h-32 rounded-full block mx-auto'
+           x-data="{
+              images: [
+                '{% get_static_prefix %}frontend/img/bio_pic_1.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_2.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_3.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_4.jpg',
+                '{% get_static_prefix %}frontend/img/bio_pic_5.jpg'
+              ],
+              currentIndex: 0
+            }"
+            x-bind:src="images[currentIndex]"
+            x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
+            alt="eduzen">
+
+      <div class="text-center mx-auto max-w-screen-md">
         {% if config.title %}
-        <h2 class="vcenter text-info">{{ config.title }}</h2>
-        <h3 class="vcenter text-muted">
-          <p>{% autoescape off %}{{ config.subtitle }}{% endautoescape %}</p>
-        </h3>
+          <h2 class="text-info">{{ config.title }}</h2>
+          <h3 class="text-muted">
+            <p class="text-justify">{% autoescape off %}{{ config.subtitle }}{% endautoescape %}</p>
+          </h3>
         {% endif %}
       </div>
     </div>
 
     {% autoescape off %}
+      <div class="text-center mx-auto max-w-screen-md">
       {% if config.small %}
-      <h2 class="text-primary">Short</h2>
-      {{ config.small }}
+        <h2 class="text-primary text-center">Short</h2>
+        <div class="text-justify">{{ config.small }}</div>
       {% endif %}
       {% if config.pic_0 %}
-        <img class='img-thumbnail' src="{% static 'about/pic_0.jpg' %}" alt="eduzen">
+        <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_0.jpg' %}" alt="eduzen">
       {% endif %}
       {% if config.long %}
-      <h2 class="text-warning">Long</h2>
-      {{ config.long }}
+        <h2 class="text-warning text-center">Long</h2>
+        <div class="text-justify">{{ config.long }}</div>
       {% endif %}
       {% if config.pic_1 %}
-        <img class='img-thumbnail' src="{% static 'about/pic_1.jpg' %}" alt="eduzen">
+        <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_1.jpg' %}" alt="eduzen">
       {% endif %}
+      </div>
     {% endautoescape %}
 
-    <a class="linkedin" href="{{config.linkedin}}">linkedin</a>
-    <a class="twitter" href="{{config.twitter}}">twitter</a>
-    <a class="github" href="{{config.github}}">github</a>
-    <a class="email" href="{{config.email}}">email</a>
   </div>
-  <div class="col-md-4">
-    {% include 'blog/extras/twitter.html' %}
-  </div>
+
 </div>
 {% endblock %}

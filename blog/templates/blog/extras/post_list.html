@@ -1,5 +1,3 @@
-{% load tools i18n %}
-
 {% for post in posts %}
 
 <article class="dracula-bg p-4 rounded-lg shadow-md flex{% if forloop.counter|divisibleby:2 %} flex-row-reverse{% endif %}">
@@ -9,12 +7,20 @@
   </div>
   {% endif %}
   <div class="flex-1">
-    <h2 class="text-xl font-bold mb-2 dracula-title">{{ post.title }}</h2>
+    <h2 class="text-xl font-bold mb-2 dracula-title">
+      <a href="{{post.get_absolute_url}}" class="purple-dracula hover:purple-dracula-hover"> <!-- Added hover effect -->
+        {{ post.title }}
+      </a>
+    </h2>
     <p class="mb-2 dracula-date"><time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time></p>
     <p class="mb-4">{{ post.pompadour }}</p>
     <div class="tags">
         {% for tag in post.tags.all %}
-        <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2">{{ tag }}</span>
+        <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2 hover-orange">
+          <a href="tags/{{tag}}" class="text-white"> <!-- Added hover effect -->
+            {{ tag }}
+          </a>
+        </span>
         {% endfor %}
     </div>
   </div>
@@ -23,28 +29,3 @@
 {% empty %}
   <p class="text-lg text-center dracula-text"> Empty posts </p>
 {% endfor %}
-
-{% if is_paginated %}
-
-<div class="flex justify-center mt-4 dracula-bg">
-  {% if page_obj.has_previous %}
-    <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md dracula-text hover:purple-dracula-hover">First</a>
-    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border dracula-text hover:purple-dracula-hover">Previous</a>
-  {% endif %}
-
-  {% for num in page_obj.paginator.page_range %}
-    {% cycle 'purple' 'green' 'pink' 'orange' as color silent %}
-    {% if num == page_obj.number %}
-      <span class="px-3 py-2 border dracula-border bg-dracula-bg {{ color }}">{{ num }}</span>
-    {% else %}
-      <a href="?page={{ num }}" class="px-3 py-2 border dracula-border bg-dracula-bg {{ color }} hover:purple-dracula-hover">{{ num }}</a>
-    {% endif %}
-  {% endfor %}
-
-  {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border dracula-text nav-link">Next</a>
-    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md dracula-text nav-link">Last</a>
-  {% endif %}
-</div>
-
-{% endif %}

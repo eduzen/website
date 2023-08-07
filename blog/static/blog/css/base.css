@@ -44,6 +44,12 @@ purpura-color { color: #bd93f9; }
   100% { color: #f8f8f2; } /* Back to foreground color */
 }
 
+span.hover-orange:hover {
+  background-color: #ffb86c;
+  transition: color 0.3s ease;
+}
+
+
 .bulb-fade {
   animation: bulbFade 5s infinite;
 }

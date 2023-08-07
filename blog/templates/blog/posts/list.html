@@ -1,0 +1,27 @@
+{% extends 'blog/utils/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <div class="flex flex-wrap dracula-bg justify-center pt-16">
+
+    <div class="w-full md:w-4/5">
+
+      {% if tag %}
+        <div class="text-center">
+          <h3 class="text-4xl font-bold green mb-4">Blog</h3>
+          <h3 class="text-xl font-bold dracula-text">{{ tag }}</h3>
+        </div>
+      {% else %}
+        <div class="text-center">
+          <h3 class="text-4xl font-bold green mb-4">Blog</h3>
+        </div>
+      {% endif %}
+
+      {% include 'blog/extras/post_list.html' with posts=posts %}
+    </div>
+
+  </div>
+
+{% endblock %}
