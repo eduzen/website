@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n tz %}
 
 {% get_current_language as LANGUAGE_CODE %}
 
@@ -40,7 +40,16 @@
 
     {% block footer %}
       {% include "blog/personal_links.html" %}
-      <small class="text-center block text-gray-500">© 2020 - Made with 💜 by Eduardo Enriquez</small>
+      <small class="text-center block text-gray-500">© {% now "Y" %} - Made with 💜 by Eduardo Enriquez</small>
+
+      <script>
+        const button = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+
+        button.addEventListener("click", function() {
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        });
+      </script>
     {% endblock %}
 </body>
 </html>

@@ -10,7 +10,6 @@ from .views import MediaView, favicon_view
 
 urlpatterns = [
     path("api/snippets/", include("snippets.urls")),
-    path("api/", include("api.urls")),
     path("healthchecks/", include("django_healthchecks.urls")),
     path("media/<path>", MediaView.as_view()),
     path("favicon.ico", favicon_view),

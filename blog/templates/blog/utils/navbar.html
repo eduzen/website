@@ -1,52 +1,82 @@
 {% load static i18n %}
-<header class="dracula-bg p-4 dracula-border text-white fixed w-full z-10 border-black flex items-center justify-between shadow-lg">
-  <a href="{% url 'home' %}" class="flex items-center">
-    <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
-      <span class="nav-link">eduzen</span>
-    </span>
-  </a>
 
-  <nav class="text-sm font-light">
-    <ul class="flex space-x-4">
-      <li>
-        <a href="{% url 'blog' %}" class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">{% trans "Blog" %}</a>
-      </li>
-      <li>
-        <a href="{% url 'consultancy' %}" class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">{% trans "Consultancy" %}</a>
-      </li>
-      <li>
-        <a href="{% url 'contact' %}" class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">{% trans "Contact" %}</a>
-      </li>
-      <li>
-        <a href="{% url 'about' %}" class="nav-link {% if 'about' in request.path %}active-link{% endif %}">{% trans "About" %}</a>
-      </li>
+<nav class="fixed z-10 top-0 w-full dracula-bg dracula-border shadow-lg">
+  <div class="mx-auto px-4 py-2 flex justify-between items-center text-sm">
+      <div class="text-lg font-bold">
+        <a href="{% url 'home' %}" class="flex items-center">
+          <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
+            <span class="nav-link">eduzen</span>
+          </span>
+        </a>
+      </div>
+      <div class="hidden md:flex space-x-2" x-data="{ open: false }" @click.away="open = false">
+          <a href="{% url 'blog' %}" class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">{% trans "Blog" %}</a>
+          <span class="text-gray-400">·</span>
+          <a href="{% url 'consultancy' %}" class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">{% trans "Consultancy" %}</a>
+          <span class="text-gray-400">·</span>
+          <a href="{% url 'contact' %}" class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">{% trans "Contact" %}</a>
+          <span class="text-gray-400">·</span>
+          <a href="{% url 'about' %}" class="nav-link {% if 'about' in request.path %}active-link{% endif %}">{% trans "About" %}</a>
+          <span class="text-gray-400">·</span>
+          {% if user.is_superuser %}
+            <a href="{% url 'admin:index' %}" class="nav-link {% if 'admin:index' in request.path %}active-link{% endif %}">{% trans "Admin" %}</a>
+            <span class="text-gray-400">·</span>
+          {% endif %}
+
+          <button class="nav-link focus:outline-none" @click="open = !open">
+            {% if LANGUAGE_CODE == "es" %}
+              <span class="fi fi-es"></span>
+            {% else %}
+              <span class="fi fi-gb"></span>
+            {% endif %}
+          </button>
+
+          <div x-show="open" class="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl dracula-bg">
+            <a href="/en" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+              <span class="fi fi-gb"></span>
+              {% trans "English" %}
+            </a>
+            <a href="/es" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+              <span class="fi fi-es"></span>
+              {% trans "Spanish" %}
+            </a>
+          </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <button class="md:hidden p-2" id="mobile-menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+      </button>
+  </div>
+  <!-- Mobile Links -->
+  <div class="md:hidden bg-gray-100 p-4" id="mobile-menu" style="display:none;" x-data="{ open: false }" @click.away="open = false">
+      <a href="{% url 'blog' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Blog" %}</a>
+      <a href="{% url 'consultancy' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Consultancy" %}</a>
+      <a href="{% url 'contact' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Contact" %}</a>
+      <a href="{% url 'about' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "About" %}</a>
       {% if user.is_superuser %}
-      <li>
-        <a href="{% url 'admin:index' %}" class="nav-link {% if request.path == 'admin:index' %}active-link{% endif %}">{% trans "Admin" %}</a>
-      </li>
+      <a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Admin" %}</a>
       {% endif %}
 
-      <li class="relative" x-data="{ open: false }" @click.away="open = false">
-        <button class="nav-link focus:outline-none" @click="open = !open">
-          {% if LANGUAGE_CODE == "es" %}
-            <span class="fi fi-es"></span>
-          {% else %}
-            <span class="fi fi-gb"></span>
-          {% endif %}
-        </button>
+      <button class="block py-2 text-gray-700 hover:text-black focus:outline-none" @click="open = !open">
+        {% if LANGUAGE_CODE == "es" %}
+          <span class="fi fi-es"></span>
+        {% else %}
+          <span class="fi fi-gb"></span>
+        {% endif %}
+      </button>
 
-        <div x-show="open" class="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl dracula-bg">
-          <a href="/en" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
-            <span class="fi fi-gb"></span>
-            {% trans "English" %}
-          </a>
-          <a href="/es" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
-            <span class="fi fi-es"></span>
-            {% trans "Spanish" %}
-          </a>
-        </div>
-      </li>
-    </ul>
-
-  </nav>
-</header>
+      <div x-show="open" class="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl dracula-bg">
+        <a href="/en" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+          <span class="fi fi-gb"></span>
+          {% trans "English" %}
+        </a>
+        <a href="/es" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+          <span class="fi fi-es"></span>
+          {% trans "Spanish" %}
+        </a>
+      </div>
+  </div>
+</nav>

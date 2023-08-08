@@ -1,3 +1,4 @@
+import datetime as dt
 import logging
 from typing import Any
 
@@ -32,6 +33,13 @@ class ConfigMixin:
 @method_decorator(cache_page(DAY), name="dispatch")
 class AboutView(ConfigMixin, TemplateView):
     template_name = "blog/about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        start_year = 2014
+        current_year = dt.datetime.now().year
+        context["years_of_experience"] = current_year - start_year
+        return context
 
 
 @method_decorator(cache_page(DAY), name="dispatch")

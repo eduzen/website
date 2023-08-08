@@ -35,6 +35,15 @@ purpura-color { color: #bd93f9; }
 .purple { color: #bd93f9; }
 .dg-grey { color: #f8f8f2; }
 
+.dracula-pink { color: #ff79c6; }
+.dracula-orange { color: #ffb86c; }
+.dracula-green { color: #50fa7b; }
+.dracula-purple { color: #bd93f9; }
+.dracula-yellow { color: #f1fa8c; }
+.dracula-grey { color: #f8f8f2; }
+
+
+
 @keyframes bulbFade {
   0% { color: #f8f8f2; }   /* Dracula foreground color */
   20% { color: #50fa7b; }  /* Green */

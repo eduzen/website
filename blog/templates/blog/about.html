@@ -1,56 +1,105 @@
 {% extends 'blog/utils/base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 
 <div class="flex flex-wrap justify-center">
-  <div class="w-full md:w-10/12">
-    <div class="flex flex-col items-center">
-      <img class='w-32 h-32 rounded-full block mx-auto'
-           x-data="{
-              images: [
-                '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
-              ],
-              currentIndex: 0
-            }"
-            x-bind:src="images[currentIndex]"
-            x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
-            alt="eduzen">
+  <div class="w-1/3">
+    <img
+      class='w-32 h-32 rounded-full block mx-auto'
+      x-data="{
+        images: [
+          '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
+        ],
+        currentIndex: 0
+      }"
+      x-bind:src="images[currentIndex]"
+      x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
+      alt="eduzen">
+  </div>
 
-      <div class="text-center mx-auto max-w-screen-md">
-        {% if config.title %}
-          <h2 class="text-info">{{ config.title }}</h2>
-          <h3 class="text-muted">
-            <p class="text-justify">{% autoescape off %}{{ config.subtitle }}{% endautoescape %}</p>
-          </h3>
-        {% endif %}
+  <div class="flex flex-col w-2/3 justify-center">
+    <h2 class="dracula-green text-4xl font-bold">Eduardo Enriquez</h2>
+    <p class="dracula-gray">Software Engineer in Amsterdam, <s>Buenos Aires</s>, <s>München</s>.</p>
+  </div>
+
+  <div class="w-full max-w-screen-md mx-auto mt-8">
+    <p class="text-justify">
+      This is a big paragraph that you can add here. You can write as much text as you want, and it will be displayed as a single paragraph inside the container. You can apply different styles to this paragraph using CSS classes if needed.
+    </p>
+  </div>
+</div>
+
+<div class="flex flex-wrap justify-center">
+  <div class="w-6/12">
+    <div class="mx-auto max-w-screen-md">
+      <h2 class="dracula-green font-bold text-4xl">Short</h2>
+      <p class="text-justify" x-data="colorize()">
+        {% blocktrans with years=years_of_experience %}
+        Hello World! My name is <span x-bind:class="randomColor()">Eduardo</span> and I'm a <span x-bind:class="randomColor()">developer</span> 💻.
+        I've been working with <span x-bind:class="randomColor()">Python</span> 🐍 for the last {{ years }} years, most of the time working
+        as a <span x-bind:class="randomColor()">backend</span> developer with <span x-bind:class="randomColor()">Django</span>.
+        {% endblocktrans %}
+      </p>
+      <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_0.jpg' %}" alt="eduzen">
+      <h2 class="text-center">Long</h2>
+      <div class="text-justify">
+        <p x-data="colorize()">
+        {% blocktrans with years=years_of_experience %}
+        Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
+        and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working with <span x-bind:class="randomColor()">Python</span> 🐍
+        for the last {{ years }} years, most of the time working as a backend developer with <span x-bind:class="randomColor()">Django</span> but
+        I also have some experience with <span x-bind:class="randomColor()">Flask</span>. I have some experience with <span x-bind:class="randomColor()">Linux 🐧</span>,
+        <span x-bind:class="randomColor()"> Docker</span> 🐳, <span x-bind:class="randomColor()">Redis</span> 🟥, <span x-bind:class="randomColor()">RabbitMQ</span> 🐰,
+        and <span x-bind:class="randomColor()">Celery</span> 🌿.
+        {% endblocktrans %}
+        {% blocktrans %}I develop a <span x-bind:class="randomColor()">telegram bot</span> 🤖:
+        https://github.com/eduzen/bot. You can talk to him following this link: https://t.me/eduzen_bot.
+        {% endblocktrans %}
+        </p>
+        <p x-data="colorize()">
+        {% blocktrans %}
+        Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>
+        and lately <span x-bind:class="randomColor()">mec</span><span x-bind:class="randomColor()">han</span><span x-bind:class="randomColor()">ica</span>
+        <span x-bind:class="randomColor()">l</span> keyboards (right now using a Leo pold 75 %)!{% endblocktrans %}
+        </p>
+        <p x-data="colorize()">
+        {% blocktrans %}
+        I have a bachelor's degree in philosophy from the University of Buenos Aires. If you want to see an old picture of me, there I go, chatting with Plato 🙄:
+        {% endblocktrans %}
+        </p>
       </div>
+      <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_1.jpg' %}" alt="eduzen">
     </div>
-
-    {% autoescape off %}
-      <div class="text-center mx-auto max-w-screen-md">
-      {% if config.small %}
-        <h2 class="text-primary text-center">Short</h2>
-        <div class="text-justify">{{ config.small }}</div>
-      {% endif %}
-      {% if config.pic_0 %}
-        <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_0.jpg' %}" alt="eduzen">
-      {% endif %}
-      {% if config.long %}
-        <h2 class="text-warning text-center">Long</h2>
-        <div class="text-justify">{{ config.long }}</div>
-      {% endif %}
-      {% if config.pic_1 %}
-        <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_1.jpg' %}" alt="eduzen">
-      {% endif %}
-      </div>
-    {% endautoescape %}
 
   </div>
 
+
 </div>
+{% endblock %}
+
+
+{% block footer %}
+  {{ block.super }}
+  <script>
+    function colorize() {
+      return {
+        randomColor: function() {
+          const colors = [
+            'dracula-pink',
+            'dracula-orange',
+            'dracula-green',
+            'dracula-purple',
+            'dracula-blue',
+            'dracula-yellow',
+          ];
+          return colors[Math.floor(Math.random() * colors.length)];
+        }
+      }
+    }
+  </script>
 {% endblock %}
