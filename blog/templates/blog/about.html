@@ -3,6 +3,119 @@
 
 {% block content %}
 
+<div class="dracula-bg text-white min-h-screen p-6">
+  <!-- Introduction -->
+  <section class="text-center mb-12">
+    <h1 class="green text-4xl font-bold">About me</h1>
+    <p class="text-xl mt-4"> Eduardo Enriquez {% trans 'Software Engineer' %} in Amsterdam, <s>Buenos Aires</s>, <s>München</s>.
+    </p>
+  </section>
+
+  <div class="grid grid-cols-4 gap-4">
+    <div>
+      <img
+      class='w-48 h-48 rounded-full'
+      x-data="{
+        images: [
+          '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
+        ],
+        currentIndex: 0
+      }"
+      x-bind:src="images[currentIndex]"
+      x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
+      alt="eduzen">
+    </div>
+    <div>
+      <h1 class="text-4xl font-bold dracula-yellow text-center">
+        {% trans 'Short' %}
+      </h1>
+    </div>
+    <div>03</div>
+    <div>04</div>
+  </div>
+
+</div>
+
+
+<div class="bg-dracula-bg dracula-gray min-h-screen">
+  <div class="container mx-auto py-16">
+    <h1 class="text-4xl font-bold dracula-yellow">About Me</h1>
+
+    <!-- Short Description -->
+    <div class="mt-6 flex">
+
+      <h2 class="dracula-green ml-6 text-4xl font-bold">Eduardo Enriquez</h2>
+      <p class="text-xl ml-6 dracula-gray">
+        Software Engineer in Amsterdam, <s>Buenos Aires</s>, <s>München</s>.
+      </p>
+      <img
+      class='w-48 h-48 rounded-full'
+      x-data="{
+        images: [
+          '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
+          '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
+        ],
+        currentIndex: 0
+      }"
+      x-bind:src="images[currentIndex]"
+      x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
+      alt="eduzen">
+      <p class="text-xl ml-6 dracula-gray" x-data="colorize()">
+        {% blocktrans with years=years_of_experience %}
+        Hello World! My name is <span x-bind:class="randomColor()">Eduardo</span> and I'm a <span x-bind:class="randomColor()">developer</span> 💻.
+        I've been working with <span x-bind:class="randomColor()">Python</span> 🐍 for the last {{ years }} years, most of the time working
+        as a <span x-bind:class="randomColor()">backend</span> developer with <span x-bind:class="randomColor()">Django</span>.
+        {% endblocktrans %}
+      </p>
+    </div>
+
+    <!-- Toggle Long Description -->
+    <div x-data="{ open: false }" class="mt-8">
+      <button x-on:click="open = !open" class="dracula-cyan">
+        Click to read more
+      </button>
+      <div x-show="open" class="mt-4 dracula-gray">
+
+        <p x-data="colorize()">
+          {% blocktrans with years=years_of_experience %}
+          Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
+          and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working with <span x-bind:class="randomColor()">Python</span> 🐍
+          for the last {{ years }} years, most of the time working as a backend developer with <span x-bind:class="randomColor()">Django</span> but
+          I also have some experience with <span x-bind:class="randomColor()">Flask</span>. I have some experience with <span x-bind:class="randomColor()">Linux 🐧</span>,
+          <span x-bind:class="randomColor()"> Docker</span> 🐳, <span x-bind:class="randomColor()">Redis</span> 🟥, <span x-bind:class="randomColor()">RabbitMQ</span> 🐰,
+          and <span x-bind:class="randomColor()">Celery</span> 🌿.
+          {% endblocktrans %}
+          {% blocktrans %}I develop a <span x-bind:class="randomColor()">telegram bot</span> 🤖:
+          https://github.com/eduzen/bot. You can talk to him following this link: https://t.me/eduzen_bot.
+          {% endblocktrans %}
+          </p>
+          <p x-data="colorize()">
+          {% blocktrans %}
+          Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>
+          and lately <span x-bind:class="randomColor()">mec</span><span x-bind:class="randomColor()">han</span><span x-bind:class="randomColor()">ica</span>
+          <span x-bind:class="randomColor()">l</span> keyboards (right now using a Leo pold 75 %)!{% endblocktrans %}
+          </p>
+          <p x-data="colorize()">
+          {% blocktrans %}
+          I have a bachelor's degree in philosophy from the University of Buenos Aires. If you want to see an old picture of me, there I go, chatting with Plato 🙄:
+          {% endblocktrans %}
+          </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <div class="flex flex-wrap justify-center">
   <div class="w-1/3">
     <img
@@ -27,24 +140,35 @@
     <p class="dracula-gray">Software Engineer in Amsterdam, <s>Buenos Aires</s>, <s>München</s>.</p>
   </div>
 
-  <div class="w-full max-w-screen-md mx-auto mt-8">
-    <p class="text-justify">
-      This is a big paragraph that you can add here. You can write as much text as you want, and it will be displayed as a single paragraph inside the container. You can apply different styles to this paragraph using CSS classes if needed.
+</div>
+
+<div class="flex flex-wrap justify-center mt-8">
+  <div class="w-1/3 block mx-auto text-center">
+    <h1 class="green text-4xl font-bold">Short</h1>
+  </div>
+
+  <div class="flex flex-col w-1/3 justify-center">
+    <p class="text-justify" x-data="colorize()">
+      {% blocktrans with years=years_of_experience %}
+      Hello World! My name is <span x-bind:class="randomColor()">Eduardo</span> and I'm a <span x-bind:class="randomColor()">developer</span> 💻.
+      I've been working with <span x-bind:class="randomColor()">Python</span> 🐍 for the last {{ years }} years, most of the time working
+      as a <span x-bind:class="randomColor()">backend</span> developer with <span x-bind:class="randomColor()">Django</span>.
+      {% endblocktrans %}
     </p>
   </div>
+
+  <div class="w-1/3"></div>
+
 </div>
+
+<br>
+
 
 <div class="flex flex-wrap justify-center">
   <div class="w-6/12">
     <div class="mx-auto max-w-screen-md">
       <h2 class="dracula-green font-bold text-4xl">Short</h2>
-      <p class="text-justify" x-data="colorize()">
-        {% blocktrans with years=years_of_experience %}
-        Hello World! My name is <span x-bind:class="randomColor()">Eduardo</span> and I'm a <span x-bind:class="randomColor()">developer</span> 💻.
-        I've been working with <span x-bind:class="randomColor()">Python</span> 🐍 for the last {{ years }} years, most of the time working
-        as a <span x-bind:class="randomColor()">backend</span> developer with <span x-bind:class="randomColor()">Django</span>.
-        {% endblocktrans %}
-      </p>
+
       <img class='w-64 h-64 rounded-lg block mx-auto' src="{% static 'about/pic_0.jpg' %}" alt="eduzen">
       <h2 class="text-center">Long</h2>
       <div class="text-justify">
