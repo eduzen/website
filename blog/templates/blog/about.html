@@ -27,7 +27,7 @@
       </button>
 
       <div x-show="open" class="flex mt-4 dracula-gray">
-        <div class="w-30">
+        <div class="w-40">
             <img
             class='w-48 h-48 rounded-full'
             x-data="{
@@ -45,7 +45,7 @@
             alt="eduzen">
         </div>
 
-        <div class="w-70">
+        <div class="w-60 px-4 py-2">
             <p x-data="colorize()">
               {% blocktrans with years=years_of_experience %}
               Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
