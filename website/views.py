@@ -14,7 +14,7 @@ favicon_view = RedirectView.as_view(url="https://static.eduzen.com.ar/blog/img/f
 class MediaView(RedirectView):
     is_permanent = True
 
-    def get_redirect_url(self, *args: list[str | None], **kwargs: dict) -> str:
+    def get_redirect_url(self, *args: list[str | None], **kwargs: dict[str, str]) -> str | None:
         self.url = f"https://media.eduzen.com.ar/{kwargs['path']}"
         logger.warn("url redirected %s", (self.url,))
         return super().get_redirect_url(*args, **kwargs)
@@ -23,7 +23,7 @@ class MediaView(RedirectView):
 class StaticView(RedirectView):
     is_permanent = True
 
-    def get_redirect_url(self, *args: list[str | None], **kwargs: dict) -> str:
+    def get_redirect_url(self, *args: list[str | None], **kwargs: dict) -> str | None:
         self.url = f"https://static.eduzen.com.ar/{kwargs['path']}"
         logger.warn("url redirected %s", (self.url,))
         return super().get_redirect_url(*args, **kwargs)

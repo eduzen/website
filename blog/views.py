@@ -6,7 +6,6 @@ from constance import config
 from django import http
 from django.contrib.postgres.search import SearchVector
 from django.db.models import QuerySet
-from django.forms import ModelForm
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -95,9 +94,12 @@ class PostListView(ListView):
         queryset = super().get_queryset()
         query = self.request.GET.get("q")
         if not query:
-            return queryset
+            return queryset  # type: ignore
 
-        return queryset.annotate(search=SearchVector("text", "title", "pompadour")).filter(search=query)
+        queryset = queryset.annotate(search=SearchVector("text", "title", "pompadour")).filter(  # type: ignore
+            search=query
+        )
+        return queryset  # type: ignore
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -106,7 +108,7 @@ class PostListView(ListView):
         context["tag"] = self.request.GET.get("q", "")
         return context
 
-    def render_to_response(self, context: dict[str, Any]) -> http.HttpResponse:
+    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
         posts = context.get("posts")
         if not posts:
             return redirect("search")
@@ -159,7 +161,7 @@ class ContactView(ConfigMixin, FormView):
     form_class = EmailForm
     success_url = "/sucess/"
 
-    def form_valid(self, form: ModelForm):
+    def form_valid(self, form: EmailForm) -> http.HttpResponse:
         try:
             form.send_email()
             return super().form_valid(form)
