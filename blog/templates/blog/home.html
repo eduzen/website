@@ -2,16 +2,20 @@
 
 {% load i18n %}
 
-{% block content %}
 
-<div class="text-center">
-  <p class="green text-4xl font-bold mb-4 mt-10 nav-link"><a href="{% url 'about' %}">Eduardo Enriquez</a></p>
-  <p class="text-xl font-medium mb-4">
-    {% trans 'Software Engineer' %} &amp;
-    <a class="nav-link" href="{% url 'consultancy' %}">{% trans 'Consultancy'%}</a>
-  </p>
+{% block section_title %}
+<div class="text-center" >
+  <a href="{% url 'about' %}">Eduardo Enriquez</a>
 </div>
-<blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mb-4 mt-8">
+{% endblock %}
+
+{% block content %}
+<p class="text-center text-xl font-medium mb-4">
+  {% trans 'Software Engineer' %} &amp;
+  <a class="nav-link" href="{% url 'consultancy' %}">{% trans 'Consultancy'%}</a>
+</p>
+
+<blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mt-8">
   {% trans 'Based in Amsterdam' %}, {% trans 'available' %}
   <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
     <span class="relative text-white">{% trans 'everywhere!'%}</span>

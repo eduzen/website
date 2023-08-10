@@ -11,45 +11,33 @@
   {% endblock head %}
 </head>
 
-<body class="dracula-bg dracula-text font-mono">
+<body class="dracula-bg dracula-text font-mono flex flex-col min-h-screen">
   {% block navbar %}
     {% include "blog/utils/navbar.html" %}
   {% endblock navbar %}
 
   {% block body %}
 
-    <main class="p-4 pt-20">
-        {% block content %}
-          <div class="text-center">
-            <p class="green text-4xl font-bold mb-4 mt-10 nav-link"><a href="{% url 'about' %}">Eduardo Enriquez</a></p>
-            <p class="text-xl font-medium mb-4">
-              {% trans 'Software Engineer' %} &amp;
-              <a class="nav-link" href="{% url 'consultancy' %}">{% trans 'Consultancy'%}</a>
-            </p>
-          </div>
-          <blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mb-4 mt-8">
-            {% trans 'Based in Amsterdam' %}, {% trans 'available' %}
-            <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-              <span class="relative text-white">{% trans 'everywhere!'%}</span>
-            </span>
-          </blockquote>
-        {% endblock content %}
-      </main>
+    <main class="flex-grow p-4 pt-20">
+      <h1 class="green text-4xl font-bold mb-4 mt-10 nav-link">{% block section_title %}{% endblock section_title %}</h1>
 
-    {% endblock body %}
+      {% block content %}
+      {% endblock content %}
 
-    {% block footer %}
-      {% include "blog/personal_links.html" %}
-      <small class="text-center block text-gray-500">© {% now "Y" %} - Made with 💜 by Eduardo Enriquez</small>
+    </main>
 
-      <script>
-        const button = document.getElementById("mobile-menu-button");
-        const menu = document.getElementById("mobile-menu");
+  {% endblock body %}
 
-        button.addEventListener("click", function() {
-            menu.style.display = menu.style.display === "none" ? "block" : "none";
-        });
-      </script>
-    {% endblock %}
+  {% block footer %}
+    <footer class="bg-gray-800 text-white py-4">
+      <div class="container mx-auto">
+        {% include "blog/personal_links.html" %}
+        <small class="text-center block text-gray-500 mt-2">© {% now "Y" %} - Made with 💜 by Eduardo Enriquez</small>
+      </div>
+    </footer>
+  {% endblock footer %}
+
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
 </body>
 </html>
