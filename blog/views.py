@@ -6,12 +6,14 @@ from constance import config
 from django import http
 from django.contrib.postgres.search import SearchVector
 from django.db.models import QuerySet
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 
-from .forms import AdvanceSearchForm, EmailForm, SearchForm
+from .forms import AdvanceSearchForm, SearchForm
 from .models import Post
 
 logger = logging.getLogger(__name__)
@@ -156,19 +158,25 @@ class PostDetail(DetailView):
 
 
 @method_decorator(cache_page(DAY), name="get")
-class ContactView(ConfigMixin, FormView):
+class ContactView(ConfigMixin, TemplateView):
     template_name = "blog/contact.html"
-    form_class = EmailForm
-    success_url = "/sucess/"
+    error_url = reverse_lazy("error")
 
-    def form_valid(self, form: EmailForm) -> http.HttpResponse:
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         try:
-            form.send_email()
-            return super().form_valid(form)
+            return HttpResponse("<div class='text-center green'>Sent!</div>")
         except Exception:
-            logger.exception("Email problems")
+            logger.exception("Contact problems")
+            return redirect(self.error_url)
 
-        return redirect("/error/")
+    # def form_valid(self, form: EmailForm) -> http.HttpResponse:
+    #     try:
+    #         form.send_email()
+    #         return super().form_valid(form)
+    #     except Exception:
+    #         logger.exception("Email problems")
+
+    #     return redirect("/error/")
 
     # def post(self, request, *args, **kwargs):
     #     print(request.POST)

@@ -7,41 +7,51 @@
 
 {% block content %}
   <div class="text-white min-h-screen p-6">
-    <p class="text-xl mt-4">Helping businesses and individuals thrive with innovative technology solutions.</p>
-
+    <p class="text-xl mt-4">
+      Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a sprinkle of fun and a dollop of expertise. Let's code something delightful!
+      With over 10 years in the industry 👴🏿, I offer useful insights and expertise for daily challenges. Remote 💻 or in-person 🪑, I'm here to assist.
+      Interested in my professional journey? Check out my <a target="_blank" href="{{config.linkedin}}" class="dracula-pink underline nav-link">LinkedIn profile</a>.
+    </p>
     <!-- Services -->
     <section class="mb-12">
-      <h2 class="text-3xl font-bold text-center mb-6">Services</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Example Service -->
+      <h2 class="dracula-yellow mt-8 text-3xl font-bold text-center mb-6">Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- For Individuals -->
         <div class="bg-dracula-selection p-6 rounded-lg">
-          <h3 class="text-2xl font-bold">Web Development</h3>
-          <p class="mt-4">Creating responsive and user-friendly websites using modern technologies.</p>
+          <h3 class="dracula-orange text-2xl font-bold">For the Rising Tech Stars (Individuals)</h3>
+          <p class="mt-4">Personalized training, classes, and tutoring to help you blossom into an autonomous developer. Stuck on a bug? I've got your back, literally!</p>
         </div>
-        <!-- Add more services here -->
+        <!-- For Companies -->
+        <div class="bg-dracula-selection p-6 rounded-lg">
+          <h3 class="dracula-orange text-2xl font-bold">For the Business (Companies)</h3>
+          <p class="mt-4">Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!), fixing Django/Python performance issues, evaluating legacy code, or upgrading versions. If it's tech, I'm your guy!</p>
+        </div>
       </div>
     </section>
 
     <!-- Experience and Skills -->
     <section class="mb-12">
-      <h2 class="text-3xl font-bold text-center mb-6">Experience & Skills</h2>
+      <h2 class="dracula-yellow text-3xl font-bold text-center mb-6">Experience &amp; Skills</h2>
       <div class="flex flex-wrap justify-between">
         <div class="w-full md:w-1/2 p-6">
-          <h3 class="text-2xl font-bold">Years of Experience</h3>
-          <p class="mt-4">Describe your professional journey, major projects, and achievements here.</p>
+          <h3 class="dracula-orange text-2xl font-bold">Years of Mischief &amp; Mastery</h3>
+          <p class="mt-4">Code wizardry, business acumen, and maybe a few harmless pranks along the way. Dive into my tech journey!</p>
+          <p class="mt-4">Read more about me experience on linkedin <a target="_blank" href="{{config.linkedin}}" class="dracula-pink underline nav-link">here</a>.</p>
         </div>
         <div class="w-full md:w-1/2 p-6">
-          <h3 class="text-2xl font-bold">Key Skills</h3>
-          <p class="mt-4">Highlight your technical expertise, programming languages, frameworks, etc.</p>
+          <h3 class="dracula-orange text-2xl font-bold">Techno-Sorcery</h3>
+          <p class="mt-4">From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy.</p>
+          <p class="mt-4">Read more about me here: <a target="_blank" href="{% url 'about' %}" class="dracula-pink underline nav-link">{% trans 'about' %}</a>.</p>
+
         </div>
       </div>
     </section>
 
     <!-- Contact -->
     <section class="text-center mb-12">
-      <h2 class="text-3xl font-bold">Get in Touch</h2>
-      <p class="text-xl mt-4">Ready to take your project to the next level? Contact me today!</p>
-      <a href="{% url 'contact' %}" class="bg-dracula-pink text-white py-2 px-4 rounded mt-6 inline-block">Contact Me</a>
+      <h2 class="dracula-yellow text-3xl font-bold">Get in Touch</h2>
+      <p class="text-xl mt-4 mb-4">Ready to embark on a tech adventure or brew up a business solution? Let's talk!</p>
+      <a href="{% url 'contact' %}" class="dracula-pink underline nav-link">{% trans 'Contact Me' %}</a>
     </section>
   </div>
 {% endblock %}
