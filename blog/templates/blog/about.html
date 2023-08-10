@@ -1,86 +1,86 @@
 {% extends 'blog/utils/base.html' %}
 {% load static i18n %}
 
+{% block section_title %}
+  {% trans "About me" %}
+{% endblock section_title %}
+
 {% block content %}
 
-<div class="flex flex-wrap dracula-bg text-white min-h-screen">
-  <!-- Introduction -->
-  <div class="container mx-auto w-full md:w-4/5">
-
-    <section class="mb-12">
-      <h1 class="green text-4xl font-bold">About me</h1>
-      <p class="text-xl mt-4" x-data="colorize()">
-        {% blocktrans with years=years_of_experience %}
-        Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
-        and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working ⛏️ with <span x-bind:class="randomColor()">Python</span> 🐍
-        for the last {{ years }} years, most of the time working as a <span x-bind:class="randomColor()">backend</span> developer
-        with <span x-bind:class="randomColor()">Django</span>. Currently living in <span x-bind:class="randomColor()">Amsterdam</span>,
-        <s>Buenos Aires</s>, <s>München</s>, while working from <span x-bind:class="randomColor()">home</span> 🏠.
-        {% endblocktrans %}
-      </p>
-    </section>
+  <section class="pt-6">
+    <p class="text-xl mt-4" x-data="colorize()">
+      {% blocktrans with years=years_of_experience %}
+      Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
+      and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working ⛏️ with <span x-bind:class="randomColor()">Python</span> 🐍
+      for the last {{ years }} years, most of the time working as a <span x-bind:class="randomColor()">backend</span> developer
+      with <span x-bind:class="randomColor()">Django</span>. Currently living in <span x-bind:class="randomColor()">Amsterdam</span>,
+      <s>Buenos Aires</s>, <s>München</s>, while working from <span x-bind:class="randomColor()">home</span> 🏠.
+      {% endblocktrans %}
+    </p>
+  </section>
 
     <!-- Toggle Long Description -->
-    <div x-data="{ open: false }" class="mt-8">
-      <button x-on:click="open = !open" class="dracula-cyan">
-        Click to read the long version...
-      </button>
+  <div x-data="{ open: false }" class="mt-8">
+    <button x-on:click="open = !open" class="dracula-cyan">
+      Click to read the long version...
+    </button>
 
-      <div x-show="open" class="flex mt-4 dracula-gray">
-        <div class="w-40">
-            <img
-            class='w-48 h-48 rounded-full'
-            x-data="{
-              images: [
-                '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
-                '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
-              ],
-              currentIndex: 0
-            }"
-            x-bind:src="images[currentIndex]"
-            x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
-            alt="eduzen">
+    <div x-show="open" class="mt-4 dracula-gray">
+      <div class="flex flex-wrap items-center">
+        <!-- Image Section -->
+        <div class="w-full md:w-1/4 p-4 flex justify-center">
+          <img
+          class='max-w-sm h-48 rounded-full'
+          x-data="{
+            images: [
+              '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
+              '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
+              '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
+              '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
+              '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
+            ],
+            currentIndex: 0
+          }"
+          x-bind:src="images[currentIndex]"
+          x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
+          alt="eduzen">
         </div>
-
-        <div class="w-60 px-4 py-2">
-            <p x-data="colorize()">
-              {% blocktrans with years=years_of_experience %}
-              Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
-              and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working with <span x-bind:class="randomColor()">Python</span> 🐍
-              for the last {{ years }} years, most of the time working as a backend developer with <span x-bind:class="randomColor()">Django</span> but
-              I also have some experience with <span x-bind:class="randomColor()">Flask</span>. I have some experience with <span x-bind:class="randomColor()">Linux 🐧</span>,
-              <span x-bind:class="randomColor()"> Docker</span> 🐳, <span x-bind:class="randomColor()">Redis</span> 🟥, <span x-bind:class="randomColor()">RabbitMQ</span> 🐰,
-              and <span x-bind:class="randomColor()">Celery</span> 🌿.
-              {% endblocktrans %}
-              {% blocktrans %}I develop a <span x-bind:class="randomColor()">telegram bot</span> 🤖:
-              https://github.com/eduzen/bot. You can talk to him following this link: https://t.me/eduzen_bot.
-              {% endblocktrans %}
-            </p>
-            <p x-data="colorize()">
-              {% blocktrans %}
-              Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>
-              and lately <span x-bind:class="randomColor()">mec</span><span x-bind:class="randomColor()">han</span><span x-bind:class="randomColor()">ica</span>
-              <span x-bind:class="randomColor()">l</span> keyboards (right now using a Leo pold 75 %)!{% endblocktrans %}
-            </p>
-            <p x-data="colorize()">
-              {% blocktrans %}
-              I have a bachelor's degree in philosophy from the University of Buenos Aires. If you want to see an old picture of me, there I go, chatting with Plato 🙄:
-              {% endblocktrans %}
-            </p>
+        <div class="w-full md:w-3/4 p-4" x-data="colorize()">
+          <h2 class="text-xl font-bold dracula-yellow mb-4">{% trans 'A bit more of detail' %}</h2>
+          <p class="text-base dracula-text text-justify">
+            {% blocktrans with years=years_of_experience %}
+            Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
+            and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working with <span x-bind:class="randomColor()">Python</span> 🐍
+            for the last {{ years }} years, most of the time working as a backend developer with <span x-bind:class="randomColor()">Django</span> but
+            I also have some experience with <span x-bind:class="randomColor()">Flask</span>. I have some experience with <span x-bind:class="randomColor()">Linux 🐧</span>,
+            <span x-bind:class="randomColor()"> Docker</span> 🐳, <span x-bind:class="randomColor()">Redis</span> 🟥, <span x-bind:class="randomColor()">RabbitMQ</span> 🐰,
+            and <span x-bind:class="randomColor()">Celery</span> 🌿.
+            {% endblocktrans %}
+            {% blocktrans %}I develop a <span x-bind:class="randomColor()">telegram bot</span> 🤖:
+            https://github.com/eduzen/bot. You can talk to him following this link: https://t.me/eduzen_bot.
+            {% endblocktrans %}
+          </p>
+          <p class="text-base dracula-text text-justify">
+            {% blocktrans %}
+            Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>
+            and lately
+            <span x-bind:class="randomColor()">me</span><span x-bind:class="randomColor()">ch</span><span x-bind:class="randomColor()">an</span><span x-bind:class="randomColor()">ic</span><span x-bind:class="randomColor()">al</span> keyboards (right now using a Leo pold 75 %)!{% endblocktrans %}
+          </p>
+          <p class="text-base dracula-text text-justify">
+            {% blocktrans %}
+            I have a <span x-bind:class="randomColor()">bachelor's</span> degree in <span x-bind:class="randomColor()">philosophy</span> from the University of Buenos Aires.
+            It has shaped my <span x-bind:class="randomColor()">analytical</span> thinking and fostered my <span x-bind:class="randomColor()">curiosity</span>.
+            My favourite philosophers and writers are <span x-bind:class="randomColor()">Nietzsche</span>, <span x-bind:class="randomColor()">Descartes</span>
+            and <span x-bind:class="randomColor()">Jorge Luis Borges</span>.
+            {% endblocktrans %}
+          </p>
         </div>
-
       </div>
-
     </div>
 
   </div>
 
-</div>
-
-{% endblock %}
+{% endblock content %}
 
 
 {% block footer %}

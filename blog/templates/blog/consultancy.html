@@ -1,12 +1,13 @@
 {% extends 'blog/utils/base.html' %}
+{% load i18n %}
+
+{% block section_title %}
+  {% trans 'Consultancy Services' %}
+{% endblock section_title %}
 
 {% block content %}
-  <div class="dracula-bg text-white min-h-screen p-6">
-    <!-- Introduction -->
-    <section class="text-center mb-12">
-      <h1 class="green text-4xl font-bold">Consultancy Services</h1>
-      <p class="text-xl mt-4">Helping businesses and individuals thrive with innovative technology solutions.</p>
-    </section>
+  <div class="text-white min-h-screen p-6">
+    <p class="text-xl mt-4">Helping businesses and individuals thrive with innovative technology solutions.</p>
 
     <!-- Services -->
     <section class="mb-12">

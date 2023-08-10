@@ -13,14 +13,12 @@
 {% endblock head %}
 
 {% block section_title %}
-<div class="text-center" >
   {% trans 'Contact' %}
-</div>
 {% endblock section_title %}
 
 {% block content %}
     <form
-      class="bg-gray-900 p-6 rounded shadow-md w-1/2 mx-auto text-white"
+      class="p-6 rounded shadow-md w-1/2 mx-auto text-white"
       hx-post="{% url 'contact' %}"
       hx-trigger="submit"
       hx-swap="outerHTML"
