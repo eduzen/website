@@ -59,7 +59,7 @@ class AdvanceSearch(FormView):
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class HomeView(TemplateView):
-    template_name = "blog/utils/base.html"
+    template_name = "blog/home.html"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
