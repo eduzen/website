@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<a href="{% url 'blog' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Blog" %}</a>
+<a href="{% url 'consultancy' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Consultancy" %}</a>
+<a href="{% url 'teach' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Teach" %}</a>
+<a href="{% url 'about' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "About" %}</a>
+<a href="{% url 'contact' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Contact" %}</a>
+{% if user.is_superuser %}
+<a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% trans "Admin" %}</a>
+{% endif %}
+
+<button class="block py-2 text-gray-700 hover:text-black focus:outline-none" @click="open = !open">
+  {% if LANGUAGE_CODE == "es" %}
+    <span class="fi fi-es"></span>
+  {% else %}
+    <span class="fi fi-gb"></span>
+  {% endif %}
+</button>
+
+<div x-show="open" class="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl dracula-bg">
+  <a href="/en" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+    <span class="fi fi-gb"></span>
+    {% trans "English" %}
+  </a>
+  <a href="/es" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+    <span class="fi fi-es"></span>
+    {% trans "Spanish" %}
+  </a>
+</div>

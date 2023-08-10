@@ -1,16 +1,13 @@
 {% extends 'blog/utils/base.html' %}
 {% load i18n %}
 
-{% block body %}
-<section id="post_list">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-8">
-        <p>{% translate 'email problem' %}</p>
-        <p>eduardoaenriquez@gmail.com</p>
-        <p>{% translate 'Gracias por contactarte!' %}</p>
-      </div>
-    </div>
-  </div>
+{% block section_title %}
+  {% translate 'Ups... something went wrong' %}
+{% endblock section_title%}
+
+{% block content %}
+<section class="text-center">
+  <p>{% translate 'We are sorry, but something went wrong. 🙃' %}</p>
+  <p>{% translate 'Please try again later... or contact me' %} <a class="green nav-link" href="{% url 'contact'%}">here</a></p>
 </section>
 {% endblock %}

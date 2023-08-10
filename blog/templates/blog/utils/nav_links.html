@@ -1,0 +1,35 @@
+{% load i18n %}
+
+<a href="{% url 'blog' %}" class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">{% trans "Blog" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'consultancy' %}" class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">{% trans "Consultancy" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'teach' %}" class="nav-link {% if 'teach' in request.path %}active-link{% endif %}">{% trans "Teach" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'about' %}" class="nav-link {% if 'about' in request.path %}active-link{% endif %}">{% trans "About" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'contact' %}" class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">{% trans "Contact" %}</a>
+<span class="text-gray-400">·</span>
+{% if user.is_superuser %}
+  <a href="{% url 'admin:index' %}" class="nav-link {% if 'admin:index' in request.path %}active-link{% endif %}">{% trans "Admin" %}</a>
+  <span class="text-gray-400">·</span>
+{% endif %}
+
+<button class="nav-link focus:outline-none" @click="open = !open">
+  {% if LANGUAGE_CODE == "es" %}
+    <span class="fi fi-es"></span>
+  {% else %}
+    <span class="fi fi-gb"></span>
+  {% endif %}
+</button>
+
+<div x-show="open" class="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl dracula-bg">
+  <a href="/en" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+    <span class="fi fi-gb"></span>
+    {% trans "English" %}
+  </a>
+  <a href="/es" class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+    <span class="fi fi-es"></span>
+    {% trans "Spanish" %}
+  </a>
+</div>
