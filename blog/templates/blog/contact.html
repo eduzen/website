@@ -2,19 +2,23 @@
 
 {% load crispy_forms_tags i18n %}
 
-{% block head%}
-{{ block.super }}
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.4/htmx.min.js"
-  integrity="sha512-ZM2vxgVBxhBI5Etj/c/qcJV+upate3VzbVQOQRCx1YGuyEX9dYdMh8pRUot4xIwtAay6QwRQC/FdXRjSWIEHrg=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"></script>
-{% endblock %}
+{% block head %}
+  {{ block.super }}
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.4/htmx.min.js"
+    integrity="sha512-ZM2vxgVBxhBI5Etj/c/qcJV+upate3VzbVQOQRCx1YGuyEX9dYdMh8pRUot4xIwtAay6QwRQC/FdXRjSWIEHrg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+  </script>
+{% endblock head %}
 
+{% block section_title %}
+<div class="text-center" >
+  {% trans 'Contact' %}
+</div>
+{% endblock section_title %}
 
 {% block content %}
-  <h1 class="text-center text-3xl font-bold mb-4 green">{% trans 'Contact' %}</h1>
-
     <form
       class="bg-gray-900 p-6 rounded shadow-md w-1/2 mx-auto text-white"
       hx-post="{% url 'contact' %}"

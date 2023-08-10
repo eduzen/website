@@ -1,21 +1,26 @@
 {% extends 'blog/utils/base.html' %}
 
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags i18n %}
 
-{% block content %}
-  <h3 class="green text-4xl text-center font-bold">
+
+{% block section_title %}
+<div class="text-center" >
+  <p>
     Blog
     {% if tag %}
       <span class="text-2xl font-normal">|</span>
       <span class="text-2xl font-normal">{{ tag }}</span>
+    {% else %}
+      {% trans 'or just public notes' %}
     {% endif %}
-  </h3>
+  </p>
 
-  <div class="flex flex-wrap dracula-bg justify-center">
-    <div class="w-full md:w-4/5">
-      {% include 'blog/extras/post_list.html' with posts=posts %}
-    </div>
-  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+  {% include 'blog/extras/post_list.html' with posts=posts %}
 
   <div class="flex justify-center mt-4 dracula-bg text-xs">
     {% if page_obj.has_previous %}

@@ -18,12 +18,10 @@
 
   {% block body %}
 
-    <main class="flex-grow p-4 pt-20">
-      <h1 class="green text-4xl font-bold mb-4 mt-10 nav-link">{% block section_title %}{% endblock section_title %}</h1>
-
+    <main class="flex-grow p-20">
+      <h1 class="green text-4xl font-bold mb-4">{% block section_title %}{% endblock section_title %}</h1>
       {% block content %}
       {% endblock content %}
-
     </main>
 
   {% endblock body %}
