@@ -46,32 +46,48 @@
           alt="eduzen">
         </div>
         <div class="w-full md:w-3/4 p-4" x-data="colorize()">
-          <h2 class="text-xl font-bold dracula-yellow mb-4">{% trans 'A bit more of detail' %}</h2>
+          <h2 class="text-xl font-bold dracula-yellow mb-4">{% trans 'A bit more about me 😉, so here it goes:' %}</h2>
           <p class="text-base dracula-text text-justify">
             {% blocktrans with years=years_of_experience %}
-            Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
-            and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working with <span x-bind:class="randomColor()">Python</span> 🐍
-            for the last {{ years }} years, most of the time working as a backend developer with <span x-bind:class="randomColor()">Django</span> but
-            I also have some experience with <span x-bind:class="randomColor()">Flask</span>. I have some experience with <span x-bind:class="randomColor()">Linux 🐧</span>,
-            <span x-bind:class="randomColor()"> Docker</span> 🐳, <span x-bind:class="randomColor()">Redis</span> 🟥, <span x-bind:class="randomColor()">RabbitMQ</span> 🐰,
-            and <span x-bind:class="randomColor()">Celery</span> 🌿.
+              I'm <span x-bind:class="randomColor()">Eduardo Enriquez</span>, aka, <span x-bind:class="randomColor()">eduzen</span>.
+              I've been working in the  <span x-bind:class="randomColor()">IT industry</span> for quite a long time, {{ years }} years and counting.
+              Mostly as a backend <span x-bind:class="randomColor()">developer</span> 💻.
+              But I've some <span x-bind:class="randomColor()">experience</span> also working as a <span x-bind:class="randomColor()">team leader</span>.
+              <span x-bind:class="randomColor()">Python</span> 🐍, <span x-bind:class="randomColor()">Django</span> 🟩 and <span x-bind:class="randomColor()">Flask</span> are
+              the main <span x-bind:class="randomColor()">techonlogies</span> 🧪 that I've been working with.
+              But naturally, I have some <span x-bind:class="randomColor()">experience</span> 💡 with other things
+              like <span x-bind:class="randomColor()">Javascript</span>, <span x-bind:class="randomColor()">Docker</span> 🐳, <span x-bind:class="randomColor()">Redis</span> 🟥,
+              <span x-bind:class="randomColor()">RabbitMQ</span> 🐰, <span x-bind:class="randomColor()">Celery</span> 🌿 and <span x-bind:class="randomColor()">Linux 🐧</span>.
             {% endblocktrans %}
-            {% blocktrans %}I develop a <span x-bind:class="randomColor()">telegram bot</span> 🤖:
-            https://github.com/eduzen/bot. You can talk to him following this link: https://t.me/eduzen_bot.
+            {% blocktrans %}
+              You can check my code in <a class="nav-link" ref="https://github.com/eduzen/">https://github.com/eduzen/</a>. There you can find some bots like the one that I have for telegram
+              <span x-bind:class="randomColor()">telegram bot</span> 🤖 (You can talk to him following this link: https://t.me/eduzen_bot.) Or you can find the source code
+              of this website <a class="nav-link" ref="https://github.com/eduzen/">https://github.com/eduzen/website</a>
             {% endblocktrans %}
           </p>
           <p class="text-base dracula-text text-justify">
             {% blocktrans %}
-            Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>
-            and lately
-            <span x-bind:class="randomColor()">me</span><span x-bind:class="randomColor()">ch</span><span x-bind:class="randomColor()">an</span><span x-bind:class="randomColor()">ic</span><span x-bind:class="randomColor()">al</span> keyboards (right now using a Leo pold 75 %)!{% endblocktrans %}
+            Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>,
+            <span x-bind:class="randomColor()">movies</span>, <span x-bind:class="randomColor()">series</span>, and good <span x-bind:class="randomColor()">food</span>.
+            I started to try some
+            <span x-bind:class="randomColor()">me</span><span x-bind:class="randomColor()">ch</span><span x-bind:class="randomColor()">an</span><span x-bind:class="randomColor()">ic</span><span x-bind:class="randomColor()">al</span>
+            keyboards (right now using a Leo pold 75 %)! but I have also a Keychron K12.
+            {% endblocktrans %}
           </p>
           <p class="text-base dracula-text text-justify">
             {% blocktrans %}
-            I have a <span x-bind:class="randomColor()">bachelor's</span> degree in <span x-bind:class="randomColor()">philosophy</span> from the University of Buenos Aires.
-            It has shaped my <span x-bind:class="randomColor()">analytical</span> thinking and fostered my <span x-bind:class="randomColor()">curiosity</span>.
-            My favourite philosophers and writers are <span x-bind:class="randomColor()">Nietzsche</span>, <span x-bind:class="randomColor()">Descartes</span>
-            and <span x-bind:class="randomColor()">Jorge Luis Borges</span>.
+            Some people find weird that I have a <span x-bind:class="randomColor()">bachelor's</span> degree in <span x-bind:class="randomColor()">philosophy</span> from the University of Buenos Aires.
+            But I think the rational thinking is something that muy profesion and studies share. But in general, philosophy has shaped my <span x-bind:class="randomColor()">analytical</span>
+            thinking and fostered my <span x-bind:class="randomColor()">curiosity</span>.
+            Some of my favourite philosophers are <span x-bind:class="randomColor()">Nietzsche</span>, <span x-bind:class="randomColor()">Descartes</span> and <span x-bind:class="randomColor()">Foucault</span>.
+            Writers... many; <span x-bind:class="randomColor()">Jorge Luis Borges</span>, <span x-bind:class="randomColor()">Ursula K. Le Guin</span>, <span x-bind:class="randomColor()">Arthur C. Clarke</span>,
+            but much more...
+            {% endblocktrans %}
+          </p>
+          <p class="text-base dracula-text text-justify">
+            {% blocktrans %}
+            Lastly but not least. I'm passion about teaching. I think my background in philosophy has helped me to be a better teacher. I've been teaching in the past, and I'm looking forward to
+            do it more often in the IT field.
             {% endblocktrans %}
           </p>
         </div>
