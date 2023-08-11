@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-01 15:30-0300\n"
+"POT-Creation-Date: 2023-08-11 07:41-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,90 +18,426 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:18
+#: blog/models.py:18
 msgid "word"
 msgstr "palabra"
 
-#: models.py:19
+#: blog/models.py:19
 msgid "slug"
 msgstr "slug"
 
-#: models.py:23
+#: blog/models.py:23
 msgid "tag"
 msgstr "etiqueta"
 
-#: models.py:24
+#: blog/models.py:24
 msgid "tags"
-msgstr "etiqueta"
+msgstr "etiquetas"
 
-#: templates/blog/advance_search.html:12
+#: blog/templates/blog/about.html:5
+#, fuzzy
+msgid "About me"
+msgstr "Acerca"
+
+#: blog/templates/blog/about.html:12
+#, fuzzy, python-format
+msgid ""
+"\n"
+"      Hello <span x-bind:class=\"randomColor()\">World!</span> My name is "
+"<span x-bind:class=\"randomColor()\">Eduardo</span>\n"
+"      and I'm a <span x-bind:class=\"randomColor()\">developer</span> 💻. "
+"I've been working ⛏️ with <span x-bind:class=\"randomColor()\">Python</span> "
+"🐍\n"
+"      for the last %(years)s years, most of the time working as a <span x-"
+"bind:class=\"randomColor()\">backend</span> developer\n"
+"      with <span x-bind:class=\"randomColor()\">Django</span>. Currently "
+"living in <s>Buenos Aires</s>, <s>München</s>,\n"
+"      <span x-bind:class=\"randomColor()\">Amsterdam</span>, while working "
+"from <span x-bind:class=\"randomColor()\">home</span> 🏠.\n"
+"      "
+msgstr ""
+"\n"
+"      ¡Hola <span x-bind:class=\"randomColor()\">Mundo!</span> Mi nombre es "
+"<span x-bind:class=\"randomColor()\">Eduardo</span>\n"
+"      y soy un <span x-bind:class=\"randomColor()\">desarrollador</span> 💻. "
+"He estado trabajando ⛏️ con <span x-bind:class=\"randomColor()\">Python</"
+"span> 🐍\n"
+"      durante los últimos %(years)s años, mayormente como desarrollador "
+"<span x-bind:class=\"randomColor()\">backend</span>\n"
+"      con <span x-bind:class=\"randomColor()\">Django</span>. Actualmente "
+"resido en <s>Buenos Aires</s>, <s>Múnich</s>,\n"
+"      <span x-bind:class=\"randomColor()\">Ámsterdam</span>, mientras "
+"trabajo desde <span x-bind:class=\"randomColor()\">casa</span> 🏠.\n"
+
+#: blog/templates/blog/about.html:49
+msgid "A bit more about me 😉, so here it goes:"
+msgstr "Un poco más sobre mi 😉, así que aquí va:"
+
+#: blog/templates/blog/about.html:51
+#, fuzzy, python-format
+msgid ""
+"\n"
+"              I'm <span x-bind:class=\"randomColor()\">Eduardo Enriquez</"
+"span>, aka <span x-bind:class=\"randomColor()\">eduzen</span>.\n"
+"              I've been working in the <span x-bind:class="
+"\"randomColor()\">IT industry</span> for quite a long time, %(years)s years "
+"and counting,\n"
+"              mostly as a backend <span x-bind:class="
+"\"randomColor()\">developer</span> 💻.\n"
+"              But I also have some <span x-bind:class="
+"\"randomColor()\">experience</span> working as a <span x-bind:class="
+"\"randomColor()\">team leader</span>.\n"
+"              <span x-bind:class=\"randomColor()\">Python</span> 🐍, <span x-"
+"bind:class=\"randomColor()\">Django</span> 🟩, and <span x-bind:class="
+"\"randomColor()\">Flask</span> are\n"
+"              the main <span x-bind:class=\"randomColor()\">technologies</"
+"span> 🧪 that I've been working with.\n"
+"              Naturally, I have some <span x-bind:class="
+"\"randomColor()\">experience</span> 💡 with other things\n"
+"              like <span x-bind:class=\"randomColor()\">Javascript</span>, "
+"<span x-bind:class=\"randomColor()\">Docker</span> 🐳, <span x-bind:class="
+"\"randomColor()\">Redis</span> 🟥,\n"
+"              <span x-bind:class=\"randomColor()\">RabbitMQ</span> 🐰, <span "
+"x-bind:class=\"randomColor()\">Celery</span> 🌿, and <span x-bind:class="
+"\"randomColor()\">Linux 🐧</span>.\n"
+"            "
+msgstr ""
+"Soy <span x-bind:class=\"randomColor()\">Eduardo Enríquez</span>, también "
+"conocido como <span x-bind:class=\"randomColor()\">eduzen</span>.\n"
+"              He estado trabajando en la industria de <span x-bind:class="
+"\"randomColor()\">TI</span> durante bastante tiempo, %(years)s años y "
+"contando,\n"
+"              principalmente como desarrollador <span x-bind:class="
+"\"randomColor()\">backend</span> 💻.\n"
+"              Pero también tengo algo de <span x-bind:class="
+"\"randomColor()\">experiencia</span> trabajando como <span x-bind:class="
+"\"randomColor()\">líder de equipo</span>.\n"
+"              <span x-bind:class=\"randomColor()\">Python</span> 🐍, <span x-"
+"bind:class=\"randomColor()\">Django</span> 🟩 y <span x-bind:class="
+"\"randomColor()\">Flask</span>\n"
+"              son las principales <span x-bind:class="
+"\"randomColor()\">tecnologías</span> 🧪 con las que he estado trabajando.\n"
+"              Naturalmente, tengo algo de <span x-bind:class="
+"\"randomColor()\">experiencia</span> 💡 con otras cosas\n"
+"              como <span x-bind:class=\"randomColor()\">Javascript</span>, "
+"<span x-bind:class=\"randomColor()\">Docker</span> 🐳, <span x-bind:class="
+"\"randomColor()\">Redis</span> 🟥,\n"
+"              <span x-bind:class=\"randomColor()\">RabbitMQ</span> 🐰, <span "
+"x-bind:class=\"randomColor()\">Celery</span> 🌿 y <span x-bind:class="
+"\"randomColor()\">Linux 🐧</span>.\n"
+
+#: blog/templates/blog/about.html:64
+#, fuzzy
+msgid ""
+"\n"
+"              You can check my code at <a class=\"green nav-link\" href="
+"\"https://github.com/eduzen/\">https://github.com/eduzen/</a>. There you can "
+"find some <span x-bind:class=\"randomColor()\">bots</span>\n"
+"              like the one that I have for <span x-bind:class="
+"\"randomColor()\">Telegram</span>, <a class=\"green nav-link\" href="
+"\"https://github.com/eduzen/bot\">eduzen_bot</a> 🤖 (you can talk to it "
+"following this link:\n"
+"              <a class=\"green nav-link\" href=\"https://t.me/eduzen_bot\"> "
+"bot </a>). Or you can find the <span x-bind:class=\"randomColor()\">source "
+"code</span>\n"
+"              of this website at <a class=\"green nav-link\" href=\"https://"
+"github.com/eduzen/website\">https://github.com/eduzen/website</a>.\n"
+"            "
+msgstr ""
+"Puedes revisar mi código en <a class=\"green nav-link\" href=\"https://"
+"github.com/eduzen/\">https://github.com/eduzen/</a>. Allí puedes encontrar "
+"algunos <span x-bind:class=\"randomColor()\">bots</span>\n"
+"como el que tengo para <span x-bind:class=\"randomColor()\">Telegram</span>, "
+"<a class=\"green nav-link\" href=\"https://github.com/eduzen/bot"
+"\">eduzen_bot</a> 🤖 (puedes hablar con él siguiendo este enlace:\n"
+"<a class=\"green nav-link\" href=\"https://t.me/eduzen_bot\"> bot </a>). O "
+"puedes encontrar el <span x-bind:class=\"randomColor()\">código fuente</"
+"span>\n"
+"de este sitio web en <a class=\"green nav-link\" href=\"https://github.com/"
+"eduzen/website\">https://github.com/eduzen/website</a>.\n"
+
+#: blog/templates/blog/about.html:74
+#, fuzzy, python-format
+msgid ""
+"\n"
+"            Besides computers, I like <span x-bind:class="
+"\"randomColor()\">good music</span>, books, <span x-bind:class="
+"\"randomColor()\">philosophy</span>,\n"
+"            <span x-bind:class=\"randomColor()\">movies</span>, <span x-bind:"
+"class=\"randomColor()\">series</span>, and good <span x-bind:class="
+"\"randomColor()\">food</span>.\n"
+"            I started trying some\n"
+"            <span x-bind:class=\"randomColor()\">me</span><span x-bind:class="
+"\"randomColor()\">ch</span><span x-bind:class=\"randomColor()\">an</"
+"span><span x-bind:class=\"randomColor()\">ic</span><span x-bind:class="
+"\"randomColor()\">al</span>\n"
+"            keyboards (right now using a Leo pold 75 %%)! But I have also a "
+"Keychron K12.\n"
+"            "
+msgstr ""
+"Además de las computadoras, me gusta la <span x-bind:class="
+"\"randomColor()\">buena música</span>, los libros, la <span x-bind:class="
+"\"randomColor()\">filosofía</span>,\n"
+"las <span x-bind:class=\"randomColor()\">películas</span>, las <span x-bind:"
+"class=\"randomColor()\">series</span> y la buena <span x-bind:class="
+"\"randomColor()\">comida</span>.\n"
+"Comencé a probar algunos\n"
+"<span x-bind:class=\"randomColor()\">teclados</span> <span x-bind:class="
+"\"randomColor()\">mecánicos</span> (¡actualmente uso un Leo pold 75 %%)! "
+"Pero también tengo un Keychron K12.\n"
+
+#: blog/templates/blog/about.html:83
+msgid ""
+"\n"
+"            Some people find it weird that I have a <span x-bind:class="
+"\"randomColor()\">bachelor's</span> degree in <span x-bind:class="
+"\"randomColor()\">philosophy</span> from the University of Buenos Aires 🇦🇷.\n"
+"            But I think that <span x-bind:class=\"randomColor()\">rational</"
+"span> thinking is something that my profession and studies share.\n"
+"            In general, philosophy has shaped my <span x-bind:class="
+"\"randomColor()\">analytical</span>\n"
+"            thinking and fostered my <span x-bind:class="
+"\"randomColor()\">curiosity</span>.\n"
+"            Some of my favorite philosophers are <span x-bind:class="
+"\"randomColor()\">Nietzsche</span>, <span x-bind:class="
+"\"randomColor()\">Descartes</span>, and <span x-bind:class="
+"\"randomColor()\">Foucault</span>.\n"
+"            Writers... many; <span x-bind:class=\"randomColor()\">Jorge Luis "
+"Borges</span>, <span x-bind:class=\"randomColor()\">Ursula K. Le Guin</"
+"span>, <span x-bind:class=\"randomColor()\">Arthur C. Clarke</span>,\n"
+"            and many more...\n"
+"          "
+msgstr ""
+"\n"
+"            Algunas personas encuentran extraño que tenga una licenciatura "
+"en <span x-bind:class=\"randomColor()\">filosofía</span> de la Universidad "
+"de Buenos Aires 🇦🇷.\n"
+"            Pero creo que el pensamiento <span x-bind:class="
+"\"randomColor()\">racional</span> es algo que comparte mi profesión y mis "
+"estudios.\n"
+"            En general, la filosofía ha moldeado mi pensamiento <span x-bind:"
+"class=\"randomColor()\">analítico</span>\n"
+"            y fomentado mi <span x-bind:class=\"randomColor()\">curiosidad</"
+"span>.\n"
+"            Algunos de mis filósofos favoritos son <span x-bind:class="
+"\"randomColor()\">Nietzsche</span>, <span x-bind:class="
+"\"randomColor()\">Descartes</span> y <span x-bind:class="
+"\"randomColor()\">Foucault</span>.\n"
+"            Escritores... muchos; <span x-bind:class=\"randomColor()\">Jorge "
+"Luis Borges</span>, <span x-bind:class=\"randomColor()\">Ursula K. Le Guin</"
+"span>, <span x-bind:class=\"randomColor()\">Arthur C. Clarke</span>,\n"
+"            y muchos más...\n"
+"          "
+
+#: blog/templates/blog/about.html:94
+#, fuzzy
+msgid ""
+"\n"
+"            Last but not least, I'm passionate about <span x-bind:class="
+"\"randomColor()\">teaching</span> 👨🏽‍🏫. I think my background in <span x-bind:"
+"class=\"randomColor()\">philosophy</span>\n"
+"            has helped me to be a <span x-bind:class="
+"\"randomColor()\">better</span> teacher. I've been <span x-bind:class="
+"\"randomColor()\">teaching in the past</span>,\n"
+"            and I'm looking <span x-bind:class=\"randomColor()\">forward</"
+"span> to doing it more often in the IT <span x-bind:class="
+"\"randomColor()\">field</span>.\n"
+"          "
+msgstr ""
+"\n"
+"            Por último pero no menos importante, soy apasionado por la <span "
+"x-bind:class=\"randomColor()\">enseñanza</span> 👨🏽‍🏫. Creo que mi formación "
+"en <span x-bind:class=\"randomColor()\">filosofía</span>\n"
+"            me ha ayudado a ser un <span x-bind:class="
+"\"randomColor()\">mejor</span> profesor. He estado <span x-bind:class="
+"\"randomColor()\">enseñando en el pasado</span>,\n"
+"            y estoy deseando <span x-bind:class=\"randomColor()\">hacerlo "
+"más a menudo en el campo de la <span x-bind:class=\"randomColor()\">TI</"
+"span>.</span>\n"
+
+#: blog/templates/blog/about.html:103
+msgid ""
+"\n"
+"          If you want to contact me, you can do it through <a class=\"green "
+"nav-link\" href=\"/contact/\">this form</a>\n"
+"          or through my <a class=\"green nav-link\" href=\"https://www."
+"linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
+"          "
+msgstr ""
+"\n"
+"          Si deseas contactarme, puedes hacerlo a través de <a class=\"green "
+"nav-link\" href=\"/contact/\">este formulario</a>\n"
+"          o a través de mi <a class=\"green nav-link\" href=\"https://www."
+"linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
+"          "
+
+#: blog/templates/blog/advance_search.html:12
 msgid "Advance Search"
 msgstr "Busqueda avanzada"
 
-#: templates/blog/advance_search.html:14
+#: blog/templates/blog/advance_search.html:14
 msgid "No results"
 msgstr "No hay ningun resultado 😞"
 
-#: templates/blog/advance_search.html:16
+#: blog/templates/blog/advance_search.html:16
 msgid "How-to-look"
 msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
 
-#: templates/blog/clases.html:10
-msgid "clases title"
-msgstr "Clases particulares"
+#: blog/templates/blog/classes.html:6
+#: blog/templates/blog/utils/nav_links.html:7
+#: blog/templates/blog/utils/nav_links_mobile.html:5
+msgid "Classes"
+msgstr "Clases"
 
-#: templates/blog/clases.html:11
-msgid "clases copete"
-msgstr "Online o en Amsterdam"
+#: blog/templates/blog/classes.html:14
+msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
+msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
 
-#: templates/blog/error.html:9
-msgid "email problem"
-msgstr "Hubo un problema al enviar el mail 🙈"
+#: blog/templates/blog/consultancy.html:5
+msgid "Consultancy Services"
+msgstr "Servicios de Consultoria"
 
-#: templates/blog/error.html:11
-msgid "Gracias por contactarte!"
-msgstr "Gracias por contactarte!"
+#: blog/templates/blog/consultancy.html:51
+#, fuzzy
+#| msgid "About"
+msgid "about"
+msgstr "Acerca"
 
-#: templates/blog/extras/post.html:6
-msgid "Autor"
-msgstr "Autor"
+#: blog/templates/blog/consultancy.html:61
+#, fuzzy
+#| msgid "Contact"
+msgid "Contact Me"
+msgstr "Contacto"
 
-#: templates/blog/extras/post_list.html:9 templates/blog/extras/tags.html:3
-msgid "Tags"
-msgstr "Etiquetas"
+#: blog/templates/blog/contact.html:16
+#: blog/templates/blog/utils/nav_links.html:11
+#: blog/templates/blog/utils/nav_links_mobile.html:7
+msgid "Contact"
+msgstr "Contacto"
 
-#: templates/blog/extras/post_list.html:16
-msgid "Published"
-msgstr "Publicado"
+#: blog/templates/blog/contact.html:20 blog/templates/blog/contact.html:45
+msgid "What color is the red rabbit?"
+msgstr "De que color es el conejo rojo?"
 
-#: templates/blog/extras/related_posts.html:5
+#: blog/templates/blog/contact.html:26
+msgid "Are you sure?"
+msgstr "Estas seguro?"
+
+#: blog/templates/blog/error.html:4
+msgid "Ups... something went wrong"
+msgstr "Ups... algo salio mal"
+
+#: blog/templates/blog/error.html:5
+msgid "We are sorry, but something went wrong. 🙃"
+msgstr "Lo sentimos, pero algo salio mal. 🙃"
+
+#: blog/templates/blog/error.html:6
+msgid "Please try again later... or contact me"
+msgstr "Por favor intente mas tarde... o contacteme"
+
+#: blog/templates/blog/extras/paginator.html:5
+msgid "First"
+msgstr "Primer"
+
+#: blog/templates/blog/extras/paginator.html:6
+msgid "Previous"
+msgstr "Anterior"
+
+#: blog/templates/blog/extras/paginator.html:19
+msgid "Next"
+msgstr "Siguiente"
+
+#: blog/templates/blog/extras/paginator.html:20
+msgid "Last"
+msgstr "Ultimo"
+
+#: blog/templates/blog/extras/related_posts.html:5
 msgid "Notas relacionadas"
 msgstr "Notas relacionadas"
 
-#: templates/blog/extras/related_posts.html:14
+#: blog/templates/blog/extras/related_posts.html:14
 msgid "Publicado el dia"
 msgstr "Publicado el dia"
 
-#: templates/blog/extras/related_posts.html:19
+#: blog/templates/blog/extras/related_posts.html:19
+#: blog/templates/blog/posts/detail.html:65
 msgid "Nothing yet!"
 msgstr "Todavia nada!"
 
-#: templates/blog/extras/zen.html:27
-msgid "Este Zen se puede leer en el pep-0020"
-msgstr "Este Zen se puede leer en el pep-0020"
+#: blog/templates/blog/home.html:14
+msgid "Software Engineer"
+msgstr "Software Engineer"
 
-#: templates/blog/utils/head.html:9
+#: blog/templates/blog/home.html:15 blog/templates/blog/utils/nav_links.html:5
+#: blog/templates/blog/utils/nav_links_mobile.html:4
+msgid "Consultancy"
+msgstr "Consultoria"
+
+#: blog/templates/blog/home.html:19
+msgid "Based in Amsterdam"
+msgstr "Ubicado en Amsterdam"
+
+#: blog/templates/blog/home.html:19
+msgid "available"
+msgstr "disponible"
+
+#: blog/templates/blog/home.html:21
+msgid "everywhere!"
+msgstr "en cualquier lugar!"
+
+#: blog/templates/blog/posts/detail.html:27
+msgid "Author"
+msgstr "Autor"
+
+#: blog/templates/blog/posts/detail.html:51
+msgid "Related posts"
+msgstr "Notas relacionadas"
+
+#: blog/templates/blog/posts/detail.html:60
+msgid "Published"
+msgstr "Publicado"
+
+#: blog/templates/blog/posts/list.html:13
+msgid "or just public notes"
+msgstr "o solo notas publicas"
+
+#: blog/templates/blog/success.html:4
+msgid "Thank you for your message"
+msgstr "Gracias por tu mensaje"
+
+#: blog/templates/blog/success.html:5
+msgid "We are going to reply you soon!"
+msgstr "Te responderemos pronto!"
+
+#: blog/templates/blog/utils/footer.html:7
+msgid "Made with 💜 by Eduardo Enriquez"
+msgstr "Hecho con 💜 por Eduardo Enriquez"
+
+#: blog/templates/blog/utils/head.html:9
 msgid "description"
-msgstr "Hola! Soy Eduardo 🤓 y escribo, en general, sobre python. Gracias por leerme."
+msgstr "descripcion"
 
-#: templates/blog/utils/navbar.html:30
-msgid "Home"
-msgstr "Inicio"
+#: blog/templates/blog/utils/nav_links.html:3
+#: blog/templates/blog/utils/nav_links_mobile.html:3
+msgid "Blog"
+msgstr "Blog"
 
-#: templates/blog/utils/navbar.html:37
+#: blog/templates/blog/utils/nav_links.html:9
+#: blog/templates/blog/utils/nav_links_mobile.html:6
 msgid "About"
 msgstr "Acerca"
 
-#: templates/blog/utils/navbar.html:51
-msgid "Contact"
-msgstr "Contacto"
+#: blog/templates/blog/utils/nav_links.html:14
+#: blog/templates/blog/utils/nav_links_mobile.html:9
+msgid "Admin"
+msgstr "Admin"
+
+#: blog/templates/blog/utils/nav_links.html:29
+#: blog/templates/blog/utils/nav_links_mobile.html:23
+msgid "English"
+msgstr "Ingles"
+
+#: blog/templates/blog/utils/nav_links.html:33
+#: blog/templates/blog/utils/nav_links_mobile.html:27
+msgid "Spanish"
+msgstr "Español"

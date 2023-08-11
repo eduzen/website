@@ -58,6 +58,12 @@ psql:
 dbshell:
 	$(DJMANAGE) dbshell
 
+messages:
+	$(DJMANAGE) makemessages --locale=es
+
+compilemessages:
+	$(DJMANAGE) compilemessages
+
 collectstatic:
 	${DCO} exec web python manage.py collectstatic --no-input --settings=${DJANGO_SETTINGS_MODULE}
 
