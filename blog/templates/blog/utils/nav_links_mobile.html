@@ -10,7 +10,7 @@
 {% endif %}
 
 <button class="block py-2 text-gray-700 hover:text-black focus:outline-none" @click="open = !open">
-  {% if LANGUAGE_CODE == "es" %}
+  {% if "es" in LANGUAGE_CODE %}
     <span class="fi fi-es"></span>
   {% else %}
     <span class="fi fi-gb"></span>

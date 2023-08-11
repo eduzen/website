@@ -16,7 +16,7 @@
 {% endif %}
 
 <button class="nav-link focus:outline-none" @click="open = !open">
-  {% if LANGUAGE_CODE == "es" %}
+  {% if "es" in LANGUAGE_CODE %}
     <span class="fi fi-es"></span>
   {% else %}
     <span class="fi fi-gb"></span>
