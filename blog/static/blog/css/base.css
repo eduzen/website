@@ -1,50 +1,75 @@
-.purple-dracula {
+/* Dracula Theme Colors */
+.dracula-bg {
+  background-color: #282a36;
+}
+.dracula-text {
+  color: #f8f8f2;
+}
+.dracula-border {
+  border-color: #6272a4;
+}
+.dracula-border-left {
+  border-left-color: #6272a4;
+}
+
+/* Dracula Theme Color Variants */
+.dracula-title,
+.purple-dracula,
+.dracula-purple {
   color: #bd93f9;
 }
 .purple-dracula-hover:hover {
   color: #bd93f9 !important;
 }
-.dracula-bg { background-color: #282a36; }
-.dracula-title { color: #bd93f9;}
+.dracula-purple-bg {
+  background-color: #bd93f9;
+}
+.dracula-green,
+.green {
+  color: #50fa7b;
+}
+.dracula-pink,
+.pink {
+  color: #ff79c6;
+}
+.dracula-orange,
+.orange {
+  color: #ffb86c;
+}
+.dracula-yellow {
+  color: #f1fa8c;
+}
+.dracula-grey,
+.dg-grey {
+  color: #f8f8f2;
+}
+.dracula-cyan {
+  color: #8be9fd;
+}
 .dracula-date {
   color: #50fa7b;
 }
 
-.dracula-text { color: #f8f8f2; }
-.dracula-border { border-color: #6272a4; }
-.dracula-border-left { border-left-color: #6272a4; }
+/* Navigation */
 .nav-link {
   transition: color 0.3s ease;
 }
-.nav-link:hover { color: #bd93f9; }
-purpura-bg { background-color: #bd93f9; }
-purpura-color { color: #bd93f9; }
+.nav-link:hover,
 .active-link {
-  color: #50fa7b;
+  color: #bd93f9;
 }
-.green { color: #50fa7b; }
-.pink { color: #ff79c6; }
-.orange { color: #ffb86c; }
-.purple { color: #bd93f9; }
-.dg-grey { color: #f8f8f2; }
 
-.dracula-pink { color: #ff79c6; }
-.dracula-orange { color: #ffb86c; }
-.dracula-green { color: #50fa7b; }
-.dracula-purple { color: #bd93f9; }
-.dracula-purple-bg {  background-color: #bd93f9; }
-.dracula-yellow { color: #f1fa8c; }
-.dracula-grey { color: #f8f8f2; }
-.dracula-cyan {  color: #8be9fd;}
-
+/* Misc */
+.bulb-fade {
+  animation: bulbFade 5s infinite;
+}
 
 @keyframes bulbFade {
-  0% { color: #f8f8f2; }   /* Dracula foreground color */
-  20% { color: #50fa7b; }  /* Green */
-  40% { color: #ff79c6; }  /* Pink */
-  60% { color: #bd93f9; }  /* Purple */
-  80% { color: #ffb86c; }  /* Orange */
-  100% { color: #f8f8f2; } /* Back to foreground color */
+  0%, 100% { color: #f8f8f2; }   /* Dracula foreground color */
+  20% { color: #50fa7b; }       /* Green */
+  40% { color: #ff79c6; }       /* Pink */
+  60% { color: #bd93f9; }       /* Purple */
+  80% { color: #ffb86c; }       /* Orange */
 }
 
 .hover-bg-orange:hover {
@@ -55,8 +80,4 @@ purpura-color { color: #bd93f9; }
 .hover-orange:hover {
   color: #ffb86c;
   transition: color 0.3s ease;
-}
-
-.bulb-fade {
-  animation: bulbFade 5s infinite;
 }

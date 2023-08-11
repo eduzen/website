@@ -71,6 +71,11 @@ class ConsultancyView(TemplateView):
     template_name = "blog/consultancy.html"
 
 
+@method_decorator(cache_page(MONTH), name="dispatch")
+class ClassesView(TemplateView):
+    template_name = "blog/classes.html"
+
+
 @method_decorator(cache_page(HOUR), name="dispatch")
 class HomeListView(ListView):
     queryset = Post.objects.published()

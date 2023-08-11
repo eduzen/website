@@ -1,0 +1,53 @@
+{% extends 'blog/utils/base.html' %}
+{% load static i18n %}
+
+
+{% block section_title %}
+  {% translate 'Classes' %}
+{% endblock section_title %}
+
+{% block content %}
+    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 dracula-bg dracula-text">
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full px-4">
+                <h2 class="text-xl mt-2">
+                  {% translate "Hello! My name is Eduardo and I'm a teacher. More about me:" %}
+                  <a class="nav-link" href="{% url 'about' %}">here</a>
+                </h2>
+                <p class="mt-2 text-lg">
+                    We can learn about <strong class="dracula-orange">Python</strong> itself or delve into web frameworks like
+                    <strong class="dracula-pink">Django</strong>, <strong class="dracula-cyan">Flask</strong>, or <strong class="dracula-yellow">Pyramid</strong>. We can also explore Python topics like
+                    <strong class="dracula-green">object-oriented programming</strong>, <strong class="dracula-grey">unit tests</strong>, and more.
+                </p>
+                <p class="mt-2 text-lg">
+                    If you'd like to see my CV, you can check it out on LinkedIn:
+                    <a class="text-blue-500 hover:underline dracula-yellow-hover" href="https://www.linkedin.com/in/enriquezeduardo/">
+                        https://www.linkedin.com/in/enriquezeduardo/
+                    </a>
+                </p>
+                <p class="mt-2 text-lg">
+                    Contact me <a class="text-blue-500 hover:underline dracula-yellow-hover" href="/contact">here</a> or send me an email
+                    at me@eduzen.com.ar and let's chat! (You can also reach out to eduardoaenriquez@gmail.com)
+                </p>
+            </div>
+        </div>
+        <hr class="my-8 dracula-border">
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full px-4">
+                <h1 class="text-3xl font-bold dracula-title">Online Resources to Learn Python</h1>
+                <ul class="mt-4 list-disc pl-5">
+                    <li class="mt-2">
+                        <a class="text-blue-500 hover:underline dracula-yellow-hover" href="http://docs.python.org.ar/tutorial/3/index.html">
+                            Python 3.6 Tutorial
+                        </a>
+                    </li>
+                    <li class="mt-2">
+                        <a class="text-blue-500 hover:underline dracula-yellow-hover" href="https://tutorial.djangogirls.org/es/">
+                            Django Girls Tutorial (introduces general Python concepts initially)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
