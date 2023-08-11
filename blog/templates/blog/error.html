@@ -1,13 +1,7 @@
-{% extends 'blog/utils/base.html' %}
 {% load i18n %}
 
-{% block section_title %}
-  {% translate 'Ups... something went wrong' %}
-{% endblock section_title%}
-
-{% block content %}
 <section class="text-center">
-  <p>{% translate 'We are sorry, but something went wrong. 🙃' %}</p>
-  <p>{% translate 'Please try again later... or contact me' %} <a class="green nav-link" href="{% url 'contact'%}">here</a></p>
+  <h1 class="text-4xl dracula-yellow">{% translate 'Ups... something went wrong' %}</h1>
+  <p class="text-2xl dracula-yellow">{% translate 'We are sorry, but something went wrong. 🙃' %}</p>
+  <p class="text-2xl dracula-yellow">{% translate 'Please try again later... or contact me' %} <a class="green nav-link" href="{% url 'contact'%}">here</a></p>
 </section>
-{% endblock %}

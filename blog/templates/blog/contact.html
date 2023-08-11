@@ -17,28 +17,39 @@
 {% endblock section_title %}
 
 {% block content %}
-    <form
-      class="p-6 rounded shadow-md w-1/2 mx-auto text-white"
-      hx-post="{% url 'contact' %}"
-      hx-trigger="submit"
-      hx-swap="outerHTML"
-      hx-confirm="{% trans 'Are you sure?' %}">
-      {% csrf_token %}
-      <div class="mb-4">
-        <label for="name" class="block text-sm font-medium">Name:</label>
-        <input type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
-      </div>
+<div x-data="{ name: '', email: '', message: '' captcha: '{% trans "What color is the red rabbit?" %}', userCaptchaResponse: ''}">
+  <form
+    class="p-6 rounded shadow-md w-1/2 mx-auto text-white"
+    hx-post="{% url 'contact' %}"
+    hx-trigger="submit"
+    hx-swap="outerHTML"
+    hx-confirm="{% trans 'Are you sure?' %}">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-medium">Name:</label>
+      <input x-model="name" type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
+    </div>
 
-      <div class="mb-4">
-        <label for="email" class="block text-sm font-medium">Email:</label>
-        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
-      </div>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium">Email:</label>
+      <input x-model="email" type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
+    </div>
 
-      <div class="mb-4">
-        <label for="message" class="block text-sm font-medium">Message:</label>
-        <textarea id="message" name="message" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required></textarea>
-      </div>
-      <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Send</button>
-    </form>
+    <div class="mb-4">
+      <label for="message" class="block text-sm font-medium">Message:</label>
+      <textarea  x-model="message" id="message" name="message" rows="6" class="mt-1 p-2 w-full border resize rounded-md dracula-border dracula-bg dracula-text" required></textarea>
+    </div>
+
+    <!-- Captcha field -->
+    <div class="mb-4">
+      <label x-text="{% trans 'What color is the red rabbit?' %}">{% trans 'What color is the red rabbit?' %}</label>
+      <input x-model="userCaptchaResponse" type="text" name="captcha_response" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
+    </div>
+
+    <div class="">
+      <button :disabled="!name || !email || !message" type="submit" class="px-4 py-2 dracula-gray rounded" style="background-color: #bd93f9;">Send</button>
+    </div>
+  </form>
+</div>
 
 {% endblock %}

@@ -7,11 +7,13 @@ from django import http
 from django.contrib.postgres.search import SearchVector
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
+
+from blog.services.contact import send_telegram_message
 
 from .forms import AdvanceSearchForm, SearchForm
 from .models import Post
@@ -161,26 +163,39 @@ class PostDetail(DetailView):
 class ContactView(ConfigMixin, TemplateView):
     template_name = "blog/contact.html"
     error_url = reverse_lazy("error")
+    success_url = reverse_lazy("success")
+
+    def verify_captcha(self, request: HttpRequest) -> bool:
+        user_answer = request.GET.get("answer", None)
+        correct_answer = ("rojo", "red")
+        if user_answer and user_answer.strip().lower() in correct_answer:
+            return True
+        return False
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         try:
-            return HttpResponse("<div class='text-center green'>Sent!</div>")
+            if not self.verify_captcha(request):
+                return redirect(reverse_lazy("home"))
+
+            context = {}
+            if name := request.POST.get("name"):
+                context["name"] = name
+
+            if email := request.POST.get("email"):
+                context["email"] = email
+
+            if message := request.POST.get("message"):
+                context["message"] = message
+
+            # Send a test message
+            response = send_telegram_message(f"Message from website {context}")
+            logger.info(response)
+
+            return render(request, "blog/success.html", context)
+
         except Exception:
             logger.exception("Contact problems")
             return redirect(self.error_url)
-
-    # def form_valid(self, form: EmailForm) -> http.HttpResponse:
-    #     try:
-    #         form.send_email()
-    #         return super().form_valid(form)
-    #     except Exception:
-    #         logger.exception("Email problems")
-
-    #     return redirect("/error/")
-
-    # def post(self, request, *args, **kwargs):
-    #     print(request.POST)
-    #     return HttpResponse("<div class='text-center green'>Sent!</div>")
 
 
 class Google(TemplateView):

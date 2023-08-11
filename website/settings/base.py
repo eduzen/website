@@ -100,7 +100,11 @@ class DropboxStorage:
 class WhitenoiseStatic:
     STATIC_URL = "/static/"
     STATIC_ROOT = BASE_DIR / "assets"
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
 
 class SelfHostedStorage:
@@ -293,6 +297,9 @@ class Base(ConstanceConfig, Configuration):
         return self.DJANGO_APPS + self.APPS + self.THIRD_PARTY_APPS
 
     DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+    TELEGRAM_TOKEN = values.Value()
+    TELEGRAM_CHAT_ID = values.Value()
 
     HEALTH_CHECKS = {
         "postgresql": "django_healthchecks.contrib.check_database",
