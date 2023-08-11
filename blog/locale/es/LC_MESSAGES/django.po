@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-11 07:51-0300\n"
+"POT-Creation-Date: 2023-08-11 08:06-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -279,17 +279,170 @@ msgstr ""
 "linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
 "          "
 
+#: blog/templates/blog/advance_search.html:12
+msgid "Advance Search"
+msgstr "Busqueda avanzada"
+
+#: blog/templates/blog/advance_search.html:14
+msgid "No results"
+msgstr "No hay ningun resultado 😞"
+
+#: blog/templates/blog/advance_search.html:16
+msgid "How-to-look"
+msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
+
+#: blog/templates/blog/classes.html:6
+#: blog/templates/blog/utils/nav_links.html:7
+#: blog/templates/blog/utils/nav_links_mobile.html:5
+msgid "Classes"
+msgstr "Clases"
+
+#: blog/templates/blog/classes.html:14
+msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
+msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
+
 #: blog/templates/blog/consultancy.html:5
 msgid "Consultancy Services"
 msgstr "Servicios de Consultoria"
 
-#: blog/templates/blog/consultancy.html:51
+#: blog/templates/blog/consultancy.html:11
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "            Besides computers, I like <span x-bind:class="
+#| "\"randomColor()\">good music</span>, books, <span x-bind:class="
+#| "\"randomColor()\">philosophy</span>,\n"
+#| "            <span x-bind:class=\"randomColor()\">movies</span>, <span x-"
+#| "bind:class=\"randomColor()\">series</span>, and good <span x-bind:class="
+#| "\"randomColor()\">food</span>.\n"
+#| "            I started trying some\n"
+#| "            <span x-bind:class=\"randomColor()\">me</span><span x-bind:"
+#| "class=\"randomColor()\">ch</span><span x-bind:class=\"randomColor()\">an</"
+#| "span><span x-bind:class=\"randomColor()\">ic</span><span x-bind:class="
+#| "\"randomColor()\">al</span>\n"
+#| "            keyboards (right now using a Leo pold 75 %%)! But I have also "
+#| "a Keychron K12.\n"
+#| "            "
+msgid ""
+"Crafting <span x-bind:class=\"randomColor()\">tech</span> magic 🧙🏼‍♀️ for "
+"<span x-bind:class=\"randomColor()\">individuals</span> 🧍🏻‍♀️\n"
+"      and <span x-bind:class=\"randomColor()\">businesses</span> 🏭, with a "
+"sprinkle of fun and a dollop of <span x-bind:class="
+"\"randomColor()\">expertise</span>.\n"
+"      Let's <span x-bind:class=\"randomColor()\">code</span> something "
+"delightful!\n"
+"      With over 10 years in the <span x-bind:class="
+"\"randomColor()\">industry</span> 👴🏿, I offer useful <span x-bind:class="
+"\"randomColor()\">insights</span> and\n"
+"      <span x-bind:class=\"randomColor()\">expertise</span> for daily "
+"challenges. <span x-bind:class=\"randomColor()\">Remote</span> 💻 or\n"
+"      <span x-bind:class=\"randomColor()\">in-person</span> 🪑, I'm here to "
+"assist.\n"
+"      Interested in my <span x-bind:class=\"randomColor()\">professional</"
+"span> journey?\n"
+"      Check out my <a target=\"_blank\" href=\"%(config.linkedin)s\" class="
+"\"dracula-pink underline nav-link\">LinkedIn profile</a>."
+msgstr ""
+"\n"
+"            Además de las computadoras, me gusta la <span x-bind:class="
+"\"randomColor()\">buena música</span>, los libros, la <span x-bind:class="
+"\"randomColor()\">filosofía</span>,\n"
+"            las <span x-bind:class=\"randomColor()\">películas</span>, las "
+"<span x-bind:class=\"randomColor()\">series</span> y la buena <span x-bind:"
+"class=\"randomColor()\">comida</span>.\n"
+"            Comencé a probar algunos\n"
+"<span x-bind:class=\"randomColor()\">teclados</span> <span x-bind:class="
+"\"randomColor()\">mecánicos</span> (¡actualmente uso un Leo pold 75 "
+"%%)!             Pero también tengo un Keychron K12.\n"
+"            "
+
+#: blog/templates/blog/consultancy.html:28
+msgid "For the Rising Tech Stars"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:28
+msgid "Individuals"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:30
+msgid ""
+"Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom "
+"into an autonomous developer.\n"
+"            Stuck on a bug 🐛? I've got your back, literally!"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:36
+msgid "For the Business"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:36
+#, fuzzy
+#| msgid "Spanish"
+msgid "Companies"
+msgstr "Español"
+
+#: blog/templates/blog/consultancy.html:37
+msgid ""
+"Crafting day-to-day solutions, providing stellar training (unittesting, "
+"robust code writing, you name it!),\n"
+"          fixing Django/Python 🐍 performance issues, evaluating legacy code "
+"🔖, or upgrading versions ⬆️. If it's tech, I'm your guy!"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:45
+msgid "Experience &amp; Skills"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:48
+msgid "Years of Mischief &amp; Mastery"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:50
+msgid ""
+"Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks "
+"along the way. Dive into my tech journey!"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:53
+#, python-format
+msgid ""
+"Read more about me experience on linkedin <a target=\"_blank\" href="
+"\"%(config.linkedin)s\" class=\"dracula-pink underline nav-link\">here</a>."
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:57
+msgid "Techno-Sorcery"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:59
+msgid ""
+"From Python 🐍 to Django, from debugging to spellbinding code – I've mastered "
+"the digital alchemy ⚗️."
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:62
+#, fuzzy
+#| msgid "A bit more about me 😉, so here it goes:"
+msgid "Read more about me here:"
+msgstr "Un poco más sobre mi 😉, así que aquí va:"
+
+#: blog/templates/blog/consultancy.html:62
 #, fuzzy
 #| msgid "About"
 msgid "about"
 msgstr "Acerca"
 
-#: blog/templates/blog/consultancy.html:61
+#: blog/templates/blog/consultancy.html:70
+msgid "Get in Touch"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:71
+msgid ""
+"Ready to embark on a tech adventure or brew up a business solution? Let's "
+"talk!"
+msgstr ""
+
+#: blog/templates/blog/consultancy.html:72
 msgid "Contact Me"
 msgstr "Contacto"
 
@@ -307,6 +460,18 @@ msgstr "De que color es el conejo rojo?"
 msgid "Are you sure?"
 msgstr "Estas seguro?"
 
+#: blog/templates/blog/error.html:4
+msgid "Ups... something went wrong"
+msgstr "Ups... algo salio mal"
+
+#: blog/templates/blog/error.html:5
+msgid "We are sorry, but something went wrong. 🙃"
+msgstr "Lo sentimos, pero algo salio mal. 🙃"
+
+#: blog/templates/blog/error.html:6
+msgid "Please try again later... or contact me"
+msgstr "Por favor intente mas tarde... o contacteme"
+
 #: blog/templates/blog/extras/paginator.html:5
 msgid "First"
 msgstr "Primer"
@@ -322,6 +487,19 @@ msgstr "Siguiente"
 #: blog/templates/blog/extras/paginator.html:20
 msgid "Last"
 msgstr "Ultimo"
+
+#: blog/templates/blog/extras/related_posts.html:5
+msgid "Notas relacionadas"
+msgstr "Notas relacionadas"
+
+#: blog/templates/blog/extras/related_posts.html:14
+msgid "Publicado el dia"
+msgstr "Publicado el dia"
+
+#: blog/templates/blog/extras/related_posts.html:19
+#: blog/templates/blog/posts/detail.html:65
+msgid "Nothing yet!"
+msgstr "Todavia nada!"
 
 #: blog/templates/blog/home.html:14
 msgid "Software Engineer"
@@ -344,23 +522,42 @@ msgstr "disponible"
 msgid "everywhere!"
 msgstr "en cualquier lugar!"
 
+#: blog/templates/blog/posts/detail.html:27
+msgid "Author"
+msgstr "Autor"
+
+#: blog/templates/blog/posts/detail.html:51
+msgid "Related posts"
+msgstr "Notas relacionadas"
+
+#: blog/templates/blog/posts/detail.html:60
+msgid "Published"
+msgstr "Publicado"
+
 #: blog/templates/blog/posts/list.html:13
 msgid "or just public notes"
 msgstr "o solo notas publicas"
+
+#: blog/templates/blog/success.html:4
+msgid "Thank you for your message"
+msgstr "Gracias por tu mensaje"
+
+#: blog/templates/blog/success.html:5
+msgid "We are going to reply you soon!"
+msgstr "Te responderemos pronto!"
 
 #: blog/templates/blog/utils/footer.html:7
 msgid "Made with 💜 by Eduardo Enriquez"
 msgstr "Hecho con 💜 por Eduardo Enriquez"
 
+#: blog/templates/blog/utils/head.html:9
+msgid "description"
+msgstr "descripcion"
+
 #: blog/templates/blog/utils/nav_links.html:3
 #: blog/templates/blog/utils/nav_links_mobile.html:3
 msgid "Blog"
 msgstr "Blog"
-
-#: blog/templates/blog/utils/nav_links.html:7
-#: blog/templates/blog/utils/nav_links_mobile.html:5
-msgid "Classes"
-msgstr "Clases"
 
 #: blog/templates/blog/utils/nav_links.html:9
 #: blog/templates/blog/utils/nav_links_mobile.html:6
@@ -381,51 +578,3 @@ msgstr "Ingles"
 #: blog/templates/blog/utils/nav_links_mobile.html:27
 msgid "Spanish"
 msgstr "Español"
-
-#~ msgid "Advance Search"
-#~ msgstr "Busqueda avanzada"
-
-#~ msgid "No results"
-#~ msgstr "No hay ningun resultado 😞"
-
-#~ msgid "How-to-look"
-#~ msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
-
-#~ msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
-#~ msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
-
-#~ msgid "Ups... something went wrong"
-#~ msgstr "Ups... algo salio mal"
-
-#~ msgid "We are sorry, but something went wrong. 🙃"
-#~ msgstr "Lo sentimos, pero algo salio mal. 🙃"
-
-#~ msgid "Please try again later... or contact me"
-#~ msgstr "Por favor intente mas tarde... o contacteme"
-
-#~ msgid "Notas relacionadas"
-#~ msgstr "Notas relacionadas"
-
-#~ msgid "Publicado el dia"
-#~ msgstr "Publicado el dia"
-
-#~ msgid "Nothing yet!"
-#~ msgstr "Todavia nada!"
-
-#~ msgid "Author"
-#~ msgstr "Autor"
-
-#~ msgid "Related posts"
-#~ msgstr "Notas relacionadas"
-
-#~ msgid "Published"
-#~ msgstr "Publicado"
-
-#~ msgid "Thank you for your message"
-#~ msgstr "Gracias por tu mensaje"
-
-#~ msgid "We are going to reply you soon!"
-#~ msgstr "Te responderemos pronto!"
-
-#~ msgid "description"
-#~ msgstr "descripcion"

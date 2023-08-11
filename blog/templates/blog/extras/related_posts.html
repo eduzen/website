@@ -2,7 +2,7 @@
 
 <ul class="post_detail_ul">
   <li class="post_detail_li">
-      <h3 class="post_detail_title">{% {% translate 'Notas relacionadas'%}</h3>
+      <h3 class="post_detail_title">{% translate 'Notas relacionadas'%}</h3>
   </li>
   {% for post in posts %}
   <li class="post_detail_li">
@@ -11,11 +11,11 @@
               {{ post.title }}
           </span><br>
           <small>
-              {% {% translate 'Publicado el dia' %} {{post.published_date }}
+              {% translate 'Publicado el dia' %} {{post.published_date }}
           </small>
       </a>
   </li>
   {% empty %}
-    <p>{% {% translate 'Nothing yet!' %}</p>
+    <p>{% translate 'Nothing yet!' %}</p>
   {% endfor %}
 </ul>

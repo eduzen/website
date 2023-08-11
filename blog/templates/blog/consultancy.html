@@ -8,14 +8,14 @@
 {% block content %}
   <div class="text-white min-h-screen p-6" x-data="colorize()">
     <p class="text-xl mt-4 leading-relaxed text-justify">
-      Crafting <span x-bind:class="randomColor()">tech</span> magic 🧙🏼‍♀️ for <span x-bind:class="randomColor()">individuals</span> 🧍🏻‍♀️
+      {% blocktranslate %}Crafting <span x-bind:class="randomColor()">tech</span> magic 🧙🏼‍♀️ for <span x-bind:class="randomColor()">individuals</span> 🧍🏻‍♀️
       and <span x-bind:class="randomColor()">businesses</span> 🏭, with a sprinkle of fun and a dollop of <span x-bind:class="randomColor()">expertise</span>.
       Let's <span x-bind:class="randomColor()">code</span> something delightful!
       With over 10 years in the <span x-bind:class="randomColor()">industry</span> 👴🏿, I offer useful <span x-bind:class="randomColor()">insights</span> and
       <span x-bind:class="randomColor()">expertise</span> for daily challenges. <span x-bind:class="randomColor()">Remote</span> 💻 or
       <span x-bind:class="randomColor()">in-person</span> 🪑, I'm here to assist.
       Interested in my <span x-bind:class="randomColor()">professional</span> journey?
-      Check out my <a target="_blank" href="{{config.linkedin}}" class="dracula-pink underline nav-link">LinkedIn profile</a>.
+      Check out my <a target="_blank" href="{{config.linkedin}}" class="dracula-pink underline nav-link">LinkedIn profile</a>.{% endblocktranslate %}
     </p>
     <!-- Services -->
     <section class="mb-12">
@@ -23,32 +23,43 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- For Individuals -->
         <div class="bg-dracula-selection p-6 rounded-lg">
-          <h3 class="dracula-orange text-2xl font-bold">For the Rising Tech Stars <span x-bind:class="randomColor()">(Individuals)</span></h3>
-          <p class="mt-4 text-justify leading-relaxed">Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer.
-          Stuck on a bug 🐛? I've got your back, literally!</p>
+
+
+          <h3 class="dracula-orange text-2xl font-bold">{% translate 'For the Rising Tech Stars' %}<span x-bind:class="randomColor()">({% translate 'Individuals' %})</span></h3>
+          <p class="mt-4 text-justify leading-relaxed">
+            {% blocktranslate %}Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer.
+            Stuck on a bug 🐛? I've got your back, literally!{% endblocktranslate %}
+          </p>
         </div>
         <!-- For Companies -->
         <div class="bg-dracula-selection p-6 rounded-lg">
-          <h3 class="dracula-orange text-2xl font-bold">For the Business <span x-bind:class="randomColor()">(Companies)</span></h3>
-          <p class="mt-4 text-justify leading-relaxed">Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!),
-          fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️. If it's tech, I'm your guy!</p>
+          <h3 class="dracula-orange text-2xl font-bold">{% translate 'For the Business' %}<span x-bind:class="randomColor()">({%translate 'Companies' %})</span></h3>
+          <p class="mt-4 text-justify leading-relaxed">{% blocktranslate %}Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!),
+          fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️. If it's tech, I'm your guy!{% endblocktranslate %}</p>
         </div>
       </div>
     </section>
 
     <!-- Experience and Skills -->
     <section class="mb-12">
-      <h2 class="dracula-yellow text-3xl font-bold text-center mb-6">Experience &amp; Skills</h2>
+      <h2 class="dracula-yellow text-3xl font-bold text-center mb-6">{% blocktranslate %}Experience &amp; Skills{% endblocktranslate %}</h2>
       <div class="flex flex-wrap justify-between">
         <div class="w-full md:w-1/2 p-6">
-          <h3 class="dracula-orange text-2xl font-bold">Years of Mischief &amp; Mastery</h3>
-          <p class="mt-4 text-justify leading-relaxed">Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!</p>
-          <p class="mt-4 text-justify leading-relaxed">Read more about me experience on linkedin <a target="_blank" href="{{config.linkedin}}" class="dracula-pink underline nav-link">here</a>.</p>
+          <h3 class="dracula-orange text-2xl font-bold">{% blocktranslate %}Years of Mischief &amp; Mastery{% endblocktranslate %}</h3>
+          <p class="mt-4 text-justify leading-relaxed">
+            {% blocktranslate %}Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!{% endblocktranslate %}
+          </p>
+          <p class="mt-4 text-justify leading-relaxed">
+            {% blocktranslate %}Read more about me experience on linkedin <a target="_blank" href="{{config.linkedin}}" class="dracula-pink underline nav-link">here</a>.{% endblocktranslate %}
+          </p>
         </div>
         <div class="w-full md:w-1/2 p-6">
-          <h3 class="dracula-orange text-2xl font-bold">Techno-Sorcery</h3>
-          <p class="mt-4 text-justify leading-relaxed">From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️.</p>
-          <p class="mt-4 text-justify leading-relaxed">Read more about me here: <a target="_blank" href="{% url 'about' %}" class="dracula-pink underline nav-link">{% translate 'about' %}</a>.</p>
+          <h3 class="dracula-orange text-2xl font-bold">{% translate 'Techno-Sorcery' %}</h3>
+          <p class="mt-4 text-justify leading-relaxed">
+            {% blocktranslate %}From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️.{% endblocktranslate %}
+          </p>
+          <p class="mt-4 text-justify leading-relaxed">
+            {% blocktranslate %}Read more about me here:{% endblocktranslate %} <a target="_blank" href="{% url 'about' %}" class="dracula-pink underline nav-link">{% translate 'about' %}</a>.</p>
 
         </div>
       </div>
@@ -56,8 +67,8 @@
 
     <!-- Contact -->
     <section class="text-center mb-12">
-      <h2 class="dracula-yellow text-3xl font-bold">Get in Touch</h2>
-      <p class="text-xl mt-4 mb-4">Ready to embark on a tech adventure or brew up a business solution? Let's talk!</p>
+      <h2 class="dracula-yellow text-3xl font-bold">{% translate 'Get in Touch' %}</h2>
+      <p class="text-xl mt-4 mb-4">{% blocktranslate %}Ready to embark on a tech adventure or brew up a business solution? Let's talk!{% endblocktranslate %}</p>
       <a href="{% url 'contact' %}" class="dracula-pink underline nav-link">{% translate 'Contact Me' %}</a>
     </section>
   </div>

@@ -9,11 +9,11 @@
   <div class="col-md-8">
     <div class="row">
       <div class="col-md-12">
-        <h2>{% {% translate 'Advance Search' %}</h2>
+        <h2>{% translate 'Advance Search' %}</h2>
         {% if form %}
-          <p>{% {% translate 'No results'%}</p>
+          <p>{% translate 'No results'%}</p>
           <p class="text-muted">
-            {% {% translate 'How-to-look' %}
+            {% translate 'How-to-look' %}
           </p>
           {% csrf_token %}
           {% crispy form %}
