@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-11 07:41-0300\n"
+"POT-Creation-Date: 2023-08-11 07:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,7 +74,7 @@ msgid "A bit more about me 😉, so here it goes:"
 msgstr "Un poco más sobre mi 😉, así que aquí va:"
 
 #: blog/templates/blog/about.html:51
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "              I'm <span x-bind:class=\"randomColor()\">Eduardo Enriquez</"
@@ -102,8 +102,10 @@ msgid ""
 "\"randomColor()\">Linux 🐧</span>.\n"
 "            "
 msgstr ""
-"Soy <span x-bind:class=\"randomColor()\">Eduardo Enríquez</span>, también "
-"conocido como <span x-bind:class=\"randomColor()\">eduzen</span>.\n"
+"\n"
+"              Soy <span x-bind:class=\"randomColor()\">Eduardo Enríquez</"
+"span>, también conocido como <span x-bind:class=\"randomColor()\">eduzen</"
+"span>.\n"
 "              He estado trabajando en la industria de <span x-bind:class="
 "\"randomColor()\">TI</span> durante bastante tiempo, %(years)s años y "
 "contando,\n"
@@ -125,9 +127,9 @@ msgstr ""
 "              <span x-bind:class=\"randomColor()\">RabbitMQ</span> 🐰, <span "
 "x-bind:class=\"randomColor()\">Celery</span> 🌿 y <span x-bind:class="
 "\"randomColor()\">Linux 🐧</span>.\n"
+"            "
 
 #: blog/templates/blog/about.html:64
-#, fuzzy
 msgid ""
 "\n"
 "              You can check my code at <a class=\"green nav-link\" href="
@@ -144,20 +146,24 @@ msgid ""
 "github.com/eduzen/website\">https://github.com/eduzen/website</a>.\n"
 "            "
 msgstr ""
-"Puedes revisar mi código en <a class=\"green nav-link\" href=\"https://"
-"github.com/eduzen/\">https://github.com/eduzen/</a>. Allí puedes encontrar "
-"algunos <span x-bind:class=\"randomColor()\">bots</span>\n"
-"como el que tengo para <span x-bind:class=\"randomColor()\">Telegram</span>, "
-"<a class=\"green nav-link\" href=\"https://github.com/eduzen/bot"
-"\">eduzen_bot</a> 🤖 (puedes hablar con él siguiendo este enlace:\n"
+"\n"
+"              Puedes revisar mi código en <a class=\"green nav-link\" href="
+"\"https://github.com/eduzen/\">https://github.com/eduzen/</a>. Allí puedes "
+"encontrar               algunos <span x-bind:class=\"randomColor()\">bots</"
+"span>\n"
+"como el que tengo para <span x-bind:class=\"randomColor()\">Telegram</"
+"span>,               <a class=\"green nav-link\" href=\"https://github.com/"
+"eduzen/bot\">eduzen_bot</a> 🤖 (puedes hablar con él siguiendo este enlace:\n"
 "<a class=\"green nav-link\" href=\"https://t.me/eduzen_bot\"> bot </a>). O "
 "puedes encontrar el <span x-bind:class=\"randomColor()\">código fuente</"
 "span>\n"
-"de este sitio web en <a class=\"green nav-link\" href=\"https://github.com/"
-"eduzen/website\">https://github.com/eduzen/website</a>.\n"
+"              de este sitio web en <a class=\"green nav-link\" href="
+"\"https://github.com/eduzen/website\">https://github.com/eduzen/website</"
+"a>.\n"
+"            "
 
 #: blog/templates/blog/about.html:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            Besides computers, I like <span x-bind:class="
@@ -175,16 +181,18 @@ msgid ""
 "Keychron K12.\n"
 "            "
 msgstr ""
-"Además de las computadoras, me gusta la <span x-bind:class="
+"\n"
+"            Además de las computadoras, me gusta la <span x-bind:class="
 "\"randomColor()\">buena música</span>, los libros, la <span x-bind:class="
 "\"randomColor()\">filosofía</span>,\n"
-"las <span x-bind:class=\"randomColor()\">películas</span>, las <span x-bind:"
-"class=\"randomColor()\">series</span> y la buena <span x-bind:class="
-"\"randomColor()\">comida</span>.\n"
-"Comencé a probar algunos\n"
+"            las <span x-bind:class=\"randomColor()\">películas</span>, las "
+"<span x-bind:class=\"randomColor()\">series</span> y la buena <span x-bind:"
+"class=\"randomColor()\">comida</span>.\n"
+"            Comencé a probar algunos\n"
 "<span x-bind:class=\"randomColor()\">teclados</span> <span x-bind:class="
-"\"randomColor()\">mecánicos</span> (¡actualmente uso un Leo pold 75 %%)! "
-"Pero también tengo un Keychron K12.\n"
+"\"randomColor()\">mecánicos</span> (¡actualmente uso un Leo pold 75 "
+"%%)!             Pero también tengo un Keychron K12.\n"
+"            "
 
 #: blog/templates/blog/about.html:83
 msgid ""
@@ -230,7 +238,6 @@ msgstr ""
 "          "
 
 #: blog/templates/blog/about.html:94
-#, fuzzy
 msgid ""
 "\n"
 "            Last but not least, I'm passionate about <span x-bind:class="
@@ -254,6 +261,7 @@ msgstr ""
 "            y estoy deseando <span x-bind:class=\"randomColor()\">hacerlo "
 "más a menudo en el campo de la <span x-bind:class=\"randomColor()\">TI</"
 "span>.</span>\n"
+"          "
 
 #: blog/templates/blog/about.html:103
 msgid ""
@@ -271,28 +279,6 @@ msgstr ""
 "linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
 "          "
 
-#: blog/templates/blog/advance_search.html:12
-msgid "Advance Search"
-msgstr "Busqueda avanzada"
-
-#: blog/templates/blog/advance_search.html:14
-msgid "No results"
-msgstr "No hay ningun resultado 😞"
-
-#: blog/templates/blog/advance_search.html:16
-msgid "How-to-look"
-msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
-
-#: blog/templates/blog/classes.html:6
-#: blog/templates/blog/utils/nav_links.html:7
-#: blog/templates/blog/utils/nav_links_mobile.html:5
-msgid "Classes"
-msgstr "Clases"
-
-#: blog/templates/blog/classes.html:14
-msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
-msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
-
 #: blog/templates/blog/consultancy.html:5
 msgid "Consultancy Services"
 msgstr "Servicios de Consultoria"
@@ -304,8 +290,6 @@ msgid "about"
 msgstr "Acerca"
 
 #: blog/templates/blog/consultancy.html:61
-#, fuzzy
-#| msgid "Contact"
 msgid "Contact Me"
 msgstr "Contacto"
 
@@ -323,18 +307,6 @@ msgstr "De que color es el conejo rojo?"
 msgid "Are you sure?"
 msgstr "Estas seguro?"
 
-#: blog/templates/blog/error.html:4
-msgid "Ups... something went wrong"
-msgstr "Ups... algo salio mal"
-
-#: blog/templates/blog/error.html:5
-msgid "We are sorry, but something went wrong. 🙃"
-msgstr "Lo sentimos, pero algo salio mal. 🙃"
-
-#: blog/templates/blog/error.html:6
-msgid "Please try again later... or contact me"
-msgstr "Por favor intente mas tarde... o contacteme"
-
 #: blog/templates/blog/extras/paginator.html:5
 msgid "First"
 msgstr "Primer"
@@ -350,19 +322,6 @@ msgstr "Siguiente"
 #: blog/templates/blog/extras/paginator.html:20
 msgid "Last"
 msgstr "Ultimo"
-
-#: blog/templates/blog/extras/related_posts.html:5
-msgid "Notas relacionadas"
-msgstr "Notas relacionadas"
-
-#: blog/templates/blog/extras/related_posts.html:14
-msgid "Publicado el dia"
-msgstr "Publicado el dia"
-
-#: blog/templates/blog/extras/related_posts.html:19
-#: blog/templates/blog/posts/detail.html:65
-msgid "Nothing yet!"
-msgstr "Todavia nada!"
 
 #: blog/templates/blog/home.html:14
 msgid "Software Engineer"
@@ -385,42 +344,23 @@ msgstr "disponible"
 msgid "everywhere!"
 msgstr "en cualquier lugar!"
 
-#: blog/templates/blog/posts/detail.html:27
-msgid "Author"
-msgstr "Autor"
-
-#: blog/templates/blog/posts/detail.html:51
-msgid "Related posts"
-msgstr "Notas relacionadas"
-
-#: blog/templates/blog/posts/detail.html:60
-msgid "Published"
-msgstr "Publicado"
-
 #: blog/templates/blog/posts/list.html:13
 msgid "or just public notes"
 msgstr "o solo notas publicas"
-
-#: blog/templates/blog/success.html:4
-msgid "Thank you for your message"
-msgstr "Gracias por tu mensaje"
-
-#: blog/templates/blog/success.html:5
-msgid "We are going to reply you soon!"
-msgstr "Te responderemos pronto!"
 
 #: blog/templates/blog/utils/footer.html:7
 msgid "Made with 💜 by Eduardo Enriquez"
 msgstr "Hecho con 💜 por Eduardo Enriquez"
 
-#: blog/templates/blog/utils/head.html:9
-msgid "description"
-msgstr "descripcion"
-
 #: blog/templates/blog/utils/nav_links.html:3
 #: blog/templates/blog/utils/nav_links_mobile.html:3
 msgid "Blog"
 msgstr "Blog"
+
+#: blog/templates/blog/utils/nav_links.html:7
+#: blog/templates/blog/utils/nav_links_mobile.html:5
+msgid "Classes"
+msgstr "Clases"
 
 #: blog/templates/blog/utils/nav_links.html:9
 #: blog/templates/blog/utils/nav_links_mobile.html:6
@@ -441,3 +381,51 @@ msgstr "Ingles"
 #: blog/templates/blog/utils/nav_links_mobile.html:27
 msgid "Spanish"
 msgstr "Español"
+
+#~ msgid "Advance Search"
+#~ msgstr "Busqueda avanzada"
+
+#~ msgid "No results"
+#~ msgstr "No hay ningun resultado 😞"
+
+#~ msgid "How-to-look"
+#~ msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
+
+#~ msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
+#~ msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
+
+#~ msgid "Ups... something went wrong"
+#~ msgstr "Ups... algo salio mal"
+
+#~ msgid "We are sorry, but something went wrong. 🙃"
+#~ msgstr "Lo sentimos, pero algo salio mal. 🙃"
+
+#~ msgid "Please try again later... or contact me"
+#~ msgstr "Por favor intente mas tarde... o contacteme"
+
+#~ msgid "Notas relacionadas"
+#~ msgstr "Notas relacionadas"
+
+#~ msgid "Publicado el dia"
+#~ msgstr "Publicado el dia"
+
+#~ msgid "Nothing yet!"
+#~ msgstr "Todavia nada!"
+
+#~ msgid "Author"
+#~ msgstr "Autor"
+
+#~ msgid "Related posts"
+#~ msgstr "Notas relacionadas"
+
+#~ msgid "Published"
+#~ msgstr "Publicado"
+
+#~ msgid "Thank you for your message"
+#~ msgstr "Gracias por tu mensaje"
+
+#~ msgid "We are going to reply you soon!"
+#~ msgstr "Te responderemos pronto!"
+
+#~ msgid "description"
+#~ msgstr "descripcion"

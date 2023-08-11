@@ -2,8 +2,8 @@
 
   <div class="flex justify-center items-center text-xs pt-4">
     {% if page_obj.has_previous %}
-      <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md dracula-text nav-link">{% trans 'First' %}</a>
-      <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border dracula-text nav-link">{% trans 'Previous' %}</a>
+      <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md dracula-text nav-link">{% translate 'First' %}</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border dracula-text nav-link">{% translate 'Previous' %}</a>
     {% endif %}
 
     {% for num in page_obj.paginator.page_range %}
@@ -16,7 +16,7 @@
     {% endfor %}
 
     {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border dracula-text nav-link">{% trans 'Next' %}</a>
-      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md dracula-text nav-link">{% trans 'Last' %}</a>
+      <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border dracula-text nav-link">{% translate 'Next' %}</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md dracula-text nav-link">{% translate 'Last' %}</a>
     {% endif %}
   </div>

@@ -2,7 +2,7 @@
 {% load static i18n %}
 
 {% block section_title %}
-  {% trans 'Consultancy Services' %}
+  {% translate 'Consultancy Services' %}
 {% endblock section_title %}
 
 {% block content %}
@@ -48,7 +48,7 @@
         <div class="w-full md:w-1/2 p-6">
           <h3 class="dracula-orange text-2xl font-bold">Techno-Sorcery</h3>
           <p class="mt-4 text-justify leading-relaxed">From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️.</p>
-          <p class="mt-4 text-justify leading-relaxed">Read more about me here: <a target="_blank" href="{% url 'about' %}" class="dracula-pink underline nav-link">{% trans 'about' %}</a>.</p>
+          <p class="mt-4 text-justify leading-relaxed">Read more about me here: <a target="_blank" href="{% url 'about' %}" class="dracula-pink underline nav-link">{% translate 'about' %}</a>.</p>
 
         </div>
       </div>
@@ -58,7 +58,7 @@
     <section class="text-center mb-12">
       <h2 class="dracula-yellow text-3xl font-bold">Get in Touch</h2>
       <p class="text-xl mt-4 mb-4">Ready to embark on a tech adventure or brew up a business solution? Let's talk!</p>
-      <a href="{% url 'contact' %}" class="dracula-pink underline nav-link">{% trans 'Contact Me' %}</a>
+      <a href="{% url 'contact' %}" class="dracula-pink underline nav-link">{% translate 'Contact Me' %}</a>
     </section>
   </div>
 {% endblock %}

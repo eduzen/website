@@ -13,17 +13,17 @@
 {% endblock head %}
 
 {% block section_title %}
-  {% trans 'Contact' %}
+  {% translate 'Contact' %}
 {% endblock section_title %}
 
 {% block content %}
-<div x-data="{ name: '', email: '', message: '' captcha: '{% trans "What color is the red rabbit?" %}', userCaptchaResponse: ''}">
+<div x-data="{ name: '', email: '', message: '' captcha: '{% translate "What color is the red rabbit?" %}', userCaptchaResponse: ''}">
   <form
     class="p-6 rounded shadow-md w-1/2 mx-auto text-white"
     hx-post="{% url 'contact' %}"
     hx-trigger="submit"
     hx-swap="outerHTML"
-    hx-confirm="{% trans 'Are you sure?' %}">
+    hx-confirm="{% translate 'Are you sure?' %}">
     {% csrf_token %}
     <div class="mb-4">
       <label for="name" class="block text-sm font-medium">Name:</label>
@@ -42,7 +42,7 @@
 
     <!-- Captcha field -->
     <div class="mb-4">
-      <label x-text="{% trans 'What color is the red rabbit?' %}">{% trans 'What color is the red rabbit?' %}</label>
+      <label x-text="{% translate 'What color is the red rabbit?' %}">{% translate 'What color is the red rabbit?' %}</label>
       <input x-model="userCaptchaResponse" type="text" name="captcha_response" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-bg dracula-text" required>
     </div>
 

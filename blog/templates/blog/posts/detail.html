@@ -24,7 +24,7 @@
             <time class="purple" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
             |
             <span class="orange">
-              {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
+              {% {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
             </span>
           </small>
         {% endif %}
@@ -47,7 +47,7 @@
       <!-- Related Posts -->
       <ul class="post_detail_ul">
         <li class="post_detail_li">
-            <h3 class="post_detail_title dracula-title">{% translate 'Related posts'%}</h3>
+            <h3 class="post_detail_title dracula-title">{% {% translate 'Related posts'%}</h3>
         </li>
         {% for post in posts %}
         <li class="post_detail_li">
@@ -56,12 +56,12 @@
                     {{ post.title }}
                 </span><br>
                 <small class="dracula-date">
-                    {% translate 'Published' %}: {{post.published_date }}
+                    {% {% translate 'Published' %}: {{post.published_date }}
                 </small>
             </a>
         </li>
         {% empty %}
-          <p class="dracula-text">{% translate 'Nothing yet!' %}</p>
+          <p class="dracula-text">{% {% translate 'Nothing yet!' %}</p>
         {% endfor %}
       </ul>
     </div>
