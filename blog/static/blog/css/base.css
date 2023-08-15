@@ -1,71 +1,9 @@
 /* Dracula Theme Colors */
-.dracula-text {
-  color: #f8f8f2;
-}
 .dracula-border {
   border-color: #6272a4;
 }
 .dracula-border-left {
   border-left-color: #6272a4;
-}
-
-/* Dracula Theme Color Variants */
-.dracula-title,
-.purple-dracula,
-.dracula-purple {
-  color: #bd93f9;
-}
-.dracula-purple:hover {
-  color: #bd93f9;
-}
-.dracula-purple-bg {
-  background-color: #bd93f9;
-}
-.dracula-purple-bg:hover {
-  background-color: #bd93f9;
-  transition: background-color 0.3s ease;
-}
-
-.dracula-green,
-.green {
-  color: #50fa7b;
-}
-.dracula-pink,
-.pink {
-  color: #ff79c6;
-}
-.dracula-pink-bg {
-  background-color: #ff79c6;
-}
-.dracula-pink-bg:hover {
-  background-color: #ff79c6;
-  transition: background-color 0.3s ease;
-}
-
-.dracula-orange,
-.orange {
-  color: #ffb86c;
-}
-.dracula-orange-bg {
-  background-color: #ffb86c;
-}
-.dracula-orange-bg:hover {
-  transition: color 0.3s ease;
-}
-
-
-.dracula-yellow {
-  color: #f1fa8c;
-}
-.dracula-grey,
-.dg-grey {
-  color: #f8f8f2;
-}
-.dracula-cyan {
-  color: #8be9fd;
-}
-.dracula-date {
-  color: #50fa7b;
 }
 
 /* Navigation */

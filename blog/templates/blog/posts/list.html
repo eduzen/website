@@ -32,7 +32,7 @@
         <a href="{{post.get_absolute_url}}" class="text-xl mb-2 font-bold text-purple-400 hover:text-orange-400 transition duration-300">
           {{ post.title }}
         </a>
-        <p class="mb-2 dracula-date"><time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time></p>
+        <p class="mb-2 text-green-500"><time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time></p>
         <p class="mb-4">{{ post.pompadour }}</p>
         <div class="tags">
             {% for tag in post.tags.all %}
@@ -44,7 +44,7 @@
       </div>
     </article>
   {% empty %}
-    <p class="text-lg text-center dracula-text"> Empty posts </p>
+    <p class="text-lg text-center gray-100"> Empty posts </p>
   {% endfor %}
 
   {% include 'blog/extras/paginator.html' %}

@@ -23,17 +23,17 @@
           <small class="text-sm pb-4">
             <time class="purple" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
             |
-            <span class="orange">
+            <span class="text-orange-400">
               {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
             </span>
           </small>
         {% endif %}
 
-        <h3 class="text-3xl font-bold green mb-7">{{ post.title }}</h3>
+        <h3 class="text-3xl font-bold text-green-500 mb-7">{{ post.title }}</h3>
 
         {% comment %} <hr class="dracula-border mb-4"> {% endcomment %}
         {% autoescape off %}
-        <div class="dracula-text leading-loose leading-8 text-justify indent-4 whitespace-break-spaces">
+        <div class="gray-100 leading-loose leading-8 text-justify indent-4 whitespace-break-spaces">
             {{ post.text }}
         </div>
         {% endautoescape %}
@@ -52,16 +52,16 @@
         {% for post in posts %}
         <li class="">
             <a href="{{ post.get_absolute_url }}" class="text-purple-400 hover:dracula-hover">
-                <span class="dracula-text">
+                <span class="gray-100">
                     {{ post.title }}
                 </span><br>
-                <small class="dracula-date">
+                <small class="text-green-500">
                     {% translate 'Published' %}: {{post.published_date }}
                 </small>
             </a>
         </li>
         {% empty %}
-          <p class="dracula-text">{% translate 'Nothing yet!' %}</p>
+          <p class="gray-100">{% translate 'Nothing yet!' %}</p>
         {% endfor %}
       </ul>
     </div>

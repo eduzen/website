@@ -21,7 +21,7 @@
 
     <!-- Toggle Long Description -->
   <div x-data="{ open: false }" class="mt-8">
-    <button x-on:click="open = !open" class="dracula-cyan">
+    <button x-on:click="open = !open" class="text-blue-400">
       Click to read the long version...
     </button>
 
@@ -46,8 +46,8 @@
           alt="eduzen">
         </div>
         <div class="w-full md:w-3/4 p-4" x-data="colorize()">
-          <h2 class="text-xl font-bold dracula-yellow mb-4">{% translate 'A bit more about me 😉, so here it goes:' %}</h2>
-          <p class="text-base dracula-text text-justify leading-relaxed tracking-wide my-4 ">
+          <h2 class="text-xl font-bold text-yellow-400 mb-4">{% translate 'A bit more about me 😉, so here it goes:' %}</h2>
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
             {% blocktranslate with years=years_of_experience %}
               I'm <span x-bind:class="randomColor()">Eduardo Enriquez</span>, aka <span x-bind:class="randomColor()">eduzen</span>.
               I've been working in the <span x-bind:class="randomColor()">IT industry</span> for quite a long time, {{ years }} years and counting,
@@ -60,17 +60,17 @@
               <span x-bind:class="randomColor()">RabbitMQ</span> 🐰, <span x-bind:class="randomColor()">Celery</span> 🌿, and <span x-bind:class="randomColor()">Linux 🐧</span>.
             {% endblocktranslate %}
           </p>
-          <p class="text-base dracula-text text-justify leading-relaxed tracking-wide my-4 ">
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
             {% blocktranslate %}
-              You can check my code at <a class="green nav-link" href="https://github.com/eduzen/">https://github.com/eduzen/</a>. There you can find some <span x-bind:class="randomColor()">bots</span>
-              like the one that I have for <span x-bind:class="randomColor()">Telegram</span>, <a class="green nav-link" href="https://github.com/eduzen/bot">eduzen_bot</a> 🤖 (you can talk to it following this link:
-              <a class="green nav-link" href="https://t.me/eduzen_bot"> bot </a>). Or you can find the <span x-bind:class="randomColor()">source code</span>
-              of this website at <a class="green nav-link" href="https://github.com/eduzen/website">https://github.com/eduzen/website</a>.
+              You can check my code at <a class="text-green-500 nav-link" href="https://github.com/eduzen/">https://github.com/eduzen/</a>. There you can find some <span x-bind:class="randomColor()">bots</span>
+              like the one that I have for <span x-bind:class="randomColor()">Telegram</span>, <a class="text-green-500 nav-link" href="https://github.com/eduzen/bot">eduzen_bot</a> 🤖 (you can talk to it following this link:
+              <a class="text-green-500 nav-link" href="https://t.me/eduzen_bot"> bot </a>). Or you can find the <span x-bind:class="randomColor()">source code</span>
+              of this website at <a class="text-green-500 nav-link" href="https://github.com/eduzen/website">https://github.com/eduzen/website</a>.
             {% endblocktranslate %}
           </p>
         </div>
         <div class="w-full" x-data="colorize()">
-          <p class="text-base dracula-text text-justify leading-relaxed tracking-wide my-4 ">
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
             {% blocktranslate %}
             Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>,
             <span x-bind:class="randomColor()">movies</span>, <span x-bind:class="randomColor()">series</span>, and good <span x-bind:class="randomColor()">food</span>.
@@ -79,7 +79,7 @@
             keyboards (right now using a Leo pold 75 %)! But I have also a Keychron K12.
             {% endblocktranslate %}
           </p>
-          <p class="text-base dracula-text text-justify leading-relaxed tracking-wide my-4 ">
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
             {% blocktranslate %}
             Some people find it weird that I have a <span x-bind:class="randomColor()">bachelor's</span> degree in <span x-bind:class="randomColor()">philosophy</span> from the University of Buenos Aires 🇦🇷.
             But I think that <span x-bind:class="randomColor()">rational</span> thinking is something that my profession and studies share.
@@ -90,7 +90,7 @@
             and many more...
           {% endblocktranslate %}
           </p>
-          <p class="text-base dracula-text text-justify leading-relaxed tracking-wide my-4 ">
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
             {% blocktranslate %}
             Last but not least, I'm passionate about <span x-bind:class="randomColor()">teaching</span> 👨🏽‍🏫. I think my background in <span x-bind:class="randomColor()">philosophy</span>
             has helped me to be a <span x-bind:class="randomColor()">better</span> teacher. I've been <span x-bind:class="randomColor()">teaching in the past</span>,
@@ -99,10 +99,10 @@
           </p>
         </div>
 
-        <p class="text-base dracula-text text-justify leading-relaxed tracking-wide my-4 ">
+        <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
           {% blocktranslate %}
-          If you want to contact me, you can do it through <a class="green nav-link" href="/contact/">this form</a>
-          or through my <a class="green nav-link" href="https://www.linkedin.com/in/eduzen/">LinkedIn</a>.
+          If you want to contact me, you can do it through <a class="text-green-500 nav-link" href="/contact/">this form</a>
+          or through my <a class="text-green-500 nav-link" href="https://www.linkedin.com/in/eduzen/">LinkedIn</a>.
           {% endblocktranslate %}
         </p>
 

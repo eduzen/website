@@ -26,23 +26,23 @@
     {% csrf_token %}
     <div class="mb-4">
       <label for="name" class="block text-sm font-medium">Name:</label>
-      <input x-model="name" type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-text" required>
+      <input x-model="name" type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded-md dracula-border gray-100" required>
     </div>
 
     <div class="mb-4">
       <label for="email" class="block text-sm font-medium">Email:</label>
-      <input x-model="email" type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-text" required>
+      <input x-model="email" type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md dracula-border gray-100" required>
     </div>
 
     <div class="mb-4">
       <label for="message" class="block text-sm font-medium">Message:</label>
-      <textarea  x-model="message" id="message" name="message" rows="6" class="mt-1 p-2 w-full border resize rounded-md dracula-border dracula-text" required></textarea>
+      <textarea  x-model="message" id="message" name="message" rows="6" class="mt-1 p-2 w-full border resize rounded-md dracula-border gray-100" required></textarea>
     </div>
 
     <!-- Captcha field -->
     <div class="mb-4">
       <label x-text="{% translate 'What color is the red rabbit?' %}">{% translate 'What color is the red rabbit?' %}</label>
-      <input type="text" name="captcha_response" class="mt-1 p-2 w-full border rounded-md dracula-border dracula-text" required>
+      <input type="text" name="captcha_response" class="mt-1 p-2 w-full border rounded-md dracula-border gray-100" required>
     </div>
 
     <div class="mb-4">
