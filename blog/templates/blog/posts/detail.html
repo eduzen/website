@@ -45,13 +45,13 @@
     <div class="w-full p-4">
 
       <!-- Related Posts -->
-      <ul class="post_detail_ul">
-        <li class="post_detail_li">
-            <h3 class="post_detail_title dracula-title">{% translate 'Related posts'%}</h3>
+      <ul class="">
+        <li class="">
+            <h3 class="text-purple-400">{% translate 'Related posts'%}</h3>
         </li>
         {% for post in posts %}
-        <li class="post_detail_li">
-            <a href="{{ post.get_absolute_url }}" class="list-group-item post_detail_a dracula-text hover:dracula-hover">
+        <li class="">
+            <a href="{{ post.get_absolute_url }}" class="text-purple-400 hover:dracula-hover">
                 <span class="dracula-text">
                     {{ post.title }}
                 </span><br>
