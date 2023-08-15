@@ -1,6 +1,6 @@
 /* Dracula Theme Colors */
 .dracula-bg {
-  background-color: #282a36;
+  background-color: #282a36 !important;
 }
 .dracula-text {
   color: #f8f8f2;
@@ -16,14 +16,19 @@
 .dracula-title,
 .purple-dracula,
 .dracula-purple {
-  color: #bd93f9;
+  color: #bd93f9 !important;
 }
-.purple-dracula-hover:hover {
+.dracula-purple:hover {
   color: #bd93f9 !important;
 }
 .dracula-purple-bg {
   background-color: #bd93f9;
 }
+.dracula-purple-bg:hover {
+  background-color: #bd93f9 !important;
+  transition: background-color 0.3s ease;
+}
+
 .dracula-green,
 .green {
   color: #50fa7b;
@@ -32,10 +37,26 @@
 .pink {
   color: #ff79c6;
 }
+.dracula-pink-bg {
+  background-color: #ff79c6 !important;
+}
+.dracula-pink-bg:hover {
+  background-color: #ff79c6 !important;
+  transition: background-color 0.3s ease;
+}
+
 .dracula-orange,
 .orange {
   color: #ffb86c;
 }
+.dracula-orange-bg {
+  background-color: #ffb86c !important;
+}
+.dracula-orange-bg:hover {
+  transition: color 0.3s ease;
+}
+
+
 .dracula-yellow {
   color: #f1fa8c;
 }
@@ -70,14 +91,4 @@
   40% { color: #ff79c6; }       /* Pink */
   60% { color: #bd93f9; }       /* Purple */
   80% { color: #ffb86c; }       /* Orange */
-}
-
-.hover-bg-orange:hover {
-  background-color: #ffb86c;
-  transition: color 0.3s ease;
-}
-
-.hover-orange:hover {
-  color: #ffb86c;
-  transition: color 0.3s ease;
 }
