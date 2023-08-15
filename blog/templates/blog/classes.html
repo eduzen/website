@@ -1,53 +1,96 @@
 {% extends 'blog/utils/base.html' %}
 {% load static i18n %}
 
-
 {% block section_title %}
   {% translate 'Classes' %}
 {% endblock section_title %}
 
 {% block content %}
-    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 dracula-bg dracula-text">
-        <div class="flex flex-wrap -mx-4">
-            <div class="w-full px-4">
-                <h2 class="text-xl mt-2">
-                  {% translate "Hello! My name is Eduardo and I'm a teacher. More about me:" %}
-                  <a class="nav-link" href="{% url 'about' %}">here</a>
-                </h2>
-                <p class="mt-2 text-lg">
-                    We can learn about <strong class="dracula-orange">Python</strong> itself or delve into web frameworks like
-                    <strong class="dracula-pink">Django</strong>, <strong class="dracula-cyan">Flask</strong>, or <strong class="dracula-yellow">Pyramid</strong>. We can also explore Python topics like
-                    <strong class="dracula-green">object-oriented programming</strong>, <strong class="dracula-grey">unit tests</strong>, and more.
-                </p>
-                <p class="mt-2 text-lg">
-                    If you'd like to see my CV, you can check it out on LinkedIn:
-                    <a class="text-blue-500 hover:underline dracula-yellow-hover" href="https://www.linkedin.com/in/enriquezeduardo/">
-                        https://www.linkedin.com/in/enriquezeduardo/
-                    </a>
-                </p>
-                <p class="mt-2 text-lg">
-                    Contact me <a class="text-blue-500 hover:underline dracula-yellow-hover" href="/contact">here</a> or send me an email
-                    at me@eduzen.com.ar and let's chat! (You can also reach out to eduardoaenriquez@gmail.com)
-                </p>
-            </div>
-        </div>
-        <hr class="my-8 dracula-border">
-        <div class="flex flex-wrap -mx-4">
-            <div class="w-full px-4">
-                <h1 class="text-3xl font-bold dracula-title">Online Resources to Learn Python</h1>
-                <ul class="mt-4 list-disc pl-5">
-                    <li class="mt-2">
-                        <a class="text-blue-500 hover:underline dracula-yellow-hover" href="http://docs.python.org.ar/tutorial/3/index.html">
-                            Python 3.6 Tutorial
-                        </a>
-                    </li>
-                    <li class="mt-2">
-                        <a class="text-blue-500 hover:underline dracula-yellow-hover" href="https://tutorial.djangogirls.org/es/">
-                            Django Girls Tutorial (introduces general Python concepts initially)
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 dracula-bg dracula-text text-justify">
+  <div class="flex flex-wrap -mx-4 leading-relaxed">
+    <div class="w-full px-4">
+      <p class="text-xl mt-2">
+        {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page:" %}
+        <a target="_blank" class="dracula-pink nav-link" href="{% url 'about' %}">{% translate ' here'%}</a>
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in your learning journey." %}
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "We can learn about: " %}<strong class="dracula-green">Python,</strong>{% translate "or about web frameworks like" %}
+        <strong class="dracula-green">Django</strong>, <strong class="dracula-cyan">Flask</strong>, or <strong class="dracula-yellow">FastAPI</strong>.
+        {% translate 'We can also explore other topics like: ' %} <strong class="dracula-green">object-oriented programming</strong>,
+        <strong class="dracula-orange">unit tests</strong>, <strong class="dracula-purple">clean code</strong>
+        {% translate " or the one that you need." %}
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, what we have is data 🗃️, data 🗃️ and data 🗃️, available everywhere." %}
+        {% translate "However, discerning the quality of this data can be challenging. That's where a guide or companion comes in handy 😉." %}
+        {% translate "So I can help you to organize and curate the data and tell you what to use or not." %}
+      </p>
+      <p class="mt-2 text-lg">
+        {% translate "Reach out to me here " %}<a target="_blank" class="dracula-pink nav-link" href="{% url 'contact' %}">{% translate "here"%}</a>
+        {% translate "or drop me an email at "%}<a target="_blank" href="mailto:me@eduzen.com.ar" class="dracula-pink nav-link">me@eduzen.com.ar</a>{% translate " and let's chat!"%}
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about your learning objectives. If you're based elsewhere in the world 🌍, not to worry!" %}
+        {% translate "We can set up a Zoom or Meet call to discuss how I can assist you in your coding adventure." %}
+      </p>
     </div>
+  </div>
+  <hr class="my-8 dracula-border">
+  <div class="flex flex-wrap -mx-4">
+    <div class="w-full px-4">
+      <h1 class="text-3xl dracula-yellow pt-8">
+        {% translate "Online Resources to Learn Python:" %}
+      </h1>
+      <p class="text-lg pt-4 text-justify">
+        {% translate "Impossible not to recommend ChatGPT " %}(<a class="dracula-pink nav-link hover:underline" target="_blank" href="https://chat.openai.com/">link</a>).
+        {% translate "I think it's one of the most important resources from our modern times. It's a great companion that could answer almost everything that you need in this field."%}
+        {% translate "Certainly it's not infallible, it has its caveats and you need to learn how to use it. But it's worthy.  I'm using it every day. " %}
+      </p>
+      <p class="text-lg pt-4 text-justify">
+        {% translate "I also recommend the following resources:" %}
+      </p>
+      <ul class="pt-4 list-disc pl-5">
+        <li class="mt-2">
+          <a target="_blank" class="dracula-pink nav-link hover:underline" href="http://docs.python.org.ar/tutorial/3/index.html">
+            {% translate "Python: official tutorial"%}
+          </a>
+        </li>
+        <li class="mt-2">
+          <a target="_blank" class="dracula-pink nav-link hover:underline" href="https://tutorial.djangogirls.org/es/">
+            {% translate "Django girls tutorial: broad tutorial including basic internet and python concepts"%}
+          </a>
+        </li>
+        <li class="mt-2">
+          <a target="_blank" class="dracula-pink nav-link hover:underline" href="https://www.codecademy.com/learn/learn-python-3">
+            {% translate "Codecademy: free course for learning the basics of Python 3"%}
+          </a>
+        </li>
+      </ul>
+      <h1 class="text-3xl dracula-yellow pt-8">
+        {% translate "Some recommended books:" %}
+      </h1>
+      <ul class="pt-4 list-outside list-disc pl-5">
+        <li class="pt-4">
+          <p>{% translate 'Beginners'%}</p>
+          <ol class="list-inside list-decimal pt-4">
+            <li>Grokking Algorithms <a class="dracula-pink nav-link hover:underline" target="_blank" href="https://www.manning.com/books/grokking-algorithms">link</a></li>
+            <li>Automate the Boring Stuff with Python <a class="dracula-pink nav-link hover:underline" target="_blank" href="https://automatetheboringstuff.com/">link</a></li>
+            <li>Python Distilled <a class="dracula-pink nav-link hover:underline" target="_blank" href="http://www.dabeaz.com/python-distilled/">link</a></li>
+          </ol>
+        </li>
+        <li class="pt-4">
+          <p>{% translate 'Medium/Advance'%}</p>
+          <ol class="list-inside list-decimal pt-4">
+            <li>Fluent Python <a class="dracula-pink nav-link hover:underline" target="_blank" href="https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/">link</a></li>
+            <li>Architecture Patterns with Python <a class="dracula-pink nav-link hover:underline" target="_blank" href="https://www.oreilly.com/library/view/architecture-patterns-with/9781492052197/">link</a></li>
+            <li>System Design Interviews <a class="dracula-pink nav-link hover:underline" target="_blank" href="https://www.goodreads.com/en/book/show/54109255">link</a></li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 {% endblock %}
