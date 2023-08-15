@@ -4,7 +4,7 @@ function colorize() {
       const colors = [
         'text-pink-400',
         'text-orange-400',
-        'text-green-500',
+        'text-green-400',
         'text-purple-500',
         'text-yellow-400',
         'text-blue-400'

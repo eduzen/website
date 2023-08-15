@@ -7,7 +7,7 @@
     {% endif %}
 
     {% for num in page_obj.paginator.page_range %}
-      {% cycle 'text-blue-400' 'text-green-500' 'text-pink-400' 'text-orange-400' 'text-yellow-400' as color silent %}
+      {% cycle 'text-blue-400' 'text-green-400' 'text-pink-400' 'text-orange-400' 'text-yellow-400' as color silent %}
       {% if num == page_obj.number %}
         <span class="px-3 py-2 border dracula-border {{ color }}">{{ num }}</span>
       {% else %}
