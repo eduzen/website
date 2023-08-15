@@ -9,9 +9,9 @@
     {% for num in page_obj.paginator.page_range %}
       {% cycle 'dracula-cyan' 'dracula-green' 'dracula-pink' 'dracula-orange' 'dracula-yellow' as color silent %}
       {% if num == page_obj.number %}
-        <span class="px-3 py-2 border dracula-border bg-dracula-bg {{ color }}">{{ num }}</span>
+        <span class="px-3 py-2 border dracula-border {{ color }}">{{ num }}</span>
       {% else %}
-        <a href="?page={{ num }}" class="px-3 py-2 border  dracula-border bg-dracula-bg {{ color }} nav-link">{{ num }}</a>
+        <a href="?page={{ num }}" class="px-3 py-2 border dracula-border {{ color }} nav-link">{{ num }}</a>
       {% endif %}
     {% endfor %}
 

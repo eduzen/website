@@ -20,7 +20,7 @@
   {% for post in posts %}
     <article class="p-4 pb-8 rounded-lg shadow-md flex{% if forloop.counter|divisibleby:2 %} flex-row-reverse{% endif %}">
       {% if post.image %}
-      <div class="dracula-bg w-1/5 mr-4{% if forloop.counter|divisibleby:2 %} ml-4{% endif %}"> <!-- Adjusted the width to 1/5 -->
+      <div class="w-1/5 mr-4{% if forloop.counter|divisibleby:2 %} ml-4{% endif %}"> <!-- Adjusted the width to 1/5 -->
         <img
           src="{{ post.image.url }}"
           alt="{{ post.title }} image"

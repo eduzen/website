@@ -13,14 +13,14 @@
 
 {% block content %}
 
-  <div class="flex flex-wrap dracula-bg justify-center subpixel-antialiased p-4 tracking-wide">
+  <div class="flex flex-wrap justify-center subpixel-antialiased p-4 tracking-wide">
 
     <!-- Main Post Content -->
     <div class="w-full ">
 
       <!-- Post Detail -->
         {% if post.published_date %}
-          <small class="text-sm">
+          <small class="text-sm pb-4">
             <time class="purple" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
             |
             <span class="orange">
