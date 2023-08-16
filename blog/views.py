@@ -10,6 +10,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 
@@ -24,6 +25,7 @@ MIN = 60
 HOUR = 60 * MIN
 DAY = 24 * HOUR
 MONTH = 30 * DAY
+HALF_YEAR = 6 * MONTH
 
 
 class ConfigMixin:
@@ -171,27 +173,27 @@ class ContactView(ConfigMixin, TemplateView):
     success_url = reverse_lazy("success")
 
     def verify_captcha(self, request: HttpRequest) -> bool:
-        user_answer = request.GET.get("answer", None)
+        user_answer = request.POST.get("captcha_response", None)
         correct_answer = ("rojo", "red")
         if user_answer and user_answer.strip().lower() in correct_answer:
             return True
         return False
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if not self.verify_captcha(request):
+            return render(request, "blog/error.html", {"error": _("invalid captcha")})
+
+        context = {}
+        if name := request.POST.get("name"):
+            context["name"] = name
+
+        if email := request.POST.get("email"):
+            context["email"] = email
+
+        if message := request.POST.get("message"):
+            context["message"] = message
+
         try:
-            if not self.verify_captcha(request):
-                return redirect(reverse_lazy("home"))
-
-            context = {}
-            if name := request.POST.get("name"):
-                context["name"] = name
-
-            if email := request.POST.get("email"):
-                context["email"] = email
-
-            if message := request.POST.get("message"):
-                context["message"] = message
-
             # Send a test message
             response = send_telegram_message(f"Message from website {context}")
             logger.info(response)

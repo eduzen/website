@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-11 08:06-0300\n"
+"POT-Creation-Date: 2023-08-16 14:32-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,31 +132,33 @@ msgstr ""
 #: blog/templates/blog/about.html:64
 msgid ""
 "\n"
-"              You can check my code at <a class=\"text-green-400 nav-link\" href="
-"\"https://github.com/eduzen/\">https://github.com/eduzen/</a>. There you can "
-"find some <span x-bind:class=\"randomColor()\">bots</span>\n"
+"              You can check my code at <a class=\"text-green-400 nav-link\" "
+"href=\"https://github.com/eduzen/\">https://github.com/eduzen/</a>. There "
+"you can find some <span x-bind:class=\"randomColor()\">bots</span>\n"
 "              like the one that I have for <span x-bind:class="
 "\"randomColor()\">Telegram</span>, <a class=\"text-green-400 nav-link\" href="
 "\"https://github.com/eduzen/bot\">eduzen_bot</a> 🤖 (you can talk to it "
 "following this link:\n"
-"              <a class=\"text-green-400 nav-link\" href=\"https://t.me/eduzen_bot\"> "
-"bot </a>). Or you can find the <span x-bind:class=\"randomColor()\">source "
-"code</span>\n"
-"              of this website at <a class=\"text-green-400 nav-link\" href=\"https://"
-"github.com/eduzen/website\">https://github.com/eduzen/website</a>.\n"
+"              <a class=\"text-green-400 nav-link\" href=\"https://t.me/"
+"eduzen_bot\"> bot </a>). Or you can find the <span x-bind:class="
+"\"randomColor()\">source code</span>\n"
+"              of this website at <a class=\"text-green-400 nav-link\" href="
+"\"https://github.com/eduzen/website\">https://github.com/eduzen/website</"
+"a>.\n"
 "            "
 msgstr ""
 "\n"
-"              Puedes revisar mi código en <a class=\"text-green-400 nav-link\" href="
-"\"https://github.com/eduzen/\">https://github.com/eduzen/</a>. Allí puedes "
-"encontrar               algunos <span x-bind:class=\"randomColor()\">bots</"
-"span>\n"
+"              Puedes revisar mi código en <a class=\"text-green-400 nav-link"
+"\" href=\"https://github.com/eduzen/\">https://github.com/eduzen/</a>. Allí "
+"puedes encontrar               algunos <span x-bind:class="
+"\"randomColor()\">bots</span>\n"
 "como el que tengo para <span x-bind:class=\"randomColor()\">Telegram</"
-"span>,               <a class=\"text-green-400 nav-link\" href=\"https://github.com/"
-"eduzen/bot\">eduzen_bot</a> 🤖 (puedes hablar con él siguiendo este enlace:\n"
-"<a class=\"text-green-400 nav-link\" href=\"https://t.me/eduzen_bot\"> bot </a>). O "
-"puedes encontrar el <span x-bind:class=\"randomColor()\">código fuente</"
-"span>\n"
+"span>,               <a class=\"text-green-400 nav-link\" href=\"https://"
+"github.com/eduzen/bot\">eduzen_bot</a> 🤖 (puedes hablar con él siguiendo "
+"este enlace:\n"
+"<a class=\"text-green-400 nav-link\" href=\"https://t.me/eduzen_bot\"> bot </"
+"a>). O puedes encontrar el <span x-bind:class=\"randomColor()\">código "
+"fuente</span>\n"
 "              de este sitio web en <a class=\"text-green-400 nav-link\" href="
 "\"https://github.com/eduzen/website\">https://github.com/eduzen/website</"
 "a>.\n"
@@ -266,17 +268,17 @@ msgstr ""
 #: blog/templates/blog/about.html:103
 msgid ""
 "\n"
-"          If you want to contact me, you can do it through <a class=\"text-green-400 "
-"nav-link\" href=\"/contact/\">this form</a>\n"
-"          or through my <a class=\"text-green-400 nav-link\" href=\"https://www."
-"linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
+"          If you want to contact me, you can do it through <a class=\"text-"
+"green-400 nav-link\" href=\"/contact/\">this form</a>\n"
+"          or through my <a class=\"text-green-400 nav-link\" href=\"https://"
+"www.linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
 "          "
 msgstr ""
 "\n"
-"          Si deseas contactarme, puedes hacerlo a través de <a class=\"text-green-400 "
-"nav-link\" href=\"/contact/\">este formulario</a>\n"
-"          o a través de mi <a class=\"text-text-green-400-500 nav-link\" href=\"https://www."
-"linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
+"          Si deseas contactarme, puedes hacerlo a través de <a class=\"text-"
+"green-400 nav-link\" href=\"/contact/\">este formulario</a>\n"
+"          o a través de mi <a class=\"text-text-green-400-500 nav-link\" "
+"href=\"https://www.linkedin.com/in/eduzen/\">LinkedIn</a>.\n"
 "          "
 
 #: blog/templates/blog/advance_search.html:12
@@ -291,15 +293,146 @@ msgstr "No hay ningun resultado 😞"
 msgid "How-to-look"
 msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
 
-#: blog/templates/blog/classes.html:6
+#: blog/templates/blog/classes.html:5
 #: blog/templates/blog/utils/nav_links.html:7
 #: blog/templates/blog/utils/nav_links_mobile.html:5
 msgid "Classes"
 msgstr "Clases"
 
-#: blog/templates/blog/classes.html:14
-msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
+#: blog/templates/blog/classes.html:13
+#, fuzzy
+#| msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
+msgid ""
+"Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. "
+"Learn more about me on my 'About' page:"
 msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
+
+#: blog/templates/blog/classes.html:14
+msgid " here"
+msgstr ""
+
+#: blog/templates/blog/classes.html:17
+msgid ""
+"My goal as a teacher is not just to impart knowledge, but to inspire and "
+"guide you in your learning journey."
+msgstr ""
+
+#: blog/templates/blog/classes.html:20
+msgid "We can learn about: "
+msgstr ""
+
+#: blog/templates/blog/classes.html:20
+msgid "or about web frameworks like"
+msgstr ""
+
+#: blog/templates/blog/classes.html:22
+msgid "We can also explore other topics like: "
+msgstr ""
+
+#: blog/templates/blog/classes.html:24
+msgid " or the one that you need."
+msgstr ""
+
+#: blog/templates/blog/classes.html:27
+msgid ""
+"It's not easy to learn new things. It's hard also to find the motivation and "
+"the resources that are good for you. In these modern times, what we have is "
+"data 🗃️, data 🗃️ and data 🗃️, available everywhere."
+msgstr ""
+
+#: blog/templates/blog/classes.html:28
+msgid ""
+"However, discerning the quality of this data can be challenging. That's "
+"where a guide or companion comes in handy 😉."
+msgstr ""
+
+#: blog/templates/blog/classes.html:29
+msgid ""
+"So I can help you to organize and curate the data and tell you what to use "
+"or not."
+msgstr ""
+
+#: blog/templates/blog/classes.html:32
+#, fuzzy
+#| msgid "A bit more about me 😉, so here it goes:"
+msgid "Reach out to me here "
+msgstr "Un poco más sobre mi 😉, así que aquí va:"
+
+#: blog/templates/blog/classes.html:32 blog/templates/blog/error.html:16
+msgid "here"
+msgstr ""
+
+#: blog/templates/blog/classes.html:33
+msgid "or drop me an email at "
+msgstr ""
+
+#: blog/templates/blog/classes.html:33
+msgid " and let's chat!"
+msgstr ""
+
+#: blog/templates/blog/classes.html:36
+msgid ""
+"If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about "
+"your learning objectives. If you're based elsewhere in the world 🌍, not to "
+"worry!"
+msgstr ""
+
+#: blog/templates/blog/classes.html:37
+msgid ""
+"We can set up a Zoom or Meet call to discuss how I can assist you in your "
+"coding adventure."
+msgstr ""
+
+#: blog/templates/blog/classes.html:45
+msgid "Online Resources to Learn Python:"
+msgstr ""
+
+#: blog/templates/blog/classes.html:48
+msgid "Impossible not to recommend ChatGPT "
+msgstr ""
+
+#: blog/templates/blog/classes.html:49
+msgid ""
+"I think it's one of the most important resources from our modern times. It's "
+"a great companion that could answer almost everything that you need in this "
+"field."
+msgstr ""
+
+#: blog/templates/blog/classes.html:50
+msgid ""
+"Certainly it's not infallible, it has its caveats and you need to learn how "
+"to use it. But it's worthy.  I'm using it every day. "
+msgstr ""
+
+#: blog/templates/blog/classes.html:53
+msgid "I also recommend the following resources:"
+msgstr ""
+
+#: blog/templates/blog/classes.html:58
+msgid "Python: official tutorial"
+msgstr ""
+
+#: blog/templates/blog/classes.html:63
+msgid ""
+"Django girls tutorial: broad tutorial including basic internet and python "
+"concepts"
+msgstr ""
+
+#: blog/templates/blog/classes.html:68
+msgid "Codecademy: free course for learning the basics of Python 3"
+msgstr ""
+
+#: blog/templates/blog/classes.html:73
+msgid "Some recommended books:"
+msgstr ""
+
+#: blog/templates/blog/classes.html:77
+msgid "Beginners"
+msgstr ""
+
+#: blog/templates/blog/classes.html:85
+msgid "Medium/Advance"
+msgstr ""
 
 #: blog/templates/blog/consultancy.html:5
 msgid "Consultancy Services"
@@ -341,7 +474,7 @@ msgid ""
 "      Interested in my <span x-bind:class=\"randomColor()\">professional</"
 "span> journey?\n"
 "      Check out my <a target=\"_blank\" href=\"%(config.linkedin)s\" class="
-"\"dracula-pink underline nav-link\">LinkedIn profile</a>."
+"\"text-pink-400 underline nav-link\">LinkedIn profile</a>."
 msgstr ""
 "\n"
 "            Además de las computadoras, me gusta la <span x-bind:class="
@@ -407,7 +540,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Read more about me experience on linkedin <a target=\"_blank\" href="
-"\"%(config.linkedin)s\" class=\"dracula-pink underline nav-link\">here</a>."
+"\"%(config.linkedin)s\" class=\"text-pink-400 underline nav-link\">here</a>."
 msgstr ""
 
 #: blog/templates/blog/consultancy.html:57
@@ -452,23 +585,25 @@ msgstr "Contacto"
 msgid "Contact"
 msgstr "Contacto"
 
-#: blog/templates/blog/contact.html:20 blog/templates/blog/contact.html:45
-msgid "What color is the red rabbit?"
-msgstr "De que color es el conejo rojo?"
-
-#: blog/templates/blog/contact.html:26
+#: blog/templates/blog/contact.html:25
 msgid "Are you sure?"
 msgstr "Estas seguro?"
 
-#: blog/templates/blog/error.html:4
-msgid "Ups... something went wrong"
+#: blog/templates/blog/contact.html:44
+msgid "What color is the red rabbit?"
+msgstr "De que color es el conejo rojo?"
+
+#: blog/templates/blog/error.html:7
+msgid "Try again"
+msgstr ""
+
+#: blog/templates/blog/error.html:11
+#, fuzzy
+#| msgid "Ups... something went wrong"
+msgid "Ups... something went wrong. 🙃"
 msgstr "Ups... algo salio mal"
 
-#: blog/templates/blog/error.html:5
-msgid "We are sorry, but something went wrong. 🙃"
-msgstr "Lo sentimos, pero algo salio mal. 🙃"
-
-#: blog/templates/blog/error.html:6
+#: blog/templates/blog/error.html:14
 msgid "Please try again later... or contact me"
 msgstr "Por favor intente mas tarde... o contacteme"
 
@@ -578,3 +713,10 @@ msgstr "Ingles"
 #: blog/templates/blog/utils/nav_links_mobile.html:27
 msgid "Spanish"
 msgstr "Español"
+
+#: blog/views.py:184
+msgid "invalid captcha"
+msgstr ""
+
+#~ msgid "We are sorry, but something went wrong. 🙃"
+#~ msgstr "Lo sentimos, pero algo salio mal. 🙃"
