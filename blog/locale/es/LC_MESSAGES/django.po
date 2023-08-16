@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-16 14:32-0300\n"
+"POT-Creation-Date: 2023-08-16 14:42-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -309,29 +309,33 @@ msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
 
 #: blog/templates/blog/classes.html:14
 msgid " here"
-msgstr ""
+msgstr " aquí"
 
 #: blog/templates/blog/classes.html:17
 msgid ""
 "My goal as a teacher is not just to impart knowledge, but to inspire and "
-"guide you in your learning journey."
+"guide you in a way that you can lose me (and be independent) in your learning "
+"journey."
 msgstr ""
+"Mi objetivo como profesor no es solo impartir conocimiento, sino inspirar y "
+"guiarte de namera tal que puedas perderme (y ser independiente) en tu viaje de "
+"aprendizaje."
 
 #: blog/templates/blog/classes.html:20
 msgid "We can learn about: "
-msgstr ""
+msgstr "Podemos aprender sobre: "
 
 #: blog/templates/blog/classes.html:20
 msgid "or about web frameworks like"
-msgstr ""
+msgstr "o sobre frameworks web como"
 
 #: blog/templates/blog/classes.html:22
 msgid "We can also explore other topics like: "
-msgstr ""
+msgstr "También podemos explorar otros temas como: "
 
 #: blog/templates/blog/classes.html:24
 msgid " or the one that you need."
-msgstr ""
+msgstr " o el que necesites."
 
 #: blog/templates/blog/classes.html:27
 msgid ""
@@ -339,6 +343,9 @@ msgid ""
 "the resources that are good for you. In these modern times, what we have is "
 "data 🗃️, data 🗃️ and data 🗃️, available everywhere."
 msgstr ""
+"No es fácil aprender cosas nuevas. También es difícil encontrar la motivación y "
+"los recursos que sean buenos para ti. En estos tiempos modernos, lo que tenemos es "
+"datos 🗃️, datos 🗃️ y más datos 🗃️, disponibles en todas partes."
 
 #: blog/templates/blog/classes.html:28
 msgid ""
