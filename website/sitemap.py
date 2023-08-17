@@ -20,4 +20,4 @@ class StaticViewSitemap(Sitemap):
 INFO_DICT = {"queryset": Post.objects.filter(published_date__isnull=False), "date_field": "published_date"}
 
 
-sitemaps = {"static": StaticViewSitemap, "blog": GenericSitemap(INFO_DICT, priority=0.6)}
+sitemaps = {"static": StaticViewSitemap, "blog": GenericSitemap(INFO_DICT, priority=0.6)}  # type: ignore

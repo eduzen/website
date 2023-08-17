@@ -10,7 +10,7 @@ name = "website"
 description = 'My django blog Repo: http://eduzen.com.ar'
 readme = "README.md"
 requires-python = ">=3.11"
-version = "1.1.1"
+version = "2.1.1"
 license = "MIT"
 authors = [
   { name = "Eduardo Enriquez (eduzen)", email = "eduardo.a.enriquez@gmail.com" },
@@ -25,8 +25,8 @@ dependencies = [
   "django",
   "django-anymail",
   "django-configurations[cache,database,email,search]",
+  "django-crispy-forms<2.0",
   "django-cors-headers",
-  "django-crispy-forms~=1.13",
   "django-ckeditor",
   "django-constance[database]",
   "django-extensions",
@@ -39,6 +39,7 @@ dependencies = [
   "django-autoslug",
   "djangorestframework",
   "django-storages[dropbox]",
+  "django-debug-toolbar",
   "easy-thumbnails",
   "gunicorn",
   "gevent",
@@ -51,11 +52,9 @@ dependencies = [
   "whitenoise",
 ]
 
-
 [project.optional-dependencies]
 dev = [
   "coverage",
-  "django-debug-toolbar",
   "ipdb",
   "ipython",
   "mypy",
@@ -67,16 +66,21 @@ dev = [
   "pytest-sugar",
   "pytest-xdist",
   "pytest-recording",
-  "pytest-pretty",
   "types-redis",
   "types-requests",
   "hypothesis",
   "coverage",
+  "django-browser-reload",
   # "wdb",
+]
+types = [
+  "types-redis",
+  "types-requests",
+  "django-stubs[compatible-mypy]",
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb"
+addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
 filterwarnings = []
 
 [tool.black]
@@ -96,11 +100,15 @@ exclude = [
 ]
 
 [tool.mypy]
+plugins = ["./configurations_mypy_django_plugin.py"]
 ignore_missing_imports = true
 exclude = [
   "(build|dist)/*",
   "migrations/*"
 ]
+
+[tool.django-stubs]
+django_settings_module = "website.settings.dev"
 
 [tool.coverage.run]
 branch = true

@@ -6,6 +6,10 @@ EXPOSE 80
 ENV PYTHONUNBUFFERED=1
 # PYTHONDONTWRITEBYTECODE prevents python creating .pyc files
 ENV PYTHONDONTWRITEBYTECODE=1
+# DJANGO_SETTINGS_MODULE is the settings module to use
+ENV DJANGO_SETTINGS_MODULE=website.settings
+# DJANGO_CONFIGURATION is the configuration to use
+ENV DJANGO_CONFIGURATION=Prod
 
 RUN echo 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
 
@@ -28,12 +32,16 @@ RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip install -r requirem
 
 COPY . /code/
 
-RUN python manage.py collectstatic --no-input --settings=website.settings.prod --configuration=Prod
-RUN python manage.py compilemessages --settings=website.settings.prod --configuration=Prod
+RUN python manage.py collectstatic --no-input
+RUN python manage.py compilemessages
+
+# HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://0.0.0.0:80/healthchecks/ || exit 1
 
 CMD ["sh", "/code/scripts/gunicorn_start.sh"]
 
 FROM production as development
+
+ENV DJANGO_CONFIGURATION=Dev
 
 RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip install -r requirements-dev.txt
 

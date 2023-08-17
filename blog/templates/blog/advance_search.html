@@ -3,35 +3,20 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block body %}
-<!-- /container -->
-<div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <div class="col-md-12">
-        <h2>{% translate 'Advance Search' %}</h2>
+{% block content %}
+<div class="container mx-auto py-8">
+  <div class="flex flex-col md:flex-row">
+    <div class="md:w-2/3 mb-6 md:mb-0">
+        <h2 class="text-2xl font-semibold">{% translate 'Advance Search' %}</h2>
         {% if form %}
-          <p>{% translate 'No results'%}</p>
+          <p>{% translate 'No results' %}</p>
           <p class="text-muted">
             {% translate 'How-to-look' %}
           </p>
           {% csrf_token %}
           {% crispy form %}
         {% endif %}
-      </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    {% include 'blog/extras/twitter.html' %}
-    {% include 'blog/extras/zen.html' %}
-    <div class="side-boxes">
-
-      <h4 class='title-img'>Python Argentina</h4>
-      <a href="http://www.python.org.ar/">
-        <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">
-      </a>
-    </div>
-
   </div>
 </div>
 {% endblock %}

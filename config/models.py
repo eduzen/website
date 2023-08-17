@@ -4,8 +4,8 @@ from solo.models import SingletonModel
 
 
 class BioConfiguration(SingletonModel):
-    title = models.CharField(max_length=255, default="Quién les escribe")
-    subtitle = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255, default="Quién les escribe")  # type: ignore
+    subtitle = models.CharField(max_length=255, blank=True)  # type: ignore
     small = RichTextUploadingField(null=True, blank=True)
     long = RichTextUploadingField(null=True, blank=True)
     body = RichTextUploadingField(null=True, blank=True)

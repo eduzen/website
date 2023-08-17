@@ -10,7 +10,6 @@ from .views import MediaView, favicon_view
 
 urlpatterns = [
     path("api/snippets/", include("snippets.urls")),
-    path("api/", include("api.urls")),
     path("healthchecks/", include("django_healthchecks.urls")),
     path("media/<path>", MediaView.as_view()),
     path("favicon.ico", favicon_view),
@@ -34,4 +33,7 @@ urlpatterns += i18n_patterns(
 if settings.DEBUG:
     import debug_toolbar  # NOQA
 
-    urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns  # NOQA
+    urlpatterns = [
+        path("__debug__/", include(debug_toolbar.urls)),
+        path("__reload__/", include("django_browser_reload.urls")),
+    ] + urlpatterns  # NOQA
