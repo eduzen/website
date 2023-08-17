@@ -17,7 +17,7 @@
 
     <!-- Toggle Long Description -->
   <div x-data="{ open: false }" class="mt-8">
-    <button x-on:click="open = !open" class="text-blue-400">
+    <button x-on:click="open = !open" x-on:touchend.prevent="open = !open" class="text-blue-400">
       {% translate "Click to read the long version..." %}
     </button>
 

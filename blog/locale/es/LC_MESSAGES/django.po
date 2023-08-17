@@ -549,11 +549,11 @@ msgstr "Consultoria"
 
 #: blog/templates/blog/home.html:19
 msgid "Based in Amsterdam"
-msgstr "Ubicado en Amsterdam"
+msgstr "En Amsterdam"
 
 #: blog/templates/blog/home.html:19
 msgid "available"
-msgstr "disponible"
+msgstr "pero disponible"
 
 #: blog/templates/blog/home.html:21
 msgid "everywhere!"
