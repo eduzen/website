@@ -40,7 +40,6 @@ msgid "About me"
 msgstr "Acerca"
 
 #: blog/templates/blog/about.html:12
-#, fuzzy, python-format
 msgid ""
 "\n"
 "      Hello <span x-bind:class=\"randomColor()\">World!</span> My name is "
@@ -74,7 +73,6 @@ msgid "A bit more about me 😉, so here it goes:"
 msgstr "Un poco más sobre mi 😉, así que aquí va:"
 
 #: blog/templates/blog/about.html:51
-#, python-format
 msgid ""
 "\n"
 "              I'm <span x-bind:class=\"randomColor()\">Eduardo Enriquez</"
@@ -165,7 +163,6 @@ msgstr ""
 "            "
 
 #: blog/templates/blog/about.html:74
-#, python-format
 msgid ""
 "\n"
 "            Besides computers, I like <span x-bind:class="
@@ -300,12 +297,11 @@ msgid "Classes"
 msgstr "Clases"
 
 #: blog/templates/blog/classes.html:13
-#, fuzzy
-#| msgid "Hello! My name is Eduardo and I'm a teacher. More about me:"
 msgid ""
 "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. "
 "Learn more about me on my 'About' page:"
-msgstr "Hola! Mi nombre es Eduardo y soy docente. Más sobre mi:"
+msgstr "Hola! Gracias por tu interés 😊. Mi nombre es Eduardo y soy docente. "
+"Más sobre mi en mi página 'Acerca de mi':"
 
 #: blog/templates/blog/classes.html:14
 msgid " here"
@@ -427,56 +423,41 @@ msgstr ""
 
 #: blog/templates/blog/classes.html:53
 msgid "I also recommend the following resources:"
-msgstr ""
+msgstr "También recomiendo los siguientes recursos:"
 
 #: blog/templates/blog/classes.html:58
 msgid "Python: official tutorial"
-msgstr ""
+msgstr "Python: tutorial oficial"
 
 #: blog/templates/blog/classes.html:63
 msgid ""
 "Django girls tutorial: broad tutorial including basic internet and python "
 "concepts"
 msgstr ""
+"Django girls tutorial: tutorial amplio que incluye conceptos básicos de internet "
+"y python"
 
 #: blog/templates/blog/classes.html:68
 msgid "Codecademy: free course for learning the basics of Python 3"
-msgstr ""
+msgstr "Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
 
 #: blog/templates/blog/classes.html:73
 msgid "Some recommended books:"
-msgstr ""
+msgstr "Algunos libros recomendados:"
 
 #: blog/templates/blog/classes.html:77
 msgid "Beginners"
-msgstr ""
+msgstr "Principiantes"
 
 #: blog/templates/blog/classes.html:85
 msgid "Medium/Advance"
-msgstr ""
+msgstr "Medio/Avanzado"
 
 #: blog/templates/blog/consultancy.html:5
 msgid "Consultancy Services"
 msgstr "Servicios de Consultoria"
 
 #: blog/templates/blog/consultancy.html:11
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            Besides computers, I like <span x-bind:class="
-#| "\"randomColor()\">good music</span>, books, <span x-bind:class="
-#| "\"randomColor()\">philosophy</span>,\n"
-#| "            <span x-bind:class=\"randomColor()\">movies</span>, <span x-"
-#| "bind:class=\"randomColor()\">series</span>, and good <span x-bind:class="
-#| "\"randomColor()\">food</span>.\n"
-#| "            I started trying some\n"
-#| "            <span x-bind:class=\"randomColor()\">me</span><span x-bind:"
-#| "class=\"randomColor()\">ch</span><span x-bind:class=\"randomColor()\">an</"
-#| "span><span x-bind:class=\"randomColor()\">ic</span><span x-bind:class="
-#| "\"randomColor()\">al</span>\n"
-#| "            keyboards (right now using a Leo pold 75 %%)! But I have also "
-#| "a Keychron K12.\n"
-#| "            "
 msgid ""
 "Crafting <span x-bind:class=\"randomColor()\">tech</span> magic 🧙🏼‍♀️ for "
 "<span x-bind:class=\"randomColor()\">individuals</span> 🧍🏻‍♀️\n"
@@ -497,26 +478,27 @@ msgid ""
 "      Check out my <a target=\"_blank\" href=\"%(config.linkedin)s\" class="
 "\"text-pink-400 underline nav-link\">LinkedIn profile</a>."
 msgstr ""
-"\n"
-"            Además de las computadoras, me gusta la <span x-bind:class="
-"\"randomColor()\">buena música</span>, los libros, la <span x-bind:class="
-"\"randomColor()\">filosofía</span>,\n"
-"            las <span x-bind:class=\"randomColor()\">películas</span>, las "
-"<span x-bind:class=\"randomColor()\">series</span> y la buena <span x-bind:"
-"class=\"randomColor()\">comida</span>.\n"
-"            Comencé a probar algunos\n"
-"<span x-bind:class=\"randomColor()\">teclados</span> <span x-bind:class="
-"\"randomColor()\">mecánicos</span> (¡actualmente uso un Leo pold 75 "
-"%%)!             Pero también tengo un Keychron K12.\n"
-"            "
+"Creando magia <span x-bind:class=\"randomColor()\">tecnológica</span> 🧙🏼‍♀️ para "
+"<span x-bind:class=\"randomColor()\">individuos</span> 🧍🏻‍♀️\n"
+"      y <span x-bind:class=\"randomColor()\">empresas</span> 🏭, con un toque de diversión y una dosis de "
+"<span x-bind:class=\"randomColor()\">experiencia</span>.\n"
+"      ¡Vamos a <span x-bind:class=\"randomColor()\">programar</span> algo encantador!\n"
+"      Con más de 10 años en la <span x-bind:class=\"randomColor()\">industria</span> 👴🏿, ofrezco "
+"<span x-bind:class=\"randomColor()\">perspectivas</span> útiles y\n"
+"      <span x-bind:class=\"randomColor()\">experiencia</span> para desafíos diarios. De manera "
+"<span x-bind:class=\"randomColor()\">remota</span> 💻 o\n"
+"      <span x-bind:class=\"randomColor()\">presencial</span> 🪑, estoy aquí para ayudar.\n"
+"      ¿Interesado en mi trayectoria <span x-bind:class=\"randomColor()\">profesional</span>?\n"
+"      Consulta mi <a target=\"_blank\" href=\"%(config.linkedin)s\" class="
+"\"text-pink-400 underline nav-link\">perfil de LinkedIn</a>."
 
 #: blog/templates/blog/consultancy.html:28
 msgid "For the Rising Tech Stars"
-msgstr ""
+msgstr "Para las estrellas tecnológicas en ascenso"
 
 #: blog/templates/blog/consultancy.html:28
 msgid "Individuals"
-msgstr ""
+msgstr "Individuos"
 
 #: blog/templates/blog/consultancy.html:30
 msgid ""
@@ -524,16 +506,17 @@ msgid ""
 "into an autonomous developer.\n"
 "            Stuck on a bug 🐛? I've got your back, literally!"
 msgstr ""
+"Capacitación personalizada 🏋🏼‍♂️, clases 👨🏽‍🏫 y tutoría 🤓 para ayudarte a "
+"convertirte en un desarrollador autónomo.\n"
+"            ¿Atascado en un bug 🐛? ¡Te tengo cubierto, literalmente!"
 
 #: blog/templates/blog/consultancy.html:36
 msgid "For the Business"
-msgstr ""
+msgstr "Para el negocio"
 
 #: blog/templates/blog/consultancy.html:36
-#, fuzzy
-#| msgid "Spanish"
 msgid "Companies"
-msgstr "Español"
+msgstr "Empresas"
 
 #: blog/templates/blog/consultancy.html:37
 msgid ""
@@ -542,63 +525,71 @@ msgid ""
 "          fixing Django/Python 🐍 performance issues, evaluating legacy code "
 "🔖, or upgrading versions ⬆️. If it's tech, I'm your guy!"
 msgstr ""
+"Elaborando soluciones cotidianas, brindando capacitación estelar (pruebas unitarias, "
+"escritura de código robusto, ¡lo que necesites!),\n"
+"          solucionando problemas de rendimiento en Django/Python 🐍, evaluando código heredado "
+"🔖, o actualizando versiones ⬆️. ¡Si es de tecnología, soy tu persona!"
 
 #: blog/templates/blog/consultancy.html:45
 msgid "Experience &amp; Skills"
-msgstr ""
+msgstr "Experiencia y Habilidades"
 
 #: blog/templates/blog/consultancy.html:48
 msgid "Years of Mischief &amp; Mastery"
-msgstr ""
+msgstr "Años de Travesuras y Maestría"
 
 #: blog/templates/blog/consultancy.html:50
 msgid ""
 "Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks "
 "along the way. Dive into my tech journey!"
 msgstr ""
+"Magia de código 🧙🏼‍♂️, perspicacia empresarial 👨🏻‍💼 y quizás algunas bromas inofensivas "
+"en el camino. ¡Sumérgete en mi trayectoria tecnológica!"
 
 #: blog/templates/blog/consultancy.html:53
-#, python-format
 msgid ""
-"Read more about me experience on linkedin <a target=\"_blank\" href="
+"Read more about my experience on LinkedIn <a target=\"_blank\" href="
 "\"%(config.linkedin)s\" class=\"text-pink-400 underline nav-link\">here</a>."
 msgstr ""
+"Lee más sobre mi experiencia en LinkedIn <a target=\"_blank\" href="
+"\"%(config.linkedin)s\" class=\"text-pink-400 underline nav-link\">aquí</a>."
 
 #: blog/templates/blog/consultancy.html:57
 msgid "Techno-Sorcery"
-msgstr ""
+msgstr "Hechicería Tecnológica"
 
 #: blog/templates/blog/consultancy.html:59
 msgid ""
 "From Python 🐍 to Django, from debugging to spellbinding code – I've mastered "
 "the digital alchemy ⚗️."
 msgstr ""
+"Desde Python 🐍 a Django, desde depuración hasta código encantador: he dominado "
+"la alquimia digital ⚗️."
 
 #: blog/templates/blog/consultancy.html:62
-#, fuzzy
-#| msgid "A bit more about me 😉, so here it goes:"
 msgid "Read more about me here:"
-msgstr "Un poco más sobre mi 😉, así que aquí va:"
+msgstr "Lee más sobre mí aquí:"
 
 #: blog/templates/blog/consultancy.html:62
-#, fuzzy
-#| msgid "About"
 msgid "about"
-msgstr "Acerca"
+msgstr "acerca"
 
 #: blog/templates/blog/consultancy.html:70
 msgid "Get in Touch"
-msgstr ""
+msgstr "Ponte en Contacto"
 
 #: blog/templates/blog/consultancy.html:71
 msgid ""
 "Ready to embark on a tech adventure or brew up a business solution? Let's "
 "talk!"
 msgstr ""
+"¿Listo para embarcarte en una aventura tecnológica o elaborar una solución empresarial?"
+" ¡Hablemos!"
+
 
 #: blog/templates/blog/consultancy.html:72
 msgid "Contact Me"
-msgstr "Contacto"
+msgstr "Contactame"
 
 #: blog/templates/blog/contact.html:16
 #: blog/templates/blog/utils/nav_links.html:11
@@ -616,11 +607,9 @@ msgstr "De que color es el conejo rojo?"
 
 #: blog/templates/blog/error.html:7
 msgid "Try again"
-msgstr ""
+msgstr "Intente de nuevo"
 
 #: blog/templates/blog/error.html:11
-#, fuzzy
-#| msgid "Ups... something went wrong"
 msgid "Ups... something went wrong. 🙃"
 msgstr "Ups... algo salio mal"
 
@@ -737,7 +726,7 @@ msgstr "Español"
 
 #: blog/views.py:184
 msgid "invalid captcha"
-msgstr ""
+msgstr "captcha invalido"
 
 #~ msgid "We are sorry, but something went wrong. 🙃"
 #~ msgstr "Lo sentimos, pero algo salio mal. 🙃"
