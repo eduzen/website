@@ -10,18 +10,14 @@
   <div class="flex flex-wrap -mx-4 leading-relaxed">
     <div class="w-full px-4">
       <p class="text-xl mt-2">
-        {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page:" %}
-        <a target="_blank" class="text-pink-400 nav-link" href="{% url 'about' %}">{% translate ' here'%}</a>
+        {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page: " %}
+        <a target="_blank" class="text-pink-400 nav-link" href="{% url 'about' %}">{% translate 'here'%}</a>
       </p>
       <p class="text-xl mt-2">
         {% translate "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in a way that you can lose me (and be independent) in your learning journey." %}
       </p>
       <p class="text-xl mt-2">
-        {% translate "We can learn about: " %}<span class="text-green-400">Python,</span>{% translate "or about web frameworks like" %}
-        <span class="text-green-400">Django</span>, <span class="text-blue-400">Flask</span>, or <span class="text-yellow-400">FastAPI</span>.
-        {% translate 'We can also explore other topics like: ' %} <span class="text-green-400">object-oriented programming</span>,
-        <span class="text-orange-400">unit tests</span>, <span class="text-purple-500">clean code</span>
-        {% translate " or the one that you need." %}
+        {% translate "We can learn about: Python, or about web frameworks like Django, Flask, or FastAPI. We can also explore other topics like: object-oriented programming, unit tests, clean code or the one that you need." %}
       </p>
       <p class="text-xl mt-2">
         {% translate "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, what we have is data 🗃️, data 🗃️ and data 🗃️, available everywhere." %}
@@ -29,7 +25,7 @@
         {% translate "So I can help you to organize and curate the data and tell you what to use or not." %}
       </p>
       <p class="mt-2 text-lg">
-        {% translate "Reach out to me here " %}<a target="_blank" class="text-pink-400 nav-link" href="{% url 'contact' %}">{% translate "here"%}</a>
+        {% translate "Reach out to me " %}<a target="_blank" class="text-pink-400 nav-link" href="{% url 'contact' %}">{% translate "here"%}</a>
         {% translate "or drop me an email at "%}<a target="_blank" href="mailto:me@eduzen.com.ar" class="text-pink-400 nav-link">me@eduzen.com.ar</a>{% translate " and let's chat!"%}
       </p>
       <p class="text-xl mt-2">
@@ -45,7 +41,7 @@
         {% translate "Online Resources to Learn Python:" %}
       </h1>
       <p class="text-lg pt-4 text-justify">
-        {% translate "Impossible not to recommend ChatGPT " %}(<a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://chat.openai.com/">link</a>).
+        {% translate "Impossible not to recommend ChatGPT: " %}<a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://chat.openai.com/">link</a>
         {% translate "I think it's one of the most important resources from our modern times. It's a great companion that could answer almost everything that you need in this field."%}
         {% translate "Certainly it's not infallible, it has its caveats and you need to learn how to use it. But it's worthy.  I'm using it every day. " %}
       </p>
@@ -93,4 +89,9 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block footer %}
+  {{ block.super }}
+  <script src="{% static 'blog/js/colorize.js' %}"></script>
 {% endblock %}

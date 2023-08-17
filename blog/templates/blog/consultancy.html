@@ -6,16 +6,14 @@
 {% endblock section_title %}
 
 {% block content %}
-  <div class="text-white min-h-screen p-6" x-data="colorize()">
+  <div class="text-white min-h-screen p-6">
     <p class="text-xl mt-4 leading-relaxed text-justify">
-      {% blocktranslate %}Crafting <span x-bind:class="randomColor()">tech</span> magic 🧙🏼‍♀️ for <span x-bind:class="randomColor()">individuals</span> 🧍🏻‍♀️
-      and <span x-bind:class="randomColor()">businesses</span> 🏭, with a sprinkle of fun and a dollop of <span x-bind:class="randomColor()">expertise</span>.
-      Let's <span x-bind:class="randomColor()">code</span> something delightful!
-      With over 10 years in the <span x-bind:class="randomColor()">industry</span> 👴🏿, I offer useful <span x-bind:class="randomColor()">insights</span> and
-      <span x-bind:class="randomColor()">expertise</span> for daily challenges. <span x-bind:class="randomColor()">Remote</span> 💻 or
-      <span x-bind:class="randomColor()">in-person</span> 🪑, I'm here to assist.
-      Interested in my <span x-bind:class="randomColor()">professional</span> journey?
-      Check out my <a target="_blank" href="{{config.linkedin}}" class="text-pink-400 underline nav-link">LinkedIn profile</a>.{% endblocktranslate %}
+      {% translate "Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a sprinkle of fun and a dollop of expertise." %}
+      {% translate "Let's code something delightful!" %}
+      {% translate "With over 10 years in the industry 👴🏿, I offer useful insights and expertise for daily challenges." %}
+      {% translate "Remote 💻 or in-person 🪑, I'm here to assist." %}
+      {% translate "Interested in my professional journey?" %}
+      {% translate "Check out my" %}<a target="_blank" href="{{config.linkedin}}" class="text-pink-400 hover:underline nav-link">LinkedIn profile.</a>
     </p>
     <!-- Services -->
     <section class="mb-12">
@@ -23,44 +21,46 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- For Individuals -->
         <div class="bg-dracula-selection p-6 rounded-lg">
-
-
-          <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Rising Tech Stars' %}<span x-bind:class="randomColor()">({% translate 'Individuals' %})</span></h3>
+          <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Rising Tech Stars: Individuals' %}</h3>
           <p class="mt-4 text-justify leading-relaxed">
-            {% blocktranslate %}Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer.
-            Stuck on a bug 🐛? I've got your back, literally!{% endblocktranslate %}
+            {% translate "Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer." %}
+            {% translate "Stuck on a bug 🐛? I've got your back, literally!" %}
           </p>
         </div>
         <!-- For Companies -->
         <div class="bg-dracula-selection p-6 rounded-lg">
-          <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Business' %}<span x-bind:class="randomColor()">({%translate 'Companies' %})</span></h3>
-          <p class="mt-4 text-justify leading-relaxed">{% blocktranslate %}Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!),
-          fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️. If it's tech, I'm your guy!{% endblocktranslate %}</p>
+          <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Business: Companies' %}</h3>
+          <p class="mt-4 text-justify leading-relaxed">
+            {% translate "Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!), fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️." %}
+            {% translate "If it's tech, I'm your guy!" %}
+          </p>
         </div>
       </div>
     </section>
 
     <!-- Experience and Skills -->
     <section class="mb-12">
-      <h2 class="text-yellow-400 text-3xl font-bold text-center mb-6">{% blocktranslate %}Experience &amp; Skills{% endblocktranslate %}</h2>
+      <h2 class="text-yellow-400 text-3xl font-bold text-center mb-6">{% translate "Experience &amp; Skills" %}</h2>
       <div class="flex flex-wrap justify-between">
         <div class="w-full md:w-1/2 p-6">
-          <h3 class="text-orange-400 text-2xl font-bold">{% blocktranslate %}Years of Mischief &amp; Mastery{% endblocktranslate %}</h3>
+          <h3 class="text-orange-400 text-2xl font-bold">{% translate "Years of Mischief &amp; Mastery" %}</h3>
           <p class="mt-4 text-justify leading-relaxed">
-            {% blocktranslate %}Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!{% endblocktranslate %}
+            {% translate "Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!" %}
           </p>
           <p class="mt-4 text-justify leading-relaxed">
-            {% blocktranslate %}Read more about me experience on linkedin <a target="_blank" href="{{config.linkedin}}" class="text-pink-400 underline nav-link">here</a>.{% endblocktranslate %}
+            {% translate "Read more about me experience on linkedin " %}
+            <a target="_blank" href="{{config.linkedin}}" class="text-pink-400 hover:underline nav-link">{% translate "here"%}.</a>
           </p>
         </div>
         <div class="w-full md:w-1/2 p-6">
           <h3 class="text-orange-400 text-2xl font-bold">{% translate 'Techno-Sorcery' %}</h3>
           <p class="mt-4 text-justify leading-relaxed">
-            {% blocktranslate %}From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️.{% endblocktranslate %}
+            {% translate "From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️." %}
           </p>
           <p class="mt-4 text-justify leading-relaxed">
-            {% blocktranslate %}Read more about me here:{% endblocktranslate %} <a target="_blank" href="{% url 'about' %}" class="text-pink-400 underline nav-link">{% translate 'about' %}</a>.</p>
-
+            {% translate "Read more about me here: " %}
+            <a target="_blank" href="{% url 'about' %}" class="text-pink-400 hover:underline nav-link">{% translate 'about' %}.</a>
+          </p>
         </div>
       </div>
     </section>
@@ -68,8 +68,11 @@
     <!-- Contact -->
     <section class="text-center mb-12">
       <h2 class="text-yellow-400 text-3xl font-bold">{% translate 'Get in Touch' %}</h2>
-      <p class="text-xl mt-4 mb-4">{% blocktranslate %}Ready to embark on a tech adventure or brew up a business solution? Let's talk!{% endblocktranslate %}</p>
-      <a href="{% url 'contact' %}" class="text-pink-400 underline nav-link">{% translate 'Contact Me' %}</a>
+      <p class="text-xl mt-4 mb-4 text-justify leading-relaxed">
+        {% translate "Ready to embark on a tech adventure or brew up a business solution? Let's talk!" %}
+      </p>
+      <a href="{% url 'contact' %}" class="text-xl text-pink-400 hover:underline nav-link">{% translate 'Contact Me' %}</a>
+
     </section>
   </div>
 {% endblock %}

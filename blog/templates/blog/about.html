@@ -8,21 +8,17 @@
 {% block content %}
 
   <section class="pt-6">
-    <p class="text-xl mt-4" x-data="colorize()">
-      {% blocktranslate with years=years_of_experience %}
-      Hello <span x-bind:class="randomColor()">World!</span> My name is <span x-bind:class="randomColor()">Eduardo</span>
-      and I'm a <span x-bind:class="randomColor()">developer</span> 💻. I've been working ⛏️ with <span x-bind:class="randomColor()">Python</span> 🐍
-      for the last {{ years }} years, most of the time working as a <span x-bind:class="randomColor()">backend</span> developer
-      with <span x-bind:class="randomColor()">Django</span>. Currently living in <s>Buenos Aires</s>, <s>München</s>,
-      <span x-bind:class="randomColor()">Amsterdam</span>, while working from <span x-bind:class="randomColor()">home</span> 🏠.
-      {% endblocktranslate %}
+    <p class="text-xl mt-4">
+      {% blocktranslate with years=years_of_experience %}Hello World! My name is Eduardo and I'm a developer 💻. I've been working ⛏️ with Python 🐍
+      for the last {{ years }} years, most of the time working as a backend developer with Django. Currently living in <s>Buenos Aires</s>, <s>München</s>,
+      Amsterdam, while working from home 🏠.{% endblocktranslate %}
     </p>
   </section>
 
     <!-- Toggle Long Description -->
   <div x-data="{ open: false }" class="mt-8">
     <button x-on:click="open = !open" class="text-blue-400">
-      Click to read the long version...
+      {% translate "Click to read the long version..." %}
     </button>
 
     <div x-show="open" class="mt-4 dracula-gray">
@@ -48,68 +44,39 @@
         <div class="w-full md:w-3/4 p-4" x-data="colorize()">
           <h2 class="text-xl font-bold text-yellow-400 mb-4">{% translate 'A bit more about me 😉, so here it goes:' %}</h2>
           <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-            {% blocktranslate with years=years_of_experience %}
-              I'm <span x-bind:class="randomColor()">Eduardo Enriquez</span>, aka <span x-bind:class="randomColor()">eduzen</span>.
-              I've been working in the <span x-bind:class="randomColor()">IT industry</span> for quite a long time, {{ years }} years and counting,
-              mostly as a backend <span x-bind:class="randomColor()">developer</span> 💻.
-              But I also have some <span x-bind:class="randomColor()">experience</span> working as a <span x-bind:class="randomColor()">team leader</span>.
-              <span x-bind:class="randomColor()">Python</span> 🐍, <span x-bind:class="randomColor()">Django</span> 🟩, and <span x-bind:class="randomColor()">Flask</span> are
-              the main <span x-bind:class="randomColor()">technologies</span> 🧪 that I've been working with.
-              Naturally, I have some <span x-bind:class="randomColor()">experience</span> 💡 with other things
-              like <span x-bind:class="randomColor()">Javascript</span>, <span x-bind:class="randomColor()">Docker</span> 🐳, <span x-bind:class="randomColor()">Redis</span> 🟥,
-              <span x-bind:class="randomColor()">RabbitMQ</span> 🐰, <span x-bind:class="randomColor()">Celery</span> 🌿, and <span x-bind:class="randomColor()">Linux 🐧</span>.
-            {% endblocktranslate %}
+            {% blocktranslate with years=years_of_experience %}I'm Eduardo Enriquez, aka eduzen. I've been working in the IT industry for quite a long time, {{ years }} years and counting,
+              mostly as a backend developer 💻. But I also have some experience working as a team leader. Python 🐍, Django 🟩, and Flask are the main technologies 🧪 that I've been working with.
+              Naturally, I have some experience 💡 with other things like Javascript, Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿, and Linux 🐧.{% endblocktranslate %}
           </p>
           <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
             {% blocktranslate %}
-              You can check my code at <a class="text-green-400 nav-link" href="https://github.com/eduzen/">https://github.com/eduzen/</a>. There you can find some <span x-bind:class="randomColor()">bots</span>
-              like the one that I have for <span x-bind:class="randomColor()">Telegram</span>, <a class="text-green-400 nav-link" href="https://github.com/eduzen/bot">eduzen_bot</a> 🤖 (you can talk to it following this link:
-              <a class="text-green-400 nav-link" href="https://t.me/eduzen_bot"> bot </a>). Or you can find the <span x-bind:class="randomColor()">source code</span>
-              of this website at <a class="text-green-400 nav-link" href="https://github.com/eduzen/website">https://github.com/eduzen/website</a>.
-            {% endblocktranslate %}
+              You can check my code at <a class="text-green-400 nav-link" href="https://github.com/eduzen/">https://github.com/eduzen/</a>. There you can find some bots
+              like the one that I have for Telegram, <a class="text-green-400 nav-link" href="https://github.com/eduzen/bot">eduzen_bot</a> 🤖 (you can talk to it following this link:
+              <a class="text-green-400 nav-link" href="https://t.me/eduzen_bot"> bot </a>). Or you can find the source code of this website at
+              <a class="text-green-400 nav-link" href="https://github.com/eduzen/website">https://github.com/eduzen/website</a>.{% endblocktranslate %}
           </p>
         </div>
         <div class="w-full" x-data="colorize()">
-          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-            {% blocktranslate %}
-            Besides computers, I like <span x-bind:class="randomColor()">good music</span>, books, <span x-bind:class="randomColor()">philosophy</span>,
-            <span x-bind:class="randomColor()">movies</span>, <span x-bind:class="randomColor()">series</span>, and good <span x-bind:class="randomColor()">food</span>.
-            I started trying some
-            <span x-bind:class="randomColor()">me</span><span x-bind:class="randomColor()">ch</span><span x-bind:class="randomColor()">an</span><span x-bind:class="randomColor()">ic</span><span x-bind:class="randomColor()">al</span>
-            keyboards (right now using a Leo pold 75 %)! But I have also a Keychron K12.
-            {% endblocktranslate %}
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4">
+            {% translate "Besides computers, I like good music, books, philosophy, movies, series, and good food. I started trying some mechanical keyboards (right now using a Leo pold 75 %)! But I have also a Keychron K12." %}
           </p>
-          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-            {% blocktranslate %}
-            Some people find it weird that I have a <span x-bind:class="randomColor()">bachelor's</span> degree in <span x-bind:class="randomColor()">philosophy</span> from the University of Buenos Aires 🇦🇷.
-            But I think that <span x-bind:class="randomColor()">rational</span> thinking is something that my profession and studies share.
-            In general, philosophy has shaped my <span x-bind:class="randomColor()">analytical</span>
-            thinking and fostered my <span x-bind:class="randomColor()">curiosity</span>.
-            Some of my favorite philosophers are <span x-bind:class="randomColor()">Nietzsche</span>, <span x-bind:class="randomColor()">Descartes</span>, and <span x-bind:class="randomColor()">Foucault</span>.
-            Writers... many; <span x-bind:class="randomColor()">Jorge Luis Borges</span>, <span x-bind:class="randomColor()">Ursula K. Le Guin</span>, <span x-bind:class="randomColor()">Arthur C. Clarke</span>,
-            and many more...
-          {% endblocktranslate %}
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4">
+            {% translate "Some people find it weird that I have a bachelor's degree in philosophy from the University of Buenos Aires 🇦🇷. But I think that rational thinking is something that my profession and studies share."%}
+            {% translate "In general, philosophy has shaped my analytical thinking and fostered my curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and Foucault." %}
+            {% translate "Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and many more..." %}
           </p>
-          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-            {% blocktranslate %}
-            Last but not least, I'm passionate about <span x-bind:class="randomColor()">teaching</span> 👨🏽‍🏫. I think my background in <span x-bind:class="randomColor()">philosophy</span>
-            has helped me to be a <span x-bind:class="randomColor()">better</span> teacher. I've been <span x-bind:class="randomColor()">teaching in the past</span>,
-            and I'm looking <span x-bind:class="randomColor()">forward</span> to doing it more often in the IT <span x-bind:class="randomColor()">field</span>.
-          {% endblocktranslate %}
+          <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4">
+            {% translate "Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my background in philosophy has helped me to be a better teacher." %}
+            {% translate "I've been teaching in the past, and I'm looking forward to doing it more often in the IT field." %}
           </p>
         </div>
 
         <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-          {% blocktranslate %}
-          If you want to contact me, you can do it through <a class="text-green-400 nav-link" href="/contact/">this form</a>
-          or through my <a class="text-green-400 nav-link" href="https://www.linkedin.com/in/eduzen/">LinkedIn</a>.
-          {% endblocktranslate %}
+          {% translate "If you want to contact me, you can do it through this " %}<a class="text-green-400 nav-link" href="/contact/">{% translate "form" %}</a>
+          {% translate "or through my " %}<a class="text-green-400 nav-link" href="https://www.linkedin.com/in/eduzen/">{% translate "LinkedIn." %}</a>
         </p>
-
       </div>
-
     </div>
-
   </div>
 
 {% endblock content %}
