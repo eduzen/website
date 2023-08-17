@@ -140,3 +140,4 @@ docker-compose.override.yml
 .DS_Store
 zappa_settings.json
 scripts/db/*
+data/*

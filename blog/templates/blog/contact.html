@@ -1,23 +1,53 @@
 {% extends 'blog/utils/base.html' %}
-{% load crispy_forms_tags %}
 
-{% block body %}
-<div class="row">
-  <div class="col-md-8">
-    <h2>{{ config.contact_title }}</h2>
-    <h3>{{ config.contact_subtitle }}</h3>
-    {% autoescape off %}
-    {% if contact_config.body %}
-      {{ config.contact_body }}
-    {% endif %}
-    {% endautoescape %}
-    {% if form %}
-      {% csrf_token %}{% crispy form %}
-    {% endif %}
-  </div>
+{% load crispy_forms_tags i18n %}
 
-  <div class="col-md-4">
-    {% include 'blog/extras/twitter.html' %}
-  </div>
-</div>
+{% block head %}
+  {{ block.super }}
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.4/htmx.min.js"
+    integrity="sha512-ZM2vxgVBxhBI5Etj/c/qcJV+upate3VzbVQOQRCx1YGuyEX9dYdMh8pRUot4xIwtAay6QwRQC/FdXRjSWIEHrg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+  </script>
+{% endblock head %}
+
+{% block section_title %}
+  {% translate 'Contact' %}
+{% endblock section_title %}
+
+{% block content %}
+  <form
+    class="p-6 rounded shadow-md w-1/2 mx-auto text-white border rounded-md"
+    hx-post="{% url 'contact' %}"
+    hx-trigger="submit"
+    hx-swap="outerHTML"
+    hx-confirm="{% translate 'Are you sure?' %}">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-medium">Name:</label>
+      <input type="text" id="name" name="name" class="mt-1 p-2 w-full rounded-md text-gray-800" required>
+    </div>
+
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium">Email:</label>
+      <input type="email" id="email" name="email" class="mt-1 p-2 w-full rounded-md text-gray-800" required>
+    </div>
+
+    <div class="mb-4">
+      <label for="message" class="block text-sm font-medium">Message:</label>
+      <textarea id="message" name="message" rows="6" class="mt-1 p-2 w-full resize rounded-md text-gray-800" required></textarea>
+    </div>
+
+    <!-- Captcha field -->
+    <div class="mb-4">
+      <label x-text="{% translate 'What color is the red rabbit?' %}">{% translate 'What color is the red rabbit?' %}</label>
+      <input type="text" name="captcha_response" class="mt-1 p-2 w-full rounded-md text-gray-800" required>
+    </div>
+
+    <div class="mb-4">
+      <button type="submit" class="px-4 py-2 bg-purple-500 rounded hover:bg-pink-300">Send</button>
+    </div>
+  </form>
+
 {% endblock %}

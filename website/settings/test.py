@@ -19,7 +19,14 @@ class Test(Base):
 
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
-    DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
+    STORAGE = {
+        "default": {
+            "BACKEND": "inmemorystorage.InMemoryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
 
     MIDDLEWARE = [
         "django.contrib.sessions.middleware.SessionMiddleware",

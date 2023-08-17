@@ -1,82 +1,9 @@
-{% load static %}
+{% load static i18n %}
 
-<footer>
-  <div class="container social">
-    <br>
 
-    <div class="row side-boxes">
-      <div class="col-md-4">
-        <h4 class='title-img'>Python</h4>
-        <a href="http://www.python.org/">
-          <img src="{% static 'blog/img/python-logo.png' %}" alt="python" class="img-rounded center">
-        </a>
-      </div>
-      <div class="col-md-4">
-        <h4 class='title-img'>Python Argentina</h4>
-        <a href="http://www.python.org.ar/">
-          <img src="{% static 'blog/img/logo-pyar.png' %}" alt="python-argentina" class="img-rounded center">
-        </a>
-      </div>
-      <div class="col-md-4">
-        <h4 class='title-img'>PyVideo</h4>
-        <a href="http://pyvideo.org/">
-          <img src="{% static 'blog/img/pyvideo-logo.png' %}" alt="pyvideo" class="img-rounded center" width="100">
-        </a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-            &copy; 2020 <a href="{% url 'home' %}">Eduardo Enriquez</a>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-      </div>
-      <div class="col-md-4"></div>
-    </div>
-    <div class="row">
-
-      <div class="col-md-4"></div>
-
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-4">
-            <a class="btn btn-social-icon btn-linkedin" href="https://www.linkedin.com/in/enriquezeduardo/">
-              <span class="fa fa-linkedin"></span></a>
-          </div>
-          <div class="col-md-4">
-            <a class="btn btn-social-icon btn-github" href="https://github.com/eduzen/">
-              <span class="fa fa-github"></span></a>
-          </div>
-          <div class="col-md-4">
-            <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/_eduzen_">
-              <span class="fa fa-twitter"></span></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4"></div>
-
-    </div>
-
+<footer class="text-white py-4">
+  <div class="container mx-auto">
+    {% include "blog/personal_links.html" %}
+    <small class="text-center block text-gray-500 mt-2">© {% now "Y" %} - {% translate 'Made with 💜 by Eduardo Enriquez' %}</small>
   </div>
 </footer>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-  integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"
-  integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-<script type="application/javascript" src="{% static 'blog/js/menu.js' %}"></script>
-<!-- JS PLUGINS -->
-<script type="application/javascript" src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
-<script type="application/javascript">hljs.initHighlightingOnLoad();</script>
-{% include 'blog/extras/analytics.html' %}
-<script type="application/javascript" src="{% static 'blog/js/twitter.js' %}"></script>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>

@@ -14,18 +14,19 @@ repos:
         args: [--autofix]
       - id: mixed-line-ending
       - id: check-added-large-files
+        args: ['--maxkb=4000']
       - id: check-merge-conflict
       - id: debug-statements
       - id: requirements-txt-fixer
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.13.0"
+    rev: "1.14.0"
     hooks:
     -   id: django-upgrade
-        args: [--target-version, "4.1"]
+        args: [--target-version, "4.2"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.3.1
+    rev: v3.10.1
     hooks:
       - id: pyupgrade
         args: [--py311]
@@ -36,12 +37,12 @@ repos:
       - id: isort
 
   - repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 23.7.0
     hooks:
       - id: black
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 'v0.0.253'
+    rev: 'v0.0.284'
     hooks:
       - id: ruff
         # Respect `exclude` and `extend-exclude` settings.

@@ -8,7 +8,6 @@ on:
 
 env:
   IMAGE_NAME: website
-  DJANGO_CONFIGURATION: Prod
   DJANGO_SETTINGS_MODULE: website.settings
 
 jobs:

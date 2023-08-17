@@ -12,12 +12,14 @@ services:
       dockerfile: Dockerfile
       target: development
     command: python manage.py runserver 0.0.0.0:80
+    tty: true
     volumes:
       - .:/code
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
     ports:
       - "8000:80"
+      - "3000:3000"
     depends_on:
       - db
       - redis
