@@ -207,3 +207,8 @@ class ContactView(ConfigMixin, TemplateView):
 
 class Google(TemplateView):
     template_name = "blog/google.html"
+
+
+@cache_page(HALF_YEAR)
+def language_dropdown(request):
+    return render(request, "blog/utils/language_dropdown.html")

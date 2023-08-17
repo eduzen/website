@@ -46,7 +46,7 @@ function colorizeParagraph(paragraphElement) {
       return chunks.join(' ');
   }
 
-  paragraphElement.innerHTML = colorizeContent(paragraphElement.innerHTML, 0.4);
+  paragraphElement.innerHTML = colorizeContent(paragraphElement.innerHTML, 0.3);
 }
 
 document.addEventListener("DOMContentLoaded", function() {

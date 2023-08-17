@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-17 14:06-0300\n"
+"POT-Creation-Date: 2023-08-17 17:10-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME Eduardo Enriquez\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,15 +180,15 @@ msgstr "o a través de mi "
 msgid "LinkedIn."
 msgstr "LinkedIn."
 
-#: blog/templates/blog/advance_search.html:12
+#: blog/templates/blog/advance_search.html:10
 msgid "Advance Search"
 msgstr "Busqueda avanzada"
 
-#: blog/templates/blog/advance_search.html:14
+#: blog/templates/blog/advance_search.html:12
 msgid "No results"
 msgstr "No hay ningun resultado 😞"
 
-#: blog/templates/blog/advance_search.html:16
+#: blog/templates/blog/advance_search.html:14
 msgid "How-to-look"
 msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
 
@@ -443,7 +443,8 @@ msgstr ""
 "inofensivas en el camino. ¡Sumérgete en mi trayectoria tecnológica!"
 
 #: blog/templates/blog/consultancy.html:51
-msgid "Read more about me experience on linkedin "
+#, fuzzy
+msgid "Read more about my experience on linkedin "
 msgstr "Lee más sobre mí experiencia en linkedin "
 
 #: blog/templates/blog/consultancy.html:56
@@ -482,17 +483,17 @@ msgstr ""
 msgid "Contact Me"
 msgstr "Contactame"
 
-#: blog/templates/blog/contact.html:16
+#: blog/templates/blog/contact.html:6
 #: blog/templates/blog/utils/nav_links.html:11
 #: blog/templates/blog/utils/nav_links_mobile.html:7
 msgid "Contact"
 msgstr "Contacto"
 
-#: blog/templates/blog/contact.html:25
+#: blog/templates/blog/contact.html:15
 msgid "Are you sure?"
 msgstr "Estas seguro?"
 
-#: blog/templates/blog/contact.html:44
+#: blog/templates/blog/contact.html:34
 msgid "What color is the red rabbit?"
 msgstr "De que color es el conejo rojo?"
 
@@ -590,6 +591,16 @@ msgstr "Hecho con 💜 por Eduardo Enriquez"
 msgid "description"
 msgstr "descripcion"
 
+#: blog/templates/blog/utils/language_dropdown.html:6
+#: blog/templates/blog/utils/nav_links_mobile.html:23
+msgid "English"
+msgstr "Ingles"
+
+#: blog/templates/blog/utils/language_dropdown.html:10
+#: blog/templates/blog/utils/nav_links_mobile.html:27
+msgid "Spanish"
+msgstr "Español"
+
 #: blog/templates/blog/utils/nav_links.html:3
 #: blog/templates/blog/utils/nav_links_mobile.html:3
 msgid "Blog"
@@ -604,16 +615,6 @@ msgstr "Acerca"
 #: blog/templates/blog/utils/nav_links_mobile.html:9
 msgid "Admin"
 msgstr "Admin"
-
-#: blog/templates/blog/utils/nav_links.html:29
-#: blog/templates/blog/utils/nav_links_mobile.html:23
-msgid "English"
-msgstr "Ingles"
-
-#: blog/templates/blog/utils/nav_links.html:33
-#: blog/templates/blog/utils/nav_links_mobile.html:27
-msgid "Spanish"
-msgstr "Español"
 
 #: blog/views.py:184
 msgid "invalid captcha"

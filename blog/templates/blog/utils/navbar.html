@@ -25,15 +25,3 @@
     {% include 'blog/utils/nav_links_mobile.html' %}
   </div>
 </nav>
-
-
-{% block extra_scripts %}
-  <script>
-    const button = document.getElementById("mobile-menu-button");
-    const menu = document.getElementById("mobile-menu");
-
-    button.addEventListener("click", function() {
-        menu.style.display = menu.style.display === "none" ? "block" : "none";
-    });
-  </script>
-{% endblock %}

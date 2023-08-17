@@ -1,29 +1,20 @@
-const english = "<i class='flag-icon flag-icon-us'> </i>";
-const spanish = "<i class='flag-icon flag-icon-es'> </i>";
+document.addEventListener("DOMContentLoaded", function() {
+  let dropdown = document.querySelector(".absolute.right-0.z-20.mt-2");
+  let button = document.querySelector("button.language-dropdown");
 
-$(document).ready(function() {
-    const path = window.location.pathname;
-    const lenguage = $("#lenguage");
+  document.addEventListener("click", function(event) {
+      // Check if the dropdown and button exist and if the clicked element is not the dropdown or the button
+      if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && dropdown.style.display !== "none") {
+          dropdown.style.display = "none";
+      }
+  });
 
-    lenguage.empty();
-    if (path.includes("/es")) {
-      lenguage.attr("href", "/en/");
-      lenguage.append(english);
-    } else if (path.includes("/en")) {
-      lenguage.attr("href", "/es/");
-      lenguage.append(spanish);
-    } else {
-      lenguage.attr("href", "/en/");
-      lenguage.append(english);
-    }
+  const mobileButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
 
-    $("li.menu").each(function() {
-        const elementPath = $(this.firstElementChild);
-        if (elementPath.attr("href") === path) {
-          $(this).addClass("active grey");
-        } else {
-          $(this).removeClass("active grey");
-        }
-    });
-
+  if (mobileButton && mobileMenu) {
+      mobileButton.addEventListener("click", function() {
+          mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
+      });
+  }
 });

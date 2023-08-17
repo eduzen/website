@@ -2,16 +2,6 @@
 
 {% load crispy_forms_tags i18n %}
 
-{% block head %}
-  {{ block.super }}
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.4/htmx.min.js"
-    integrity="sha512-ZM2vxgVBxhBI5Etj/c/qcJV+upate3VzbVQOQRCx1YGuyEX9dYdMh8pRUot4xIwtAay6QwRQC/FdXRjSWIEHrg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer">
-  </script>
-{% endblock head %}
-
 {% block section_title %}
   {% translate 'Contact' %}
 {% endblock section_title %}
