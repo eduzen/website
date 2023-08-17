@@ -352,30 +352,33 @@ msgid ""
 "However, discerning the quality of this data can be challenging. That's "
 "where a guide or companion comes in handy 😉."
 msgstr ""
+"Sin embargo, discernir la calidad de estos datos puede ser un desafío. Ahí es "
+"donde un guía o compañero resulta útil 😉."
+
 
 #: blog/templates/blog/classes.html:29
 msgid ""
 "So I can help you to organize and curate the data and tell you what to use "
 "or not."
 msgstr ""
+"Así que puedo ayudarte a organizar y curar los datos y decirte qué usar "
+"o qué no."
 
 #: blog/templates/blog/classes.html:32
-#, fuzzy
-#| msgid "A bit more about me 😉, so here it goes:"
 msgid "Reach out to me here "
-msgstr "Un poco más sobre mi 😉, así que aquí va:"
+msgstr "Contáctame aquí"
 
 #: blog/templates/blog/classes.html:32 blog/templates/blog/error.html:16
 msgid "here"
-msgstr ""
+msgstr "aquí"
 
 #: blog/templates/blog/classes.html:33
 msgid "or drop me an email at "
-msgstr ""
+msgstr "o envíame un correo a "
 
 #: blog/templates/blog/classes.html:33
 msgid " and let's chat!"
-msgstr ""
+msgstr " y hablemos!"
 
 #: blog/templates/blog/classes.html:36
 msgid ""
@@ -383,20 +386,26 @@ msgid ""
 "your learning objectives. If you're based elsewhere in the world 🌍, not to "
 "worry!"
 msgstr ""
+"Si estás en Holanda 🇳🇱, vamos por un café ☕ y hablemos 💬 sobre "
+"tus planes y objectivos. Si estás en otro lugar del mundo 🌍, no te "
+"preocupes!"
 
 #: blog/templates/blog/classes.html:37
 msgid ""
 "We can set up a Zoom or Meet call to discuss how I can assist you in your "
 "coding adventure."
 msgstr ""
+"Podemos organizar una call por Zoom o Meet para discutir cómo puedo asistirte en "
+"tu aventura de programación."
+
 
 #: blog/templates/blog/classes.html:45
 msgid "Online Resources to Learn Python:"
-msgstr ""
+msgstr "Recursos en línea para aprender Python:"
 
 #: blog/templates/blog/classes.html:48
 msgid "Impossible not to recommend ChatGPT "
-msgstr ""
+msgstr "Imposible no recomendar ChatGPT "
 
 #: blog/templates/blog/classes.html:49
 msgid ""
@@ -404,12 +413,17 @@ msgid ""
 "a great companion that could answer almost everything that you need in this "
 "field."
 msgstr ""
+"Creo que es uno de los recursos más importantes de nuestros tiempos modernos. Es "
+"un gran compañero que podría responder casi todo lo que necesitas en este "
+"campo."
 
 #: blog/templates/blog/classes.html:50
 msgid ""
 "Certainly it's not infallible, it has its caveats and you need to learn how "
 "to use it. But it's worthy.  I'm using it every day. "
 msgstr ""
+"Ciertamente no es infalible, tiene sus matices y necesitas aprender cómo "
+"usarlo. Pero vale la pena. Lo uso todos los días."
 
 #: blog/templates/blog/classes.html:53
 msgid "I also recommend the following resources:"
