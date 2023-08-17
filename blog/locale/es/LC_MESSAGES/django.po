@@ -573,7 +573,7 @@ msgstr "Publicado"
 
 #: blog/templates/blog/posts/list.html:13
 msgid "or just public notes"
-msgstr "o solo notas publicas"
+msgstr "o simplemente notas públicas"
 
 #: blog/templates/blog/success.html:4
 msgid "Thank you for your message"
