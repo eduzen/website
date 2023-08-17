@@ -23,7 +23,7 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==3.2.0
     # via requests
-coverage[toml]==7.2.7
+coverage[toml]==7.3.0
     # via
     #   pytest-cov
     #   website (pyproject.toml)
@@ -36,7 +36,7 @@ decorator==5.1.1
     # via
     #   ipdb
     #   ipython
-dj-database-url==2.0.0
+dj-database-url==2.1.0
     # via django-configurations
 dj-email-url==1.0.6
     # via django-configurations
@@ -134,7 +134,7 @@ greenlet==2.0.2
     # via gevent
 gunicorn==21.2.0
     # via website (pyproject.toml)
-hypothesis==6.82.3
+hypothesis==6.82.4
     # via website (pyproject.toml)
 idna==3.4
     # via
@@ -224,7 +224,7 @@ pytz==2023.3
     # via djangorestframework
 pyyaml==6.0.1
     # via vcrpy
-redis==4.6.0
+redis==5.0.0
     # via website (pyproject.toml)
 requests==2.31.0
     # via
@@ -258,11 +258,11 @@ traitlets==5.9.0
     #   matplotlib-inline
 types-pyopenssl==23.2.0.2
     # via types-redis
-types-pytz==2023.3.0.0
+types-pytz==2023.3.0.1
     # via django-stubs
 types-pyyaml==6.0.12.11
     # via django-stubs
-types-redis==4.6.0.3
+types-redis==4.6.0.4
     # via website (pyproject.toml)
 types-requests==2.31.0.2
     # via website (pyproject.toml)
