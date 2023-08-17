@@ -60,25 +60,25 @@ class Post(models.Model):
 
     image_tag.short_description = "Image"  # type: ignore
 
-    def publish(self):
+    def publish(self) -> None:
         self.published_date = timezone.now()
         self.save()
 
-    def published(self):
+    def published(self) -> bool:
         return True if self.published_date else False
 
     published.boolean = True  # type: ignore
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("post_detail", args=[self.slug])
 
-    def notify_google(self):
+    def notify_google(self) -> None:
         try:
             ping_google()
         except Exception:
             logger.warn("Error trying to inform google")
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         if not settings.DEBUG:
             return super().save(*args, **kwargs)
 
