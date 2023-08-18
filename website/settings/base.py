@@ -179,12 +179,12 @@ class Base(ConstanceConfig, Configuration):
         "rest_framework",
         "rest_framework.authtoken",
         "robots",
+        "django_htmx",
     ]
 
     # Application definition
     APPS = [
         "blog",
-        "expenses",
         "snippets",
         "files",
     ]
@@ -194,6 +194,7 @@ class Base(ConstanceConfig, Configuration):
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.locale.LocaleMiddleware",
         "corsheaders.middleware.CorsMiddleware",
+        "django_htmx.middleware.HtmxMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",

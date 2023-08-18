@@ -55,6 +55,7 @@ django==4.2.4
     #   django-extensions
     #   django-filter
     #   django-healthchecks
+    #   django-htmx
     #   django-js-asset
     #   django-money
     #   django-picklefield
@@ -93,6 +94,8 @@ django-extensions==3.2.3
 django-filter==23.2
     # via website (pyproject.toml)
 django-healthchecks==1.5.0
+    # via website (pyproject.toml)
+django-htmx==1.16.0
     # via website (pyproject.toml)
 django-image-cropping==1.7
     # via website (pyproject.toml)
@@ -220,6 +223,8 @@ pytest-xdist==3.3.1
     # via website (pyproject.toml)
 python-dateutil==2.8.2
     # via faker
+python-decouple==3.8
+    # via website (pyproject.toml)
 pytz==2023.3
     # via djangorestframework
 pyyaml==6.0.1

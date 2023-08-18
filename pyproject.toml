@@ -32,6 +32,7 @@ dependencies = [
   "django-extensions",
   "django-filter",
   "django-healthchecks",
+  "django-htmx",
   "django-image-cropping",
   "django-money",
   "django-robots",
@@ -44,6 +45,7 @@ dependencies = [
   "gunicorn",
   "gevent",
   "Markdown",
+  "python-decouple",
   "psycopg2-binary",
   "pygments",
   "redis",
@@ -100,7 +102,10 @@ exclude = [
 ]
 
 [tool.mypy]
-plugins = ["./configurations_mypy_django_plugin.py"]
+plugins = [
+  "./configurations_mypy_django_plugin.py",
+  "mypy_django_plugin.main"
+]
 ignore_missing_imports = true
 exclude = [
   "(build|dist)/*",

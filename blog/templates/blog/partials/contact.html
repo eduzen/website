@@ -1,0 +1,43 @@
+{% extends 'blog/utils/partial.html' %}
+
+{% load crispy_forms_tags i18n %}
+
+{% block section_title %}
+  {% translate 'Contact' %}
+{% endblock section_title %}
+
+{% block content %}
+  <form
+    class="p-6 rounded shadow-md w-full md:w-3/4 lg:w-1/2 mx-auto text-white border rounded-md"
+    hx-post="{% url 'contact' %}"
+    hx-trigger="submit"
+    hx-swap="outerHTML"
+    hx-confirm="{% translate 'Are you sure?' %}">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-medium">Name:</label>
+      <input type="text" id="name" name="name" class="mt-1 p-2 w-full rounded-md text-gray-800" required>
+    </div>
+
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium">Email:</label>
+      <input type="email" id="email" name="email" class="mt-1 p-2 w-full rounded-md text-gray-800" required>
+    </div>
+
+    <div class="mb-4">
+      <label for="message" class="block text-sm font-medium">Message:</label>
+      <textarea id="message" name="message" rows="6" class="mt-1 p-2 w-full resize rounded-md text-gray-800" required></textarea>
+    </div>
+
+    <!-- Captcha field -->
+    <div class="mb-4">
+      <label x-text="{% translate 'What color is the red rabbit?' %}">{% translate 'What color is the red rabbit?' %}</label>
+      <input type="text" name="captcha_response" class="mt-1 p-2 w-full rounded-md text-gray-800" required>
+    </div>
+
+    <div class="mb-4">
+      <button type="submit" class="px-4 py-2 bg-purple-500 rounded hover:bg-pink-300">Send</button>
+    </div>
+  </form>
+
+{% endblock %}

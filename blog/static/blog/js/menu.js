@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
-  let dropdown = document.querySelector(".absolute.right-0.z-20.mt-2");
-  let button = document.querySelector("button.language-dropdown");
-
   document.addEventListener("click", function(event) {
+      let dropdown = document.getElementById("language-dropdown");
+      let button = document.getElementById("language-button");
+
       // Check if the dropdown and button exist and if the clicked element is not the dropdown or the button
       if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && dropdown.style.display !== "none") {
-          dropdown.style.display = "none";
+        dropdown.style.display = "none";
       }
   });
 
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (mobileButton && mobileMenu) {
       mobileButton.addEventListener("click", function() {
-          mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
+        mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
       });
   }
 });

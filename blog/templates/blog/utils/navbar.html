@@ -9,6 +9,9 @@
           </span>
         </a>
       </div>
+      <div id="loadingIndicator" style="display: none;">Loading...</div>
+
+      <!-- Desktop Links -->
       <div class="hidden md:flex space-x-2" x-data="{ open: false }" @click.away="open = false">
         {% include 'blog/utils/nav_links.html' %}
       </div>

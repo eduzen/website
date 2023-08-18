@@ -179,6 +179,11 @@ class ContactView(ConfigMixin, TemplateView):
             return True
         return False
 
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if request.htmx:
+            return render(request, "blog/partials/contact.html")
+        return super().get(request, *args, **kwargs)
+
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         if not self.verify_captcha(request):
             return render(request, "blog/error.html", {"error": _("invalid captcha")})
