@@ -1,16 +1,20 @@
-{% extends 'blog/utils/base.html' %}
 {% load i18n %}
 
-{% block body %}
-<section id="post_list">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-8">
-        <p>{% translate 'email problem' %}</p>
-        <p>eduardoaenriquez@gmail.com</p>
-        <p>{% translate 'Gracias por contactarte!' %}</p>
-      </div>
-    </div>
-  </div>
+<section class="text-center">
+  {% if error %}
+    <p class="text-2xl text-red-500 pb-4">{{ error }}</p>
+    <a class="text-pink-400 nav-link" href="{% url 'contact'%}">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> {% translate "Try again"%}
+    </a>
+  {% else %}
+    <h1 class="text-4xl text-yellow-400 pb-4">
+      {% translate 'Ups... something went wrong. 🙃' %}
+    </h1>
+    <p class="text-2xl text-yellow-400">
+      {% translate 'Please try again later... or contact me' %}
+      <a class="text-green-400 nav-link" href="{% url 'contact'%}">
+        {% translate "here" %}
+      </a>
+    </p>
+  {% endif %}
 </section>
-{% endblock %}

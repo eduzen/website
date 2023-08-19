@@ -1,0 +1,28 @@
+{% load i18n static %}
+
+<a href="{% url 'blog' %}" class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">{% translate "Blog" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'consultancy' %}" class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">{% translate "Consultancy" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'classes' %}" class="nav-link {% if 'classes' in request.path %}active-link{% endif %}">{% translate "Classes" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'about' %}" class="nav-link {% if 'about' in request.path %}active-link{% endif %}">{% translate "About" %}</a>
+<span class="text-gray-400">·</span>
+<a href="{% url 'contact' %}" class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">{% translate "Contact" %}</a>
+<span class="text-gray-400">·</span>
+{% if user.is_superuser %}
+  <a href="{% url 'admin:index' %}" class="nav-link {% if 'admin:index' in request.path %}active-link{% endif %}">{% translate "Admin" %}</a>
+  <span class="text-gray-400">·</span>
+{% endif %}
+
+<button class="language-dropdown"
+        hx-get="{% url 'language_dropdown' %}"
+        hx-trigger="click"
+        hx-swap="afterend"
+        hx-postprocess="js: function(elt){ elt.style.display = 'block'; }">
+  {% if "es" in LANGUAGE_CODE %}
+    <span class="fi fi-es"></span>
+  {% else %}
+    <span class="fi fi-gb"></span>
+  {% endif %}
+</button>

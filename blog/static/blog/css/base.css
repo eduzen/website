@@ -1,0 +1,29 @@
+/* Dracula Theme Colors */
+.dracula-border {
+  border-color: #6272a4;
+}
+.dracula-border-left {
+  border-left-color: #6272a4;
+}
+
+/* Navigation */
+.nav-link {
+  transition: color 0.3s ease;
+}
+.nav-link:hover,
+.active-link {
+  color: #bd93f9;
+}
+
+/* Misc */
+.bulb-fade {
+  animation: bulbFade 5s infinite;
+}
+
+@keyframes bulbFade {
+  0%, 100% { color: #f8f8f2; }   /* Dracula foreground color */
+  20% { color: #50fa7b; }       /* Green */
+  40% { color: #ff79c6; }       /* Pink */
+  60% { color: #bd93f9; }       /* Purple */
+  80% { color: #ffb86c; }       /* Orange */
+}

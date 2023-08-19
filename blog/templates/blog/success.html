@@ -1,13 +1,6 @@
-{% extends 'blog/utils/base.html' %}
+{% load i18n %}
 
-{% block body %}
-<section id="post_list">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-8">
-        <h2> Gracias por contactarte!</h2>
-      </div>
-    </div>
-  </div>
+<section class="text-center">
+  <h1 class="text-2xl text-yellow-400 pt-4">{% translate 'Thank you for your message' %}{% if name %}: {{ name }}!{% endif %}</h1>
+  <p class="text-xl dracula-gray pt-4">{% translate 'We are going to reply you soon!' %}</p>
 </section>
-{% endblock %}

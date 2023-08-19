@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<a href="{% url 'blog' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Blog" %}</a>
+<a href="{% url 'consultancy' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Consultancy" %}</a>
+<a href="{% url 'classes' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Classes" %}</a>
+<a href="{% url 'about' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "About" %}</a>
+<a href="{% url 'contact' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Contact" %}</a>
+{% if user.is_superuser %}
+<a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
+{% endif %}
+
+<button class="language-dropdown"
+        hx-get="{% url 'language_dropdown' %}"
+        hx-trigger="click"
+        hx-swap="afterend"
+        hx-postprocess="js: function(elt){ elt.style.display = 'block'; }">
+  {% if "es" in LANGUAGE_CODE %}
+    <span class="fi fi-es"></span>
+  {% else %}
+    <span class="fi fi-gb"></span>
+  {% endif %}
+</button>

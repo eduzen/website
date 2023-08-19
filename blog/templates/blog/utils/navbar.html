@@ -1,74 +1,27 @@
-{% load i18n %}
-{% load static %}
+{% load static i18n %}
 
-{% load crispy_forms_tags %}
+<nav class="fixed z-10 top-0 w-full bg-slate-800 dracula-border shadow-lg">
+  <div class="mx-auto px-4 py-2 flex justify-between items-center text-sm">
+      <div class="text-lg font-bold">
+        <a href="{% url 'home' %}" class="flex items-center">
+          <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
+            <span class="nav-link">eduzen</span>
+          </span>
+        </a>
+      </div>
+      <div class="hidden md:flex space-x-2" x-data="{ open: false }" @click.away="open = false">
+        {% include 'blog/utils/nav_links.html' %}
+      </div>
 
-<!-- Static navbar -->
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-
-  <div class="container-fluid">
-
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img alt="Brand" width="20" src="{% static 'blog/img/favicon/favicon.ico' %}" class="img-responsive" alt="eduzen.ar">
-      </a>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-        aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+      <!-- Mobile Menu -->
+      <button class="md:hidden p-2" id="mobile-menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
       </button>
-      <a class="navbar-brand" rel="home" href="/">eduzen</a>
-    </div>
-
-    <div id="navbar" class="navbar-collapse collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav">
-        <li class="menu active grey">
-          <a href="{% url 'home' %}">
-            <div class="col-xs-5 menu"><img src="{% static 'blog/img/house_blue.png' %}" class="img-responsive pic-link"></div>
-            <div class="col-xs-7 menu">{% translate 'Home' %}</div>
-          </a>
-        </li>
-        <li class="menu">
-          <a href="{% url 'about' %}">
-            <div class="col-xs-5 menu"><img src="{% static 'blog/img/diskette.png' %}" class="img-responsive pic-link">
-            </div>
-            <div class="col-xs-7 menu">{% translate 'About' %}</div>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'bytag' 'python' %}">
-            <div class="col-xs-5 menu"><img src="{% static 'blog/img/favicon.ico' %}" class="img-responsive pic-link">
-            </div>
-            <div class="col-xs-7 menu">Python</div>
-          </a>
-        </li>
-        <li class="menu">
-          <a href="{% url 'contact' %}">
-            <div class="col-xs-5 menu"><img src="{% static 'blog/img/email-red.png' %}" class="img-responsive pic-link">
-            </div>
-            <div class="col-xs-7 menu">{% translate 'Contact' %}</div>
-          </a>
-        </li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li class="menu">
-            {% if search_form %}
-              {% csrf_token %}
-              {% crispy search_form %}
-            {% endif %}
-        </li>
-        <li class="menu">
-            <a id="lenguage" href="/es">
-              <i class="flag-icon flag-icon-es"> </i>
-            </a>
-        </li>
-      </ul>
-
-    </div>
-    <!--/.nav-collapse -->
   </div>
-  <!--/.container-fluid -->
+  <!-- Mobile Links -->
+  <div class="md:hidden bg-gray-100 p-4" id="mobile-menu" style="display:none;" x-data="{ open: false }" @click.away="open = false">
+    {% include 'blog/utils/nav_links_mobile.html' %}
+  </div>
 </nav>
