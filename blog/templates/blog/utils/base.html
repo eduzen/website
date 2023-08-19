@@ -17,7 +17,6 @@
   {% endblock navbar %}
 
   {% block body %}
-
     <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
       <h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
         {% block section_title %}{% endblock section_title %}
@@ -33,6 +32,7 @@
 
   {% block extra_scripts %}
     <script src="{% static 'blog/js/menu.js' %}"></script>
+    <script src="{% static 'blog/js/colorize.js' %}"></script>
   {% endblock extra_scripts %}
 </body>
 </html>

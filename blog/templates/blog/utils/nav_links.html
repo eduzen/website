@@ -1,13 +1,57 @@
 {% load i18n static %}
 
-<a id="nav-blog" href="{% url 'blog' %}" class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">{% translate "Blog" %}</a>
+<a id="nav-blog"
+  href="#"
+  hx-get="{% url 'blog' %}"
+  hx-trigger="click"
+  hx-target="#content"
+  hx-indicator="#loadingIndicator"
+  hx-push-url="true"
+  hx-swap="innerHTML"
+  class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">
+  {% translate "Blog" %}
+</a>
 <span class="text-gray-400">·</span>
-<a id="nav-consultancy" href="{% url 'consultancy' %}" class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">{% translate "Consultancy" %}</a>
+
+<a id="nav-consultancy"
+  href="#"
+  hx-get="{% url 'consultancy' %}"
+  hx-trigger="click"
+  hx-target="#content"
+  hx-indicator="#loadingIndicator"
+  hx-push-url="true"
+  hx-swap="innerHTML"
+  class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">
+  {% translate "Consultancy" %}
+</a>
 <span class="text-gray-400">·</span>
-<a id="nav-classes" href="{% url 'classes' %}" class="nav-link {% if 'classes' in request.path %}active-link{% endif %}">{% translate "Classes" %}</a>
+
+<a id="nav-classes"
+  href="#"
+  hx-get="{% url 'classes' %}"
+  hx-trigger="click"
+  hx-target="#content"
+  hx-indicator="#loadingIndicator"
+  hx-push-url="true"
+  hx-swap="innerHTML"
+  class="nav-link {% if 'classes' in request.path %}active-link{% endif %}">
+  {% translate "Classes" %}
+</a>
 <span class="text-gray-400">·</span>
-<a id="nav-about"href="{% url 'about' %}" class="nav-link {% if 'about' in request.path %}active-link{% endif %}">{% translate "About" %}</a>
+
+<a id="nav-about"
+  href="#"
+  hx-get="{% url 'about' %}"
+  hx-trigger="click"
+  hx-target="#content"
+  hx-indicator="#loadingIndicator"
+  hx-push-url="true"
+  hx-swap="innerHTML"
+  class="nav-link {% if 'about' in request.path %}active-link{% endif %}">
+  {% translate "About" %}
+</a>
 <span class="text-gray-400">·</span>
+
 <a id="nav-contact"
   href="#"
   hx-get="{% url 'contact' %}"
@@ -19,8 +63,8 @@
   class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">
   {% translate "Contact" %}
 </a>
-
 <span class="text-gray-400">·</span>
+
 {% if user.is_superuser %}
   <a href="{% url 'admin:index' %}" class="nav-link {% if 'admin:index' in request.path %}active-link{% endif %}">{% translate "Admin" %}</a>
   <span class="text-gray-400">·</span>
@@ -32,11 +76,9 @@
   hx-trigger="click"
   hx-swap="afterend"
   hx-postprocess="js: function(elt){ elt.style.display = 'block'; }">
-
   {% if "es" in LANGUAGE_CODE %}
     <span class="fi fi-es"></span>
   {% else %}
     <span class="fi fi-gb"></span>
   {% endif %}
-
 </button>

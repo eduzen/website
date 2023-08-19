@@ -141,3 +141,6 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+[tool.coverage.json]
+pretty_print=true

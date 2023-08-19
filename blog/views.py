@@ -38,6 +38,12 @@ class ConfigMixin:
 @method_decorator(cache_page(DAY), name="dispatch")
 class AboutView(ConfigMixin, TemplateView):
     template_name = "blog/about.html"
+    partial_template_name = "blog/partials/about.html"
+
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if request.htmx:
+            return render(request, self.partial_template_name)
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,31 +72,34 @@ class AdvanceSearch(FormView):
 @method_decorator(cache_page(MONTH), name="dispatch")
 class HomeView(TemplateView):
     template_name = "blog/home.html"
+    partial_template_name = "blog/partials/home.html"
+
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if request.htmx:
+            return render(request, self.partial_template_name)
+        return super().get(request, *args, **kwargs)
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class ConsultancyView(TemplateView):
     template_name = "blog/consultancy.html"
+    partial_template_name = "blog/partials/consultancy.html"
+
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if request.htmx:
+            return render(request, self.partial_template_name)
+        return super().get(request, *args, **kwargs)
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class ClassesView(TemplateView):
     template_name = "blog/classes.html"
+    partial_template_name = "blog/partials/classes.html"
 
-
-@method_decorator(cache_page(HOUR), name="dispatch")
-class HomeListView(ListView):
-    queryset = Post.objects.published()
-    context_object_name = "posts"
-    template_name = "blog/home.html"
-    ordering = ["-published_date"]
-    paginate_by = 12
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["tags"] = Post.objects.count_tags()
-        context["search_form"] = SearchForm()
-        return context
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if request.htmx:
+            return render(request, self.partial_template_name)
+        return super().get(request, *args, **kwargs)
 
 
 @method_decorator(cache_page(HOUR), name="dispatch")
@@ -98,8 +107,14 @@ class PostListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
+    partial_template_name = "blog/partials/posts/list.html"
     ordering = ["-published_date"]
     paginate_by = 12
+
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if request.htmx:
+            return render(request, self.partial_template_name)
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self) -> QuerySet[Post]:
         queryset = super().get_queryset()
