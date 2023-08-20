@@ -29,6 +29,7 @@ class Test(Base):
     }
 
     MIDDLEWARE = [
+        "django_htmx.middleware.HtmxMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",

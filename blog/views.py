@@ -4,7 +4,6 @@ from typing import Any
 
 from constance import config
 from django import http
-from django.contrib.postgres.search import SearchVector
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
@@ -13,9 +12,11 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
+from django_filters.views import FilterView
 
 from blog.services.contact import send_telegram_message
 
+from .filters import PostFilter
 from .forms import AdvanceSearchForm, SearchForm
 from .models import Post
 
@@ -103,36 +104,19 @@ class ClassesView(TemplateView):
 
 
 @method_decorator(cache_page(HOUR), name="dispatch")
-class PostListView(ListView):
-    queryset = Post.objects.published()
+class PostListView(FilterView):
+    queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
     partial_template_name = "blog/partials/posts/list.html"
     ordering = ["-published_date"]
+    filterset_class = PostFilter
     paginate_by = 12
 
     def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         if request.htmx:
-            return render(request, self.partial_template_name)
+            self.template_name = self.partial_template_name
         return super().get(request, *args, **kwargs)
-
-    def get_queryset(self) -> QuerySet[Post]:
-        queryset = super().get_queryset()
-        query = self.request.GET.get("q")
-        if not query:
-            return queryset  # type: ignore
-
-        queryset = queryset.annotate(search=SearchVector("text", "title", "pompadour")).filter(  # type: ignore
-            search=query
-        )
-        return queryset  # type: ignore
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = SearchForm()
-        context["tags"] = Post.objects.count_tags()
-        context["tag"] = self.request.GET.get("q", "")
-        return context
 
     def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
         posts = context.get("posts")
