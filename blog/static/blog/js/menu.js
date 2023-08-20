@@ -23,11 +23,15 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Update active link in navbar
-  function updateActiveLink() {
-    const navLinks = document.querySelectorAll("#main-navbar .nav-link");
+  function updateActiveLink(event) {
+    if (!event || !event.detail || !event.detail.pathInfo || !event.detail.pathInfo.requestPath) {
+      return; // Exit if no proper event details are provided
+    }
 
+    const navLinks = document.querySelectorAll("#main-navbar .nav-link");
     navLinks.forEach(link => {
-      if (window.location.pathname.includes(link.getAttribute('href'))) {
+      // If the href in the id of the link matches the current path
+      if (event.detail.pathInfo.requestPath.includes(link.id)) {
         link.classList.add('active-link');
       } else {
         link.classList.remove('active-link');
@@ -42,4 +46,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Attach htmx listener
   document.body.addEventListener('htmx:afterSwap', updateActiveLink);
+
 });

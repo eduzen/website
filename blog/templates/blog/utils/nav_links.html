@@ -1,6 +1,6 @@
 {% load i18n static %}
 
-<a id="nav-blog"
+<a id="blog"
   href="#"
   hx-get="{% url 'blog' %}"
   hx-trigger="click"
@@ -13,7 +13,7 @@
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="nav-consultancy"
+<a id="consultancy"
   href="#"
   hx-get="{% url 'consultancy' %}"
   hx-trigger="click"
@@ -26,7 +26,7 @@
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="nav-classes"
+<a id="classes"
   href="#"
   hx-get="{% url 'classes' %}"
   hx-trigger="click"
@@ -39,7 +39,7 @@
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="nav-about"
+<a id="about"
   href="#"
   hx-get="{% url 'about' %}"
   hx-trigger="click"
@@ -52,7 +52,7 @@
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="nav-contact"
+<a id="contact"
   href="#"
   hx-get="{% url 'contact' %}"
   hx-trigger="click"
@@ -66,7 +66,7 @@
 <span class="text-gray-400">·</span>
 
 {% if user.is_superuser %}
-  <a href="{% url 'admin:index' %}" class="nav-link {% if 'admin:index' in request.path %}active-link{% endif %}">{% translate "Admin" %}</a>
+  <a href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
   <span class="text-gray-400">·</span>
 {% endif %}
 
