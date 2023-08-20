@@ -173,7 +173,6 @@ class Base(ConstanceConfig, Configuration):
         "corsheaders",
         "crispy_forms",
         "django_extensions",
-        "djmoney",
         "easy_thumbnails",
         "image_cropping",
         "rest_framework",

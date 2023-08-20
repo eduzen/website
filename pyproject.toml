@@ -34,7 +34,6 @@ dependencies = [
   "django-healthchecks",
   "django-htmx",
   "django-image-cropping",
-  "django-money",
   "django-robots",
   "django-simple-captcha",
   "django-autoslug",

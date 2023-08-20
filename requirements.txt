@@ -6,8 +6,6 @@
 #
 asgiref==3.7.2
     # via django
-babel==2.12.1
-    # via py-moneyed
 certifi==2023.7.22
     # via
     #   django-healthchecks
@@ -39,7 +37,6 @@ django==4.2.4
     #   django-healthchecks
     #   django-htmx
     #   django-js-asset
-    #   django-money
     #   django-picklefield
     #   django-ranged-response
     #   django-simple-captcha
@@ -79,8 +76,6 @@ django-image-cropping==1.7
     # via website (pyproject.toml)
 django-js-asset==2.1.0
     # via django-ckeditor
-django-money==3.2.0
-    # via website (pyproject.toml)
 django-picklefield==3.1
     # via django-constance
 django-ranged-response==0.2.0
@@ -117,8 +112,6 @@ ply==3.11
     # via stone
 psycopg2-binary==2.9.7
     # via website (pyproject.toml)
-py-moneyed==3.0
-    # via django-money
 pycparser==2.21
     # via cffi
 pygments==2.16.1
@@ -148,9 +141,7 @@ sqlparse==0.4.4
 stone==3.3.1
     # via dropbox
 typing-extensions==4.7.1
-    # via
-    #   dj-database-url
-    #   py-moneyed
+    # via dj-database-url
 urllib3==2.0.4
     # via
     #   django-anymail
