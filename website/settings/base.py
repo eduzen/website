@@ -210,11 +210,11 @@ class Base(ConstanceConfig, Configuration):
             "APP_DIRS": True,
             "OPTIONS": {
                 "context_processors": [
-                    "constance.context_processors.config",
                     "django.template.context_processors.debug",
                     "django.template.context_processors.request",
                     "django.contrib.auth.context_processors.auth",
                     "django.contrib.messages.context_processors.messages",
+                    "blog.context_processor.global_urls",
                     "django.template.context_processors.i18n",
                 ]
             },

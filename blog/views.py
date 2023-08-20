@@ -2,7 +2,6 @@ import datetime as dt
 import logging
 from typing import Any
 
-from constance import config
 from django import http
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
@@ -29,15 +28,8 @@ MONTH = 30 * DAY
 HALF_YEAR = 6 * MONTH
 
 
-class ConfigMixin:
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)  # type: ignore
-        context["config"] = config
-        return context
-
-
 @method_decorator(cache_page(DAY), name="dispatch")
-class AboutView(ConfigMixin, TemplateView):
+class AboutView(TemplateView):
     template_name = "blog/about.html"
     partial_template_name = "blog/partials/about.html"
 
@@ -166,7 +158,7 @@ class PostDetail(DetailView):
 
 
 @method_decorator(cache_page(DAY), name="get")
-class ContactView(ConfigMixin, TemplateView):
+class ContactView(TemplateView):
     template_name = "blog/contact.html"
     error_url = reverse_lazy("error")
     success_url = reverse_lazy("success")
