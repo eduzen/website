@@ -134,7 +134,7 @@ greenlet==2.0.2
     # via gevent
 gunicorn==21.2.0
     # via website (pyproject.toml)
-hypothesis==6.82.4
+hypothesis==6.82.6
     # via website (pyproject.toml)
 idna==3.4
     # via
