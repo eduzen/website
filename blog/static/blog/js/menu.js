@@ -3,23 +3,40 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("click", function(event) {
       const dropdown = document.getElementById("language-dropdown");
       const button = document.getElementById("language-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileButton = document.getElementById("mobile-menu-button");
 
-      // Check if the dropdown and button exist and if the clicked element is not the dropdown or the button
+
+      // Hide language dropdown if clicked outside
       if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && dropdown.style.display !== "none") {
         dropdown.style.display = "none";
       }
+
+      // Hide mobile menu if clicked outside
+      if (mobileMenu && mobileButton && !mobileMenu.contains(event.target) && !mobileButton.contains(event.target) && mobileMenu.style.display !== "none") {
+        mobileMenu.style.display = "none";
+      }
+
     });
   }
 
   function handleMobileMenuBehavior() {
     const mobileButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : []; // Get all anchor tags within the mobile menu
 
     if (mobileButton && mobileMenu) {
       mobileButton.addEventListener("click", function() {
         mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
       });
     }
+
+    // Add this part to close the mobile menu when a link is clicked
+    mobileLinks.forEach(link => {
+      link.addEventListener("click", function() {
+        mobileMenu.style.display = "none";
+      });
+    });
   }
 
   // Update active link in navbar
