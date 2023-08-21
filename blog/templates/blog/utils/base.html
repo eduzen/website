@@ -1,4 +1,4 @@
-{% load static i18n tz %}
+{% load static i18n %}
 
 {% get_current_language as LANGUAGE_CODE %}
 
@@ -17,9 +17,6 @@
   {% endblock navbar %}
 
   <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
-    <h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
-      {% block section_title %}{% endblock section_title %}
-    </h1>
     {% block content %}{% endblock content %}
   </main>
 
