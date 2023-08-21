@@ -15,7 +15,6 @@ urlpatterns = [
     path("tags/<str:tag>/", views.PostTagsList.as_view(), name="bytag"),
     path("sucess/", views.SucessView.as_view(), name="sucess"),
     path("error/", views.ErrorView.as_view(), name="error"),
-    path("config", views.Google.as_view(), name="google"),
     path("consultancy", views.ConsultancyView.as_view(), name="consultancy"),
     path("language-dropdown/", views.language_dropdown, name="language_dropdown"),
 ]

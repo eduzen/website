@@ -1,0 +1,85 @@
+{% load i18n static %}
+
+<div class="mx-auto px-4 sm:px-6 lg:px-8 gray-100 text-justify">
+  <div class="flex flex-wrap -mx-4 leading-relaxed">
+    <div class="w-full px-4">
+      <p class="text-xl mt-2">
+        {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page: " %}
+        <a target="_blank" class="text-pink-400 nav-link" href="{% url 'about' %}">{% translate 'here'%}</a>
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in a way that you can lose me (and be independent) in your learning journey." %}
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "We can learn about: Python, or about web frameworks like Django, Flask, or FastAPI. We can also explore other topics like: object-oriented programming, unit tests, clean code or the one that you need." %}
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, what we have is data 🗃️, data 🗃️ and data 🗃️, available everywhere." %}
+        {% translate "However, discerning the quality of this data can be challenging. That's where a guide or companion comes in handy 😉." %}
+        {% translate "So I can help you to organize and curate the data and tell you what to use or not." %}
+      </p>
+      <p class="mt-2 text-lg">
+        {% translate "Reach out to me " %}<a target="_blank" class="text-pink-400 nav-link" href="{% url 'contact' %}">{% translate "here"%}</a>
+        {% translate "or drop me an email at "%}<a target="_blank" href="mailto:me@eduzen.com.ar" class="text-pink-400 nav-link">me@eduzen.com.ar</a>{% translate " and let's chat!"%}
+      </p>
+      <p class="text-xl mt-2">
+        {% translate "If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about your learning objectives. If you're based elsewhere in the world 🌍, not to worry!" %}
+        {% translate "We can set up a Zoom or Meet call to discuss how I can assist you in your coding adventure." %}
+      </p>
+    </div>
+  </div>
+  <hr class="my-8">
+  <div class="flex flex-wrap -mx-4">
+    <div class="w-full px-4">
+      <h1 class="text-3xl text-yellow-400 pt-8">
+        {% translate "Online Resources to Learn Python:" %}
+      </h1>
+      <p class="text-lg pt-4 text-justify">
+        {% translate "Impossible not to recommend ChatGPT: " %}<a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://chat.openai.com/">link</a>
+        {% translate "I think it's one of the most important resources from our modern times. It's a great companion that could answer almost everything that you need in this field."%}
+        {% translate "Certainly it's not infallible, it has its caveats and you need to learn how to use it. But it's worthy.  I'm using it every day. " %}
+      </p>
+      <p class="text-lg pt-4 text-justify">
+        {% translate "I also recommend the following resources:" %}
+      </p>
+      <ul class="pt-4 list-disc pl-5">
+        <li class="mt-2">
+          <a target="_blank" class="text-pink-400 nav-link hover:underline" href="http://docs.python.org.ar/tutorial/3/index.html">
+            {% translate "Python: official tutorial"%}
+          </a>
+        </li>
+        <li class="mt-2">
+          <a target="_blank" class="text-pink-400 nav-link hover:underline" href="https://tutorial.djangogirls.org/es/">
+            {% translate "Django girls tutorial: broad tutorial including basic internet and python concepts"%}
+          </a>
+        </li>
+        <li class="mt-2">
+          <a target="_blank" class="text-pink-400 nav-link hover:underline" href="https://www.codecademy.com/learn/learn-python-3">
+            {% translate "Codecademy: free course for learning the basics of Python 3"%}
+          </a>
+        </li>
+      </ul>
+      <h1 class="text-3xl text-yellow-400 pt-8">
+        {% translate "Some recommended books:" %}
+      </h1>
+      <ul class="pt-4 list-outside list-disc pl-5">
+        <li class="pt-4">
+          <p>{% translate 'Beginners'%}</p>
+          <ol class="list-inside list-decimal pt-4">
+            <li>Grokking Algorithms <a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://www.manning.com/books/grokking-algorithms">link</a></li>
+            <li>Automate the Boring Stuff with Python <a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://automatetheboringstuff.com/">link</a></li>
+            <li>Python Distilled <a class="text-pink-400 nav-link hover:underline" target="_blank" href="http://www.dabeaz.com/python-distilled/">link</a></li>
+          </ol>
+        </li>
+        <li class="pt-4">
+          <p>{% translate 'Medium/Advance'%}</p>
+          <ol class="list-inside list-decimal pt-4">
+            <li>Fluent Python <a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/">link</a></li>
+            <li>Architecture Patterns with Python <a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://www.oreilly.com/library/view/architecture-patterns-with/9781492052197/">link</a></li>
+            <li>System Design Interviews <a class="text-pink-400 nav-link hover:underline" target="_blank" href="https://www.goodreads.com/en/book/show/54109255">link</a></li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
