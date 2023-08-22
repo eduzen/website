@@ -2,9 +2,7 @@ import datetime as dt
 import logging
 from typing import Any
 
-from constance import config
 from django import http
-from django.contrib.postgres.search import SearchVector
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
@@ -12,10 +10,12 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
-from django.views.generic import DetailView, FormView, ListView, TemplateView
+from django.views.generic import DetailView, FormView, TemplateView
+from django_filters.views import FilterView
 
 from blog.services.contact import send_telegram_message
 
+from .filters import PostFilter
 from .forms import AdvanceSearchForm, SearchForm
 from .models import Post
 
@@ -28,18 +28,19 @@ MONTH = 30 * DAY
 HALF_YEAR = 6 * MONTH
 
 
-class ConfigMixin:
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)  # type: ignore
-        context["config"] = config
-        return context
+class HtmxGetMixin:
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if request.htmx:
+            self.template_name = self.partial_template_name
+        return super().get(request, *args, **kwargs)
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
-class AboutView(ConfigMixin, TemplateView):
+class AboutView(HtmxGetMixin, TemplateView):
     template_name = "blog/about.html"
+    partial_template_name = "blog/partials/about.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         start_year = 2014
         current_year = dt.datetime.now().year
@@ -64,60 +65,32 @@ class AdvanceSearch(FormView):
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
-class HomeView(TemplateView):
+class HomeView(HtmxGetMixin, TemplateView):
     template_name = "blog/home.html"
+    partial_template_name = "blog/partials/home.html"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
-class ConsultancyView(TemplateView):
+class ConsultancyView(HtmxGetMixin, TemplateView):
     template_name = "blog/consultancy.html"
+    partial_template_name = "blog/partials/consultancy.html"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
-class ClassesView(TemplateView):
+class ClassesView(HtmxGetMixin, TemplateView):
     template_name = "blog/classes.html"
+    partial_template_name = "blog/partials/classes.html"
 
 
 @method_decorator(cache_page(HOUR), name="dispatch")
-class HomeListView(ListView):
-    queryset = Post.objects.published()
-    context_object_name = "posts"
-    template_name = "blog/home.html"
-    ordering = ["-published_date"]
-    paginate_by = 12
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["tags"] = Post.objects.count_tags()
-        context["search_form"] = SearchForm()
-        return context
-
-
-@method_decorator(cache_page(HOUR), name="dispatch")
-class PostListView(ListView):
-    queryset = Post.objects.published()
+class PostListView(HtmxGetMixin, FilterView):
+    queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
+    partial_template_name = "blog/partials/posts/list.html"
     ordering = ["-published_date"]
+    filterset_class = PostFilter
     paginate_by = 12
-
-    def get_queryset(self) -> QuerySet[Post]:
-        queryset = super().get_queryset()
-        query = self.request.GET.get("q")
-        if not query:
-            return queryset  # type: ignore
-
-        queryset = queryset.annotate(search=SearchVector("text", "title", "pompadour")).filter(  # type: ignore
-            search=query
-        )
-        return queryset  # type: ignore
-
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = SearchForm()
-        context["tags"] = Post.objects.count_tags()
-        context["tag"] = self.request.GET.get("q", "")
-        return context
 
     def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
         posts = context.get("posts")
@@ -128,13 +101,15 @@ class PostListView(ListView):
 
 
 @method_decorator(cache_page(HOUR), name="dispatch")
-class PostTagsList(ListView):
+class PostTagsList(HtmxGetMixin, FilterView):
     model = Post
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
+    partial_template_name = "blog/partials/posts/list.html"
     ordering = ["-published_date"]
-    paginate_by = 10
+    filterset_class = PostFilter
+    paginate_by = 12
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -167,8 +142,9 @@ class PostDetail(DetailView):
 
 
 @method_decorator(cache_page(DAY), name="get")
-class ContactView(ConfigMixin, TemplateView):
+class ContactView(HtmxGetMixin, TemplateView):
     template_name = "blog/contact.html"
+    partial_template_name = "blog/partials/contact.html"
     error_url = reverse_lazy("error")
     success_url = reverse_lazy("success")
 
@@ -203,10 +179,6 @@ class ContactView(ConfigMixin, TemplateView):
         except Exception:
             logger.exception("Contact problems")
             return redirect(self.error_url)
-
-
-class Google(TemplateView):
-    template_name = "blog/google.html"
 
 
 @cache_page(HALF_YEAR)

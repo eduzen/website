@@ -1,19 +1,3 @@
-function colorize() {
-  return {
-      randomColor: function() {
-          const colors = [
-              'text-pink-400',
-              'text-orange-400',
-              'text-green-400',
-              'text-purple-500',
-              'text-yellow-400',
-              'text-blue-400'
-          ];
-          return colors[Math.floor(Math.random() * colors.length)];
-      }
-  }
-}
-
 function splitHTMLByWords(html) {
   return html.split(/(<.*?>|[\s\n]+)/).filter(chunk => chunk.trim() !== "");
 }
@@ -49,7 +33,38 @@ function colorizeParagraph(paragraphElement) {
   paragraphElement.innerHTML = colorizeContent(paragraphElement.innerHTML, 0.3);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+function colorizeAllParagraphs() {
   const paragraphs = document.querySelectorAll('p');
   paragraphs.forEach(p => colorizeParagraph(p));
+}
+
+function shouldColorize() {
+  // Check for homepage in different languages
+  if (window.location.pathname === '/en/' || window.location.pathname === '/es/') {
+      return false;
+  }
+
+  // Check for blog page in different languages
+  if (window.location.pathname.startsWith('/en/blog/') || window.location.pathname.startsWith('/es/blog/')) {
+      return false;
+  }
+
+  // If none of the above, return true
+  return true;
+}
+
+// Export the function for external use
+window.colorizeAllParagraphs = colorizeAllParagraphs;
+
+
+document.body.addEventListener('htmx:afterOnLoad', function() {
+  if (shouldColorize()) {
+      window.colorizeAllParagraphs();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  if (shouldColorize()) {
+      window.colorizeAllParagraphs();
+  }
 });

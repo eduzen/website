@@ -1,4 +1,4 @@
-{% load static i18n tz %}
+{% load static i18n %}
 
 {% get_current_language as LANGUAGE_CODE %}
 
@@ -11,20 +11,14 @@
   {% endblock head %}
 </head>
 
-<body class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
   {% block navbar %}
     {% include "blog/utils/navbar.html" %}
   {% endblock navbar %}
 
-  {% block body %}
-
-    <main class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
-      <h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">{% block section_title %}{% endblock section_title %}</h1>
-      {% block content %}
-      {% endblock content %}
-    </main>
-
-  {% endblock body %}
+  <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
+    {% block content %}{% endblock content %}
+  </main>
 
   {% block footer %}
     {% include "blog/utils/footer.html" %}
@@ -32,6 +26,7 @@
 
   {% block extra_scripts %}
     <script src="{% static 'blog/js/menu.js' %}"></script>
+    <script src="{% static 'blog/js/colorize.js' %}"></script>
   {% endblock extra_scripts %}
 </body>
 </html>

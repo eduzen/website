@@ -1,22 +1,20 @@
 {% extends 'blog/utils/base.html' %}
-{% load i18n %}
-{% load static %}
-{% load crispy_forms_tags %}
+{% load i18n static crispy_forms_tags %}
 
 {% block content %}
-<div class="container mx-auto py-8">
-  <div class="flex flex-col md:flex-row">
-    <div class="md:w-2/3 mb-6 md:mb-0">
-        <h2 class="text-2xl font-semibold">{% translate 'Advance Search' %}</h2>
-        {% if form %}
-          <p>{% translate 'No results' %}</p>
-          <p class="text-muted">
-            {% translate 'How-to-look' %}
-          </p>
-          {% csrf_token %}
-          {% crispy form %}
-        {% endif %}
+  <div class="container mx-auto py-8">
+    <div class="flex flex-col md:flex-row">
+      <div class="md:w-2/3 mb-6 md:mb-0">
+          <h2 class="text-2xl font-semibold">{% translate 'Advance Search' %}</h2>
+          {% if form %}
+            <p>{% translate 'No results' %}</p>
+            <p class="text-muted">
+              {% translate 'How-to-look' %}
+            </p>
+            {% csrf_token %}
+            {% crispy form %}
+          {% endif %}
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}

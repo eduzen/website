@@ -1,14 +1,17 @@
 {% load static i18n %}
 
-<nav class="fixed z-10 top-0 w-full bg-slate-800 dracula-border shadow-lg">
+<nav id="main-navbar" class="fixed z-10 top-0 w-full bg-slate-800 dracula-border shadow-lg">
   <div class="mx-auto px-4 py-2 flex justify-between items-center text-sm">
       <div class="text-lg font-bold">
         <a href="{% url 'home' %}" class="flex items-center">
           <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
-            <span class="nav-link">eduzen</span>
+            eduzen
           </span>
         </a>
       </div>
+      <div id="loadingIndicator" style="display: none;">Loading...</div>
+
+      <!-- Desktop Links -->
       <div class="hidden md:flex space-x-2" x-data="{ open: false }" @click.away="open = false">
         {% include 'blog/utils/nav_links.html' %}
       </div>
@@ -21,7 +24,7 @@
       </button>
   </div>
   <!-- Mobile Links -->
-  <div class="md:hidden bg-gray-100 p-4" id="mobile-menu" style="display:none;" x-data="{ open: false }" @click.away="open = false">
+  <div class="md:hidden bg-gray-100 p-4" id="mobile-menu">
     {% include 'blog/utils/nav_links_mobile.html' %}
   </div>
 </nav>
