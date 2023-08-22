@@ -173,18 +173,17 @@ class Base(ConstanceConfig, Configuration):
         "corsheaders",
         "crispy_forms",
         "django_extensions",
-        "djmoney",
         "easy_thumbnails",
         "image_cropping",
         "rest_framework",
         "rest_framework.authtoken",
         "robots",
+        "django_htmx",
     ]
 
     # Application definition
     APPS = [
         "blog",
-        "expenses",
         "snippets",
         "files",
     ]
@@ -194,6 +193,7 @@ class Base(ConstanceConfig, Configuration):
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.locale.LocaleMiddleware",
         "corsheaders.middleware.CorsMiddleware",
+        "django_htmx.middleware.HtmxMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -210,11 +210,11 @@ class Base(ConstanceConfig, Configuration):
             "APP_DIRS": True,
             "OPTIONS": {
                 "context_processors": [
-                    "constance.context_processors.config",
                     "django.template.context_processors.debug",
                     "django.template.context_processors.request",
                     "django.contrib.auth.context_processors.auth",
                     "django.contrib.messages.context_processors.messages",
+                    "blog.context_processor.global_data",
                     "django.template.context_processors.i18n",
                 ]
             },

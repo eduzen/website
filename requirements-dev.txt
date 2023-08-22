@@ -10,8 +10,6 @@ asttokens==2.2.1
     # via stack-data
 attrs==23.1.0
     # via hypothesis
-babel==2.12.1
-    # via py-moneyed
 backcall==0.2.0
     # via ipython
 certifi==2023.7.22
@@ -55,8 +53,8 @@ django==4.2.4
     #   django-extensions
     #   django-filter
     #   django-healthchecks
+    #   django-htmx
     #   django-js-asset
-    #   django-money
     #   django-picklefield
     #   django-ranged-response
     #   django-simple-captcha
@@ -94,12 +92,12 @@ django-filter==23.2
     # via website (pyproject.toml)
 django-healthchecks==1.5.0
     # via website (pyproject.toml)
+django-htmx==1.16.0
+    # via website (pyproject.toml)
 django-image-cropping==1.7
     # via website (pyproject.toml)
 django-js-asset==2.1.0
     # via django-ckeditor
-django-money==3.2.0
-    # via website (pyproject.toml)
 django-picklefield==3.1
     # via django-constance
 django-ranged-response==0.2.0
@@ -134,7 +132,7 @@ greenlet==2.0.2
     # via gevent
 gunicorn==21.2.0
     # via website (pyproject.toml)
-hypothesis==6.82.4
+hypothesis==6.82.6
     # via website (pyproject.toml)
 idna==3.4
     # via
@@ -189,8 +187,6 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
-py-moneyed==3.0
-    # via django-money
 pycparser==2.21
     # via cffi
 pygments==2.16.1
@@ -220,6 +216,8 @@ pytest-xdist==3.3.1
     # via website (pyproject.toml)
 python-dateutil==2.8.2
     # via faker
+python-decouple==3.8
+    # via website (pyproject.toml)
 pytz==2023.3
     # via djangorestframework
 pyyaml==6.0.1
@@ -274,7 +272,6 @@ typing-extensions==4.7.1
     #   django-stubs
     #   django-stubs-ext
     #   mypy
-    #   py-moneyed
 urllib3==2.0.4
     # via
     #   django-anymail

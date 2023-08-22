@@ -16,7 +16,6 @@ urlpatterns = [
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("robots.txt", include("robots.urls")),
     path("google448c52311d45450b.html", include("config.urls")),
-    path("telegram/", include("expenses.urls")),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("captcha/", include("captcha.urls")),
     path("sitemap-<section>.xml", sitemap, {"sitemaps": sitemaps}),
