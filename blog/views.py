@@ -13,11 +13,10 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, TemplateView
 from django_filters.views import FilterView
 
-from blog.services.contact import send_telegram_message
-
 from .filters import PostFilter
-from .forms import AdvanceSearchForm, SearchForm
+from .forms import AdvanceSearchForm
 from .models import Post
+from .services.telegram import send_message
 
 logger = logging.getLogger(__name__)
 
@@ -29,8 +28,10 @@ HALF_YEAR = 6 * MONTH
 
 
 class HtmxGetMixin:
+    partial_template_name: str
+
     def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if request.htmx:
+        if request.htmx and self.partial_template_name:
             self.template_name = self.partial_template_name
         return super().get(request, *args, **kwargs)
 
@@ -101,8 +102,7 @@ class PostListView(HtmxGetMixin, FilterView):
 
 
 @method_decorator(cache_page(HOUR), name="dispatch")
-class PostTagsList(HtmxGetMixin, FilterView):
-    model = Post
+class PostTagsListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
@@ -113,9 +113,7 @@ class PostTagsList(HtmxGetMixin, FilterView):
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["tags"] = Post.objects.count_tags()
-        context["search_form"] = SearchForm()
-        context["tag"] = self.kwargs.get("tag").title()
+        context["tag"] = self.kwargs.get("tag", "-").title()
         return context
 
     def get_queryset(self) -> QuerySet[Post]:
@@ -123,17 +121,19 @@ class PostTagsList(HtmxGetMixin, FilterView):
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
-class PostDetail(DetailView):
+class PostDetailView(DetailView):
     queryset = Post.objects.prefetch_related("tags").published()
     context_object_name = "post"
     template_name = "blog/posts/detail.html"
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["title"] = self.object.title
+        # Get all tag IDs for the current post
+        tag_ids = self.object.tags.values_list("id", flat=True)
+
         context["related_posts"] = (
             Post.objects.published()
-            .filter(tags__in=self.object.tags.all())
+            .filter(tags__id__in=tag_ids)
             .order_by("-published_date")
             .distinct()
             .exclude(pk=self.object.pk)[:15]
@@ -171,7 +171,7 @@ class ContactView(HtmxGetMixin, TemplateView):
 
         try:
             # Send a test message
-            response = send_telegram_message(f"Message from website {context}")
+            response = send_message(f"Message from website {context}")
             logger.info(response)
 
             return render(request, "blog/success.html", context)
