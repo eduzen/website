@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-22 09:44-0300\n"
+"POT-Creation-Date: 2023-08-24 14:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME Eduardo Enriquez\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,21 +18,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: blog/models.py:18
+#: blog/models.py:16
 msgid "word"
 msgstr "palabra"
 
-#: blog/models.py:19
+#: blog/models.py:17 blog/models.py:46
 msgid "slug"
 msgstr "slug"
 
-#: blog/models.py:23
+#: blog/models.py:21
 msgid "tag"
 msgstr "etiqueta"
 
-#: blog/models.py:24
+#: blog/models.py:22
 msgid "tags"
 msgstr "etiquetas"
+
+#: blog/models.py:44
+msgid "title"
+msgstr "titulo"
+
+#: blog/models.py:45
+msgid "summary"
+msgstr "resumen"
+
+#: blog/models.py:50
+msgid "Body text"
+msgstr "Cuerpo del texto"
 
 #: blog/templates/blog/_about.html:4
 msgid "About me"
@@ -43,6 +55,7 @@ msgid "Hello World! My name is Eduardo and I'm a developer 💻."
 msgstr "¡Hola Mundo! Mi nombre es Eduardo y soy un developer 💻."
 
 #: blog/templates/blog/_about.html:10
+#, python-format
 msgid ""
 "I've been working ⛏️ with Python 🐍 for the last %(years)s years, most of the "
 "time working as a backend developer with Django."
@@ -83,24 +96,27 @@ msgid "I'm Eduardo Enriquez, aka eduzen."
 msgstr "Soy Eduardo Enriquez, alias eduzen."
 
 #: blog/templates/blog/_about.html:45
+#, python-format
 msgid ""
 "I've been working in the IT industry for quite a long time, %(years)s years "
 "and counting,mostly as a backend developer 💻."
 msgstr ""
-"He estado trabajando en la industria IT durante bastante tiempo, %(years)s años y "
-"contando, principalmente como desarrollador backend 💻."
+"He estado trabajando en la industria IT durante bastante tiempo, %(years)s "
+"años y contando, principalmente como desarrollador backend 💻."
 
 #: blog/templates/blog/_about.html:46
 msgid "But I also have some experience working as a team leader."
-msgstr "Pero también tengo algo de experiencia trabajando como líder técnico de equipos."
+msgstr ""
+"Pero también tengo algo de experiencia trabajando como líder técnico de "
+"equipos."
 
 #: blog/templates/blog/_about.html:47
 msgid ""
 "Python 🐍, Django 🟩, and Flask are the main technologies 🧪 that I've been "
 "working with."
 msgstr ""
-" Python 🐍, Django 🟩 y Flask 🧪 son las principales tecnologías con "
-"las que trabajo."
+" Python 🐍, Django 🟩 y Flask 🧪 son las principales tecnologías con las que "
+"trabajo."
 
 #: blog/templates/blog/_about.html:48
 msgid ""
@@ -555,19 +571,6 @@ msgstr "Siguiente"
 msgid "Last"
 msgstr "Ultimo"
 
-#: blog/templates/blog/extras/related_posts.html:5
-msgid "Notas relacionadas"
-msgstr "Notas relacionadas"
-
-#: blog/templates/blog/extras/related_posts.html:12
-msgid "Publicado el dia"
-msgstr "Publicado el dia"
-
-#: blog/templates/blog/extras/related_posts.html:17
-#: blog/templates/blog/posts/detail.html:65
-msgid "Nothing yet!"
-msgstr "Todavia nada!"
-
 #: blog/templates/blog/home.html:10
 msgid "Software Engineer"
 msgstr "Software Engineer"
@@ -593,17 +596,21 @@ msgstr "en cualquier lugar!"
 msgid "or just public notes"
 msgstr "o simplemente notas públicas"
 
-#: blog/templates/blog/posts/detail.html:27
-msgid "Author"
-msgstr "Autor"
-
-#: blog/templates/blog/posts/detail.html:51
+#: blog/templates/blog/posts/_related_posts.html:8
 msgid "Related posts"
 msgstr "Notas relacionadas"
 
-#: blog/templates/blog/posts/detail.html:60
+#: blog/templates/blog/posts/_related_posts.html:17
 msgid "Published"
 msgstr "Publicado"
+
+#: blog/templates/blog/posts/_related_posts.html:22
+msgid "Nothing yet!"
+msgstr "Todavia nada!"
+
+#: blog/templates/blog/posts/detail.html:27
+msgid "Author"
+msgstr "Autor"
 
 #: blog/templates/blog/success.html:4
 msgid "Thank you for your message"
@@ -647,3 +654,9 @@ msgstr "Admin"
 #: blog/views.py:160
 msgid "invalid captcha"
 msgstr "captcha invalido"
+
+#~ msgid "Notas relacionadas"
+#~ msgstr "Notas relacionadas"
+
+#~ msgid "Publicado el dia"
+#~ msgstr "Publicado el dia"

@@ -39,7 +39,7 @@ class SessionAdmin(admin.ModelAdmin):
 class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     date_hierarchy = "created_date"
     empty_value_display = "unknown"
-    search_fields = ["text", "title", "slug", "pompadour"]
+    search_fields = ["text", "title", "slug", "summary"]
     list_display = ["published", "author", "title", "slug", "created_date", "published_date", "preview", "tag_list"]
     list_display_links = ("title", "author")
     readonly_fields = ("preview", "pk")
@@ -51,7 +51,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
             "created_date",
         ),
         "title",
-        "pompadour",
+        "summary",
         "slug",
         "published_date",
         "tags",

@@ -3,6 +3,7 @@ import logging
 from typing import Any
 
 from django import http
+from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
@@ -60,7 +61,7 @@ class ErrorView(TemplateView):
 
 
 class AdvanceSearch(FormView):
-    template_name = "blog/advance_search.html"
+    template_name = "blog/search.html"
     form_class = AdvanceSearchForm
     success_url = "/sucess/"
 
@@ -131,13 +132,18 @@ class PostDetailView(DetailView):
         # Get all tag IDs for the current post
         tag_ids = self.object.tags.values_list("id", flat=True)
 
-        context["related_posts"] = (
+        related_posts = (
             Post.objects.published()
             .filter(tags__id__in=tag_ids)
             .order_by("-published_date")
             .distinct()
-            .exclude(pk=self.object.pk)[:15]
+            .exclude(pk=self.object.pk)
         )
+        # Pagination logic for related posts
+        paginator = Paginator(related_posts, 4)
+        page = self.request.GET.get("related_page", 1)
+        context["related_posts"] = paginator.get_page(page)
+
         return context
 
 

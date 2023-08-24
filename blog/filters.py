@@ -13,5 +13,5 @@ class PostFilter(django_filters.FilterSet):
         fields = []
 
     def filter_search(self, queryset: QuerySet[Post], name: str, value: str) -> QuerySet[Post]:
-        search_vector = SearchVector("text", "title", "pompadour")
+        search_vector = SearchVector("text", "title", "summary")
         return queryset.annotate(search=search_vector).filter(search=value)
