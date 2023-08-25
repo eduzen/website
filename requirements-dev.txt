@@ -57,6 +57,7 @@ django==4.2.4
     #   django-js-asset
     #   django-picklefield
     #   django-ranged-response
+    #   django-rosetta
     #   django-simple-captcha
     #   django-storages
     #   django-stubs
@@ -103,6 +104,8 @@ django-picklefield==3.1
 django-ranged-response==0.2.0
     # via django-simple-captcha
 django-robots==5.0
+    # via website (pyproject.toml)
+django-rosetta==0.9.9
     # via website (pyproject.toml)
 django-simple-captcha==0.5.18
     # via website (pyproject.toml)
@@ -179,6 +182,8 @@ pluggy==1.2.0
     # via pytest
 ply==3.11
     # via stone
+polib==1.2.0
+    # via django-rosetta
 prompt-toolkit==3.0.39
     # via ipython
 psycopg2-binary==2.9.7
@@ -228,6 +233,7 @@ requests==2.31.0
     # via
     #   django-anymail
     #   django-healthchecks
+    #   django-rosetta
     #   dropbox
     #   website (pyproject.toml)
 sentry-sdk==1.29.2
