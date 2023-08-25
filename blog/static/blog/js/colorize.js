@@ -4,30 +4,30 @@ function splitHTMLByWords(html) {
 
 function colorizeParagraph(paragraphElement) {
   const colors = [
-      'text-blue-400', 'text-green-400', 'text-indigo-400',
-      'text-orange-400', 'text-pink-400', 'text-purple-400',
-      'text-teal-400', 'text-yellow-400'
+    'text-blue-400', 'text-green-400', 'text-indigo-400',
+    'text-orange-400', 'text-pink-400', 'text-purple-400',
+    'text-teal-400', 'text-yellow-400'
   ];
 
   function randomColor() {
-      return colors[Math.floor(Math.random() * colors.length)];
+    return colors[Math.floor(Math.random() * colors.length)];
   }
 
   function colorizeContent(content, percentage) {
-      let chunks = splitHTMLByWords(content);
-      let wordChunks = chunks.filter(chunk => !chunk.startsWith("<"));
-      let numWordsToColorize = Math.floor(wordChunks.length * percentage);
-      let indices = [];
+    let chunks = splitHTMLByWords(content);
+    let wordChunks = chunks.filter(chunk => !chunk.startsWith("<"));
+    let numWordsToColorize = Math.floor(wordChunks.length * percentage);
+    let indices = [];
 
-      while (indices.length < numWordsToColorize) {
-          let randomIndex = Math.floor(Math.random() * wordChunks.length);
-          if (indices.indexOf(randomIndex) === -1) {
-              indices.push(randomIndex);
-              let wordChunkIndex = chunks.indexOf(wordChunks[randomIndex]);
-              chunks[wordChunkIndex] = `<span class="${randomColor()}">${chunks[wordChunkIndex]}</span>`;
-          }
+    while (indices.length < numWordsToColorize) {
+      let randomIndex = Math.floor(Math.random() * wordChunks.length);
+      if (indices.indexOf(randomIndex) === -1) {
+        indices.push(randomIndex);
+        let wordChunkIndex = chunks.indexOf(wordChunks[randomIndex]);
+        chunks[wordChunkIndex] = `<span class="${randomColor()}">${chunks[wordChunkIndex]}</span>`;
       }
-      return chunks.join(' ');
+    }
+    return chunks.join(' ');
   }
 
   paragraphElement.innerHTML = colorizeContent(paragraphElement.innerHTML, 0.3);
@@ -38,33 +38,34 @@ function colorizeAllParagraphs() {
   paragraphs.forEach(p => colorizeParagraph(p));
 }
 
-function shouldColorize() {
-  // Check for homepage in different languages
-  if (window.location.pathname === '/en/' || window.location.pathname === '/es/') {
-      return false;
-  }
+function shouldColorize(url) {
+  // Regular expression patterns for paths that should be colorized
+  const colorizePatterns = [
+    /\/consultancy\/?$/,
+    /\/classes\/?$/,
+    /\/about\/?$/
+  ];
 
-  // Check for blog page in different languages
-  if (window.location.pathname.startsWith('/en/blog/') || window.location.pathname.startsWith('/es/blog/')) {
-      return false;
-  }
-
-  // If none of the above, return true
-  return true;
+  // Check if the provided URL matches one of the patterns that should be colorized
+  return colorizePatterns.some(pattern => pattern.test(url));
 }
 
 // Export the function for external use
 window.colorizeAllParagraphs = colorizeAllParagraphs;
 
+document.body.addEventListener('htmx:afterSwap', function(event) {
+  //const targetURL = event.detail.path; //
+  const targetURL = event.detail.xhr.responseURL;
 
-document.body.addEventListener('htmx:afterOnLoad', function() {
-  if (shouldColorize()) {
-      window.colorizeAllParagraphs();
+  console.log("htmx:afterSwap ", targetURL, shouldColorize(targetURL) ? "should colorize" : "shouldn't colorize");
+
+  if (shouldColorize(targetURL)) {
+    window.colorizeAllParagraphs();
   }
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  if (shouldColorize()) {
-      window.colorizeAllParagraphs();
+  if (shouldColorize(window.location.pathname)) {
+    window.colorizeAllParagraphs();
   }
 });
