@@ -1,4 +1,4 @@
-{% load crispy_forms_tags i18n %}
+{% load static crispy_forms_tags i18n %}
 
 <h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
   Blog
@@ -36,8 +36,11 @@
       </div>
     </div>
   </article>
-{% empty %}
-  <p class="text-lg text-center gray-100"> Empty posts </p>
-{% endfor %}
 
-{% include 'blog/extras/paginator.html' %}
+  {% include 'blog/extras/paginator.html' %}
+
+{% empty %}
+  <p class="text-lg text-center pb-4"> {% translate "We could not find what you are looking for..." %} </p>
+  <p class="text-lg text-center pb-4">{% translate "Maybe you can search another for thing?" %}</p>
+  <p class="text-lg text-center"><a class="px-4 py-2 bg-purple-500 rounded hover:bg-pink-300" href="{% static 'search' %}">{% translate "Search"%}</a>
+{% endfor %}

@@ -2,7 +2,6 @@ import datetime as dt
 import logging
 from typing import Any
 
-from django import http
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
@@ -93,13 +92,6 @@ class PostListView(HtmxGetMixin, FilterView):
     ordering = ["-published_date"]
     filterset_class = PostFilter
     paginate_by = 12
-
-    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
-        posts = context.get("posts")
-        if not posts:
-            return redirect("search")
-
-        return super().render_to_response(context)
 
 
 @method_decorator(cache_page(HOUR), name="dispatch")
