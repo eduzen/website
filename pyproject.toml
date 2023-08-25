@@ -40,6 +40,7 @@ dependencies = [
   "djangorestframework",
   "django-storages[dropbox]",
   "django-debug-toolbar",
+  "django-rosetta",
   "easy-thumbnails",
   "gunicorn",
   "gevent",

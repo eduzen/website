@@ -61,7 +61,7 @@ dbshell:
 messages:
 	$(DJMANAGE) makemessages --locale=es
 
-compilemessages:
+compile-messages:
 	$(DJMANAGE) compilemessages
 
 collectstatic:
@@ -85,7 +85,7 @@ check:
 dockershell:
 	${DCO} run --rm web bash
 
-showmigrations:
+show-migrations:
 	$(DJMANAGE) showmigrations
 
 superuser:
@@ -97,16 +97,16 @@ migrate:
 migrations:
 	$(DJMANAGE) makemigrations
 
-shell_plus:
+shell-plus:
 	$(DJMANAGE) shell_plus
 
-shell_plus_sql:
+shell-plus-sql:
 	$(DJMANAGE) shell_plus --print-sql
 
-clear_cache:
+clear-cache:
 	$(DJMANAGE) clear_cache
 
-show_urls:
+show-urls:
 	${DCO} run --rm web python manage.py show_urls
 
 clean-python: clean-build clean-pyc

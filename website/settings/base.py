@@ -179,6 +179,7 @@ class Base(ConstanceConfig, Configuration):
         "rest_framework.authtoken",
         "robots",
         "django_htmx",
+        "rosetta",
     ]
 
     # Application definition
