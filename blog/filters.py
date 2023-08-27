@@ -10,7 +10,6 @@ class PostFilter(django_filters.FilterSet):
 
     class Meta:
         model = Post
-        fields = []
 
     def filter_search(self, queryset: QuerySet[Post], name: str, value: str) -> QuerySet[Post]:
         search_vector = SearchVector("text", "title", "summary")

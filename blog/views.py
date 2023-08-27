@@ -31,9 +31,9 @@ class HtmxGetMixin:
     partial_template_name: str
 
     def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if request.htmx and self.partial_template_name:
+        if request.htmx and self.partial_template_name:  # type: ignore
             self.template_name = self.partial_template_name
-        return super().get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)  # type: ignore
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
