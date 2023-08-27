@@ -22,6 +22,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
 ]
 dependencies = [
+  "easy_thumbnails",  # Needed for django-image-cropping
   "django",
   "django-cors-headers",
   "django-ckeditor",

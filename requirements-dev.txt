@@ -25,10 +25,8 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==3.2.0
     # via requests
-coverage[toml]==7.3.0
-    # via
-    #   pytest-cov
-    #   website (pyproject.toml)
+coverage==7.3.0
+    # via website (pyproject.toml)
 cryptography==41.0.3
     # via
     #   types-pyopenssl
@@ -56,6 +54,7 @@ django==4.2.4
     #   django-storages
     #   django-stubs
     #   django-stubs-ext
+    #   easy-thumbnails
     #   sentry-sdk
     #   website (pyproject.toml)
 django-appconf==1.0.5
@@ -92,6 +91,8 @@ django-stubs[compatible-mypy]==4.2.3
     # via website (pyproject.toml)
 django-stubs-ext==4.2.2
     # via django-stubs
+easy-thumbnails==2.8.5
+    # via website (pyproject.toml)
 execnet==2.0.2
     # via pytest-xdist
 executing==1.2.0
@@ -106,7 +107,7 @@ google-api-core==2.11.1
     # via
     #   google-cloud-core
     #   google-cloud-storage
-google-auth==2.17.3
+google-auth==2.22.0
     # via
     #   google-api-core
     #   google-cloud-core
@@ -165,8 +166,10 @@ pexpect==4.8.0
 pickleshare==0.7.5
     # via ipython
 pillow==10.0.0
-    # via website (pyproject.toml)
-pluggy==1.2.0
+    # via
+    #   easy-thumbnails
+    #   website (pyproject.toml)
+pluggy==1.3.0
     # via pytest
 polib==1.2.0
     # via django-rosetta
@@ -196,15 +199,12 @@ pygments==2.16.1
     #   website (pyproject.toml)
 pytest==7.4.0
     # via
-    #   pytest-cov
     #   pytest-django
     #   pytest-mock
     #   pytest-recording
     #   pytest-sugar
     #   pytest-xdist
     #   website (pyproject.toml)
-pytest-cov==4.1.0
-    # via website (pyproject.toml)
 pytest-django==4.5.2
     # via website (pyproject.toml)
 pytest-mock==3.11.1
@@ -271,8 +271,9 @@ typing-extensions==4.7.1
     #   django-stubs
     #   django-stubs-ext
     #   mypy
-urllib3==2.0.4
+urllib3==1.26.16
     # via
+    #   google-auth
     #   requests
     #   sentry-sdk
 vcrpy==5.1.0

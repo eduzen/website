@@ -1,7 +1,6 @@
 from .base import *
 from .base import STORAGES  # noqa
 
-
 DEBUG = False
 TEMPLATE_DEBUG = False
 DEBUG_LOGGING = False
@@ -16,9 +15,16 @@ CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
 # STORAGES["default"]["backend"] = "inmemorystorage.InMemoryStorage"
 
-# MIDDLEWARE = [
-#     "django_htmx.middleware.HtmxMiddleware",
-#     "django.contrib.sessions.middleware.SessionMiddleware",
-#     "django.contrib.auth.middleware.AuthenticationMiddleware",
-#     "django.contrib.messages.middleware.MessageMiddleware",
-# ]
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "website.middleware.CloudflareMiddleware",
+]

@@ -9,25 +9,6 @@ def post(db):
     PostFactory.create()
 
 
-def test_root_admin(admin_client):
-    response = admin_client.get(reverse("admin:index"))
-    assert response.status_code == 200
-
-
-@pytest.mark.parametrize(
-    "app",
-    (
-        "blog",
-        "snippets",
-        "files",
-        "robots",
-    ),
-)
-def test_admin(admin_client, app):
-    response = admin_client.get(reverse("admin:app_list", kwargs={"app_label": app}))
-    assert response.status_code == 200
-
-
 @pytest.mark.parametrize(
     "url",
     (

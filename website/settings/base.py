@@ -2,6 +2,7 @@ from pathlib import Path
 from decouple import config, Csv
 from dj_database_url import parse as db_url
 from django.utils.translation import gettext_lazy as _
+from easy_thumbnails.conf import Settings as thumbnail_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "django_extensions",
     "django_htmx",
+    "easy_thumbnails",
     "image_cropping",
     "robots",
     "rosetta",
@@ -208,3 +210,6 @@ HEALTH_CHECKS = {
     # 'check_heartbeats': 'django_healthchecks.contrib.check_heartbeats',
     # 'check_open_migrations': 'django_healthchecks.contrib.check_open_migrations',
 }
+
+# Django Image Cropping: https://github.com/jonasundderwolf/django-image-cropping
+THUMBNAIL_PROCESSORS = ("image_cropping.thumbnail_processors.crop_corners",) + thumbnail_settings.THUMBNAIL_PROCESSORS

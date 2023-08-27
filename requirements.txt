@@ -33,6 +33,7 @@ django==4.2.4
     #   django-js-asset
     #   django-rosetta
     #   django-storages
+    #   easy-thumbnails
     #   sentry-sdk
     #   website (pyproject.toml)
 django-appconf==1.0.5
@@ -63,13 +64,15 @@ django-rosetta==0.9.9
     # via website (pyproject.toml)
 django-storages[google]==1.13.2
     # via website (pyproject.toml)
+easy-thumbnails==2.8.5
+    # via website (pyproject.toml)
 gevent==23.7.0
     # via website (pyproject.toml)
 google-api-core==2.11.1
     # via
     #   google-cloud-core
     #   google-cloud-storage
-google-auth==2.17.3
+google-auth==2.22.0
     # via
     #   google-api-core
     #   google-cloud-core
@@ -95,7 +98,9 @@ markdown==3.4.4
 packaging==23.1
     # via gunicorn
 pillow==10.0.0
-    # via website (pyproject.toml)
+    # via
+    #   easy-thumbnails
+    #   website (pyproject.toml)
 polib==1.2.0
     # via django-rosetta
 protobuf==4.24.2
@@ -135,8 +140,9 @@ sqlparse==0.4.4
     #   django-debug-toolbar
 typing-extensions==4.7.1
     # via dj-database-url
-urllib3==2.0.4
+urllib3==1.26.16
     # via
+    #   google-auth
     #   requests
     #   sentry-sdk
 whitenoise[brotli]==6.5.0

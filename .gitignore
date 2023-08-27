@@ -133,6 +133,7 @@ eduzen.sublime-workspace
 media/
 website/static/
 website/media/
+website/staticfiles/
 assets/
 *dump*.sql
 docker-compose.override.yml
