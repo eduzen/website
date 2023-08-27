@@ -1,36 +1,24 @@
-from configurations import values
+from .base import *
+from .base import STORAGES  # noqa
 
-from .base import Base
 
+DEBUG = False
+TEMPLATE_DEBUG = False
+DEBUG_LOGGING = False
 
-class Test(Base):
-    DEBUG = False
-    TEMPLATE_DEBUG = False
-    DEBUG_LOGGING = False
-    STATIC_URL = "/static/"
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.MD5PasswordHasher",
+]
 
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
-    PASSWORD_HASHERS = [
-        "django.contrib.auth.hashers.MD5PasswordHasher",
-    ]
+CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
-    EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+# STORAGES["default"]["backend"] = "inmemorystorage.InMemoryStorage"
 
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
-
-    STORAGE = {
-        "default": {
-            "BACKEND": "inmemorystorage.InMemoryStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-        },
-    }
-
-    MIDDLEWARE = [
-        "django_htmx.middleware.HtmxMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-    ]
+# MIDDLEWARE = [
+#     "django_htmx.middleware.HtmxMiddleware",
+#     "django.contrib.sessions.middleware.SessionMiddleware",
+#     "django.contrib.auth.middleware.AuthenticationMiddleware",
+#     "django.contrib.messages.middleware.MessageMiddleware",
+# ]

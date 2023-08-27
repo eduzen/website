@@ -1,93 +1,60 @@
-import os
+from .base import *  # noqa
+from .base import LOG_LEVEL  # noqa
+import sentry_sdk
+from decouple import config, Csv
 
-from configurations import values
+DEBUG = False
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=".eduzen.com.ar,.eduardoenriquez.com.ar,.eduzen.ar", cast=Csv())
 
-from .base import BASE_DIR, Base, Sentry, WhitenoiseStatic
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default="https://*.eduzen.ar,https://*.eduzen.com.ar,https://*.eduardoenriquez.com.ar",
+    cast=Csv(),
+)
 
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://\w+\.eduzen\.ar$",
+    r"^https://localhost$",
+]
 
-class Prod(Sentry, WhitenoiseStatic, Base):
-    DEBUG = False
-    ALLOWED_HOSTS = values.ListValue(["eduzen.com.ar"])
-    CSRF_TRUSTED_ORIGINS = values.ListValue(
-        ["https://*.eduzen.ar", "https://*.eduzen.com.ar", "https://*.eduardoenriquez.com.ar"]
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": ("[DJANGO] %(levelname)s %(asctime)s %(module)s " "%(name)s.%(funcName)s:%(lineno)s: %(message)s")
+        },
+        "verbose": {
+            "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
+        },
+        "simple": {"format": "%(levelname)s %(message)s"},
+    },
+    "handlers": {"console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"}},
+    "loggers": {
+        "*": {"handlers": ["console"], "level": LOG_LEVEL, "propagate": True},
+        "django": {"handlers": ["console"], "propagate": False, "level": LOG_LEVEL},
+    },
+}
+
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+#     },
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
+# GS_BUCKET_NAME = config('GS_BUCKET_NAME')
+# GS_PROJECT_ID = config('GS_PROJECT_ID')
+
+SENTRY_DSN = config("SENTRY_DSN", default="")
+
+if (not DEBUG) and SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,  # type: ignore
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production,
+        traces_sample_rate=1.0,
     )
-
-    MEDIA_URL = "https://media.eduzen.ar/"
-    MEDIA_ROOT = BASE_DIR / "media"
-
-    EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-    SERVER_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL")
-
-    MAILGUN_API_KEY = values.Value()
-    MAILGUN_SENDER_DOMAIN = values.Value()
-
-    # Cache key TTL in seconds
-    MINUTE = 60
-
-    HOUR = MINUTE * 60
-    DAY = HOUR * 24
-    CACHE_MIDDLEWARE_SECONDS = HOUR
-    DATABASES = values.DatabaseURLValue()
-
-    CORS_ALLOW_METHODS = [
-        "GET",
-        "OPTIONS",
-        "POST",
-    ]
-
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https://\w+\.eduzen\.ar$",
-        r"^https://localhost$",
-    ]
-
-    MIDDLEWARE = [
-        "django.middleware.security.SecurityMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "whitenoise.middleware.WhiteNoiseMiddleware",
-        "django.middleware.locale.LocaleMiddleware",
-        "corsheaders.middleware.CorsMiddleware",
-        "django_htmx.middleware.HtmxMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-        "website.middleware.CloudflareMiddleware",
-    ]
-
-    @property
-    def ANYMAIL(self):
-        return {
-            "MAILGUN_API_KEY": self.MAILGUN_API_KEY,
-            "MAILGUN_SENDER_DOMAIN": self.MAILGUN_SENDER_DOMAIN,
-        }
-
-    @property
-    def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + ["storages"]
-
-    @property
-    def LOGGING(self):
-        return {
-            "version": 1,
-            "disable_existing_loggers": False,
-            "formatters": {
-                "default": {
-                    "format": (
-                        "[DJANGO] %(levelname)s %(asctime)s %(module)s " "%(name)s.%(funcName)s:%(lineno)s: %(message)s"
-                    )
-                },
-                "verbose": {
-                    "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-                    "datefmt": "%d/%b/%Y %H:%M:%S",
-                },
-                "simple": {"format": "%(levelname)s %(message)s"},
-            },
-            "handlers": {
-                "console": {"level": self.LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"}
-            },
-            "loggers": {
-                "*": {"handlers": ["console"], "level": self.LOG_LEVEL, "propagate": True},
-                "django": {"handlers": ["console"], "propagate": False, "level": self.LOG_LEVEL},
-            },
-        }
