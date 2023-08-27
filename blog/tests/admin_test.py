@@ -1,12 +1,14 @@
 import pytest
 from django.urls import reverse
 
-from .factories import PostFactory
+from .factories import PostFactory, TagFactory
 
 
 @pytest.fixture(scope="session")
 def post(db):
-    PostFactory.create()
+    tags = TagFactory.create_batch(3)
+    post = PostFactory.create()
+    post.tags.set(tags)
 
 
 @pytest.mark.parametrize(

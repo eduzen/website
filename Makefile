@@ -79,6 +79,9 @@ clean: stop
 test:
 	${DCO} run --rm web coverage run -m pytest
 
+show-coverage:
+	${DCO} run --rm web coverage combine; ${DCO} run --rm web coverage report
+
 check:
 	${DCO} run --rm web python manage.py check
 
