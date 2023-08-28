@@ -1,5 +1,7 @@
 import pytest
 from django.urls import reverse
+from django.test import TestCase, Client
+from django.contrib.auth.models import User
 
 from .factories import PostFactory, TagFactory
 
@@ -29,3 +31,20 @@ def test_blog_post_admin(admin_client, url):
     post = PostFactory.create()
     response = admin_client.get(reverse(url, args=(post.pk,)))
     assert response.status_code == 200
+
+
+class SessionAdminTest(TestCase):
+    def setUp(self):
+        # Create a superuser and log in for admin access
+        self.client = Client()
+        self.superuser = User.objects.create_superuser(
+            username="testuser", password="testpass", email="test@example.com"
+        )
+        self.client.login(username="testuser", password="testpass")
+
+    def test_list_display_custom_fields(self):
+        # Access the admin page for sessions
+        response = self.client.get(reverse("admin:sessions_session_changelist"))
+        self.assertContains(response, "session_key")
+        self.assertContains(response, "_session_data")
+        self.assertContains(response, "expire_date")

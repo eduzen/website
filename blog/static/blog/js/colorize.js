@@ -56,9 +56,6 @@ window.colorizeAllParagraphs = colorizeAllParagraphs;
 document.body.addEventListener('htmx:afterSwap', function(event) {
   //const targetURL = event.detail.path; //
   const targetURL = event.detail.xhr.responseURL;
-
-  console.log("htmx:afterSwap ", targetURL, shouldColorize(targetURL) ? "should colorize" : "shouldn't colorize");
-
   if (shouldColorize(targetURL)) {
     window.colorizeAllParagraphs();
   }

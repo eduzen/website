@@ -37,6 +37,8 @@ THIRD_PARTY_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "corsheaders",
+    "crispy_forms",
+    "crispy_tailwind",
     "django_extensions",
     "django_htmx",
     "easy_thumbnails",
@@ -213,3 +215,7 @@ HEALTH_CHECKS = {
 
 # Django Image Cropping: https://github.com/jonasundderwolf/django-image-cropping
 THUMBNAIL_PROCESSORS = ("image_cropping.thumbnail_processors.crop_corners",) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+# Crispy Forms: https://github.com/django-crispy-forms/crispy-tailwind
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"

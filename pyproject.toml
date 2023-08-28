@@ -22,10 +22,11 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
 ]
 dependencies = [
-  "easy_thumbnails",  # Needed for django-image-cropping
+  "crispy-tailwind",
   "django",
-  "django-cors-headers",
   "django-ckeditor",
+  "django-cors-headers",
+  "django-crispy-forms",
   "django-extensions",
   "django-filter",
   "django-healthchecks",
@@ -37,6 +38,7 @@ dependencies = [
   "django-restframework",
   "django-rosetta",
   "dj-database-url",
+  "easy_thumbnails",  # Needed for django-image-cropping
   "gunicorn",
   "gevent",
   "Markdown",

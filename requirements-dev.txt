@@ -27,6 +27,8 @@ charset-normalizer==3.2.0
     # via requests
 coverage==7.3.0
     # via website (pyproject.toml)
+crispy-tailwind==0.5.0
+    # via website (pyproject.toml)
 cryptography==41.0.3
     # via
     #   types-pyopenssl
@@ -44,6 +46,7 @@ django==4.2.4
     #   django-browser-reload
     #   django-ckeditor
     #   django-cors-headers
+    #   django-crispy-forms
     #   django-debug-toolbar
     #   django-extensions
     #   django-filter
@@ -65,6 +68,10 @@ django-ckeditor==6.7.0
     # via website (pyproject.toml)
 django-cors-headers==4.2.0
     # via website (pyproject.toml)
+django-crispy-forms==2.0
+    # via
+    #   crispy-tailwind
+    #   website (pyproject.toml)
 django-debug-toolbar==4.2.0
     # via website (pyproject.toml)
 django-extensions==3.2.3

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-26 21:35+0200\n"
+"POT-Creation-Date: 2023-08-28 14:34+0200\n"
 "PO-Revision-Date: 2023-08-25 11:25-0300\n"
 "Last-Translator: Eduardo Enriquez <eduardo.a.enriquez@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: blog/forms.py:12
+msgid "Message"
+msgstr "Mensaje"
+
+#: blog/forms.py:13
+msgid "Email"
+msgstr "Correo"
+
+#: blog/forms.py:14
+msgid "Name"
+msgstr "Nombre"
+
+#: blog/forms.py:15
+msgid "What color is the red rabbit?"
+msgstr "De que color es el conejo rojo?"
+
+#: blog/forms.py:66
+msgid "Send"
+msgstr "Enviar"
 
 #: blog/models.py:16
 msgid "word"
@@ -222,7 +242,6 @@ msgid "Classes"
 msgstr "Clases"
 
 #: blog/templates/blog/_classes.html:11
-#, fuzzy
 msgid ""
 "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. "
 "Learn more about me on my 'About' page: "
@@ -246,7 +265,6 @@ msgstr ""
 "de aprendizaje."
 
 #: blog/templates/blog/_classes.html:18
-#, fuzzy
 msgid ""
 "We can learn about: Python, or about web frameworks like Django, Flask, or "
 "FastAPI. We can also explore other topics like: object-oriented programming, "
@@ -512,29 +530,9 @@ msgstr "Contactame"
 msgid "Contact"
 msgstr "Contacto"
 
-#: blog/templates/blog/_contact.html:12
+#: blog/templates/blog/_contact.html:14
 msgid "Are you sure?"
 msgstr "Estas seguro?"
-
-#: blog/templates/blog/_contact.html:15
-msgid "Name"
-msgstr "Nombre"
-
-#: blog/templates/blog/_contact.html:20
-msgid "Email"
-msgstr "Correo"
-
-#: blog/templates/blog/_contact.html:25
-msgid "Message"
-msgstr "Mensaje"
-
-#: blog/templates/blog/_contact.html:31
-msgid "What color is the red rabbit?"
-msgstr "De que color es el conejo rojo?"
-
-#: blog/templates/blog/_contact.html:36
-msgid "Send"
-msgstr "Enviar"
 
 #: blog/templates/blog/error.html:7
 msgid "Try again"

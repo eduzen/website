@@ -8,15 +8,15 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, TemplateView
 from django_filters.views import FilterView
 
+
 from .filters import PostFilter
-from .forms import AdvanceSearchForm
+from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
-from .services.telegram import send_message
+from .services.telegram import send_contact_message
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +34,12 @@ class HtmxGetMixin:
         if request.htmx and self.partial_template_name:  # type: ignore
             self.template_name = self.partial_template_name
         return super().get(request, *args, **kwargs)  # type: ignore
+
+    def get_template_names(self):
+        """Return the correct template based on the request type (HTMX or regular)."""
+        if self.request.htmx:
+            return [self.partial_template_name]
+        return [self.template_name]
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
@@ -140,43 +146,32 @@ class PostDetailView(DetailView):
 
 
 @method_decorator(cache_page(DAY), name="get")
-class ContactView(HtmxGetMixin, TemplateView):
+class ContactView(HtmxGetMixin, FormView):
     template_name = "blog/contact.html"
     partial_template_name = "blog/partials/contact.html"
+    form_class = ContactForm
     error_url = reverse_lazy("error")
-    success_url = reverse_lazy("success")
 
-    def verify_captcha(self, request: HttpRequest) -> bool:
-        user_answer = request.POST.get("captcha_response", None)
-        correct_answer = ("rojo", "red")
-        if user_answer and user_answer.strip().lower() in correct_answer:
-            return True
-        return False
-
-    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if not self.verify_captcha(request):
-            return render(request, "blog/error.html", {"error": _("invalid captcha")})
-
-        context = {}
-        if name := request.POST.get("name"):
-            context["name"] = name
-
-        if email := request.POST.get("email"):
-            context["email"] = email
-
-        if message := request.POST.get("message"):
-            context["message"] = message
+    def form_valid(self, form):
+        context = {
+            "name": form.cleaned_data["name"],
+            "email": form.cleaned_data["email"],
+            "message": form.cleaned_data["message"],
+        }
 
         try:
-            # Send a test message
-            response = send_message(f"Message from website {context}")
+            response = send_contact_message(**context)
             logger.info(response)
-
-            return render(request, "blog/success.html", context)
-
         except Exception:
             logger.exception("Contact problems")
             return redirect(self.error_url)
+
+        return render(self.request, "blog/success.html", context)
+
+    def form_invalid(self, form: ContactForm):
+        context_data = self.get_context_data(form=form)
+        print(context_data)
+        return render(self.request, self.partial_template_name, context_data)
 
 
 @cache_page(HALF_YEAR)

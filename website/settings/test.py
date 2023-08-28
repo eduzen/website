@@ -13,7 +13,7 @@ EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
-# STORAGES["default"]["backend"] = "inmemorystorage.InMemoryStorage"
+STORAGES["default"]["backend"] = "inmemorystorage.InMemoryStorage"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
