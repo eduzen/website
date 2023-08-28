@@ -70,7 +70,7 @@ class ContactForm(forms.Form):
 
     def clean_captcha(self) -> str:
         # Get the cleaned value (after built-in validation checks)
-        captcha = self.cleaned_data.get("captcha")
+        captcha = self.cleaned_data.get("captcha", "")
         if not verify_captcha(captcha):
             raise forms.ValidationError("invalid captcha")
         return captcha
