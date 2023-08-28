@@ -178,7 +178,7 @@ pillow==10.0.0
     # via
     #   django-simple-captcha
     #   easy-thumbnails
-pluggy==1.2.0
+pluggy==1.3.0
     # via pytest
 ply==3.11
     # via stone
