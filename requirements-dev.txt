@@ -155,7 +155,7 @@ matplotlib-inline==0.1.6
     # via ipython
 multidict==6.0.4
     # via yarl
-mypy==1.4.1
+mypy==1.5.1
     # via
     #   django-stubs
     #   website (pyproject.toml)
