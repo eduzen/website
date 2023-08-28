@@ -2,22 +2,21 @@ import datetime as dt
 import logging
 from typing import Any
 
-from django import http
+from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, TemplateView
 from django_filters.views import FilterView
 
-from blog.services.contact import send_telegram_message
 
 from .filters import PostFilter
-from .forms import AdvanceSearchForm, SearchForm
+from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
+from .services.telegram import send_contact_message
 
 logger = logging.getLogger(__name__)
 
@@ -29,10 +28,18 @@ HALF_YEAR = 6 * MONTH
 
 
 class HtmxGetMixin:
+    partial_template_name: str
+
     def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if request.htmx:
+        if request.htmx and self.partial_template_name:  # type: ignore
             self.template_name = self.partial_template_name
-        return super().get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)  # type: ignore
+
+    def get_template_names(self):
+        """Return the correct template based on the request type (HTMX or regular)."""
+        if self.request.htmx:
+            return [self.partial_template_name]
+        return [self.template_name]
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
@@ -59,7 +66,7 @@ class ErrorView(TemplateView):
 
 
 class AdvanceSearch(FormView):
-    template_name = "blog/advance_search.html"
+    template_name = "blog/search.html"
     form_class = AdvanceSearchForm
     success_url = "/sucess/"
 
@@ -92,17 +99,9 @@ class PostListView(HtmxGetMixin, FilterView):
     filterset_class = PostFilter
     paginate_by = 12
 
-    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
-        posts = context.get("posts")
-        if not posts:
-            return redirect("search")
-
-        return super().render_to_response(context)
-
 
 @method_decorator(cache_page(HOUR), name="dispatch")
-class PostTagsList(HtmxGetMixin, FilterView):
-    model = Post
+class PostTagsListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
@@ -113,9 +112,7 @@ class PostTagsList(HtmxGetMixin, FilterView):
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["tags"] = Post.objects.count_tags()
-        context["search_form"] = SearchForm()
-        context["tag"] = self.kwargs.get("tag").title()
+        context["tag"] = self.kwargs.get("tag", "-").title()
         return context
 
     def get_queryset(self) -> QuerySet[Post]:
@@ -123,62 +120,58 @@ class PostTagsList(HtmxGetMixin, FilterView):
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
-class PostDetail(DetailView):
+class PostDetailView(DetailView):
     queryset = Post.objects.prefetch_related("tags").published()
     context_object_name = "post"
     template_name = "blog/posts/detail.html"
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["title"] = self.object.title
-        context["related_posts"] = (
+        # Get all tag IDs for the current post
+        tag_ids = self.object.tags.values_list("id", flat=True)
+
+        related_posts = (
             Post.objects.published()
-            .filter(tags__in=self.object.tags.all())
+            .filter(tags__id__in=tag_ids)
             .order_by("-published_date")
             .distinct()
-            .exclude(pk=self.object.pk)[:15]
+            .exclude(pk=self.object.pk)
         )
+        # Pagination logic for related posts
+        paginator = Paginator(related_posts, 4)
+        page = self.request.GET.get("related_page", 1)
+        context["related_posts"] = paginator.get_page(page)
+
         return context
 
 
 @method_decorator(cache_page(DAY), name="get")
-class ContactView(HtmxGetMixin, TemplateView):
+class ContactView(HtmxGetMixin, FormView):
     template_name = "blog/contact.html"
     partial_template_name = "blog/partials/contact.html"
+    form_class = ContactForm
     error_url = reverse_lazy("error")
-    success_url = reverse_lazy("success")
 
-    def verify_captcha(self, request: HttpRequest) -> bool:
-        user_answer = request.POST.get("captcha_response", None)
-        correct_answer = ("rojo", "red")
-        if user_answer and user_answer.strip().lower() in correct_answer:
-            return True
-        return False
-
-    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if not self.verify_captcha(request):
-            return render(request, "blog/error.html", {"error": _("invalid captcha")})
-
-        context = {}
-        if name := request.POST.get("name"):
-            context["name"] = name
-
-        if email := request.POST.get("email"):
-            context["email"] = email
-
-        if message := request.POST.get("message"):
-            context["message"] = message
+    def form_valid(self, form):
+        context = {
+            "name": form.cleaned_data["name"],
+            "email": form.cleaned_data["email"],
+            "message": form.cleaned_data["message"],
+        }
 
         try:
-            # Send a test message
-            response = send_telegram_message(f"Message from website {context}")
+            response = send_contact_message(**context)
             logger.info(response)
-
-            return render(request, "blog/success.html", context)
-
         except Exception:
             logger.exception("Contact problems")
             return redirect(self.error_url)
+
+        return render(self.request, "blog/success.html", context)
+
+    def form_invalid(self, form: ContactForm):
+        context_data = self.get_context_data(form=form)
+        print(context_data)
+        return render(self.request, self.partial_template_name, context_data)
 
 
 @cache_page(HALF_YEAR)

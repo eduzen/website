@@ -1,4 +1,4 @@
-{% load crispy_forms_tags i18n %}
+{% load static i18n %}
 
 <h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
   Blog
@@ -26,7 +26,7 @@
         {{ post.title }}
       </a>
       <p class="mb-2 text-green-400"><time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time></p>
-      <p class="mb-4">{{ post.pompadour }}</p>
+      <p class="mb-4">{{ post.summary }}</p>
       <div class="tags">
           {% for tag in post.tags.all %}
           <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2 hover:bg-orange-500">
@@ -36,8 +36,11 @@
       </div>
     </div>
   </article>
-{% empty %}
-  <p class="text-lg text-center gray-100"> Empty posts </p>
-{% endfor %}
 
-{% include 'blog/extras/paginator.html' %}
+  {% include 'blog/extras/paginator.html' %}
+
+{% empty %}
+  <p class="text-lg text-center pb-4"> {% translate "We could not find what you are looking for..." %} </p>
+  <p class="text-lg text-center pb-4">{% translate "Maybe you can search another for thing?" %}</p>
+  <p class="text-lg text-center"><a class="px-4 py-2 bg-purple-500 rounded hover:bg-pink-300" href="{% static 'search' %}">{% translate "Search"%}</a>
+{% endfor %}

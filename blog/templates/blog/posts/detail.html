@@ -1,6 +1,6 @@
 {% extends 'blog/utils/base.html' %}
 
-{% load crispy_forms_tags i18n static %}
+{% load i18n static %}
 
 {% block head %}
 {{ block.super }}
@@ -20,67 +20,34 @@
 
       <!-- Post Detail -->
         {% if post.published_date %}
-          <small class="text-sm pb-4">
-            <time class="purple" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
+          <small class="text-sm ">
+            <time class="text-gray-400" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
             |
-            <span class="text-orange-400">
+            <span class="text-gray-400">
               {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
             </span>
           </small>
         {% endif %}
 
-        <h3 class="text-3xl font-bold text-green-400 mb-7">{{ post.title }}</h3>
+        <h3 class="text-3xl font-bold text-purple-400 pb-4">{{ post.title }}</h3>
 
-        {% comment %} <hr class="dracula-border mb-4"> {% endcomment %}
         {% autoescape off %}
-        <div class="gray-100 leading-loose leading-8 text-justify indent-4 whitespace-break-spaces">
-            {{ post.text }}
-        </div>
+          {{ post.text }}
         {% endautoescape %}
 
     </div>
 
-    <hr class="dracula-border">
-
-    <div class="w-full p-4">
-
-      <!-- Related Posts -->
-      <ul class="">
-        <li class="">
-            <h3 class="text-purple-400">{% translate 'Related posts'%}</h3>
-        </li>
-        {% for post in posts %}
-        <li class="">
-            <a href="{{ post.get_absolute_url }}" class="text-purple-400 hover:dracula-hover">
-                <span class="gray-100">
-                    {{ post.title }}
-                </span><br>
-                <small class="text-green-400">
-                    {% translate 'Published' %}: {{post.published_date }}
-                </small>
-            </a>
-        </li>
-        {% empty %}
-          <p class="gray-100">{% translate 'Nothing yet!' %}</p>
-        {% endfor %}
-      </ul>
-    </div>
+    {% include 'blog/posts/_related_posts.html' with posts=related_posts %}
 
   </div>
-
-  <!-- Disqus Comments -->
-  {% include 'blog/extras/disqus.html' %}
-
 
 {% endblock %}
 
 {% block extra_scripts %}
   {{ block.super }}
-
   <script
     type="application/javascript"
     src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}">
   </script>
   <script type="application/javascript">hljs.initHighlightingOnLoad();</script>
-
 {% endblock %}

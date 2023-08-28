@@ -1,53 +1,32 @@
-import os
-
-from configurations import values
-
-from .base import Base, SelfHostedStorage
+from .base import *  # noqa
+from .base import INSTALLED_APPS, MIDDLEWARE
 
 
-class Dev(SelfHostedStorage, Base):
-    DEBUG = True
-    ALLOWED_HOSTS = values.ListValue(["*"])
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
 
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = "mailhog"  # Your Mailhog Host
-    EMAIL_PORT = "1025"
+SHELL_PLUS_PRINT_SQL = True
+SHELL_PLUS_PRINT_SQL_TRUNCATE = None
+INTERNAL_IPS = ["127.0.0.1"]
+CORS_ALLOW_ALL_ORIGINS = True
 
-    DATABASES = values.DatabaseURLValue(conn_max_age=600, ssl_require=False)
-
-    ANYMAIL = {
-        "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
-        "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
     }
+}
 
-    SHELL_PLUS_PRINT_SQL = True
-    SHELL_PLUS_PRINT_SQL_TRUNCATE = None
-    INTERNAL_IPS = ["127.0.0.1"]
-    CORS_ALLOW_ALL_ORIGINS = True
+MEDIA_URL = "https://media.eduzen.ar/"
 
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        }
-    }
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
 
-    MEDIA_URL = "https://media.eduzen.ar/"
+INSTALLED_APPS += [
+    "debug_toolbar",
+    "django_browser_reload",
+]
 
-    @property
-    def DEBUG_TOOLBAR_CONFIG(self):
-        return {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
-
-    @property
-    def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + [
-            "debug_toolbar",
-            "django_browser_reload",
-        ]
-
-    @property
-    def MIDDLEWARE(self):
-        return (
-            ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-            + super().MIDDLEWARE
-            + ["django_browser_reload.middleware.BrowserReloadMiddleware"]
-        )
+MIDDLEWARE = (
+    ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+    + MIDDLEWARE
+    + ["django_browser_reload.middleware.BrowserReloadMiddleware"]
+)

@@ -6,63 +6,49 @@
 #
 asgiref==3.7.2
     # via django
+brotli==1.0.9
+    # via whitenoise
+cachetools==5.3.1
+    # via google-auth
 certifi==2023.7.22
     # via
     #   django-healthchecks
     #   requests
     #   sentry-sdk
-cffi==1.15.1
-    # via cryptography
 charset-normalizer==3.2.0
     # via requests
-cryptography==41.0.3
-    # via django-anymail
+crispy-tailwind==0.5.0
+    # via website (pyproject.toml)
 dj-database-url==2.1.0
-    # via django-configurations
-dj-email-url==1.0.6
-    # via django-configurations
-dj-search-url==0.1
-    # via django-configurations
+    # via website (pyproject.toml)
 django==4.2.4
     # via
     #   dj-database-url
-    #   django-anymail
     #   django-appconf
     #   django-ckeditor
-    #   django-configurations
     #   django-cors-headers
+    #   django-crispy-forms
     #   django-debug-toolbar
     #   django-extensions
     #   django-filter
     #   django-healthchecks
     #   django-htmx
     #   django-js-asset
-    #   django-picklefield
-    #   django-ranged-response
     #   django-rosetta
-    #   django-simple-captcha
     #   django-storages
-    #   djangorestframework
     #   easy-thumbnails
+    #   sentry-sdk
     #   website (pyproject.toml)
-django-anymail==10.1
-    # via website (pyproject.toml)
 django-appconf==1.0.5
     # via django-image-cropping
-django-autoslug==1.9.9
-    # via website (pyproject.toml)
-django-cache-url==3.4.4
-    # via django-configurations
 django-ckeditor==6.7.0
-    # via website (pyproject.toml)
-django-configurations[cache,database,email,search]==2.4.1
-    # via website (pyproject.toml)
-django-constance[database]==2.9.1
     # via website (pyproject.toml)
 django-cors-headers==4.2.0
     # via website (pyproject.toml)
-django-crispy-forms==1.14.0
-    # via website (pyproject.toml)
+django-crispy-forms==2.0
+    # via
+    #   crispy-tailwind
+    #   website (pyproject.toml)
 django-debug-toolbar==4.2.0
     # via website (pyproject.toml)
 django-extensions==3.2.3
@@ -77,26 +63,37 @@ django-image-cropping==1.7
     # via website (pyproject.toml)
 django-js-asset==2.1.0
     # via django-ckeditor
-django-picklefield==3.1
-    # via django-constance
-django-ranged-response==0.2.0
-    # via django-simple-captcha
+django-restframework==0.0.1
+    # via website (pyproject.toml)
 django-robots==5.0
     # via website (pyproject.toml)
 django-rosetta==0.9.9
     # via website (pyproject.toml)
-django-simple-captcha==0.5.18
+django-storages[google]==1.13.2
     # via website (pyproject.toml)
-django-storages[dropbox]==1.13.2
-    # via website (pyproject.toml)
-djangorestframework==3.14.0
-    # via website (pyproject.toml)
-dropbox==11.36.2
-    # via django-storages
 easy-thumbnails==2.8.5
     # via website (pyproject.toml)
 gevent==23.7.0
     # via website (pyproject.toml)
+google-api-core==2.11.1
+    # via
+    #   google-cloud-core
+    #   google-cloud-storage
+google-auth==2.22.0
+    # via
+    #   google-api-core
+    #   google-cloud-core
+    #   google-cloud-storage
+google-cloud-core==2.3.3
+    # via google-cloud-storage
+google-cloud-storage==2.10.0
+    # via django-storages
+google-crc32c==1.5.0
+    # via google-resumable-media
+google-resumable-media==2.5.0
+    # via google-cloud-storage
+googleapis-common-protos==1.60.0
+    # via google-api-core
 greenlet==2.0.2
     # via gevent
 gunicorn==21.2.0
@@ -109,51 +106,53 @@ packaging==23.1
     # via gunicorn
 pillow==10.0.0
     # via
-    #   django-simple-captcha
     #   easy-thumbnails
-ply==3.11
-    # via stone
+    #   website (pyproject.toml)
 polib==1.2.0
     # via django-rosetta
+protobuf==4.24.2
+    # via
+    #   google-api-core
+    #   googleapis-common-protos
 psycopg2-binary==2.9.7
     # via website (pyproject.toml)
-pycparser==2.21
-    # via cffi
+pyasn1==0.5.0
+    # via
+    #   pyasn1-modules
+    #   rsa
+pyasn1-modules==0.3.0
+    # via google-auth
 pygments==2.16.1
     # via website (pyproject.toml)
 python-decouple==3.8
     # via website (pyproject.toml)
-pytz==2023.3
-    # via djangorestframework
 redis==5.0.0
     # via website (pyproject.toml)
 requests==2.31.0
     # via
-    #   django-anymail
     #   django-healthchecks
     #   django-rosetta
-    #   dropbox
+    #   google-api-core
+    #   google-cloud-storage
     #   website (pyproject.toml)
-sentry-sdk==1.29.2
+rsa==4.9
+    # via google-auth
+sentry-sdk[django]==1.29.2
     # via website (pyproject.toml)
 six==1.16.0
-    # via
-    #   dropbox
-    #   stone
+    # via google-auth
 sqlparse==0.4.4
     # via
     #   django
     #   django-debug-toolbar
-stone==3.3.1
-    # via dropbox
 typing-extensions==4.7.1
     # via dj-database-url
-urllib3==2.0.4
+urllib3==1.26.16
     # via
-    #   django-anymail
+    #   google-auth
     #   requests
     #   sentry-sdk
-whitenoise==6.5.0
+whitenoise[brotli]==6.5.0
     # via website (pyproject.toml)
 zope-event==5.0
     # via gevent

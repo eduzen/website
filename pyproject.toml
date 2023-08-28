@@ -22,36 +22,34 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
 ]
 dependencies = [
+  "crispy-tailwind",
   "django",
-  "django-anymail",
-  "django-configurations[cache,database,email,search]",
-  "django-crispy-forms<2.0",
-  "django-cors-headers",
   "django-ckeditor",
-  "django-constance[database]",
+  "django-cors-headers",
+  "django-crispy-forms",
   "django-extensions",
   "django-filter",
   "django-healthchecks",
   "django-htmx",
   "django-image-cropping",
   "django-robots",
-  "django-simple-captcha",
-  "django-autoslug",
-  "djangorestframework",
-  "django-storages[dropbox]",
+  "django-storages[google]",
   "django-debug-toolbar",
+  "django-restframework",
   "django-rosetta",
-  "easy-thumbnails",
+  "dj-database-url",
+  "easy_thumbnails",  # Needed for django-image-cropping
   "gunicorn",
   "gevent",
   "Markdown",
+  "Pillow",
   "python-decouple",
   "psycopg2-binary",
   "pygments",
   "redis",
-  "sentry-sdk",
+  "sentry-sdk[django]",
   "requests",
-  "whitenoise",
+  "whitenoise[brotli]",
 ]
 
 [project.optional-dependencies]
@@ -62,7 +60,6 @@ dev = [
   "mypy",
   "factory-boy",
   "pytest",
-  "pytest-cov",
   "pytest-django",
   "pytest-mock",
   "pytest-sugar",
@@ -71,7 +68,6 @@ dev = [
   "types-redis",
   "types-requests",
   "hypothesis",
-  "coverage",
   "django-browser-reload",
   # "wdb",
 ]
@@ -82,7 +78,7 @@ types = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --dc=Test --pdbcls=IPython.terminal.debugger:Pdb -xs"
+addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb -xs"
 filterwarnings = []
 
 [tool.black]
@@ -103,7 +99,6 @@ exclude = [
 
 [tool.mypy]
 plugins = [
-  "./configurations_mypy_django_plugin.py",
   "mypy_django_plugin.main"
 ]
 ignore_missing_imports = true

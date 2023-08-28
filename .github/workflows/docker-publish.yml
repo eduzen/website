@@ -35,7 +35,9 @@ jobs:
         uses: docker/build-push-action@v4.1.1
         with:
           push: true
-          tags: eduzen/website:latest
+          tags: |
+            eduzen/website:latest
+            eduzen/website:${{ github.sha }}
           target: production
           file: ./Dockerfile
           cache-from: type=gha

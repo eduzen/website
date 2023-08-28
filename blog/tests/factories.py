@@ -29,7 +29,7 @@ class PostFactory(factory.django.DjangoModelFactory):
 
     author = factory.SubFactory(UserFactory)
     title = factory.Faker("sentence", nb_words=7)
-    pompadour = factory.Faker("sentence")
+    summary = factory.Faker("sentence")
     text = factory.Faker("paragraph", nb_sentences=50)
     slug = factory.LazyAttribute(lambda obj: obj.title.replace(" ", "-").replace(".", "")[:50])
     published_date = factory.Faker("date_time", tzinfo=timezone.get_current_timezone())

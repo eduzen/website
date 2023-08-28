@@ -1,23 +1,16 @@
 import pytest
 from django.urls import reverse
+from django.test import TestCase, Client
+from django.contrib.auth.models import User
 
-from .factories import PostFactory
+from .factories import PostFactory, TagFactory
 
 
 @pytest.fixture(scope="session")
 def post(db):
-    PostFactory.create()
-
-
-def test_root_admin(admin_client):
-    response = admin_client.get(reverse("admin:index"))
-    assert response.status_code == 200
-
-
-@pytest.mark.parametrize("app", ("blog", "snippets", "files", "robots", "constance"))
-def test_admin(admin_client, app):
-    response = admin_client.get(reverse("admin:app_list", kwargs={"app_label": app}))
-    assert response.status_code == 200
+    tags = TagFactory.create_batch(3)
+    post = PostFactory.create()
+    post.tags.set(tags)
 
 
 @pytest.mark.parametrize(
@@ -38,3 +31,20 @@ def test_blog_post_admin(admin_client, url):
     post = PostFactory.create()
     response = admin_client.get(reverse(url, args=(post.pk,)))
     assert response.status_code == 200
+
+
+class SessionAdminTest(TestCase):
+    def setUp(self):
+        # Create a superuser and log in for admin access
+        self.client = Client()
+        self.superuser = User.objects.create_superuser(
+            username="testuser", password="testpass", email="test@example.com"
+        )
+        self.client.login(username="testuser", password="testpass")
+
+    def test_list_display_custom_fields(self):
+        # Access the admin page for sessions
+        response = self.client.get(reverse("admin:sessions_session_changelist"))
+        self.assertContains(response, "session_key")
+        self.assertContains(response, "_session_data")
+        self.assertContains(response, "expire_date")

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-25 11:16-0300\n"
+"POT-Creation-Date: 2023-08-28 14:34+0200\n"
 "PO-Revision-Date: 2023-08-25 11:25-0300\n"
 "Last-Translator: Eduardo Enriquez <eduardo.a.enriquez@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,21 +19,53 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: blog/models.py:18
+#: blog/forms.py:12
+msgid "Message"
+msgstr "Mensaje"
+
+#: blog/forms.py:13
+msgid "Email"
+msgstr "Correo"
+
+#: blog/forms.py:14
+msgid "Name"
+msgstr "Nombre"
+
+#: blog/forms.py:15
+msgid "What color is the red rabbit?"
+msgstr "De que color es el conejo rojo?"
+
+#: blog/forms.py:66
+msgid "Send"
+msgstr "Enviar"
+
+#: blog/models.py:16
 msgid "word"
 msgstr "palabra"
 
-#: blog/models.py:19
+#: blog/models.py:17 blog/models.py:46
 msgid "slug"
 msgstr "slug"
 
-#: blog/models.py:23
+#: blog/models.py:21
 msgid "tag"
 msgstr "etiqueta"
 
-#: blog/models.py:24
+#: blog/models.py:22
 msgid "tags"
 msgstr "etiquetas"
+
+#: blog/models.py:44
+msgid "title"
+msgstr "titulo"
+
+#: blog/models.py:45
+msgid "summary"
+msgstr "resumen"
+
+#: blog/models.py:50
+msgid "Body text"
+msgstr "Cuerpo del texto"
 
 #: blog/templates/blog/_about.html:4
 msgid "About me"
@@ -46,8 +78,8 @@ msgstr "¡Hola Mundo! Mi nombre es Eduardo y soy un developer 💻."
 #: blog/templates/blog/_about.html:10
 #, python-format
 msgid ""
-"I've been working ⛏️ with Python 🐍 for the last %(years)s years, most of the"
-" time working as a backend developer with Django."
+"I've been working ⛏️ with Python 🐍 for the last %(years)s years, most of the "
+"time working as a backend developer with Django."
 msgstr ""
 "He estado trabajando ⛏️ con Python 🐍 durante los últimos %(years)s años, "
 "mayormente como desarrollador backend con Django."
@@ -134,9 +166,9 @@ msgstr "O puedes encontrar el código fuente de este sitio web en"
 #: blog/templates/blog/_about.html:62
 #, python-format
 msgid ""
-"Besides computers, I like good music, books, philosophy, movies, series, and"
-" good food. I started trying some mechanical keyboards (right now using a "
-"Leo pold 75 %%)! But I have also a Keychron K12."
+"Besides computers, I like good music, books, philosophy, movies, series, and "
+"good food. I started trying some mechanical keyboards (right now using a Leo "
+"pold 75 %%)! But I have also a Keychron K12."
 msgstr ""
 "Además de las computadoras, me gusta la buena música, los libros, la "
 "filosofía, las películas, las series y la buena comida. Comencé a probar "
@@ -145,8 +177,8 @@ msgstr ""
 
 #: blog/templates/blog/_about.html:65
 msgid ""
-"Some people find it weird that I have a bachelor's degree in philosophy from"
-" the University of Buenos Aires 🇦🇷. But I think that rational thinking is "
+"Some people find it weird that I have a bachelor's degree in philosophy from "
+"the University of Buenos Aires 🇦🇷. But I think that rational thinking is "
 "something that my profession and studies share."
 msgstr ""
 "Algunas personas encuentran extraño que tenga una licenciatura en filosofía "
@@ -159,26 +191,25 @@ msgid ""
 "curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and "
 "Foucault."
 msgstr ""
-"En general, la filosofía ha moldeado mi pensamiento analítico y fomentado mi"
-" curiosidad. Algunos de mis filósofos favoritos son Nietzsche, Descartes y "
+"En general, la filosofía ha moldeado mi pensamiento analítico y fomentado mi "
+"curiosidad. Algunos de mis filósofos favoritos son Nietzsche, Descartes y "
 "Foucault."
 
 #: blog/templates/blog/_about.html:67
 msgid ""
-"Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and"
-" many more..."
+"Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and "
+"many more..."
 msgstr ""
-"Escritores... muchos; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke"
-" y muchos más..."
+"Escritores... muchos; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke "
+"y muchos más..."
 
 #: blog/templates/blog/_about.html:70
 msgid ""
-"Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my "
-"background in philosophy has helped me to be a better teacher."
+"Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my background "
+"in philosophy has helped me to be a better teacher."
 msgstr ""
-"Por último, pero no menos importante, soy un apasionado de la enseñanza "
-"👨🏽‍🏫. Creo que mi formación en filosofía me ha ayudado a ser un mejor "
-"profesor."
+"Por último, pero no menos importante, soy un apasionado de la enseñanza 👨🏽‍🏫. "
+"Creo que mi formación en filosofía me ha ayudado a ser un mejor profesor."
 
 #: blog/templates/blog/_about.html:71
 msgid ""
@@ -211,7 +242,6 @@ msgid "Classes"
 msgstr "Clases"
 
 #: blog/templates/blog/_classes.html:11
-#, fuzzy
 msgid ""
 "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. "
 "Learn more about me on my 'About' page: "
@@ -235,26 +265,25 @@ msgstr ""
 "de aprendizaje."
 
 #: blog/templates/blog/_classes.html:18
-#, fuzzy
 msgid ""
 "We can learn about: Python, or about web frameworks like Django, Flask, or "
-"FastAPI. We can also explore other topics like: object-oriented programming,"
-" unit tests, clean code or the one that you need."
+"FastAPI. We can also explore other topics like: object-oriented programming, "
+"unit tests, clean code or the one that you need."
 msgstr ""
 "Podemos aprender sobre: Python, o sobre frameworks web como Django, Flask o "
-"FastAPI. También podemos explorar otros temas como: programación orientada a"
-" objetos, pruebas unitarias, código limpio o el que necesites."
+"FastAPI. También podemos explorar otros temas como: programación orientada a "
+"objetos, pruebas unitarias, código limpio o el que necesites."
 
 #: blog/templates/blog/_classes.html:21
 msgid ""
-"It's not easy to learn new things. It's hard also to find the motivation and"
-" the resources that are good for you. In these modern times, what we have is"
-" data 🗃️, data 🗃️ and data 🗃️, available everywhere."
+"It's not easy to learn new things. It's hard also to find the motivation and "
+"the resources that are good for you. In these modern times, what we have is "
+"data 🗃️, data 🗃️ and data 🗃️, available everywhere."
 msgstr ""
 "No es fácil aprender cosas nuevas. También es difícil encontrar la "
 "motivación y los recursos que sean buenos para ti. En estos tiempos "
-"modernos, lo que tenemos es datos 🗃️, datos 🗃️ y más datos 🗃️, disponibles "
-"en todas partes."
+"modernos, lo que tenemos es datos 🗃️, datos 🗃️ y más datos 🗃️, disponibles en "
+"todas partes."
 
 #: blog/templates/blog/_classes.html:22
 msgid ""
@@ -311,9 +340,9 @@ msgstr "Imposible no recomendar ChatGPT: "
 
 #: blog/templates/blog/_classes.html:43
 msgid ""
-"I think it's one of the most important resources from our modern times. It's"
-" a great companion that could answer almost everything that you need in this"
-" field."
+"I think it's one of the most important resources from our modern times. It's "
+"a great companion that could answer almost everything that you need in this "
+"field."
 msgstr ""
 "Creo que es uno de los recursos más importantes de nuestros tiempos "
 "modernos. Es un gran compañero que podría responder casi todo lo que "
@@ -369,8 +398,8 @@ msgid ""
 "Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a "
 "sprinkle of fun and a dollop of expertise."
 msgstr ""
-"Creando magia tecnológica 🧙🏼‍♀️ para individuos 🧍🏻‍♀️ y empresas 🏭, con un "
-"toque de diversión y una pizca de experiencia."
+"Creando magia tecnológica 🧙🏼‍♀️ para individuos 🧍🏻‍♀️ y empresas 🏭, con un toque "
+"de diversión y una pizca de experiencia."
 
 #: blog/templates/blog/_consultancy.html:10
 msgid "Let's code something delightful!"
@@ -378,8 +407,8 @@ msgstr "Codeemos algo flashero!"
 
 #: blog/templates/blog/_consultancy.html:11
 msgid ""
-"With over 10 years in the industry 👴🏿, I offer useful insights and expertise"
-" for daily challenges."
+"With over 10 years in the industry 👴🏿, I offer useful insights and expertise "
+"for daily challenges."
 msgstr ""
 "Con más de 10 años en la industria 👴🏿, ofrezco información útil y "
 "experiencia para los desafíos diarios."
@@ -410,8 +439,8 @@ msgstr "Para las estrellas tecnológicas en ascenso"
 
 #: blog/templates/blog/_consultancy.html:24
 msgid ""
-"Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you "
-"blossom into an autonomous developer."
+"Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom "
+"into an autonomous developer."
 msgstr ""
 "Capacitación personalizada 🏋🏼‍♂️, clases 👨🏽‍🏫 y tutoría 🤓 para ayudarte a "
 "convertirte en un desarrollador autónomo."
@@ -431,8 +460,8 @@ msgid ""
 "issues, evaluating legacy code 🔖, or upgrading versions ⬆️."
 msgstr ""
 "Elaborando soluciones cotidianas, brindando capacitación estelar "
-"(unittesting, escritura de código robusto, ¡lo que necesites!), solucionando"
-" problemas de performanceen Django/Python 🐍, evaluando código legacy "
+"(unittesting, escritura de código robusto, ¡lo que necesites!), solucionando "
+"problemas de performanceen Django/Python 🐍, evaluando código legacy "
 "(heredado) 🔖, o actualizando versiones ⬆️."
 
 #: blog/templates/blog/_consultancy.html:33
@@ -465,8 +494,8 @@ msgstr "Hechicería Tecnológica"
 
 #: blog/templates/blog/_consultancy.html:56
 msgid ""
-"From Python 🐍 to Django, from debugging to spellbinding code – I've mastered"
-" the digital alchemy ⚗️."
+"From Python 🐍 to Django, from debugging to spellbinding code – I've mastered "
+"the digital alchemy ⚗️."
 msgstr ""
 "Desde Python 🐍 a Django, desde depuración hasta código encantador: he "
 "dominado la alquimia digital ⚗️."
@@ -501,41 +530,9 @@ msgstr "Contactame"
 msgid "Contact"
 msgstr "Contacto"
 
-#: blog/templates/blog/_contact.html:12
+#: blog/templates/blog/_contact.html:14
 msgid "Are you sure?"
 msgstr "Estas seguro?"
-
-#: blog/templates/blog/_contact.html:15
-msgid "Name"
-msgstr "Nombre"
-
-#: blog/templates/blog/_contact.html:20
-msgid "Email"
-msgstr "Correo"
-
-#: blog/templates/blog/_contact.html:25
-msgid "Message"
-msgstr "Mensaje"
-
-#: blog/templates/blog/_contact.html:31
-msgid "What color is the red rabbit?"
-msgstr "De que color es el conejo rojo?"
-
-#: blog/templates/blog/_contact.html:36
-msgid "Send"
-msgstr "Enviar"
-
-#: blog/templates/blog/advance_search.html:8
-msgid "Advance Search"
-msgstr "Busqueda avanzada"
-
-#: blog/templates/blog/advance_search.html:10
-msgid "No results"
-msgstr "No hay ningun resultado 😞"
-
-#: blog/templates/blog/advance_search.html:12
-msgid "How-to-look"
-msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
 
 #: blog/templates/blog/error.html:7
 msgid "Try again"
@@ -565,25 +562,11 @@ msgstr "Siguiente"
 msgid "Last"
 msgstr "Ultimo"
 
-#: blog/templates/blog/extras/related_posts.html:5
-msgid "Notas relacionadas"
-msgstr "Notas relacionadas"
-
-#: blog/templates/blog/extras/related_posts.html:12
-msgid "Publicado el dia"
-msgstr "Publicado el dia"
-
-#: blog/templates/blog/extras/related_posts.html:17
-#: blog/templates/blog/posts/detail.html:65
-msgid "Nothing yet!"
-msgstr "Todavia nada!"
-
 #: blog/templates/blog/home.html:10
 msgid "Software Engineer"
 msgstr "Software Engineer"
 
-#: blog/templates/blog/home.html:11
-#: blog/templates/blog/utils/nav_links.html:25
+#: blog/templates/blog/home.html:11 blog/templates/blog/utils/nav_links.html:25
 #: blog/templates/blog/utils/nav_links_mobile.html:26
 msgid "Consultancy"
 msgstr "Consultoria"
@@ -604,17 +587,43 @@ msgstr "en cualquier lugar!"
 msgid "or just public notes"
 msgstr "o simplemente notas públicas"
 
+#: blog/templates/blog/posts/_list.html:43
+msgid "We could not find what you are looking for..."
+msgstr "No pudimos encontrar lo que buscas..."
+
+#: blog/templates/blog/posts/_list.html:44
+msgid "Maybe you can search another for thing?"
+msgstr "Quizás puedas buscar otra cosa?"
+
+#: blog/templates/blog/posts/_list.html:45
+#, fuzzy
+#| msgid "Advance Search"
+msgid "Search"
+msgstr "Busqueda"
+
+#: blog/templates/blog/posts/_related_posts.html:21
+msgid "Published"
+msgstr "Publicado"
+
+#: blog/templates/blog/posts/_related_posts.html:26
+msgid "Nothing yet!"
+msgstr "Todavia nada!"
+
 #: blog/templates/blog/posts/detail.html:27
 msgid "Author"
 msgstr "Autor"
 
-#: blog/templates/blog/posts/detail.html:51
-msgid "Related posts"
-msgstr "Notas relacionadas"
+#: blog/templates/blog/search.html:8
+msgid "Advance Search"
+msgstr "Busqueda avanzada"
 
-#: blog/templates/blog/posts/detail.html:60
-msgid "Published"
-msgstr "Publicado"
+#: blog/templates/blog/search.html:10
+msgid "No results"
+msgstr "No hay ningun resultado 😞"
+
+#: blog/templates/blog/search.html:12
+msgid "How-to-look"
+msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
 
 #: blog/templates/blog/success.html:4
 msgid "Thank you for your message"
@@ -655,6 +664,15 @@ msgstr "Acerca"
 msgid "Admin"
 msgstr "Admin"
 
-#: blog/views.py:160
+#: blog/views.py:158
 msgid "invalid captcha"
 msgstr "captcha invalido"
+
+#~ msgid "Related posts"
+#~ msgstr "Notas relacionadas"
+
+#~ msgid "Notas relacionadas"
+#~ msgstr "Notas relacionadas"
+
+#~ msgid "Publicado el dia"
+#~ msgstr "Publicado el dia"

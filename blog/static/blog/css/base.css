@@ -1,11 +1,3 @@
-/* Dracula Theme Colors */
-.dracula-border {
-  border-color: #6272a4;
-}
-.dracula-border-left {
-  border-left-color: #6272a4;
-}
-
 /* Navigation */
 .nav-link {
   transition: color 0.3s ease;
