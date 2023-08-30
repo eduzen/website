@@ -1,42 +1,44 @@
 {% load i18n %}
 
-<div class="flex space-x-4 overflow-x-auto py-4">
-  {% for post in posts %}
-    <div class="flex-none w-64 p-4 rounded-md shadow-lg bg-gray-200"> <!-- Change here -->
-      <div class="max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="{{ post.get_absolute_url }}">
-            <h5 class="mb-2 text-lg font-bold tracking-tight text-green-400 dark:text-white">{{ post.title }}</h5>
-        </a>
+<div class="flex justify-between items-center">
 
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ post.summary }}</p>
+  <!-- Left div (conditional) -->
+  {% if posts.has_previous %}
+    <a
+      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400"
+      href="?related_page={{ posts.previous_page_number }}"
+      hx-get="{{ request.path }}?related_page={{ posts.previous_page_number }}"
+      hx-target="#content">
+        <i class="fas fa-chevron-left mr-2"></i>
+        {% translate "Previous"%}
+    </a>
+  {% else %}
+    <div class="w-10"></div> <!-- Placeholder to keep the center alignment -->
+  {% endif %}
 
-        <a href="{{ post.get_absolute_url }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Read more
-            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-        </a>
-
-        <small class="text-green-400">
-          {% translate 'Published' %}: {{post.published_date }}
-        </small>
-      </div>
+  <!-- Center div -->
+  <div class="flex-grow flex justify-center space-x-4">
+    {% for post in posts %}
+    <div class="card flex-shrink-0 w-1/4 bg-gray-700 rounded-xl shadow-md overflow-hidden">
+        <div class="p-8">
+            <h2 class="text-sm font-semibold">{{ post.title }}</h2>
+            <a href="{{ post.get_absolute_url }}" class="text-xs text-cyan-400 hover:underline mt-2">Read more</a>
+        </div>
     </div>
-  {% empty %}
-    <p class="gray-100">{% translate 'Nothing yet!' %}</p>
-  {% endfor %}
-
-  <!-- Pagination Controls -->
-  <div class="mt-4">
-    {% if posts.has_previous %}
-        <a href="?related_page=1" class="border rounded px-2 py-1">First</a>
-        <a href="?related_page={{ posts.previous_page_number }}" class="border rounded px-2 py-1">Previous</a>
-    {% endif %}
-    <span class="px-2">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
-    {% if posts.has_next %}
-        <a href="?related_page={{ posts.next_page_number }}" class="border rounded px-2 py-1">Next</a>
-        <a href="?related_page={{ posts.paginator.num_pages }}" class="border rounded px-2 py-1">Last</a>
-    {% endif %}
+    {% endfor %}
   </div>
 
+  <!-- Right div (conditional) -->
+  {% if posts.has_next %}
+    <a
+      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400"
+      href="?related_page={{ posts.next_page_number }}"
+      hx-get="{{ request.path }}?related_page={{ posts.next_page_number }}"
+      hx-target="#content">
+        {% translate "Next"%}&nbsp;
+        <i class="fas fa-chevron-right mr-2"></i>
+    </a>
+  {% else %}
+    <div class="w-10"></div> <!-- Placeholder to keep the center alignment -->
+  {% endif %}
 </div>

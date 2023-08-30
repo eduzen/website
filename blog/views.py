@@ -120,10 +120,11 @@ class PostTagsListView(HtmxGetMixin, FilterView):
 
 
 @method_decorator(cache_page(DAY), name="dispatch")
-class PostDetailView(DetailView):
+class PostDetailView(HtmxGetMixin, DetailView):
     queryset = Post.objects.prefetch_related("tags").published()
     context_object_name = "post"
     template_name = "blog/posts/detail.html"
+    partial_template_name = "blog/partials/posts/detail.html"
 
     def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
