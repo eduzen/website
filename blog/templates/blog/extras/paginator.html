@@ -1,22 +1,22 @@
 {% load i18n %}
 
-  <div class="flex justify-center items-center text-xs pt-4">
-    {% if page_obj.has_previous %}
-      <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md gray-100 nav-link">{% translate 'First' %}</a>
-      <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border gray-100 nav-link">{% translate 'Previous' %}</a>
-    {% endif %}
+<div class="flex justify-center items-center text-xs pt-4">
+  {% if page_obj.has_previous %}
+    <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md gray-100 nav-link">{% translate 'First' %}</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border gray-100 nav-link">{% translate 'Previous' %}</a>
+  {% endif %}
 
-    {% for num in page_obj.paginator.page_range %}
-      {% cycle 'text-blue-400' 'text-green-400' 'text-pink-400' 'text-orange-400' 'text-yellow-400' as color silent %}
-      {% if num == page_obj.number %}
-        <span class="px-3 py-2 border dracula-border {{ color }}">{{ num }}</span>
-      {% else %}
-        <a href="?page={{ num }}" class="px-3 py-2 border dracula-border {{ color }} nav-link">{{ num }}</a>
-      {% endif %}
-    {% endfor %}
-
-    {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border gray-100 nav-link">{% translate 'Next' %}</a>
-      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md gray-100 nav-link">{% translate 'Last' %}</a>
+  {% for num in page_obj.paginator.page_range %}
+    {% cycle 'text-blue-400' 'text-green-400' 'text-pink-400' 'text-orange-400' 'text-yellow-400' as color silent %}
+    {% if num == page_obj.number %}
+      <span class="px-3 py-2 border dracula-border {{ color }}">{{ num }}</span>
+    {% else %}
+      <a href="?page={{ num }}" class="px-3 py-2 border dracula-border {{ color }} nav-link">{{ num }}</a>
     {% endif %}
-  </div>
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border gray-100 nav-link">{% translate 'Next' %}</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md gray-100 nav-link">{% translate 'Last' %}</a>
+  {% endif %}
+</div>

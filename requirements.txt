@@ -137,7 +137,7 @@ requests==2.31.0
     #   website (pyproject.toml)
 rsa==4.9
     # via google-auth
-sentry-sdk[django]==1.29.2
+sentry-sdk[django]==1.30.0
     # via website (pyproject.toml)
 six==1.16.0
     # via google-auth
