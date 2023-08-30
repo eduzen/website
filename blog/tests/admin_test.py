@@ -2,7 +2,7 @@ import pytest
 from django.urls import reverse
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-
+from http import HTTPStatus
 from .factories import PostFactory, TagFactory
 
 
@@ -22,7 +22,7 @@ def post(db):
 )
 def test_blog_admin(admin_client, url):
     response = admin_client.get(reverse(url))
-    assert response.status_code == 200
+    assert response.status_code == HTTPStatus.OK
 
 
 @pytest.mark.parametrize("url", ("admin:blog_post_change", "admin:blog_post_delete"))
@@ -30,7 +30,7 @@ def test_blog_admin(admin_client, url):
 def test_blog_post_admin(admin_client, url):
     post = PostFactory.create()
     response = admin_client.get(reverse(url, args=(post.pk,)))
-    assert response.status_code == 200
+    assert response.status_code == HTTPStatus.OK
 
 
 class SessionAdminTest(TestCase):

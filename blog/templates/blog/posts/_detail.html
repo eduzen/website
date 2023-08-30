@@ -25,7 +25,12 @@
 
     </div>
 
-    {% include 'blog/posts/_related_posts.html' with posts=related_posts %}
+    <!-- Related Posts -->
+    <div class="h-0.5 bg-pink-500 my-4 w-full"></div>
+    <h2 class="pb-4">Related Posts</h2>
+    <div id="related-post-container" hx-get="{% url 'related_posts' post_id=post.id %}" hx-trigger="load">
+      <!-- Content will be loaded here when the page loads -->
+    </div>
 
   </div>
 

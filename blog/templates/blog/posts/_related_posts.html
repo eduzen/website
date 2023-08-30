@@ -3,12 +3,12 @@
 <div class="flex justify-between items-center">
 
   <!-- Left div (conditional) -->
-  {% if posts.has_previous %}
+  {% if page_obj.has_previous %}
     <a
       class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400"
-      href="?related_page={{ posts.previous_page_number }}"
-      hx-get="{{ request.path }}?related_page={{ posts.previous_page_number }}"
-      hx-target="#content">
+      href="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
+      hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
+      hx-target="#related-post-container">
         <i class="fas fa-chevron-left mr-2"></i>
         {% translate "Previous"%}
     </a>
@@ -18,7 +18,7 @@
 
   <!-- Center div -->
   <div class="flex-grow flex justify-center space-x-4">
-    {% for post in posts %}
+    {% for post in related_posts %}
     <div class="card flex-shrink-0 w-1/4 bg-gray-700 rounded-xl shadow-md overflow-hidden">
         <div class="p-8">
             <h2 class="text-sm font-semibold">{{ post.title }}</h2>
@@ -29,12 +29,12 @@
   </div>
 
   <!-- Right div (conditional) -->
-  {% if posts.has_next %}
+  {% if page_obj.has_next %}
     <a
       class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400"
-      href="?related_page={{ posts.next_page_number }}"
-      hx-get="{{ request.path }}?related_page={{ posts.next_page_number }}"
-      hx-target="#content">
+      href="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
+      hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
+      hx-target="#related-post-container">
         {% translate "Next"%}&nbsp;
         <i class="fas fa-chevron-right mr-2"></i>
     </a>

@@ -2,14 +2,13 @@ import datetime as dt
 import logging
 from typing import Any
 
-from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from django.views.generic import DetailView, FormView, TemplateView
+from django.views.generic import DetailView, FormView, TemplateView, ListView
 from django_filters.views import FilterView
 
 
@@ -126,23 +125,31 @@ class PostDetailView(HtmxGetMixin, DetailView):
     template_name = "blog/posts/detail.html"
     partial_template_name = "blog/partials/posts/detail.html"
 
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        # Get all tag IDs for the current post
-        tag_ids = self.object.tags.values_list("id", flat=True)
 
+class RelatedPostsView(HtmxGetMixin, ListView):
+    template_name = "blog/partials/posts/related_posts.html"
+    partial_template_name = "blog/partials/posts/related_posts.html"
+    context_object_name = "related_posts"
+    paginate_by = 4
+
+    def get_queryset(self) -> QuerySet[Post]:
+        post_id = self.kwargs.get("post_id")
+        post = get_object_or_404(Post, pk=post_id)
+
+        tag_ids = post.tags.values_list("id", flat=True)
         related_posts = (
             Post.objects.published()
             .filter(tags__id__in=tag_ids)
             .order_by("-published_date")
             .distinct()
-            .exclude(pk=self.object.pk)
+            .exclude(pk=post.pk)
         )
-        # Pagination logic for related posts
-        paginator = Paginator(related_posts, 4)
-        page = self.request.GET.get("related_page", 1)
-        context["related_posts"] = paginator.get_page(page)
 
+        return related_posts
+
+    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["post_id"] = self.kwargs.get("post_id")
         return context
 
 
