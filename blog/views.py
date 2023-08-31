@@ -6,8 +6,6 @@ from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, TemplateView, ListView
 from django_filters.views import FilterView
 
@@ -41,7 +39,6 @@ class HtmxGetMixin:
         return [self.template_name]
 
 
-@method_decorator(cache_page(DAY), name="dispatch")
 class AboutView(HtmxGetMixin, TemplateView):
     template_name = "blog/about.html"
     partial_template_name = "blog/partials/about.html"
@@ -54,12 +51,10 @@ class AboutView(HtmxGetMixin, TemplateView):
         return context
 
 
-@method_decorator(cache_page(DAY), name="dispatch")
 class SucessView(TemplateView):
     template_name = "blog/success.html"
 
 
-@method_decorator(cache_page(DAY), name="dispatch")
 class ErrorView(TemplateView):
     template_name = "blog/error.html"
 
@@ -70,25 +65,21 @@ class AdvanceSearch(FormView):
     success_url = "/sucess/"
 
 
-@method_decorator(cache_page(MONTH), name="dispatch")
 class HomeView(HtmxGetMixin, TemplateView):
     template_name = "blog/home.html"
     partial_template_name = "blog/partials/home.html"
 
 
-@method_decorator(cache_page(MONTH), name="dispatch")
 class ConsultancyView(HtmxGetMixin, TemplateView):
     template_name = "blog/consultancy.html"
     partial_template_name = "blog/partials/consultancy.html"
 
 
-@method_decorator(cache_page(MONTH), name="dispatch")
 class ClassesView(HtmxGetMixin, TemplateView):
     template_name = "blog/classes.html"
     partial_template_name = "blog/partials/classes.html"
 
 
-@method_decorator(cache_page(HOUR), name="dispatch")
 class PostListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
@@ -99,7 +90,6 @@ class PostListView(HtmxGetMixin, FilterView):
     paginate_by = 12
 
 
-@method_decorator(cache_page(HOUR), name="dispatch")
 class PostTagsListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
@@ -118,7 +108,6 @@ class PostTagsListView(HtmxGetMixin, FilterView):
         return self.queryset.filter(tags__slug=self.kwargs.get("tag"))
 
 
-@method_decorator(cache_page(DAY), name="dispatch")
 class PostDetailView(HtmxGetMixin, DetailView):
     queryset = Post.objects.prefetch_related("tags").published()
     context_object_name = "post"
@@ -153,7 +142,6 @@ class RelatedPostsView(HtmxGetMixin, ListView):
         return context
 
 
-@method_decorator(cache_page(DAY), name="get")
 class ContactView(HtmxGetMixin, FormView):
     template_name = "blog/contact.html"
     partial_template_name = "blog/partials/contact.html"
@@ -182,6 +170,5 @@ class ContactView(HtmxGetMixin, FormView):
         return render(self.request, self.partial_template_name, context_data)
 
 
-@cache_page(HALF_YEAR)
 def language_dropdown(request):
     return render(request, "blog/utils/language_dropdown.html")
