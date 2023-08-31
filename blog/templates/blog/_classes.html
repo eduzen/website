@@ -9,7 +9,13 @@
     <div class="w-full px-4">
       <p class="text-xl mt-2">
         {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page: " %}
-        <a target="_blank" class="text-pink-400 nav-link" href="{% url 'about' %}">{% translate 'here'%}</a>
+        <a
+          class="text-pink-400 nav-link"
+          hx-get="{% url 'about' %}"
+          hx-target="#content"
+          href="{% url 'about' %}">
+          {% translate 'here' %}
+      </a>
       </p>
       <p class="text-xl mt-2">
         {% translate "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in a way that you can lose me (and be independent) in your learning journey." %}
@@ -23,7 +29,14 @@
         {% translate "So I can help you to organize and curate the data and tell you what to use or not." %}
       </p>
       <p class="mt-2 text-lg">
-        {% translate "Reach out to me " %}<a target="_blank" class="text-pink-400 nav-link" href="{% url 'contact' %}">{% translate "here"%}</a>
+        {% translate "Reach out to me " %}
+          <a
+            class="text-pink-400 nav-link"
+            hx-get="{% url 'contact' %}"
+            hx-target="#content"
+            href="{% url 'contact' %}">
+            {% translate "here"%}
+          </a>
         {% translate "or drop me an email at "%}<a target="_blank" href="mailto:me@eduzen.com.ar" class="text-pink-400 nav-link">me@eduzen.com.ar</a>{% translate " and let's chat!"%}
       </p>
       <p class="text-xl mt-2">
