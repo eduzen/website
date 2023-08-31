@@ -48,7 +48,7 @@
           {% translate "Naturally, I have some experience 💡 with other things like Javascript, Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿, and Linux 🐧." %}
         </p>
         <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-          {% translate "You can check my code at " %}<a target="_blank" class="text-pink-400 hover:underline" href="https://github.com/eduzen/">https://github.com/eduzen/</a>.
+          {% translate "You can check my code at " %}<a target="_blank" class="text-pink-400 hover:underline" href="{{global_data.github}}">{{global_data.github}}</a>.
           {% translate "There you can find some bots like the one that I have for Telegram," %}
           <a target="_blank" class="text-pink-400 hover:underline" href="https://github.com/eduzen/bot">eduzen_bot</a> 🤖
           {% translate "(you can talk to it following this link:" %}
@@ -73,8 +73,15 @@
       </div>
 
       <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-        {% translate "If you want to contact me, you can do it through this " %}<a target="_blank" class="text-pink-400 hover:underline" href="/contact/">{% translate "form" %}</a>
-        {% translate "or through my " %}<a target="_blank" class="text-pink-400 hover:underline" href="https://www.linkedin.com/in/eduzen/">{% translate "LinkedIn." %}</a>
+        {% translate "If you want to contact me, you can do it through this " %}
+        <a
+          class="text-pink-400 hover:underline"
+          hx-get={% url 'contact' %}
+          hx-target="#content"
+          href={% url 'contact' %}>
+          {% translate "form" %}
+        </a>
+        {% translate "or through my " %}<a target="_blank" class="text-pink-400 hover:underline" href="{{global_data.linkedin}}">{% translate "LinkedIn." %}</a>
       </p>
     </div>
   </div>

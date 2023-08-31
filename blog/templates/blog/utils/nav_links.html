@@ -1,7 +1,7 @@
 {% load i18n static %}
 
 <a id="blog"
-  href="#"
+  href="{% url 'blog' %}"
   hx-get="{% url 'blog' %}"
   hx-trigger="click"
   hx-target="#content"
@@ -14,7 +14,7 @@
 <span class="text-gray-400">·</span>
 
 <a id="consultancy"
-  href="#"
+  href="{% url 'consultancy' %}"
   hx-get="{% url 'consultancy' %}"
   hx-trigger="click"
   hx-target="#content"
@@ -27,7 +27,7 @@
 <span class="text-gray-400">·</span>
 
 <a id="classes"
-  href="#"
+  href="{% url 'classes' %}"
   hx-get="{% url 'classes' %}"
   hx-trigger="click"
   hx-target="#content"
@@ -40,7 +40,7 @@
 <span class="text-gray-400">·</span>
 
 <a id="about"
-  href="#"
+  href="{% url 'about' %}"
   hx-get="{% url 'about' %}"
   hx-trigger="click"
   hx-target="#content"
@@ -53,7 +53,7 @@
 <span class="text-gray-400">·</span>
 
 <a id="contact"
-  href="#"
+  href="{% url 'contact' %}"
   hx-get="{% url 'contact' %}"
   hx-trigger="click"
   hx-target="#content"
