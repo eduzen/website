@@ -49,12 +49,12 @@ LOGGING = {
 # GS_PROJECT_ID = config('GS_PROJECT_ID')
 
 SENTRY_DSN = config("SENTRY_DSN", default="")
+RELEASE = config("SENTRY_RELEASE", default="0.0.0+dev")
 
 if (not DEBUG) and SENTRY_DSN:
     sentry_sdk.init(
         dsn=SENTRY_DSN,  # type: ignore
-        # Set traces_sample_rate to 1.0 to capture 100%
-        # of transactions for performance monitoring.
-        # We recommend adjusting this value in production,
+        release=RELEASE,  # type: ignore
         traces_sample_rate=0.10,
+        profiles_sample_rate=0.10,
     )
