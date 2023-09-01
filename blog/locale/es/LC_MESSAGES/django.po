@@ -374,8 +374,7 @@ msgstr ""
 
 #: blog/templates/blog/_classes.html:75
 msgid "Codecademy: free course for learning the basics of Python 3"
-msgstr ""
-"Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
+msgstr "Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
 
 #: blog/templates/blog/_classes.html:80
 msgid "Some recommended books:"
