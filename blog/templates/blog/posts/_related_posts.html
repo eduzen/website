@@ -19,11 +19,11 @@
   <!-- Center div -->
   <div class="flex-grow flex justify-center space-x-4">
     {% for post in related_posts %}
-    <div class="card flex-shrink-0 w-1/4 bg-gray-700 rounded-xl shadow-md overflow-hidden">
-        <div class="p-8">
-            <h2 class="text-sm font-semibold">{{ post.title }}</h2>
-            <a href="{{ post.get_absolute_url }}" class="text-xs text-cyan-400 hover:underline mt-2">Read more</a>
-        </div>
+    <div class="card flex-shrink-0 w-1/4 bg-gray-700 rounded-xl shadow-md overflow-hidden hover:bg-pink-400">
+      <div class="p-8">
+        <h2 class="text-sm font-semibold">{{ post.title }}</h2>
+        <a href="{{ post.get_absolute_url }}" class="text-xs text-blue-500 hover:underline mt-2">Read more</a>
+      </div>
     </div>
     {% endfor %}
   </div>
