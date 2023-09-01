@@ -22,7 +22,11 @@
     </div>
     {% endif %}
     <div class="flex-1">
-      <a href="{{post.get_absolute_url}}" class="text-xl mb-2 font-bold text-purple-400 hover:text-orange-400 transition duration-300">
+      <a
+        href="{{post.get_absolute_url}}"
+        class="text-xl mb-2 font-bold text-purple-400 hover:text-orange-400 transition duration-300"
+        hx-get={{post.get_absolute_url}}
+        hx-target="#content">
         {{ post.title }}
       </a>
       <p class="mb-2 text-green-400"><time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time></p>
