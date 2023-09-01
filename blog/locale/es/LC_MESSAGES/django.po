@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-01 01:00+0200\n"
+"POT-Creation-Date: 2023-09-02 00:45+0200\n"
 "PO-Revision-Date: 2023-08-25 11:25-0300\n"
 "Last-Translator: Eduardo Enriquez <eduardo.a.enriquez@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -223,15 +223,15 @@ msgstr ""
 msgid "If you want to contact me, you can do it through this "
 msgstr "Si quieres contactarme, puedes hacerlo a través de este "
 
-#: blog/templates/blog/_about.html:76
+#: blog/templates/blog/_about.html:82
 msgid "form"
 msgstr "formulario"
 
-#: blog/templates/blog/_about.html:77
+#: blog/templates/blog/_about.html:84
 msgid "or through my "
 msgstr "o a través de mi "
 
-#: blog/templates/blog/_about.html:77
+#: blog/templates/blog/_about.html:84
 msgid "LinkedIn."
 msgstr "LinkedIn."
 
@@ -249,7 +249,7 @@ msgstr ""
 "Hola! Gracias por tu interés 😊. Mi nombre es Eduardo y soy docente. Más "
 "sobre mi en mi página 'Acerca de mi':"
 
-#: blog/templates/blog/_classes.html:17 blog/templates/blog/_classes.html:32
+#: blog/templates/blog/_classes.html:17 blog/templates/blog/_classes.html:38
 #: blog/templates/blog/_consultancy.html:50 blog/templates/blog/error.html:16
 msgid "here"
 msgstr "aquí"
@@ -305,15 +305,15 @@ msgstr ""
 msgid "Reach out to me "
 msgstr "Contáctame"
 
-#: blog/templates/blog/_classes.html:33
+#: blog/templates/blog/_classes.html:40
 msgid "or drop me an email at "
 msgstr "o envíame un correo a "
 
-#: blog/templates/blog/_classes.html:33
+#: blog/templates/blog/_classes.html:40
 msgid " and let's chat!"
 msgstr " y hablemos!"
 
-#: blog/templates/blog/_classes.html:36
+#: blog/templates/blog/_classes.html:43
 msgid ""
 "If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about "
 "your learning objectives. If you're based elsewhere in the world 🌍, not to "
@@ -322,7 +322,7 @@ msgstr ""
 "Si estás en Holanda 🇳🇱, vamos por un café ☕ y hablemos 💬 sobre tus planes y "
 "objectivos. Si estás en otro lugar del mundo 🌍, no te preocupes!"
 
-#: blog/templates/blog/_classes.html:37
+#: blog/templates/blog/_classes.html:44
 msgid ""
 "We can set up a Zoom or Meet call to discuss how I can assist you in your "
 "coding adventure."
@@ -330,15 +330,15 @@ msgstr ""
 "Podemos organizar una call por Zoom o Meet para discutir cómo puedo "
 "asistirte en tu aventura de programación."
 
-#: blog/templates/blog/_classes.html:45
+#: blog/templates/blog/_classes.html:52
 msgid "Online Resources to Learn Python:"
 msgstr "Recursos en línea para aprender Python:"
 
-#: blog/templates/blog/_classes.html:48
+#: blog/templates/blog/_classes.html:55
 msgid "Impossible not to recommend ChatGPT: "
 msgstr "Imposible no recomendar ChatGPT: "
 
-#: blog/templates/blog/_classes.html:49
+#: blog/templates/blog/_classes.html:56
 msgid ""
 "I think it's one of the most important resources from our modern times. It's "
 "a great companion that could answer almost everything that you need in this "
@@ -348,7 +348,7 @@ msgstr ""
 "modernos. Es un gran compañero que podría responder casi todo lo que "
 "necesitas en este campo."
 
-#: blog/templates/blog/_classes.html:50
+#: blog/templates/blog/_classes.html:57
 msgid ""
 "Certainly it's not infallible, it has its caveats and you need to learn how "
 "to use it. But it's worthy.  I'm using it every day. "
@@ -356,15 +356,15 @@ msgstr ""
 "Ciertamente no es infalible, tiene sus matices y necesitas aprender cómo "
 "usarlo. Pero vale la pena. Lo uso todos los días."
 
-#: blog/templates/blog/_classes.html:53
+#: blog/templates/blog/_classes.html:60
 msgid "I also recommend the following resources:"
 msgstr "También recomiendo los siguientes recursos:"
 
-#: blog/templates/blog/_classes.html:58
+#: blog/templates/blog/_classes.html:65
 msgid "Python: official tutorial"
 msgstr "Python: tutorial oficial"
 
-#: blog/templates/blog/_classes.html:63
+#: blog/templates/blog/_classes.html:70
 msgid ""
 "Django girls tutorial: broad tutorial including basic internet and python "
 "concepts"
@@ -372,20 +372,20 @@ msgstr ""
 "Django girls tutorial: tutorial amplio que incluye conceptos básicos de "
 "internet y python"
 
-#: blog/templates/blog/_classes.html:68
+#: blog/templates/blog/_classes.html:75
 msgid "Codecademy: free course for learning the basics of Python 3"
 msgstr ""
 "Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
 
-#: blog/templates/blog/_classes.html:73
+#: blog/templates/blog/_classes.html:80
 msgid "Some recommended books:"
 msgstr "Algunos libros recomendados:"
 
-#: blog/templates/blog/_classes.html:77
+#: blog/templates/blog/_classes.html:84
 msgid "Beginners"
 msgstr "Principiantes"
 
-#: blog/templates/blog/_classes.html:85
+#: blog/templates/blog/_classes.html:92
 msgid "Medium/Advance"
 msgstr "Medio/Avanzado"
 
@@ -520,7 +520,7 @@ msgstr ""
 "¿Listo para embarcarte en una aventura tecnológica o elaborar una solución "
 "empresarial? ¡Hablemos!"
 
-#: blog/templates/blog/_consultancy.html:72
+#: blog/templates/blog/_consultancy.html:78
 msgid "Contact Me"
 msgstr "Contactame"
 
@@ -540,11 +540,11 @@ msgstr "Intente de nuevo"
 
 #: blog/templates/blog/error.html:11
 msgid "Ups... something went wrong. 🙃"
-msgstr "Ups... algo salio mal"
+msgstr "Ups... algo salio mal. 🙃"
 
 #: blog/templates/blog/error.html:14
 msgid "Please try again later... or contact me"
-msgstr "Por favor intente mas tarde... o contacteme"
+msgstr "Por favor intente mas tarde... o contactame"
 
 #: blog/templates/blog/extras/paginator.html:5
 msgid "First"
@@ -564,24 +564,24 @@ msgstr "Siguiente"
 msgid "Last"
 msgstr "Ultimo"
 
-#: blog/templates/blog/home.html:16
+#: blog/templates/blog/home.html:17
 msgid "Software Engineer"
 msgstr "Software Engineer"
 
-#: blog/templates/blog/home.html:22 blog/templates/blog/utils/nav_links.html:25
+#: blog/templates/blog/home.html:24 blog/templates/blog/utils/nav_links.html:25
 #: blog/templates/blog/utils/nav_links_mobile.html:26
 msgid "Consultancy"
 msgstr "Consultoria"
 
-#: blog/templates/blog/home.html:27
+#: blog/templates/blog/home.html:29
 msgid "Based in Amsterdam"
 msgstr "En Amsterdam"
 
-#: blog/templates/blog/home.html:27
+#: blog/templates/blog/home.html:29
 msgid "available"
 msgstr "pero disponible"
 
-#: blog/templates/blog/home.html:29
+#: blog/templates/blog/home.html:31
 msgid "everywhere!"
 msgstr "en cualquier lugar!"
 
@@ -593,17 +593,15 @@ msgstr "Autor"
 msgid "or just public notes"
 msgstr "o simplemente notas públicas"
 
-#: blog/templates/blog/posts/_list.html:43
+#: blog/templates/blog/posts/_list.html:47
 msgid "We could not find what you are looking for..."
 msgstr "No pudimos encontrar lo que buscas..."
 
-#: blog/templates/blog/posts/_list.html:44
+#: blog/templates/blog/posts/_list.html:48
 msgid "Maybe you can search another for thing?"
 msgstr "Quizás puedas buscar otra cosa?"
 
-#: blog/templates/blog/posts/_list.html:45
-#, fuzzy
-#| msgid "Advance Search"
+#: blog/templates/blog/posts/_list.html:49
 msgid "Search"
 msgstr "Busqueda"
 
