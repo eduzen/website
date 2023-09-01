@@ -48,9 +48,13 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
+      - name: Get today's date in European format
+        id: date
+        run: echo "::set-output name=date::$(date +'%d.%m.%Y')"
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ github.sha }}
-          tag_name: ${{ github.sha }}
-          body: Release for commit ${{ github.sha }}
+          name: ${{ steps.date.outputs.date }}-${{ github.sha }}
+          tag_name: ${{ steps.date.outputs.date }}-${{ github.sha }}
+          body: Release ${{ github.sha }} from ${{ steps.date.outputs.date }}

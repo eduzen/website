@@ -32,5 +32,5 @@ class CloudflareMiddleware:
             HttpResponse: The response object after processing.
         """
         ip = request.headers.get("CF-Connecting-IP", request.META["REMOTE_ADDR"])
-        request.ip = ip
+        request.ip = ip  # type: ignore
         return self.get_response(request)
