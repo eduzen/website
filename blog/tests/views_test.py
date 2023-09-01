@@ -92,10 +92,6 @@ class RelatedPostsViewTest(TestCase):
     def test_related_posts(self):
         # post1 and post2 share the tag 'test_tag1', so they should be related.
         response = self.client.get(self.url1)
-        print(response.context)
-        # breakpoint(context=10)
-        print(self.post1.tags.all())
-        print(self.post2.tags.all())
         self.assertContains(response, self.post2.title)
         self.assertNotContains(response, self.post1.title)  # A post shouldn't be related to itself
         self.assertNotContains(response, self.post3.title)  # post3 doesn't share a tag with post1

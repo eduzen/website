@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: [master, main]
+    branches: [main]
     tags:
       - v*
 
@@ -42,6 +42,19 @@ jobs:
           file: ./Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            RELEASE=${{ github.sha }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+      - name: Get today's date in European format
+        id: date
+        run: echo "::set-output name=date::$(date +'%d.%m.%Y')"
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.date.outputs.date }}-${{ github.sha }}
+          tag_name: ${{ steps.date.outputs.date }}-${{ github.sha }}
+          body: Release ${{ github.sha }} from ${{ steps.date.outputs.date }}

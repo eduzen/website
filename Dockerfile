@@ -2,6 +2,9 @@
 FROM python:3.11-slim-bullseye as production
 EXPOSE 80
 
+ARG RELEASE=0.0.0+dev
+ENV RELEASE=$RELEASE
+
 # PYTHONUNBUFFERED non empty value force the stdout and stderr streams to be unbuffered.
 ENV PYTHONUNBUFFERED=1
 # PYTHONDONTWRITEBYTECODE prevents python creating .pyc files
