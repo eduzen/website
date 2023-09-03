@@ -26,6 +26,7 @@
         href="{{post.get_absolute_url}}"
         class="text-xl mb-2 font-bold text-purple-400 hover:text-orange-400 transition duration-300"
         hx-get={{post.get_absolute_url}}
+        hx-push-url={{post.get_absolute_url}}
         hx-target="#content">
         {{ post.title }}
       </a>

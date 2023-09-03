@@ -112,6 +112,9 @@ clear-cache:
 show-urls:
 	${DCO} run --rm web python manage.py show_urls
 
+apply-styles:
+	${DCO} run --rm web python manage.py apply_styles
+
 clean-python: clean-build clean-pyc
 
 clean-build:

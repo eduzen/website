@@ -26,9 +26,19 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     date_hierarchy = "created_date"
     empty_value_display = "unknown"
     search_fields = ["text", "title", "slug", "summary"]
-    list_display = ["published", "author", "title", "slug", "created_date", "published_date", "preview", "tag_list"]
+    list_display = [
+        "published",
+        "link",
+        "author",
+        "title",
+        "slug",
+        "created_date",
+        "published_date",
+        "preview",
+        "tag_list",
+    ]
     list_display_links = ("title", "author")
-    readonly_fields = ("preview", "pk")
+    readonly_fields = ("preview", "pk", "raw_body")
     prepopulated_fields = {"slug": ("title",)}
 
     fields = [
@@ -42,6 +52,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
         "published_date",
         "tags",
         "text",
+        "raw_body",
         (
             "image",
             "preview",
@@ -66,6 +77,12 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     def tag_list(self, obj):
         return ", ".join(o.word for o in obj.tags.all())
+
+    def raw_body(self, obj):
+        return obj.text
+
+    def link(self, obj):
+        return mark_safe(f"<a href='{obj.get_absolute_url()}'>link</a>")
 
 
 @admin.register(Tag)

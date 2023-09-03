@@ -1,6 +1,10 @@
 from collections.abc import Callable
 from django.http import HttpRequest, HttpResponse
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class CloudflareMiddleware:
     """
@@ -31,6 +35,10 @@ class CloudflareMiddleware:
         Returns:
             HttpResponse: The response object after processing.
         """
-        ip = request.headers.get("CF-Connecting-IP", request.META["REMOTE_ADDR"])
-        request.ip = ip  # type: ignore
+        try:
+            ip = request.headers.get("CF-Connecting-IP", request.META["REMOTE_ADDR"])
+            request.ip = ip  # type: ignore
+        except KeyError:
+            logger.warning("REMOTE_ADDR header not found in request.")
+
         return self.get_response(request)
