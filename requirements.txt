@@ -6,6 +6,8 @@
 #
 asgiref==3.7.2
     # via django
+beautifulsoup4==4.12.2
+    # via website (pyproject.toml)
 brotli==1.0.9
     # via whitenoise
 cachetools==5.3.1
@@ -73,7 +75,7 @@ django-storages[google]==1.13.2
     # via website (pyproject.toml)
 easy-thumbnails==2.8.5
     # via website (pyproject.toml)
-gevent==23.7.0
+gevent==23.9.0.post1
     # via website (pyproject.toml)
 google-api-core==2.11.1
     # via
@@ -141,6 +143,8 @@ sentry-sdk[django]==1.30.0
     # via website (pyproject.toml)
 six==1.16.0
     # via google-auth
+soupsieve==2.5
+    # via beautifulsoup4
 sqlparse==0.4.4
     # via
     #   django

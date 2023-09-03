@@ -22,6 +22,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
 ]
 dependencies = [
+  "beautifulsoup4",
   "crispy-tailwind",
   "django",
   "django-ckeditor",

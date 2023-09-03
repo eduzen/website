@@ -169,18 +169,10 @@ CACHES = {
 CKEDITOR_JQUERY_URL = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
 CKEDITOR_UPLOAD_PATH = "/"
 CKEDITOR_CONFIGS = {
-    "awesome_ckeditor": {"toolbar": "full"},
     "default": {
-        "toolbar": "full",
-        "autoParagraph": "false",
-        "breakBeforeOpen": "false",
-        "breakAfterOpen": "false",
-        "breakBeforeClose": "false",
-        "breakAfterClose": "false",
-        "enterMode": "false",
-        "extraPlugins": ",".join(["codesnippet"]),
+        "toolbar": "basic",
+        "width": "100%",
     },
-    "autoParagraph": "false",
 }
 
 TELEGRAM_TOKEN = config("TELEGRAM_TOKEN", default="foo")
