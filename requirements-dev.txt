@@ -6,7 +6,7 @@
 #
 asgiref==3.7.2
     # via django
-asttokens==2.3.0
+asttokens==2.4.0
     # via stack-data
 attrs==23.1.0
     # via hypothesis
