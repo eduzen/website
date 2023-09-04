@@ -23,7 +23,7 @@ crispy-tailwind==0.5.0
     # via website (pyproject.toml)
 dj-database-url==2.1.0
     # via website (pyproject.toml)
-django==4.2.4
+django==4.2.5
     # via
     #   dj-database-url
     #   django-appconf
