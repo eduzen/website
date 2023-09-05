@@ -211,3 +211,7 @@ THUMBNAIL_PROCESSORS = ("image_cropping.thumbnail_processors.crop_corners",) + t
 # Crispy Forms: https://github.com/django-crispy-forms/crispy-tailwind
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+# ChatGPT:
+OPENAI_ORGANIZATION = config("OPENAI_ORGANIZATION", default="")
+OPENAI_API_KEY = config("OPENAI_API_KEY", default="")

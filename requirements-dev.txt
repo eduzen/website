@@ -4,12 +4,20 @@
 #
 #    pip-compile --all-extras --output-file=requirements-dev.txt pyproject.toml
 #
+aiohttp==3.8.5
+    # via openai
+aiosignal==1.3.1
+    # via aiohttp
 asgiref==3.7.2
     # via django
-asttokens==2.3.0
+asttokens==2.4.0
     # via stack-data
+async-timeout==4.0.3
+    # via aiohttp
 attrs==23.1.0
-    # via hypothesis
+    # via
+    #   aiohttp
+    #   hypothesis
 backcall==0.2.0
     # via ipython
 beautifulsoup4==4.12.2
@@ -26,7 +34,9 @@ certifi==2023.7.22
 cffi==1.15.1
     # via cryptography
 charset-normalizer==3.2.0
-    # via requests
+    # via
+    #   aiohttp
+    #   requests
 coverage==7.3.0
     # via website (pyproject.toml)
 crispy-tailwind==0.5.0
@@ -41,7 +51,7 @@ decorator==5.1.1
     #   ipython
 dj-database-url==2.1.0
     # via website (pyproject.toml)
-django==4.2.4
+django==4.2.5
     # via
     #   dj-database-url
     #   django-appconf
@@ -94,9 +104,9 @@ django-robots==5.0
     # via website (pyproject.toml)
 django-rosetta==0.9.9
     # via website (pyproject.toml)
-django-storages[google]==1.13.2
+django-storages[google]==1.14
     # via website (pyproject.toml)
-django-stubs[compatible-mypy]==4.2.3
+django-stubs[compatible-mypy]==4.2.4
     # via website (pyproject.toml)
 django-stubs-ext==4.2.2
     # via django-stubs
@@ -110,6 +120,10 @@ factory-boy==3.3.0
     # via website (pyproject.toml)
 faker==19.3.1
     # via factory-boy
+frozenlist==1.4.0
+    # via
+    #   aiohttp
+    #   aiosignal
 gevent==23.9.0.post1
     # via website (pyproject.toml)
 google-api-core==2.11.1
@@ -135,7 +149,7 @@ greenlet==2.0.2
     # via gevent
 gunicorn==21.2.0
     # via website (pyproject.toml)
-hypothesis==6.83.0
+hypothesis==6.84.0
     # via website (pyproject.toml)
 idna==3.4
     # via
@@ -156,13 +170,17 @@ markdown==3.4.4
 matplotlib-inline==0.1.6
     # via ipython
 multidict==6.0.4
-    # via yarl
-mypy==1.4.1
+    # via
+    #   aiohttp
+    #   yarl
+mypy==1.5.1
     # via
     #   django-stubs
     #   website (pyproject.toml)
 mypy-extensions==1.0.0
     # via mypy
+openai==0.28.0
+    # via website (pyproject.toml)
 packaging==23.1
     # via
     #   gunicorn
@@ -238,6 +256,7 @@ requests==2.31.0
     #   django-rosetta
     #   google-api-core
     #   google-cloud-storage
+    #   openai
     #   website (pyproject.toml)
 rsa==4.9
     # via google-auth
@@ -260,6 +279,8 @@ stack-data==0.6.2
     # via ipython
 termcolor==2.3.0
     # via pytest-sugar
+tqdm==4.66.1
+    # via openai
 traitlets==5.9.0
     # via
     #   ipython
@@ -296,7 +317,9 @@ whitenoise[brotli]==6.5.0
 wrapt==1.15.0
     # via vcrpy
 yarl==1.9.2
-    # via vcrpy
+    # via
+    #   aiohttp
+    #   vcrpy
 zope-event==5.0
     # via gevent
 zope-interface==6.0

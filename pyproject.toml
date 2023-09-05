@@ -43,6 +43,7 @@ dependencies = [
   "gunicorn",
   "gevent",
   "Markdown",
+  "openai",
   "Pillow",
   "python-decouple",
   "psycopg2-binary",
