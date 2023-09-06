@@ -37,17 +37,6 @@ LOGGING = {
     },
 }
 
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
-#     },
-#     "staticfiles": {
-#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-#     },
-# }
-# GS_BUCKET_NAME = config('GS_BUCKET_NAME')
-# GS_PROJECT_ID = config('GS_PROJECT_ID')
-
 SENTRY_DSN = config("SENTRY_DSN", default="")
 RELEASE = config("SENTRY_RELEASE", default="0.0.0+dev")
 
