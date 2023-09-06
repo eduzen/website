@@ -155,11 +155,11 @@ STORAGES = {
 # MEDIA_ROOT = config("MEDIA_PATH", default=BASE_DIR / "media")
 
 # GCP settings
-GS_BUCKET_NAME = config('GS_BUCKET_NAME', default='eduzen_local_media')
-GS_PROJECT_ID = config('GS_PROJECT_ID', default='eduzen-website')
-GS_CREDENTIALS = config('GS_CREDENTIALS', default='/tmp/google.json')
+GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="eduzen_local_media")
+GS_PROJECT_ID = config("GS_PROJECT_ID", default="eduzen-website")
+GS_CREDENTIALS = config("GS_CREDENTIALS", default="/tmp/google.json")
 GS_IS_GZIPPED = True
-GS_DEFAULT_ACL = 'publicRead'  # Make the files public
+GS_DEFAULT_ACL = "publicRead"  # Make the files public
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
