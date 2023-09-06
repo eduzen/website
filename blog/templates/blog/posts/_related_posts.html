@@ -1,11 +1,11 @@
 {% load i18n %}
 
-<div class="flex justify-between items-center">
+<div class="flex flex-wrap justify-between items-center">
 
   <!-- Left div (conditional) -->
   {% if page_obj.has_previous %}
     <a
-      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400"
+      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400 mt-2 md:mt-0"
       href="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
       hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
       hx-target="#related-post-container">
@@ -13,13 +13,13 @@
         {% translate "Previous"%}
     </a>
   {% else %}
-    <div class="w-10"></div> <!-- Placeholder to keep the center alignment -->
+    <div class="hidden md:block w-10"></div> <!-- Placeholder for larger screens only -->
   {% endif %}
 
   <!-- Center div -->
-  <div class="flex-grow flex justify-center space-x-4">
+  <div class="w-full md:flex-grow flex flex-wrap justify-center space-x-2 md:space-x-4 mt-4 md:mt-0">
     {% for post in related_posts %}
-    <div class="card flex-shrink-0 w-1/4 bg-gray-700 rounded-xl shadow-md overflow-hidden hover:bg-pink-400">
+    <div class="card w-full md:flex-shrink-0 md:w-1/4 bg-gray-700 rounded-xl shadow-md overflow-hidden hover:bg-pink-400 mb-4">
       <div class="p-4">
         <h2 class="text-lg font-semibold">{{ post.title }}</h2>
         <a href="{{ post.get_absolute_url }}" class="text-sm text-blue-500 hover:underline mt-2">Read more</a>
@@ -31,7 +31,7 @@
   <!-- Right div (conditional) -->
   {% if page_obj.has_next %}
     <a
-      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400"
+      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400 mt-2 md:mt-0"
       href="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
       hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
       hx-target="#related-post-container">
@@ -39,6 +39,6 @@
         <i class="fas fa-chevron-right mr-2"></i>
     </a>
   {% else %}
-    <div class="w-10"></div> <!-- Placeholder to keep the center alignment -->
+    <div class="hidden md:block w-10"></div> <!-- Placeholder for larger screens only -->
   {% endif %}
 </div>
