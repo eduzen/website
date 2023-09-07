@@ -14,13 +14,17 @@ gpt_models = {"3-5": "gpt-3.5-turbo-16k-0613", "3-5-16": "gpt-3.5-turbo-16k"}
 
 
 def ask_openai(prompt: str) -> str:
-    logger.warning("Asking to chatgpt!")
-    msg = {"role": "user", "content": prompt}
-    response = openai.ChatCompletion.create(model=gpt_models["3-5-16"], messages=[msg])
-    content = response["choices"][0]["message"]["content"]
-
-    logger.debug(f"Chatgpt answer: {content}")
-    return content
+    try:
+        logger.debug(f"Sending prompt to chatgpt: {prompt}")
+        response = openai.ChatCompletion.create(
+            model=gpt_models["gpt3.5_turbo"], messages=[{"role": "user", "content": prompt}]
+        )
+        content = response["choices"][0]["message"]["content"]  # type: ignore
+        logger.debug(f"Chatgpt answer: {content}")
+        return content
+    except Exception as e:
+        logger.error(f"Error asking chatgpt: {e}")
+        raise
 
 
 def get_better_title(title: str) -> str:
@@ -51,19 +55,25 @@ def get_better_summary(text: str) -> str:
     return response
 
 
+def offer_blog_post_suggestion(post: Post) -> dict[str, str]:
+    title = get_better_title(post.title)
+    summary = get_better_summary(post.text)
+
+    return {"title": title, "summary": summary}
+
+
 def improve_blog_post(post: Post) -> None:
     """
     Improve the post title and summary using chatgpt.
     """
-    if not post.title:
-        return
-
-    if not post.summary:
-        return
-
     try:
         post.title = get_better_title(post.title)
+    except Exception as e:
+        logger.error(f"Error improving post title for {post}: {e}")
+
+    try:
         post.summary = get_better_summary(post.text)
-        post.save()
     except Exception as e:
         logger.error(f"Error improving post {post}: {e}")
+
+    post.save()
