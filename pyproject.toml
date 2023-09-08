@@ -103,7 +103,6 @@ exclude = [
 plugins = [
   "mypy_django_plugin.main"
 ]
-ignore_missing_imports = true
 exclude = [
   "(build|dist)/*",
   "migrations/*"
