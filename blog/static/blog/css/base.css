@@ -7,14 +7,19 @@
   color: #bd93f9;
 }
 
-/* Misc */
-.bulb-fade {
-  animation: bulbFade 5s infinite;
+.loadingIndicator {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
 }
 #mobile-menu {
   display: none;
 }
 
+/* Misc */
+.bulb-fade {
+  animation: bulbFade 5s infinite;
+}
 
 @keyframes bulbFade {
   0%, 100% { color: #f8f8f2; }   /* Dracula foreground color */

@@ -1,7 +1,20 @@
 {% load i18n static %}
 
 {% block content %}
+
   <div class="flex flex-wrap justify-center subpixel-antialiased p-4 tracking-wide">
+
+    <!-- Back Link -->
+    <div class="w-full text-left mb-4">
+      <a
+        hx-get="{% url 'post_list' %}"
+        hx-push-url="{% url 'post_list' %}"
+        hx-target="#content"
+        href="{% url 'post_list' %}"
+        class="text-blue-500 hover:text-blue-700">
+        ← {% translate 'Back to Post List' %}
+      </a>
+    </div>
 
     <!-- Main Post Content -->
     <div class="w-full ">

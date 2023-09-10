@@ -1,3 +1,10 @@
+function cleanLoadingIndicator() {
+  const loadingIndicator = document.getElementById('loadingIndicator');
+  if (loadingIndicator) {
+    loadingIndicator.style.transform = 'scaleX(0)'; // Reset the indicator
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   function handleDropdownBehavior() {
     document.addEventListener("click", function(event) {
@@ -54,12 +61,30 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  function handleHTMXEvents() {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+
+    // Start loading effect
+    document.body.addEventListener('htmx:beforeRequest', function() {
+      loadingIndicator.style.transform = 'scaleX(1)';
+    });
+
+    // Finish loading effect
+    document.body.addEventListener('htmx:afterSwap', function() {
+      loadingIndicator.style.transform = 'scaleX(0)';
+    });
+  }
+
   // Initialize functions
   handleDropdownBehavior();
   handleMobileMenuBehavior();
   updateActiveLink();
+  handleHTMXEvents();
 
   // Attach htmx listener
   document.body.addEventListener('htmx:afterSwap', updateActiveLink);
+  document.body.addEventListener('htmx:onLoadError', cleanLoadingIndicator);
+
+  window.addEventListener('popstate', cleanLoadingIndicator);
 
 });
