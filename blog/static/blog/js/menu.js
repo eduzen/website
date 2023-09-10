@@ -26,14 +26,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (mobileButton && mobileMenu) {
       mobileButton.addEventListener("click", function() {
-        mobileMenu.classList.toggle("hidden");
+        mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
       });
     }
 
     // Close the mobile menu when a link is clicked
     mobileLinks.forEach(link => {
       link.addEventListener("click", function() {
-        mobileMenu.classList.add("hidden");
+        mobileMenu.style.display = "none";
       });
     });
   }
