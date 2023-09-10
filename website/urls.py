@@ -8,6 +8,7 @@ from .sitemap import sitemaps
 from .views import MediaView, favicon_view
 
 urlpatterns = [
+    path("", include("core.urls")),
     path("healthchecks/", include("django_healthchecks.urls")),
     path("media/<path>", MediaView.as_view()),
     path("favicon.ico", favicon_view),
@@ -24,10 +25,10 @@ urlpatterns += i18n_patterns(
 
 
 if settings.DEBUG:
-    import debug_toolbar  # NOQA
+    import debug_toolbar  # type: ignore # noqa
 
     urlpatterns = [
         path("__debug__/", include(debug_toolbar.urls)),
         path("__reload__/", include("django_browser_reload.urls")),
         path("rosetta/", include("rosetta.urls")),
-    ] + urlpatterns  # NOQA
+    ] + urlpatterns

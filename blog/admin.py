@@ -4,7 +4,7 @@ from django.db import models
 from django.forms import TextInput, Textarea
 from django.http import HttpRequest
 from django.utils.safestring import mark_safe
-from image_cropping import ImageCroppingMixin
+from image_cropping import ImageCroppingMixin  # type: ignore
 from blog.services.prettifier import json_to_pretty_html
 from django.db.models import QuerySet
 from .models import Post, Tag
@@ -114,7 +114,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     def improve_button(self, obj: Post) -> str:
         if not obj.pk:
             "-"
-        context = {"post_id": obj.id}
+        context = {"post_id": obj.pk}
         return render_to_string("blog/admin/partials/improve_button.html", context)
 
 

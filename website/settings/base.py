@@ -2,7 +2,7 @@ from pathlib import Path
 from decouple import config, Csv
 from dj_database_url import parse as db_url
 from django.utils.translation import gettext_lazy as _
-from easy_thumbnails.conf import Settings as thumbnail_settings
+from easy_thumbnails.conf import Settings as thumbnail_settings  # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,7 +50,7 @@ THIRD_PARTY_APPS = [
 APPS = [
     "blog",
     "snippets",
-    "files",
+    "core",
 ]
 
 

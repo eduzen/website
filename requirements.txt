@@ -16,7 +16,7 @@ attrs==23.1.0
     # via aiohttp
 beautifulsoup4==4.12.2
     # via website (pyproject.toml)
-brotli==1.0.9
+brotli==1.1.0
     # via whitenoise
 cachetools==5.3.1
     # via google-auth
@@ -77,7 +77,7 @@ django-js-asset==2.1.0
     # via django-ckeditor
 django-restframework==0.0.1
     # via website (pyproject.toml)
-django-robots==5.0
+django-robots==6.1
     # via website (pyproject.toml)
 django-rosetta==0.9.9
     # via website (pyproject.toml)
@@ -106,7 +106,7 @@ google-cloud-storage==2.10.0
     # via django-storages
 google-crc32c==1.5.0
     # via google-resumable-media
-google-resumable-media==2.5.0
+google-resumable-media==2.6.0
     # via google-cloud-storage
 googleapis-common-protos==1.60.0
     # via google-api-core
@@ -134,7 +134,7 @@ pillow==10.0.0
     #   website (pyproject.toml)
 polib==1.2.0
     # via django-rosetta
-protobuf==4.24.2
+protobuf==4.24.3
     # via
     #   google-api-core
     #   googleapis-common-protos

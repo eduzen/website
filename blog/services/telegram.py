@@ -1,14 +1,15 @@
-from typing import Any
-
 import requests
 from django.conf import settings
 
-BASE_URL = f"https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}"
+TELEGRAM_TOKEN = settings.TELEGRAM_TOKEN  # trype: ignore
+TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID  # type: ignore
+
+BASE_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
 
 
-def send_message(message: str) -> dict[str, Any]:
+def send_message(message: str) -> dict[str, str]:
     endpoint = f"{BASE_URL}/sendMessage"
-    payload = {"chat_id": settings.TELEGRAM_CHAT_ID, "text": message}
+    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message}
     response = requests.post(endpoint, data=payload)
     response.raise_for_status()
     return response.json()
