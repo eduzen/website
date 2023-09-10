@@ -113,7 +113,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     @mark_safe
     def improve_button(self, obj: Post) -> str:
         if not obj.pk:
-            "-"
+            return "-"
         context = {"post_id": obj.pk}
         return render_to_string("blog/admin/partials/improve_button.html", context)
 

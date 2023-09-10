@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import GenericSitemap, Sitemap
 from django.urls import reverse
+from django.db.models import QuerySet
 
 from blog.models import Post
 
@@ -7,16 +8,22 @@ from blog.models import Post
 class StaticViewSitemap(Sitemap):
     """Sitemap for improving google indexing"""
 
-    priority = 0.5
-    changefreq = "daily"
+    priority: float = 0.5
+    changefreq: str = "daily"
 
-    def items(self):
-        return ["home", "blog", "about", "contact"]
+    def items(self) -> list[str]:
+        return ["home", "blog", "about", "contact", "consultancy", "classes", "search"]
 
-    def location(self, obj):
+    def location(self, obj: str) -> str | None:  # type: ignore
         return reverse(obj)
 
 
-INFO_DICT = {"queryset": Post.objects.filter(published_date__isnull=False), "date_field": "published_date"}
+INFO_DICT: dict[str, type[Post] | str | QuerySet[Post]] = {
+    "queryset": Post.objects.filter(published_date__isnull=False),
+    "date_field": "published_date",
+}
 
-sitemaps = {"static": StaticViewSitemap, "blog": GenericSitemap(INFO_DICT, priority=0.6)}  # type: ignore
+sitemaps: dict[str, type[StaticViewSitemap] | GenericSitemap] = {
+    "static": StaticViewSitemap,
+    "blog": GenericSitemap(INFO_DICT, priority=0.6),  # type: ignore
+}

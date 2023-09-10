@@ -84,7 +84,7 @@ types = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb -xs"
+addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb"
 filterwarnings = []
 
 [tool.black]

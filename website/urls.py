@@ -11,7 +11,7 @@ urlpatterns = [
     path("robots.txt", include("robots.urls")),
 ]
 
-urlpatterns += i18n_patterns(
+urlpatterns += i18n_patterns(  # type: ignore
     path("", include("blog.urls")),
     path("eduardo/", admin.site.urls),
 )
