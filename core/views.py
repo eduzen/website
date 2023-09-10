@@ -1,8 +1,5 @@
 import logging
 import json
-from pygments import highlight
-from pygments.lexers import JsonLexer
-from pygments.formatters import HtmlFormatter
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -11,6 +8,7 @@ from django.views.decorators.http import require_GET
 from django.views.generic.base import RedirectView
 from blog.models import Post
 from blog.services.chatgpt import improve_blog_post
+from core.services.pretty import highlight_json
 
 logger = logging.getLogger(__name__)
 
@@ -27,11 +25,9 @@ def chatgpt_improve_post(request: HttpRequest, post_id: int) -> HttpResponse:
         post.refresh_from_db()
 
         if post.suggestions:
-            response = json.dumps(post.suggestions, sort_keys=True, indent=2)
-            formatter = HtmlFormatter(style="colorful")
-            response = highlight(response, JsonLexer(), formatter)
-            data = f"<style>{formatter.get_style_defs()}</style><br>{response}"
-            return HttpResponse(data, content_type="text/html")
+            response = json.dumps(post.suggestions, ensure_ascii=False, sort_keys=True, indent=2)
+            formatted_response = highlight_json(response)
+            return HttpResponse(formatted_response, content_type="text/html")
         else:
             return JsonResponse({"message": "No suggestions found!"}, status=200)
     except Post.DoesNotExist:

@@ -29,27 +29,34 @@ def ask_openai(prompt: str) -> str:
 
 def get_better_title(title: str) -> str:
     prompt = (
-        "I am writing my blog post. And I'm terrible with titles.\n"
-        "I need your help improving my title. So the word title doesn't need to appear in the text.\n"
-        "I need something also appealing to the reader and not serious.\n"
-        "And it needs to create curiosity. The summary will be saved in a charfield in my db\n"
-        "The max lengh is 200, but I would like to keep it shorter like 50 or 80.\n"
-        f"The title of post is the following: '{title}'\n"
-        "Please respect the language of the text and give only one suggested title.\n"
+        "Given the language and context of the following title, provide a captivating and"
+        "improved title that will intrigue readers. Not too serious."
+        "Constrains:"
+        "    - The word title doesn't need to appear in the text.\n"
+        "    - I need only one suggested title.\n"
+        "    - The max lengh is 200, but I would like to keep it shorter like 50 or 80.\n"
+        "    - Please respect the language of the text."
+        "    If it is in spanish, give me a title in spanish\n"
+        "    If it's english, give me a title in english.\n"
+        f"The title of my blog post is: '{title}'."
     )
+
     response = ask_openai(prompt)
     return response
 
 
 def get_better_summary(text: str) -> str:
     prompt = (
-        "I would like to improve the summary of my blog post.\n"
-        "I need your help with a summary. So the word summary doesn't need to appear in the text.\n"
-        "I need something also appealing to the reader and not serious.\n"
-        "And it needs to create curiosity. The summary will be saved in a charfield in my db\n"
-        "The max lengh is 300, but I would like to keep it around 200.\n"
-        "Please respect the language of the text.\n"
-        f"The content of the text of my post is the following text: {text}."
+        "Given the language and context of the following blog post content,"
+        " provide a concise and intriguing summary that captures its essence. "
+        f"The content of my blog post is: '{text}'."
+        "Constrains:"
+        "1) the word summary doesn't need to appear in the text.\n"
+        "2) The max lengh is 300, but I would like to keep it around 200.\n"
+        "3) Please respect the language of the text."
+        " If it is in spanish, give me a summary in spanish\n"
+        " If it's english, give me a summary in english.\n"
+        "4) Only one summary is needed.\n"
     )
     response = ask_openai(prompt)
     return response
@@ -67,7 +74,7 @@ def improve_blog_post(post: Post) -> None:
     Improve the post title and summary using chatgpt.
     """
     try:
-        post.suggestions = blog_post_suggestion(post)  # type: ignore
-        post.save()
+        suggestions = blog_post_suggestion(post)  # type: ignore
+        Post.objects.filter(id=post.pk).update(suggestions=suggestions)
     except Exception as e:
         logger.error(f"Error improving post title for {post}: {e}")
