@@ -56,7 +56,7 @@ jobs:
         python -m pip install -r requirements-dev.txt
 
     - name: Run Django Check
-      run: python manage.py check
+      run: DJANGO_SETTINGS_MODULE=website.settings.prod python manage.py check --deploy
 
     - name: Run Mypy Check
       run: mypy .
