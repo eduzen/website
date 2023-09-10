@@ -70,15 +70,4 @@
   <span class="text-gray-400">·</span>
 {% endif %}
 
-<button
-  id="language-button"
-  hx-get="{% url 'language_dropdown' %}"
-  hx-trigger="click"
-  hx-swap="afterend"
-  hx-postprocess="js: function(elt){ elt.style.display = 'block'; }">
-  {% if "es" in LANGUAGE_CODE %}
-    <span class="fi fi-es"></span>
-  {% else %}
-    <span class="fi fi-gb"></span>
-  {% endif %}
-</button>
+{% include 'blog/utils/language_dropdown_button.hml' %}

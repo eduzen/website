@@ -6,15 +6,14 @@ document.addEventListener("DOMContentLoaded", function() {
       const mobileMenu = document.getElementById("mobile-menu");
       const mobileButton = document.getElementById("mobile-menu-button");
 
-
       // Hide language dropdown if clicked outside
-      if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && dropdown.style.display !== "none") {
-        dropdown.style.display = "none";
+      if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && !dropdown.classList.contains("hidden")) {
+        dropdown.classList.add("hidden");
       }
 
       // Hide mobile menu if clicked outside
-      if (mobileMenu && mobileButton && !mobileMenu.contains(event.target) && !mobileButton.contains(event.target) && mobileMenu.style.display !== "none") {
-        mobileMenu.style.display = "none";
+      if (mobileMenu && mobileButton && !mobileMenu.contains(event.target) && !mobileButton.contains(event.target) && !mobileMenu.classList.contains("hidden")) {
+        mobileMenu.classList.add("hidden");
       }
 
     });
@@ -27,19 +26,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (mobileButton && mobileMenu) {
       mobileButton.addEventListener("click", function() {
-        mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
+        mobileMenu.classList.toggle("hidden");
       });
     }
 
-    // Add this part to close the mobile menu when a link is clicked
+    // Close the mobile menu when a link is clicked
     mobileLinks.forEach(link => {
       link.addEventListener("click", function() {
-        mobileMenu.style.display = "none";
+        mobileMenu.classList.add("hidden");
       });
     });
   }
 
-  // Update active link in navbar
   function updateActiveLink(event) {
     if (!event || !event.detail || !event.detail.pathInfo || !event.detail.pathInfo.requestPath) {
       return; // Exit if no proper event details are provided

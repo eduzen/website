@@ -11,6 +11,10 @@
 .bulb-fade {
   animation: bulbFade 5s infinite;
 }
+#mobile-menu {
+  display: none;
+}
+
 
 @keyframes bulbFade {
   0%, 100% { color: #f8f8f2; }   /* Dracula foreground color */
