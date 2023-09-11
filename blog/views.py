@@ -1,14 +1,12 @@
 import datetime as dt
 import logging
 from typing import Any
-
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView, TemplateView, ListView
 from django_filters.views import FilterView
-
 
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
@@ -168,7 +166,3 @@ class ContactView(HtmxGetMixin, FormView):
         context_data = self.get_context_data(form=form)
         print(context_data)
         return render(self.request, self.partial_template_name, context_data)
-
-
-def language_dropdown(request):
-    return render(request, "blog/utils/language_dropdown.html")

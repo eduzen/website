@@ -9,14 +9,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="post",
-            name="images",
-        ),
-        migrations.RemoveField(
-            model_name="post",
-            name="snippets",
-        ),
         migrations.AlterField(
             model_name="post",
             name="id",

@@ -7,6 +7,15 @@
   color: #bd93f9;
 }
 
+.loadingIndicator {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+#mobile-menu {
+  display: none;
+}
+
 /* Misc */
 .bulb-fade {
   animation: bulbFade 5s infinite;

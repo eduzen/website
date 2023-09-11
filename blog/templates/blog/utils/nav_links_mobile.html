@@ -69,14 +69,4 @@
 <a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
 {% endif %}
 
-<button class="language-dropdown"
-        hx-get="{% url 'language_dropdown' %}"
-        hx-trigger="click"
-        hx-swap="afterend"
-        hx-postprocess="js: function(elt){ elt.style.display = 'block'; }">
-  {% if "es" in LANGUAGE_CODE %}
-    <span class="fi fi-es"></span>
-  {% else %}
-    <span class="fi fi-gb"></span>
-  {% endif %}
-</button>
+{% include 'blog/utils/language_dropdown_button.html' %}

@@ -43,6 +43,7 @@ dependencies = [
   "gunicorn",
   "gevent",
   "Markdown",
+  "openai",
   "Pillow",
   "python-decouple",
   "psycopg2-binary",
@@ -76,10 +77,14 @@ types = [
   "types-redis",
   "types-requests",
   "django-stubs[compatible-mypy]",
+  "django-filter-stubs",
+  "types-beautifulsoup4",
+  "types-Pygments",
+  "types-factory-boy",
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb -xs"
+addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb"
 filterwarnings = []
 
 [tool.black]
@@ -93,23 +98,11 @@ include_trailing_comma = true
 
 [tool.ruff]
 line-length = 120
+target-version = "py311"
 exclude = [
   "website/settings/base.py",
   "website/settings/test.py",
 ]
-
-[tool.mypy]
-plugins = [
-  "mypy_django_plugin.main"
-]
-ignore_missing_imports = true
-exclude = [
-  "(build|dist)/*",
-  "migrations/*"
-]
-
-[tool.django-stubs]
-django_settings_module = "website.settings.dev"
 
 [tool.coverage.run]
 branch = true
@@ -140,3 +133,26 @@ exclude_lines = [
 
 [tool.coverage.json]
 pretty_print=true
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = false
+warn_unused_configs = true
+plugins = [
+  "mypy_django_plugin.main",
+]
+exclude = [
+  "migrations",
+  "tests",
+]
+
+[tool.django-stubs]
+django_settings_module = "website.settings.dev"
+
+
+[[tool.mypy.overrides]]
+module = [
+    "decouple",
+    "crispy_forms"
+]
+ignore_missing_imports = true

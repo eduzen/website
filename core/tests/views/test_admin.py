@@ -12,7 +12,6 @@ def test_root_admin(admin_client):
     "app",
     (
         "blog",
-        "files",
         "robots",
         "sessions",
         "sites",

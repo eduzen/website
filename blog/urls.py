@@ -17,5 +17,4 @@ urlpatterns = [
     path("sucess/", views.SucessView.as_view(), name="sucess"),
     path("error/", views.ErrorView.as_view(), name="error"),
     path("consultancy/", views.ConsultancyView.as_view(), name="consultancy"),
-    path("language-dropdown/", views.language_dropdown, name="language_dropdown"),
 ]

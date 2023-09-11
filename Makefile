@@ -83,7 +83,7 @@ show-coverage:
 	${DCO} run --rm web coverage combine; ${DCO} run --rm web coverage report
 
 check:
-	${DCO} run --rm web python manage.py check
+	${DCO} run --rm web python manage.py check --settings=website.settings.prod --deploy
 
 dockershell:
 	${DCO} run --rm web bash
