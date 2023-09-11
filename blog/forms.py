@@ -3,8 +3,8 @@ import logging
 from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit
+from crispy_forms.helper import FormHelper  # type: ignore
+from crispy_forms.layout import Layout, Field, Submit  # type: ignore
 from django.utils.translation import gettext as _
 from blog.services.captcha import verify_captcha
 from typing import Any

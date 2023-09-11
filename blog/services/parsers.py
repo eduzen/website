@@ -32,17 +32,17 @@ def apply_styles(content: str) -> str:
     return str(soup)
 
 
-def _style_h2_tags(tags: list[Tag]):
+def _style_h2_tags(tags: list[Tag]) -> None:
     for tag in tags:
         tag["class"] = "text-yellow-400 mt-8 text-3xl font-bold mb-6 text-left"
 
 
-def _style_p_tags(tags: list[Tag]):
+def _style_p_tags(tags: list[Tag]) -> None:
     for tag in tags:
         tag["class"] = "text-xl mt-4 leading-relaxed text-justify"
 
 
-def _style_pre_tags(soup: BeautifulSoup, tags: list[Tag]):
+def _style_pre_tags(soup: BeautifulSoup, tags: list[Tag]) -> None:
     for tag in tags:
         tag["class"] = "relative bg-white text-black n p-6 rounded-lg"
 

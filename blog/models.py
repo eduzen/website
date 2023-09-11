@@ -1,13 +1,13 @@
 import logging
 
-from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor_uploader.fields import RichTextUploadingField  # type: ignore
 from django.contrib.sitemaps import ping_google
 from django.db import models
 from django.db.models import Count
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from image_cropping import ImageRatioField
+from image_cropping import ImageRatioField  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +43,7 @@ class Post(models.Model):
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name=_("title"))
     summary = models.CharField(max_length=800, blank=True, verbose_name=_("summary"))
+    suggestions = models.JSONField(blank=True, null=True)
     slug = models.SlugField(null=True, unique=True, db_index=True, verbose_name=_("slug"))
     created_date = models.DateField(default=timezone.now)
     published_date = models.DateField(blank=True, null=True)

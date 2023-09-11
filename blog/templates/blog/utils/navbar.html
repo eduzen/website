@@ -9,8 +9,6 @@
           </span>
         </a>
       </div>
-      <div id="loadingIndicator" style="display: none;">Loading...</div>
-
       <!-- Desktop Links -->
       <div class="hidden md:flex space-x-2" x-data="{ open: false }" @click.away="open = false">
         {% include 'blog/utils/nav_links.html' %}
@@ -28,3 +26,4 @@
     {% include 'blog/utils/nav_links_mobile.html' %}
   </div>
 </nav>
+<div id="loadingIndicator" class="h-1 w-full bg-blue-500 fixed top-0 left-0 z-50 transform scale-x-0 origin-left transition-transform duration-1500 ease-in-out"></div>

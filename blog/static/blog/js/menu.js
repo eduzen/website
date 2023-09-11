@@ -1,3 +1,10 @@
+function cleanLoadingIndicator() {
+  const loadingIndicator = document.getElementById('loadingIndicator');
+  if (loadingIndicator) {
+    loadingIndicator.style.transform = 'scaleX(0)'; // Reset the indicator
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   function handleDropdownBehavior() {
     document.addEventListener("click", function(event) {
@@ -6,15 +13,14 @@ document.addEventListener("DOMContentLoaded", function() {
       const mobileMenu = document.getElementById("mobile-menu");
       const mobileButton = document.getElementById("mobile-menu-button");
 
-
       // Hide language dropdown if clicked outside
-      if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && dropdown.style.display !== "none") {
-        dropdown.style.display = "none";
+      if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && !dropdown.classList.contains("hidden")) {
+        dropdown.classList.add("hidden");
       }
 
       // Hide mobile menu if clicked outside
-      if (mobileMenu && mobileButton && !mobileMenu.contains(event.target) && !mobileButton.contains(event.target) && mobileMenu.style.display !== "none") {
-        mobileMenu.style.display = "none";
+      if (mobileMenu && mobileButton && !mobileMenu.contains(event.target) && !mobileButton.contains(event.target) && !mobileMenu.classList.contains("hidden")) {
+        mobileMenu.classList.add("hidden");
       }
 
     });
@@ -31,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
 
-    // Add this part to close the mobile menu when a link is clicked
+    // Close the mobile menu when a link is clicked
     mobileLinks.forEach(link => {
       link.addEventListener("click", function() {
         mobileMenu.style.display = "none";
@@ -39,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Update active link in navbar
   function updateActiveLink(event) {
     if (!event || !event.detail || !event.detail.pathInfo || !event.detail.pathInfo.requestPath) {
       return; // Exit if no proper event details are provided
@@ -56,12 +61,30 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  function handleHTMXEvents() {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+
+    // Start loading effect
+    document.body.addEventListener('htmx:beforeRequest', function() {
+      loadingIndicator.style.transform = 'scaleX(1)';
+    });
+
+    // Finish loading effect
+    document.body.addEventListener('htmx:afterSwap', function() {
+      loadingIndicator.style.transform = 'scaleX(0)';
+    });
+  }
+
   // Initialize functions
   handleDropdownBehavior();
   handleMobileMenuBehavior();
   updateActiveLink();
+  handleHTMXEvents();
 
   // Attach htmx listener
   document.body.addEventListener('htmx:afterSwap', updateActiveLink);
+  document.body.addEventListener('htmx:onLoadError', cleanLoadingIndicator);
+
+  window.addEventListener('popstate', cleanLoadingIndicator);
 
 });

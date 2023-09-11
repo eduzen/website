@@ -1,6 +1,6 @@
 from unittest import mock
 from django.test import TestCase
-from website.middleware import CloudflareMiddleware
+from core.middleware import CloudflareMiddleware
 from django.test.client import RequestFactory
 
 

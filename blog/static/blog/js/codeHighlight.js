@@ -1,7 +1,14 @@
+// Initialize the setupCopyFunctionality function upon page content loading
 document.addEventListener("DOMContentLoaded", function() {
   setupCopyFunctionality();
 });
 
+// Listen for htmx's afterSwap event to reinitialize the copy functionality for newly loaded content
+document.body.addEventListener('htmx:afterSwap', function() {
+  setupCopyFunctionality();
+});
+
+// This function initializes copy buttons' functionality
 function setupCopyFunctionality() {
   var copyButtons = document.querySelectorAll(".copy-btn");
   copyButtons.forEach(function(button) {
@@ -9,6 +16,7 @@ function setupCopyFunctionality() {
   });
 }
 
+// This function handles the click event for copy buttons
 function handleCopyClick(event) {
   var code = getCodeFromEvent(event);
   if (!code) {
@@ -26,14 +34,17 @@ function handleCopyClick(event) {
     });
 }
 
+// Extracts the <code> tag from the clicked copy button's event
 function getCodeFromEvent(event) {
   return event.target.parentElement.querySelector('code');
 }
 
+// Uses the Clipboard API to copy the provided text to the clipboard
 function copyTextToClipboard(text) {
   return navigator.clipboard.writeText(text); // This now returns a Promise
 }
 
+// Shows feedback upon successful copy action
 function displayCopyFeedback(button) {
   button.textContent = "Copied!";
   setTimeout(function() {
@@ -41,6 +52,7 @@ function displayCopyFeedback(button) {
   }, 800);
 }
 
+// Temporarily highlights the <pre> element to visually indicate a copy action
 function highlightPreElement(preElement) {
   if (preElement) {
     preElement.classList.add('bg-yellow-100');

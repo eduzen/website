@@ -2,7 +2,7 @@ from pathlib import Path
 from decouple import config, Csv
 from dj_database_url import parse as db_url
 from django.utils.translation import gettext_lazy as _
-from easy_thumbnails.conf import Settings as thumbnail_settings
+from easy_thumbnails.conf import Settings as thumbnail_settings  # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,7 +12,7 @@ SITE_ID = 1
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("DJANGO_SECRET_KEY", default="django-insecure-)b*6^n!osj#+4-*5aag6d106&@haowpc9_c0**nvw-sg#e-c9h")
+SECRET_KEY = config("SECRET_KEY", default="django-insecure-)b*6^n!osj#+4-*5aag6d106&@haowpc9_c0**nvw-sg#e-c9h")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
@@ -50,7 +50,7 @@ THIRD_PARTY_APPS = [
 APPS = [
     "blog",
     "snippets",
-    "files",
+    "core",
 ]
 
 
@@ -69,7 +69,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "website.middleware.CloudflareMiddleware",
+    "core.middleware.CloudflareMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"
@@ -218,3 +218,7 @@ THUMBNAIL_PROCESSORS = ("image_cropping.thumbnail_processors.crop_corners",) + t
 # Crispy Forms: https://github.com/django-crispy-forms/crispy-tailwind
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+# ChatGPT:
+OPENAI_ORGANIZATION = config("OPENAI_ORGANIZATION", default="")
+OPENAI_API_KEY = config("OPENAI_API_KEY", default="")
