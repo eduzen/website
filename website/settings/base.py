@@ -201,15 +201,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-HEALTH_CHECKS = {
-    "postgresql": "django_healthchecks.contrib.check_database",
-    "cache_default": "django_healthchecks.contrib.check_cache_default",
-    "check_remote_addr": "django_healthchecks.contrib.check_remote_addr",
-    # 'check_expired_heartbeats': 'django_healthchecks.contrib.check_expired_heartbeats',
-    # 'check_heartbeats': 'django_healthchecks.contrib.check_heartbeats',
-    # 'check_open_migrations': 'django_healthchecks.contrib.check_open_migrations',
-}
-
 # Django Image Cropping: https://github.com/jonasundderwolf/django-image-cropping
 THUMBNAIL_PROCESSORS = ("image_cropping.thumbnail_processors.crop_corners",) + thumbnail_settings.THUMBNAIL_PROCESSORS
 

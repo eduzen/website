@@ -22,7 +22,6 @@ cachetools==5.3.1
     # via google-auth
 certifi==2023.7.22
     # via
-    #   django-healthchecks
     #   requests
     #   sentry-sdk
 charset-normalizer==3.2.0
@@ -43,7 +42,6 @@ django==4.2.5
     #   django-debug-toolbar
     #   django-extensions
     #   django-filter
-    #   django-healthchecks
     #   django-htmx
     #   django-js-asset
     #   django-rosetta
@@ -66,8 +64,6 @@ django-debug-toolbar==4.2.0
 django-extensions==3.2.3
     # via website (pyproject.toml)
 django-filter==23.2
-    # via website (pyproject.toml)
-django-healthchecks==1.5.0
     # via website (pyproject.toml)
 django-htmx==1.16.0
     # via website (pyproject.toml)
@@ -154,7 +150,6 @@ redis==5.0.0
     # via website (pyproject.toml)
 requests==2.31.0
     # via
-    #   django-healthchecks
     #   django-rosetta
     #   google-api-core
     #   google-cloud-storage

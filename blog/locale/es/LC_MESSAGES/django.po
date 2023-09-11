@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-10 15:47+0200\n"
+"POT-Creation-Date: 2023-09-11 23:15+0200\n"
 "PO-Revision-Date: 2023-08-25 11:25-0300\n"
 "Last-Translator: Eduardo Enriquez <eduardo.a.enriquez@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -374,7 +374,8 @@ msgstr ""
 
 #: blog/templates/blog/_classes.html:75
 msgid "Codecademy: free course for learning the basics of Python 3"
-msgstr "Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
+msgstr ""
+"Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
 
 #: blog/templates/blog/_classes.html:80
 msgid "Some recommended books:"
@@ -585,6 +586,10 @@ msgid "everywhere!"
 msgstr "en cualquier lugar!"
 
 #: blog/templates/blog/posts/_detail.html:15
+msgid "Back to Post List"
+msgstr "Volver a la lista de Posts"
+
+#: blog/templates/blog/posts/_detail.html:28
 msgid "Author"
 msgstr "Autor"
 

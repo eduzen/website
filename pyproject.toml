@@ -30,7 +30,6 @@ dependencies = [
   "django-crispy-forms",
   "django-extensions",
   "django-filter",
-  "django-healthchecks",
   "django-htmx",
   "django-image-cropping",
   "django-robots",
