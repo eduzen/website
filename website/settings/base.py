@@ -26,7 +26,6 @@ DJANGO_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "django.contrib.sites",
@@ -155,9 +154,8 @@ STORAGES = {
 # MEDIA_ROOT = config("MEDIA_PATH", default=BASE_DIR / "media")
 
 # GCP settings
-GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="eduzen_local_media")
+GS_BUCKET_NAME = config("GS_BUCKET_NAME", default="media-eduzen-website")
 GS_PROJECT_ID = config("GS_PROJECT_ID", default="eduzen-website")
-GS_CREDENTIALS = config("GS_CREDENTIALS", default="/tmp/google.json")
 GS_IS_GZIPPED = True
 GS_DEFAULT_ACL = "publicRead"  # Make the files public
 
