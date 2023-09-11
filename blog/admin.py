@@ -3,9 +3,10 @@ from django.contrib.sessions.models import Session
 from django.db import models
 from django.forms import TextInput, Textarea
 from django.http import HttpRequest
+from django.urls import reverse
 from django.utils.safestring import mark_safe
-from image_cropping import ImageCroppingMixin  # type: ignore
-from blog.services.prettifier import json_to_pretty_html
+from image_cropping import ImageCroppingMixin
+from blog.services.parsers import json_to_pretty_html
 from django.db.models import QuerySet
 from .models import Post, Tag
 from django.template.loader import render_to_string
@@ -39,7 +40,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
         "tag_list",
     ]
     list_display_links = ("title",)
-    readonly_fields = ("preview", "pk", "raw_body", "improve_button", "blog_link")
+    readonly_fields = ("preview", "pk", "raw_body", "improve_button", "blog_link", "apply_styles")
     prepopulated_fields = {"slug": ("title",)}
     filter_horizontal = ("tags",)
     formfield_overrides = {
@@ -54,9 +55,10 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
                 "fields": (
                     ("author", "created_date"),
                     "title",
+                    "blog_link",
                     "summary",
                     "slug",
-                    "published_date",
+                    ("published_date", "apply_styles"),
                     "text",
                     ("image", "preview"),
                     "cropping",
@@ -109,6 +111,14 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
         if not obj.published:
             return "-"
         return mark_safe(f"<a href='{obj.get_absolute_url()}'>Go to eduzen.ar</a>")
+
+    @mark_safe
+    def apply_styles(self, post: Post) -> str:
+        if not post.pk:
+            return "-"
+
+        url = reverse("post_update_styles", kwargs={"post_id": post.pk})
+        return f"<a href='{url}' class='button' style='background-color:green'> apply </a>"
 
     @mark_safe
     def improve_button(self, obj: Post) -> str:

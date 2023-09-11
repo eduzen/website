@@ -95,7 +95,7 @@ google-api-core==2.11.1
     # via
     #   google-cloud-core
     #   google-cloud-storage
-google-auth==2.22.0
+google-auth==2.23.0
     # via
     #   google-api-core
     #   google-cloud-core
@@ -164,8 +164,6 @@ rsa==4.9
     # via google-auth
 sentry-sdk[django]==1.30.0
     # via website (pyproject.toml)
-six==1.16.0
-    # via google-auth
 soupsieve==2.5
     # via beautifulsoup4
 sqlparse==0.4.4

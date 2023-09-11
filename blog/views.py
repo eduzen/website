@@ -7,11 +7,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView, TemplateView, ListView
 from django_filters.views import FilterView
+from django.contrib.auth.decorators import login_required
 
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
 from .services.telegram import send_contact_message
+from .services.parsers import apply_styles
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +22,15 @@ HOUR = 60 * MIN
 DAY = 24 * HOUR
 MONTH = 30 * DAY
 HALF_YEAR = 6 * MONTH
+
+
+@login_required
+def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
+    """Apply styles to a post using BeautifulSoup."""
+    post = get_object_or_404(Post, pk=post_id)
+    post.text = apply_styles(post.text)
+    post.save()
+    return redirect("admin:blog_post_change", post_id)
 
 
 class HtmxGetMixin:

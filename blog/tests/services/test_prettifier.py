@@ -1,4 +1,4 @@
-from blog.services.prettifier import json_to_pretty_html
+from blog.services.parsers import json_to_pretty_html
 
 
 def test_json_to_pretty_html():

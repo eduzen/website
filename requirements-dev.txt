@@ -15,9 +15,7 @@ asttokens==2.4.0
 async-timeout==4.0.3
     # via aiohttp
 attrs==23.1.0
-    # via
-    #   aiohttp
-    #   hypothesis
+    # via aiohttp
 backcall==0.2.0
     # via ipython
 beautifulsoup4==4.12.2
@@ -127,7 +125,7 @@ factory-boy==3.3.0
     # via
     #   types-factory-boy
     #   website (pyproject.toml)
-faker==19.6.0
+faker==19.6.1
     # via factory-boy
 frozenlist==1.4.0
     # via
@@ -139,7 +137,7 @@ google-api-core==2.11.1
     # via
     #   google-cloud-core
     #   google-cloud-storage
-google-auth==2.22.0
+google-auth==2.23.0
     # via
     #   google-api-core
     #   google-cloud-core
@@ -157,8 +155,6 @@ googleapis-common-protos==1.60.0
 greenlet==2.0.2
     # via gevent
 gunicorn==21.2.0
-    # via website (pyproject.toml)
-hypothesis==6.84.2
     # via website (pyproject.toml)
 idna==3.4
     # via
@@ -277,10 +273,7 @@ sentry-sdk[django]==1.30.0
 six==1.16.0
     # via
     #   asttokens
-    #   google-auth
     #   python-dateutil
-sortedcontainers==2.4.0
-    # via hypothesis
 soupsieve==2.5
     # via beautifulsoup4
 sqlparse==0.4.4
