@@ -69,7 +69,6 @@ dev = [
   "pytest-recording",
   "types-redis",
   "types-requests",
-  "hypothesis",
   "django-browser-reload",
   # "wdb",
 ]
@@ -153,6 +152,7 @@ django_settings_module = "website.settings.dev"
 [[tool.mypy.overrides]]
 module = [
     "decouple",
-    "crispy_forms"
+    "crispy_forms",
+    "image_cropping",
 ]
 ignore_missing_imports = true
