@@ -6,12 +6,12 @@ from decouple import config, Csv
 DEBUG = False
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=".eduzen.com.ar,.eduardoenriquez.com.ar,.eduzen.ar", cast=Csv())
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=False)
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600 * 2  # This sets it for 2 hour, adjust the value accordingly.
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False)
+SECURE_HSTS_PRELOAD = config("SECURE_HSTS_PRELOAD", default=False)
 
 
 CSRF_TRUSTED_ORIGINS = config(
