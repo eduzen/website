@@ -127,7 +127,7 @@ factory-boy==3.3.0
     # via
     #   types-factory-boy
     #   website (pyproject.toml)
-faker==19.6.0
+faker==19.6.1
     # via factory-boy
 frozenlist==1.4.0
     # via
