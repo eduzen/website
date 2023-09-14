@@ -1,5 +1,48 @@
 {% load i18n %}
 
+<div class="flex flex-wrap justify-center items-center h-screen">
+  <!-- Left arrow -->
+  {% if page_obj.has_previous %}
+  <a
+  class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400"
+  href="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
+  hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
+  hx-target="#related-post-container">
+    <i class="fas fa-chevron-left mr-2"></i>
+    {% translate "Previous"%}
+  </a>
+  {% endif %}
+
+  <!-- Cards container -->
+  <div class="lg:flex md:flex-wrap flex-wrap">
+      <!-- Sample card (repeat for all cards) -->
+      {% for post in related_posts %}
+        <div class="card lg:m-2 m-1 p-4 bg-gray-200 w-56 h-64 bg-gray-700 rounded-xl shadow-md overflow-hidden hover:bg-pink-400 mb-4">
+          <div class="p-4">
+            <h2 class="text-lg font-semibold">{{ post.title }}</h2>
+            <a href="{{ post.get_absolute_url }}" class="text-sm text-blue-500 hover:underline mt-2">Read more</a>
+          </div>
+        </div>
+      {% endfor %}
+  </div>
+
+  <!-- Right arrow -->
+  {% if page_obj.has_next %}
+    <a
+    class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400 mt-2 md:mt-0"
+    href="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
+    hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
+    hx-target="#related-post-container">
+      {% translate "Next"%}&nbsp;
+      <i class="fas fa-chevron-right mr-2"></i>
+    </a>
+  {% endif %}
+</div>
+
+
+
+
+{% comment %}
 <div class="flex flex-wrap justify-between items-center">
 
   <!-- Left div (conditional) -->
@@ -41,4 +84,4 @@
   {% else %}
     <div class="hidden md:block w-10"></div> <!-- Placeholder for larger screens only -->
   {% endif %}
-</div>
+</div> {% endcomment %}
