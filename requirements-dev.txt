@@ -313,7 +313,7 @@ types-setuptools==68.2.0.0
     # via types-pygments
 types-urllib3==1.26.25.14
     # via types-requests
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   dj-database-url
     #   django-filter-stubs

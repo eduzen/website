@@ -167,7 +167,7 @@ sqlparse==0.4.4
     #   django-debug-toolbar
 tqdm==4.66.1
     # via openai
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via dj-database-url
 urllib3==1.26.16
     # via
