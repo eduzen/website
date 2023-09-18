@@ -157,7 +157,7 @@ requests==2.31.0
     #   website (pyproject.toml)
 rsa==4.9
     # via google-auth
-sentry-sdk[django]==1.30.0
+sentry-sdk[django]==1.31.0
     # via website (pyproject.toml)
 soupsieve==2.5
     # via beautifulsoup4
