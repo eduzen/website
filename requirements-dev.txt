@@ -281,7 +281,7 @@ termcolor==2.3.0
     # via pytest-sugar
 tqdm==4.66.1
     # via openai
-traitlets==5.9.0
+traitlets==5.10.0
     # via
     #   ipython
     #   matplotlib-inline
