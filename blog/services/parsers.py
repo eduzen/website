@@ -39,6 +39,7 @@ def apply_styles(content: str) -> str:
 
     # Update <h2> tags
     _style_h2_tags(soup.find_all("h2"))
+    _style_h2_tags(soup.find_all("h1"))
 
     # Update <p> tags
     _style_p_tags(soup.find_all("p"))

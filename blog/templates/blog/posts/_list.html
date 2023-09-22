@@ -42,10 +42,10 @@
     </div>
   </article>
 
-  {% include 'blog/extras/paginator.html' %}
-
 {% empty %}
   <p class="text-lg text-center pb-4"> {% translate "We could not find what you are looking for..." %} </p>
   <p class="text-lg text-center pb-4">{% translate "Maybe you can search another for thing?" %}</p>
   <p class="text-lg text-center"><a class="px-4 py-2 bg-purple-500 rounded hover:bg-pink-300" href="{% static 'search' %}">{% translate "Search"%}</a>
 {% endfor %}
+
+{% include 'blog/extras/paginator.html' %}
