@@ -146,7 +146,7 @@ pygments==2.16.1
     # via website (pyproject.toml)
 python-decouple==3.8
     # via website (pyproject.toml)
-redis==5.0.0
+redis==5.0.1
     # via website (pyproject.toml)
 requests==2.31.0
     # via
