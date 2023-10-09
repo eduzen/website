@@ -169,7 +169,7 @@ tqdm==4.66.1
     # via openai
 typing-extensions==4.8.0
     # via dj-database-url
-urllib3==1.26.16
+urllib3==2.0.6
     # via
     #   google-auth
     #   requests

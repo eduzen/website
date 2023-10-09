@@ -322,7 +322,7 @@ typing-extensions==4.8.0
     #   djangorestframework-stubs
     #   mypy
     #   types-factory-boy
-urllib3==1.26.16
+urllib3==2.0.6
     # via
     #   google-auth
     #   requests
