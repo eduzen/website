@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:experimental
-FROM python:3.11-slim-bullseye as production
+FROM python:3.12-slim-bullseye as production
 EXPOSE 80
 
 ARG RELEASE=0.0.0+dev
