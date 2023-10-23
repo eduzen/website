@@ -305,7 +305,7 @@ types-pyyaml==6.0.12.11
     #   djangorestframework-stubs
 types-redis==4.6.0.6
     # via website (pyproject.toml)
-types-requests==2.31.0.3
+types-requests==2.31.0.10
     # via
     #   djangorestframework-stubs
     #   website (pyproject.toml)
