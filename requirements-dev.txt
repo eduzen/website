@@ -251,7 +251,7 @@ python-decouple==3.8
     # via website (pyproject.toml)
 pyyaml==6.0.1
     # via vcrpy
-redis==5.0.0
+redis==5.0.1
     # via website (pyproject.toml)
 requests==2.31.0
     # via
