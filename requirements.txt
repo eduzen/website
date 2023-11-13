@@ -87,7 +87,7 @@ frozenlist==1.4.0
     #   aiosignal
 gevent==23.9.1
     # via website (pyproject.toml)
-google-api-core==2.11.1
+google-api-core==2.14.0
     # via
     #   google-cloud-core
     #   google-cloud-storage
