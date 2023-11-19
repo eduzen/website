@@ -5,29 +5,29 @@
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 
-<head>
-  {% block head %}
-    {% include 'blog/utils/head.html'%}
-  {% endblock head %}
-</head>
+  <head>
+    {% block head %}
+      {% include 'blog/utils/head.html'%}
+    {% endblock head %}
+  </head>
 
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
-  {% block navbar %}
-    {% include "blog/utils/navbar.html" %}
-  {% endblock navbar %}
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
+    {% block navbar %}
+      {% include "blog/utils/navbar.html" %}
+    {% endblock navbar %}
 
-  <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
+    <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
 
-    {% block content %}{% endblock content %}
-  </main>
+      {% block content %}{% endblock content %}
+    </main>
 
-  {% block footer %}
-    {% include "blog/utils/footer.html" %}
-  {% endblock footer %}
+    {% block footer %}
+      {% include "blog/utils/footer.html" %}
+    {% endblock footer %}
 
-  {% block extra_scripts %}
-    <script src="{% static 'blog/js/menu.js' %}"></script>
-    <script src="{% static 'blog/js/colorize.js' %}"></script>
-  {% endblock extra_scripts %}
-</body>
+    {% block extra_scripts %}
+      <script src="{% static 'blog/js/menu.js' %}"></script>
+      <script src="{% static 'blog/js/colorize.js' %}"></script>
+    {% endblock extra_scripts %}
+  </body>
 </html>
