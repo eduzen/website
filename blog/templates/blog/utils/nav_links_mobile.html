@@ -1,72 +1,72 @@
 {% load i18n %}
 
 <a @click="open = false"
-  id="mobile-blog"
-  href="#"
-  hx-get="{% url 'blog' %}"
-  hx-trigger="click"
-  hx-target="#content"
-  hx-indicator="#loadingIndicator"
-  hx-push-url="true"
-  hx-swap="innerHTML"
-  class="block py-2 text-gray-700 hover:text-black">
+   id="mobile-blog"
+   href="#"
+   hx-get="{% url 'blog' %}"
+   hx-trigger="click"
+   hx-target="#content"
+   hx-indicator="#loadingIndicator"
+   hx-push-url="true"
+   hx-swap="innerHTML"
+   class="block py-2 text-gray-700 hover:text-black">
   {% translate "Blog" %}
 </a>
 
 <a @click="open = false"
-  id="mobile-consultancy"
-  href="#"
-  hx-get="{% url 'consultancy' %}"
-  hx-trigger="click"
-  hx-target="#content"
-  hx-indicator="#loadingIndicator"
-  hx-push-url="true"
-  hx-swap="innerHTML"
-  class="block py-2 text-gray-700 hover:text-black">
+   id="mobile-consultancy"
+   href="#"
+   hx-get="{% url 'consultancy' %}"
+   hx-trigger="click"
+   hx-target="#content"
+   hx-indicator="#loadingIndicator"
+   hx-push-url="true"
+   hx-swap="innerHTML"
+   class="block py-2 text-gray-700 hover:text-black">
   {% translate "Consultancy" %}
 </a>
 
 <a @click="open = false"
-  id="mobile-classes"
-  href="#"
-  hx-get="{% url 'classes' %}"
-  hx-trigger="click"
-  hx-target="#content"
-  hx-indicator="#loadingIndicator"
-  hx-push-url="true"
-  hx-swap="innerHTML"
-  class="block py-2 text-gray-700 hover:text-black">
+   id="mobile-classes"
+   href="#"
+   hx-get="{% url 'classes' %}"
+   hx-trigger="click"
+   hx-target="#content"
+   hx-indicator="#loadingIndicator"
+   hx-push-url="true"
+   hx-swap="innerHTML"
+   class="block py-2 text-gray-700 hover:text-black">
   {% translate "Classes" %}
 </a>
 
 <a @click="open = false"
-  id="mobile-about"
-  href="#"
-  hx-get="{% url 'about' %}"
-  hx-trigger="click"
-  hx-target="#content"
-  hx-indicator="#loadingIndicator"
-  hx-push-url="true"
-  hx-swap="innerHTML"
-  class="block py-2 text-gray-700 hover:text-black">
+   id="mobile-about"
+   href="#"
+   hx-get="{% url 'about' %}"
+   hx-trigger="click"
+   hx-target="#content"
+   hx-indicator="#loadingIndicator"
+   hx-push-url="true"
+   hx-swap="innerHTML"
+   class="block py-2 text-gray-700 hover:text-black">
   {% translate "About" %}
 </a>
 
 <a @click="open = false"
-  id="mobile-contact"
-  href="#"
-  hx-get="{% url 'contact' %}"
-  hx-trigger="click"
-  hx-target="#content"
-  hx-indicator="#loadingIndicator"
-  hx-push-url="true"
-  hx-swap="innerHTML"
-  class="block py-2 text-gray-700 hover:text-black">
+   id="mobile-contact"
+   href="#"
+   hx-get="{% url 'contact' %}"
+   hx-trigger="click"
+   hx-target="#content"
+   hx-indicator="#loadingIndicator"
+   hx-push-url="true"
+   hx-swap="innerHTML"
+   class="block py-2 text-gray-700 hover:text-black">
   {% translate "Contact" %}
 </a>
 
 {% if user.is_superuser %}
-<a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
+  <a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
 {% endif %}
 
 {% include 'blog/utils/language_dropdown_button.html' %}

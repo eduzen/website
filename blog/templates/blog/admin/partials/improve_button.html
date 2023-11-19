@@ -3,9 +3,9 @@
 </div>
 
 <input type="submit" class="default" value="Improve with ChatGPT"
-  hx-post="{% url 'chatgpt_improve_post' post_id %}"
-  hx-trigger="click"
-  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-  hx-target="#id_suggestions"
-  hx-indicator="#spinner"
-  hx-swap="outerHTML" />
+       hx-post="{% url 'chatgpt_improve_post' post_id %}"
+       hx-trigger="click"
+       hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+       hx-target="#id_suggestions"
+       hx-indicator="#spinner"
+       hx-swap="outerHTML" />

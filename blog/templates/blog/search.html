@@ -5,15 +5,15 @@
   <div class="container mx-auto py-8">
     <div class="flex flex-col md:flex-row">
       <div class="md:w-2/3 mb-6 md:mb-0">
-          <h2 class="text-2xl font-semibold">{% translate 'Advance Search' %}</h2>
-          {% if form %}
-            <p>{% translate 'No results' %}</p>
-            <p class="text-muted">
-              {% translate 'How-to-look' %}
-            </p>
-            {% csrf_token %}
-            {{ form }}
-          {% endif %}
+        <h2 class="text-2xl font-semibold">{% translate 'Advance Search' %}</h2>
+        {% if form %}
+          <p>{% translate 'No results' %}</p>
+          <p class="text-muted">
+            {% translate 'How-to-look' %}
+          </p>
+          {% csrf_token %}
+          {{ form }}
+        {% endif %}
       </div>
     </div>
   </div>

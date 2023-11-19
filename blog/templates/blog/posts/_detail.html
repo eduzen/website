@@ -20,21 +20,21 @@
     <div class="w-full ">
 
       <!-- Post Detail -->
-        {% if post.published_date %}
-          <small class="text-sm ">
-            <time class="text-gray-400" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
-            |
-            <span class="text-gray-400">
-              {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
-            </span>
-          </small>
-        {% endif %}
+      {% if post.published_date %}
+        <small class="text-sm ">
+          <time class="text-gray-400" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
+          |
+          <span class="text-gray-400">
+            {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
+          </span>
+        </small>
+      {% endif %}
 
-        <h3 class="text-3xl font-bold text-purple-400 pb-4">{{ post.title }}</h3>
+      <h3 class="text-3xl font-bold text-purple-400 pb-4">{{ post.title }}</h3>
 
-        {% autoescape off %}
-          {{ post.text }}
-        {% endautoescape %}
+      {% autoescape off %}
+        {{ post.text }}
+      {% endautoescape %}
 
     </div>
 

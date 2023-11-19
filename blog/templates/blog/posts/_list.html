@@ -13,13 +13,13 @@
 {% for post in posts %}
   <article class="p-4 pb-8 rounded-lg shadow-md flex flex-col sm:flex-row{% if forloop.counter|divisibleby:2 %} sm:flex-row-reverse{% endif %}">
     {% if post.image %}
-    <div class="mb-4 sm:mb-0 w-full sm:w-2/5 md:w-1/3 lg:w-1/4 xl:w-1/5{% if forloop.counter|divisibleby:2 %} sm:ml-4{% else %} sm:mr-4{% endif %}">
-      <img
-        src="{{ post.image.url }}"
-        alt="{{ post.title }} image"
-        class="object-cover w-full h-auto"
-      />
-    </div>
+      <div class="mb-4 sm:mb-0 w-full sm:w-2/5 md:w-1/3 lg:w-1/4 xl:w-1/5{% if forloop.counter|divisibleby:2 %} sm:ml-4{% else %} sm:mr-4{% endif %}">
+        <img
+          src="{{ post.image.url }}"
+          alt="{{ post.title }} image"
+          class="object-cover w-full h-auto"
+        />
+      </div>
     {% endif %}
     <div class="flex-1">
       <a
@@ -33,11 +33,11 @@
       <p class="mb-2 text-green-400"><time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time></p>
       <p class="mb-4">{{ post.summary }}</p>
       <div class="tags">
-          {% for tag in post.tags.all %}
+        {% for tag in post.tags.all %}
           <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2 hover:bg-orange-500">
             <a href="{% url 'bytag' tag=tag %}" class="text-white">{{tag}}</a>
           </span>
-          {% endfor %}
+        {% endfor %}
       </div>
     </div>
   </article>
