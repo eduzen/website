@@ -22,13 +22,13 @@ repos:
     rev: "1.15.0"
     hooks:
     -   id: django-upgrade
-        args: [--target-version, "4.2"]
+        args: [--target-version, "5.0"]
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.15.0
     hooks:
       - id: pyupgrade
-        args: [--py311]
+        args: [--py312]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: 'v0.1.14'

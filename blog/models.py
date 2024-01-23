@@ -1,7 +1,6 @@
 import logging
 
 from ckeditor_uploader.fields import RichTextUploadingField  # type: ignore
-from django.contrib.sitemaps import ping_google
 from django.db import models
 from django.db.models import Count
 from django.urls import reverse
@@ -65,12 +64,6 @@ class Post(models.Model):
 
     def get_absolute_url(self) -> str:
         return reverse("post_detail", args=[self.slug])
-
-    def notify_google(self) -> None:
-        try:
-            ping_google()
-        except Exception:
-            logger.warning("Error trying to inform google", exc_info=True)
 
     def __str__(self):
         return self.slug or "-"
