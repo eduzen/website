@@ -38,7 +38,7 @@ coverage==7.4.0
     # via website (pyproject.toml)
 crispy-tailwind==1.0.0
     # via website (pyproject.toml)
-cryptography==42.0.0
+cryptography==42.0.2
     # via
     #   types-pyopenssl
     #   types-redis
