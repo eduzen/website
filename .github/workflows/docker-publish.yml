@@ -53,7 +53,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%d.%m.%Y')"
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: ${{ steps.date.outputs.date }}-${{ github.sha }}
           tag_name: ${{ steps.date.outputs.date }}-${{ github.sha }}
