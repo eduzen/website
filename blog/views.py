@@ -108,8 +108,8 @@ class PostTagsListView(HtmxGetMixin, FilterView):
     filterset_class = PostFilter
     paginate_by = 12
 
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, object_list=None, **kwargs: dict[str, Any]) -> dict[str, Any]:
+        context = super().get_context_data(object_list=object_list, **kwargs)
         context["tag"] = self.kwargs.get("tag", "-").title()
         return context
 
@@ -145,8 +145,8 @@ class RelatedPostsView(HtmxGetMixin, ListView):
 
         return related_posts
 
-    def get_context_data(self, **kwargs: dict[str, Any]) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, object_list=None, **kwargs: dict[str, Any]) -> dict[str, Any]:
+        context = super().get_context_data(object_list=object_list, **kwargs)
         context["post_id"] = self.kwargs.get("post_id")
         return context
 

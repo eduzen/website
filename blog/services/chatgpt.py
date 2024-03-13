@@ -1,14 +1,16 @@
 import logging
 
-import openai
+from openai import OpenAI
 from django.conf import settings
 
 from blog.models import Post
 
 logger = logging.getLogger(__name__)
 
-openai.organization = settings.OPENAI_ORGANIZATION
-openai.api_key = settings.OPENAI_API_KEY
+client = OpenAI(
+    api_key=settings.OPENAI_API_KEY,
+    organization=settings.OPENAI_ORGANIZATION,
+)
 
 gpt_models = {"3-5": "gpt-3.5-turbo-16k-0613", "3-5-16": "gpt-3.5-turbo-16k"}
 
@@ -16,7 +18,7 @@ gpt_models = {"3-5": "gpt-3.5-turbo-16k-0613", "3-5-16": "gpt-3.5-turbo-16k"}
 def ask_openai(prompt: str) -> str:
     try:
         logger.debug(f"Sending prompt to chatgpt: {prompt}")
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=gpt_models["3-5-16"], messages=[{"role": "user", "content": prompt}]
         )
         content = response["choices"][0]["message"]["content"].replace('"', "")  # type: ignore
