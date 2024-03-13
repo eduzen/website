@@ -335,7 +335,7 @@ typing-extensions==4.9.0
     #   pydantic
     #   pydantic-core
     #   types-factory-boy
-urllib3==2.1.0
+urllib3==2.2.1
     # via
     #   requests
     #   sentry-sdk
