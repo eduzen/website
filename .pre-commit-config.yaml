@@ -25,13 +25,13 @@ repos:
         args: [--target-version, "5.0"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.1
+    rev: v3.15.2
     hooks:
       - id: pyupgrade
         args: [--py312]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.3.2'
+    rev: 'v0.3.5'
     hooks:
       - id: ruff
         args: ["--fix"]
