@@ -129,7 +129,7 @@ openai==1.13.3
     # via website (pyproject.toml)
 packaging==24.0
     # via gunicorn
-pillow==10.2.0
+pillow==10.3.0
     # via
     #   easy-thumbnails
     #   website (pyproject.toml)
