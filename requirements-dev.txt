@@ -6,11 +6,11 @@
 #
 annotated-types==0.6.0
     # via pydantic
-anyio==4.2.0
+anyio==4.3.0
     # via
     #   httpx
     #   openai
-asgiref==3.7.2
+asgiref==3.8.1
     # via
     #   django
     #   django-browser-reload
@@ -22,9 +22,9 @@ beautifulsoup4==4.12.3
     # via website (pyproject.toml)
 brotli==1.1.0
     # via whitenoise
-cachetools==5.3.2
+cachetools==5.3.3
     # via google-auth
-certifi==2023.11.17
+certifi==2024.2.2
     # via
     #   httpcore
     #   httpx
@@ -34,11 +34,11 @@ cffi==1.16.0
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-coverage==7.4.0
+coverage==7.4.4
     # via website (pyproject.toml)
-crispy-tailwind==1.0.0
+crispy-tailwind==1.0.3
     # via website (pyproject.toml)
-cryptography==42.0.0
+cryptography==42.0.5
     # via
     #   types-pyopenssl
     #   types-redis
@@ -50,7 +50,7 @@ distro==1.9.0
     # via openai
 dj-database-url==2.1.0
     # via website (pyproject.toml)
-django==5.0.3
+django==5.0.4
     # via
     #   crispy-tailwind
     #   dj-database-url
@@ -75,7 +75,7 @@ django-appconf==1.0.6
     # via django-image-cropping
 django-browser-reload==1.12.1
     # via website (pyproject.toml)
-django-ckeditor==6.7.0
+django-ckeditor==6.7.1
     # via website (pyproject.toml)
 django-cors-headers==4.3.1
     # via website (pyproject.toml)
@@ -83,15 +83,15 @@ django-crispy-forms==2.1
     # via
     #   crispy-tailwind
     #   website (pyproject.toml)
-django-debug-toolbar==4.2.0
+django-debug-toolbar==4.3.0
     # via website (pyproject.toml)
 django-extensions==3.2.3
     # via website (pyproject.toml)
-django-filter==23.5
+django-filter==24.2
     # via website (pyproject.toml)
 django-filter-stubs==0.1.3
     # via website (pyproject.toml)
-django-htmx==1.17.2
+django-htmx==1.17.3
     # via website (pyproject.toml)
 django-image-cropping==1.7
     # via website (pyproject.toml)
@@ -124,22 +124,22 @@ factory-boy==3.3.0
     # via
     #   types-factory-boy
     #   website (pyproject.toml)
-faker==22.5.0
+faker==24.7.0
     # via factory-boy
-gevent==23.9.1
+gevent==24.2.1
     # via website (pyproject.toml)
-google-api-core==2.17.1
+google-api-core==2.18.0
     # via
     #   google-cloud-core
     #   google-cloud-storage
-google-auth==2.26.2
+google-auth==2.29.0
     # via
     #   google-api-core
     #   google-cloud-core
     #   google-cloud-storage
 google-cloud-core==2.4.1
     # via google-cloud-storage
-google-cloud-storage==2.14.0
+google-cloud-storage==2.16.0
     # via django-storages
 google-crc32c==1.5.0
     # via
@@ -147,7 +147,7 @@ google-crc32c==1.5.0
     #   google-resumable-media
 google-resumable-media==2.7.0
     # via google-cloud-storage
-googleapis-common-protos==1.62.0
+googleapis-common-protos==1.63.0
     # via google-api-core
 greenlet==3.0.3
     # via gevent
@@ -155,9 +155,9 @@ gunicorn==21.2.0
     # via website (pyproject.toml)
 h11==0.14.0
     # via httpcore
-httpcore==1.0.2
+httpcore==1.0.5
     # via httpx
-httpx==0.26.0
+httpx==0.27.0
     # via openai
 idna==3.6
     # via
@@ -169,17 +169,17 @@ iniconfig==2.0.0
     # via pytest
 ipdb==0.13.13
     # via website (pyproject.toml)
-ipython==8.20.0
+ipython==8.23.0
     # via
     #   ipdb
     #   website (pyproject.toml)
 jedi==0.19.1
     # via ipython
-markdown==3.5.2
+markdown==3.6
     # via website (pyproject.toml)
 matplotlib-inline==0.1.6
     # via ipython
-multidict==6.0.4
+multidict==6.0.5
     # via yarl
 mypy==1.7.1
     # via
@@ -188,14 +188,14 @@ mypy==1.7.1
     #   website (pyproject.toml)
 mypy-extensions==1.0.0
     # via mypy
-openai==1.9.0
+openai==1.16.2
     # via website (pyproject.toml)
-packaging==23.2
+packaging==24.0
     # via
     #   gunicorn
     #   pytest
     #   pytest-sugar
-parso==0.8.3
+parso==0.8.4
     # via jedi
 pexpect==4.9.0
     # via ipython
@@ -203,39 +203,42 @@ pillow==10.3.0
     # via
     #   easy-thumbnails
     #   website (pyproject.toml)
-pluggy==1.3.0
+pluggy==1.4.0
     # via pytest
 polib==1.2.0
     # via django-rosetta
 prompt-toolkit==3.0.43
     # via ipython
-protobuf==4.25.2
+proto-plus==1.23.0
+    # via google-api-core
+protobuf==4.25.3
     # via
     #   google-api-core
     #   googleapis-common-protos
+    #   proto-plus
 psycopg2-binary==2.9.9
     # via website (pyproject.toml)
 ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
-pyasn1==0.5.1
+pyasn1==0.6.0
     # via
     #   pyasn1-modules
     #   rsa
-pyasn1-modules==0.3.0
+pyasn1-modules==0.4.0
     # via google-auth
-pycparser==2.21
+pycparser==2.22
     # via cffi
-pydantic==2.5.3
+pydantic==2.6.4
     # via openai
-pydantic-core==2.14.6
+pydantic-core==2.16.3
     # via pydantic
 pygments==2.17.2
     # via
     #   ipython
     #   website (pyproject.toml)
-pytest==7.4.4
+pytest==8.1.1
     # via
     #   pytest-django
     #   pytest-mock
@@ -243,23 +246,23 @@ pytest==7.4.4
     #   pytest-sugar
     #   pytest-xdist
     #   website (pyproject.toml)
-pytest-django==4.7.0
+pytest-django==4.8.0
     # via website (pyproject.toml)
-pytest-mock==3.12.0
+pytest-mock==3.14.0
     # via website (pyproject.toml)
 pytest-recording==0.13.1
     # via website (pyproject.toml)
-pytest-sugar==0.9.7
+pytest-sugar==1.0.0
     # via website (pyproject.toml)
 pytest-xdist==3.5.0
     # via website (pyproject.toml)
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via faker
 python-decouple==3.8
     # via website (pyproject.toml)
 pyyaml==6.0.1
     # via vcrpy
-redis==5.0.1
+redis==5.0.3
     # via website (pyproject.toml)
 requests==2.31.0
     # via
@@ -270,13 +273,13 @@ requests==2.31.0
     #   website (pyproject.toml)
 rsa==4.9
     # via google-auth
-sentry-sdk[django]==1.39.2
+sentry-sdk[django]==1.44.1
     # via website (pyproject.toml)
 six==1.16.0
     # via
     #   asttokens
     #   python-dateutil
-sniffio==1.3.0
+sniffio==1.3.1
     # via
     #   anyio
     #   httpx
@@ -291,45 +294,46 @@ stack-data==0.6.3
     # via ipython
 termcolor==2.4.0
     # via pytest-sugar
-tqdm==4.66.1
+tqdm==4.66.2
     # via openai
-traitlets==5.14.1
+traitlets==5.14.2
     # via
     #   ipython
     #   matplotlib-inline
-types-beautifulsoup4==4.12.0.20240106
+types-beautifulsoup4==4.12.0.20240229
     # via website (pyproject.toml)
-types-docutils==0.20.0.20240106
+types-docutils==0.20.0.20240331
     # via types-pygments
 types-factory-boy==0.4.1
     # via website (pyproject.toml)
-types-html5lib==1.1.11.20240106
+types-html5lib==1.1.11.20240228
     # via types-beautifulsoup4
-types-pygments==2.17.0.20240106
+types-pygments==2.17.0.20240310
     # via website (pyproject.toml)
-types-pyopenssl==23.3.0.20240106
+types-pyopenssl==24.0.0.20240311
     # via types-redis
-types-pytz==2023.3.1.1
+types-pytz==2024.1.0.20240203
     # via django-stubs
-types-pyyaml==6.0.12.12
+types-pyyaml==6.0.12.20240311
     # via
     #   django-stubs
     #   djangorestframework-stubs
-types-redis==4.6.0.20240106
+types-redis==4.6.0.20240311
     # via website (pyproject.toml)
-types-requests==2.31.0.20240106
+types-requests==2.31.0.20240403
     # via
     #   djangorestframework-stubs
     #   website (pyproject.toml)
-types-setuptools==69.0.0.20240115
+types-setuptools==69.2.0.20240317
     # via types-pygments
-typing-extensions==4.9.0
+typing-extensions==4.11.0
     # via
     #   dj-database-url
     #   django-filter-stubs
     #   django-stubs
     #   django-stubs-ext
     #   djangorestframework-stubs
+    #   ipython
     #   mypy
     #   openai
     #   pydantic
@@ -340,7 +344,7 @@ urllib3==2.2.1
     #   requests
     #   sentry-sdk
     #   types-requests
-vcrpy==6.0.0
+vcrpy==6.0.1
     # via pytest-recording
 wcwidth==0.2.13
     # via prompt-toolkit
@@ -352,7 +356,7 @@ yarl==1.9.4
     # via vcrpy
 zope-event==5.0
     # via gevent
-zope-interface==6.1
+zope-interface==6.2
     # via gevent
 
 # The following packages are considered to be unsafe in a requirements file:
