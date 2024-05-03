@@ -294,7 +294,7 @@ stack-data==0.6.3
     # via ipython
 termcolor==2.4.0
     # via pytest-sugar
-tqdm==4.66.2
+tqdm==4.66.3
     # via openai
 traitlets==5.14.2
     # via
