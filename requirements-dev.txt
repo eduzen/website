@@ -169,7 +169,7 @@ iniconfig==2.0.0
     # via pytest
 ipdb==0.13.13
     # via website (pyproject.toml)
-ipython==8.23.0
+ipython==8.24.0
     # via
     #   ipdb
     #   website (pyproject.toml)
