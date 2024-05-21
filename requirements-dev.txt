@@ -264,7 +264,7 @@ pyyaml==6.0.1
     # via vcrpy
 redis==5.0.3
     # via website (pyproject.toml)
-requests==2.31.0
+requests==2.32.0
     # via
     #   django-rosetta
     #   djangorestframework-stubs
