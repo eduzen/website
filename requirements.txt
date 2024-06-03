@@ -160,7 +160,7 @@ python-decouple==3.8
     # via website (pyproject.toml)
 redis==5.0.3
     # via website (pyproject.toml)
-requests==2.31.0
+requests==2.32.3
     # via
     #   django-rosetta
     #   google-api-core
