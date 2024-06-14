@@ -1,6 +1,6 @@
 from pygments import highlight
-from pygments.lexers import JsonLexer
 from pygments.formatters import HtmlFormatter
+from pygments.lexers import JsonLexer
 
 
 def highlight_json(json_data: str) -> str:

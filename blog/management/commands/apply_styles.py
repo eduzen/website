@@ -1,8 +1,9 @@
+import factory
 from django.core.management.base import BaseCommand
+from django.db.models.signals import pre_save
+
 from blog.models import Post
 from blog.services.parsers import apply_styles
-from django.db.models.signals import pre_save
-import factory
 
 
 class Command(BaseCommand):

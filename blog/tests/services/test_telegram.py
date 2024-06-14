@@ -1,7 +1,9 @@
 import unittest
-from unittest.mock import patch, Mock
-from blog.services.telegram import send_message
+from unittest.mock import Mock, patch
+
 from requests.exceptions import HTTPError
+
+from blog.services.telegram import send_message
 
 
 class SendMessageTest(unittest.TestCase):

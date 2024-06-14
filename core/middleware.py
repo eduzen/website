@@ -1,7 +1,7 @@
-from collections.abc import Callable
-from django.http import HttpRequest, HttpResponse
-
 import logging
+from collections.abc import Callable
+
+from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 

@@ -1,9 +1,11 @@
-import pytest
-from django.urls import reverse_lazy, reverse
-from django.utils.translation import activate
-from django.test import Client, TestCase
 from http import HTTPStatus
-from .factories import UserFactory, TagFactory, PostFactory
+
+import pytest
+from django.test import Client, TestCase
+from django.urls import reverse, reverse_lazy
+from django.utils.translation import activate
+
+from .factories import PostFactory, TagFactory, UserFactory
 
 
 @pytest.fixture()
@@ -21,7 +23,7 @@ def posts(db):
         "about",
         "search",
         "contact",
-        "sucess",
+        "success",
         "error",
         "django.contrib.sitemaps.views.sitemaps",
     ],

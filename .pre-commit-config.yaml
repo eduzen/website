@@ -18,21 +18,44 @@ repos:
       - id: check-merge-conflict
       - id: debug-statements
 
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.22.7
+    hooks:
+      - id: typos
+
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.18
+    hooks:
+      - id: validate-pyproject
+        name: validate-pyproject
+
+  - repo: https://github.com/rtts/djhtml
+    rev: 3.0.6
+    hooks:
+    - id: djhtml
+      files: .*/templates/.*\.html$
+
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.16.0"
+    rev: "1.18.0"
     hooks:
     -   id: django-upgrade
         args: [--target-version, "5.0"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.2
+    rev: v3.16.0
     hooks:
       - id: pyupgrade
         args: [--py312]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.4.2'
+    rev: 'v0.4.9'
     hooks:
       - id: ruff
         args: ["--fix"]
       - id: ruff-format
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black", "--filter-files"]

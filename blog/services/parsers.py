@@ -1,6 +1,7 @@
-from bs4 import BeautifulSoup, Tag
 import json
 from typing import Any
+
+from bs4 import BeautifulSoup, Tag
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import JsonLexer

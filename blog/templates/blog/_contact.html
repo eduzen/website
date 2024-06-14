@@ -5,13 +5,13 @@
 </h1>
 
 <form
-    class="p-6 rounded shadow-md w-full md:w-3/4 lg:w-1/2 mx-auto text-white border rounded-md"
-    hx-post="{% url 'contact' %}"
-    hx-trigger="submit"
-    hx-swap="innerHTML"
-    hx-target="#content"
-    hx-indicator="#loadingIndicator"
-    hx-confirm="{% translate 'Are you sure?' %}">
-    {% csrf_token %}
-    {% crispy form %}
+  class="p-6 rounded shadow-md w-full md:w-3/4 lg:w-1/2 mx-auto text-white border rounded-md"
+  hx-post="{% url 'contact' %}"
+  hx-trigger="submit"
+  hx-swap="innerHTML"
+  hx-target="#content"
+  hx-indicator="#loadingIndicator"
+  hx-confirm="{% translate 'Are you sure?' %}">
+  {% csrf_token %}
+  {% crispy form %}
 </form>

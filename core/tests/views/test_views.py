@@ -2,9 +2,10 @@ from http import HTTPStatus
 from unittest.mock import patch
 
 import pytest
-from django.test import TestCase, Client, SimpleTestCase
-from django.urls import reverse
 from django.contrib.auth.models import User
+from django.test import Client, SimpleTestCase, TestCase
+from django.urls import reverse
+
 from blog.tests.factories import PostFactory
 
 

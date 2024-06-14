@@ -1,5 +1,6 @@
 from pathlib import Path
-from decouple import config, Csv
+
+from decouple import Csv, config
 from dj_database_url import parse as db_url
 from django.utils.translation import gettext_lazy as _
 from easy_thumbnails.conf import Settings as thumbnail_settings  # type: ignore
@@ -127,7 +128,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-LENGUAGES = [
+LANGUAGES = [
     ("en", _("English")),
     ("es", _("Español")),
 ]

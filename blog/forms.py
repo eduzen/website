@@ -1,13 +1,14 @@
 import logging
+from typing import Any
 
+from crispy_forms.helper import FormHelper  # type: ignore
+from crispy_forms.layout import Field, Layout, Submit  # type: ignore
 from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
-from crispy_forms.helper import FormHelper  # type: ignore
-from crispy_forms.layout import Layout, Field, Submit  # type: ignore
 from django.utils.translation import gettext as _
+
 from blog.services.captcha import verify_captcha
-from typing import Any
 
 logger = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 import logging
 
-from openai import OpenAI
 from django.conf import settings
+from openai import OpenAI
 
 from blog.models import Post
 
@@ -36,7 +36,7 @@ def get_better_title(title: str) -> str:
         "Constrains:"
         "    - The word title doesn't need to appear in the text.\n"
         "    - I need only one suggested title.\n"
-        "    - The max lengh is 200, but I would like to keep it shorter like 50 or 80.\n"
+        "    - The max length is 200, but I would like to keep it shorter like 50 or 80.\n"
         "    - Please respect the language of the text."
         "    If it is in spanish, give me a title in spanish\n"
         "    If it's english, give me a title in english.\n"
@@ -54,7 +54,7 @@ def get_better_summary(text: str) -> str:
         f"The content of my blog post is: '{text}'."
         "Constrains:"
         "1) the word summary doesn't need to appear in the text.\n"
-        "2) The max lengh is 300, but I would like to keep it around 200.\n"
+        "2) The max length is 300, but I would like to keep it around 200.\n"
         "3) Please respect the language of the text."
         " If it is in spanish, give me a summary in spanish\n"
         " If it's english, give me a summary in english.\n"

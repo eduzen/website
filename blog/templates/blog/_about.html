@@ -23,20 +23,20 @@
       <!-- Image Section -->
       <div class="w-full md:w-1/4 p-4 flex justify-center">
         <img
-        class='max-w-sm h-48 rounded-full'
-        x-data="{
-          images: [
-            '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
-            '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
-            '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
-            '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
-            '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
-          ],
-          currentIndex: 0
-        }"
-        x-bind:src="images[currentIndex]"
-        x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
-        alt="eduzen">
+          class='max-w-sm h-48 rounded-full'
+          x-data="{
+                  images: [
+                  '{% get_static_prefix %}blog/img/bio_pic_1.jpg',
+                  '{% get_static_prefix %}blog/img/bio_pic_2.jpg',
+                  '{% get_static_prefix %}blog/img/bio_pic_3.jpg',
+                  '{% get_static_prefix %}blog/img/bio_pic_4.jpg',
+                  '{% get_static_prefix %}blog/img/bio_pic_5.jpg'
+                  ],
+                  currentIndex: 0
+                  }"
+          x-bind:src="images[currentIndex]"
+          x-init="setInterval(() => { currentIndex = (currentIndex + 1) % images.length }, 3000)"
+          alt="eduzen">
       </div>
       <div class="w-full md:w-3/4 p-4">
         <h2 class="text-xl font-bold text-yellow-400 mb-4">{% translate 'A bit more about me 😉, so here it goes:' %}</h2>

@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import GenericSitemap, Sitemap
-from django.urls import reverse
 from django.db.models import QuerySet
+from django.urls import reverse
 
 from blog.models import Post
 

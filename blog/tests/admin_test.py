@@ -1,8 +1,10 @@
-import pytest
-from django.urls import reverse
-from django.test import TestCase, Client
-from django.contrib.auth.models import User
 from http import HTTPStatus
+
+import pytest
+from django.contrib.auth.models import User
+from django.test import Client, TestCase
+from django.urls import reverse
+
 from .factories import PostFactory, TagFactory
 
 

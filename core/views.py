@@ -1,11 +1,13 @@
-import logging
 import json
+import logging
+
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
 from django.views.generic.base import RedirectView
+
 from blog.models import Post
 from blog.services.chatgpt import improve_blog_post
 from core.services.pretty import highlight_json

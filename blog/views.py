@@ -1,19 +1,20 @@
 import datetime as dt
 import logging
 from typing import Any
+
+from django.contrib.auth.decorators import login_required
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, FormView, TemplateView, ListView
+from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django_filters.views import FilterView
-from django.contrib.auth.decorators import login_required
 
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
-from .services.telegram import send_contact_message
 from .services.parsers import apply_styles
+from .services.telegram import send_contact_message
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +61,7 @@ class AboutView(HtmxGetMixin, TemplateView):
         return context
 
 
-class SucessView(TemplateView):
+class SuccessView(TemplateView):
     template_name = "blog/success.html"
 
 
