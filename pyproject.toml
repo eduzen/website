@@ -11,7 +11,7 @@ description = 'My django blog Repo: http://eduzen.com.ar'
 readme = "README.md"
 requires-python = ">=3.11"
 version = "2.1.1"
-license = "MIT"
+license = { text = "MIT" }
 authors = [
   { name = "Eduardo Enriquez (eduzen)", email = "eduardo.a.enriquez@gmail.com" },
 ]

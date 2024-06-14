@@ -1,0 +1,11 @@
+[type.po]
+extend-glob = ["*.po"]
+check-file = false
+
+[files]
+extend-exclude = [
+  "localized/*.po",
+  "snippets/migrations/*.py",
+  "blog/static/blog/js/htmx.min.*.js",
+
+]
