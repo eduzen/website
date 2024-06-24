@@ -351,7 +351,7 @@ vcrpy==6.0.1
     # via pytest-recording
 wcwidth==0.2.13
     # via prompt-toolkit
-whitenoise==6.6.0
+whitenoise==6.7.0
     # via website (pyproject.toml)
 wrapt==1.16.0
     # via vcrpy
