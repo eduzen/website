@@ -65,7 +65,7 @@ django-extensions==3.2.3
     # via website (pyproject.toml)
 django-filter==24.2
     # via website (pyproject.toml)
-django-htmx==1.17.3
+django-htmx==1.18.0
     # via website (pyproject.toml)
 django-image-cropping==1.7
     # via website (pyproject.toml)
