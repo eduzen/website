@@ -19,7 +19,7 @@ repos:
       - id: debug-statements
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.22.7
+    rev: v1.23.1
     hooks:
       - id: typos
 
@@ -36,7 +36,7 @@ repos:
       files: .*/templates/.*\.html$
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.18.0"
+    rev: "1.19.0"
     hooks:
     -   id: django-upgrade
         args: [--target-version, "5.0"]
@@ -48,7 +48,7 @@ repos:
         args: [--py312]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.4.9'
+    rev: 'v0.5.1'
     hooks:
       - id: ruff
         args: ["--fix"]
