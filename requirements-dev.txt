@@ -270,7 +270,7 @@ requests==2.32.3
     #   google-cloud-storage
 rsa==4.9
     # via google-auth
-sentry-sdk==2.5.1
+sentry-sdk==2.10.0
     # via website (pyproject.toml)
 setuptools==70.0.0
     # via
