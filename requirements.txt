@@ -17,7 +17,7 @@ brotli==1.1.0
     # via whitenoise
 cachetools==5.3.3
     # via google-auth
-certifi==2024.6.2
+certifi==2024.7.4
     # via
     #   httpcore
     #   httpx
