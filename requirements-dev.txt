@@ -107,7 +107,7 @@ django-stubs==5.0.2
     #   website (pyproject.toml)
     #   django-filter-stubs
     #   djangorestframework-stubs
-django-stubs-ext==5.0.2
+django-stubs-ext==5.0.4
     # via django-stubs
 djangorestframework-stubs==3.15.0
     # via django-filter-stubs
