@@ -70,7 +70,7 @@ django==5.0.8
     #   sentry-sdk
 django-appconf==1.0.6
     # via django-image-cropping
-django-browser-reload==1.12.1
+django-browser-reload==1.15.0
     # via website (pyproject.toml)
 django-ckeditor==6.7.1
     # via website (pyproject.toml)
