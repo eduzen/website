@@ -19,12 +19,12 @@ repos:
       - id: debug-statements
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.23.6
+    rev: typos-dict-v0.11.27
     hooks:
       - id: typos
 
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.18
+    rev: v0.19
     hooks:
       - id: validate-pyproject
         name: validate-pyproject
@@ -48,7 +48,7 @@ repos:
         args: [--py312]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.5.6'
+    rev: 'v0.6.3'
     hooks:
       - id: ruff
         args: ["--fix"]
