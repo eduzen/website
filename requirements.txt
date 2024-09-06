@@ -59,7 +59,7 @@ django-crispy-forms==2.3
     # via
     #   website (pyproject.toml)
     #   crispy-tailwind
-django-debug-toolbar==4.4.2
+django-debug-toolbar==4.4.6
     # via website (pyproject.toml)
 django-extensions==3.2.3
     # via website (pyproject.toml)
