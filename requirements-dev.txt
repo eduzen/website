@@ -178,7 +178,7 @@ matplotlib-inline==0.1.7
     # via ipython
 multidict==6.0.5
     # via yarl
-mypy==1.10.0
+mypy==1.11.2
     # via
     #   website (pyproject.toml)
     #   django-filter-stubs
