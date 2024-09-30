@@ -121,7 +121,7 @@ factory-boy==3.3.0
     # via
     #   website (pyproject.toml)
     #   types-factory-boy
-faker==25.8.0
+faker==30.1.0
     # via factory-boy
 gevent==24.2.1
     # via website (pyproject.toml)
