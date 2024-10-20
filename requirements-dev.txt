@@ -100,7 +100,7 @@ django-robots==6.1
     # via website (pyproject.toml)
 django-rosetta==0.10.0
     # via website (pyproject.toml)
-django-storages==1.14.3
+django-storages==1.14.4
     # via website (pyproject.toml)
 django-stubs==5.0.2
     # via
