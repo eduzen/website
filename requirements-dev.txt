@@ -309,7 +309,7 @@ types-docutils==0.21.0.20240724
     # via types-pygments
 types-factory-boy==0.4.1
     # via website (pyproject.toml)
-types-html5lib==1.1.11.20240228
+types-html5lib==1.1.11.20241018
     # via types-beautifulsoup4
 types-pygments==2.18.0.20240506
     # via website (pyproject.toml)
