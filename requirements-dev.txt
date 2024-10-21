@@ -152,7 +152,7 @@ gunicorn==22.0.0
     # via website (pyproject.toml)
 h11==0.14.0
     # via httpcore
-httpcore==1.0.5
+httpcore==1.0.6
     # via httpx
 httpx==0.27.0
     # via openai
