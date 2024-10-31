@@ -19,18 +19,18 @@ repos:
       - id: debug-statements
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.26.0
+    rev: v1.26.8
     hooks:
       - id: typos
 
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.20.2
+    rev: v0.22
     hooks:
       - id: validate-pyproject
         name: validate-pyproject
 
   - repo: https://github.com/rtts/djhtml
-    rev: 3.0.6
+    rev: 3.0.7
     hooks:
     - id: djhtml
       files: .*/templates/.*\.html$
@@ -42,13 +42,13 @@ repos:
         args: [--target-version, "5.0"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.18.0
+    rev: v3.19.0
     hooks:
       - id: pyupgrade
         args: [--py312]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.6.9'
+    rev: 'v0.7.1'
     hooks:
       - id: ruff
         args: ["--fix"]
