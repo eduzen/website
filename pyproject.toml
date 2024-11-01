@@ -69,6 +69,7 @@ dev = [
   "types-redis",
   "types-requests",
   "django-browser-reload",
+  "pre-commit",
   # "wdb",
 ]
 types = [
@@ -84,11 +85,6 @@ types = [
 [tool.pytest.ini_options]
 addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb"
 filterwarnings = []
-
-[tool.black]
-line-length = 120
-safe = true
-target-version = ['py311']
 
 [tool.isort]
 profile = "black"
