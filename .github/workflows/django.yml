@@ -10,54 +10,53 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/github_actions
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/github_actions
       DJANGO_SETTINGS_MODULE: website.settings.test
-    strategy:
-      matrix:
-        python-version: [3.13]
+      SECRET_KEY: 3573c6f0e4f7793
 
     services:
       postgres:
-        image: postgres:13-alpine3.17
+        image: postgres:16-alpine3.17
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
           POSTGRES_DB: github_actions
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-    - name: Checkout code # checking our the code at current commit that triggers the workflow
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v3
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
 
-    - name: Set up Python
-      run: uv python install
+      - name: Set up Python
+        run: uv python install
 
-    - name: Check Code Style
-      uses: pre-commit/action@v3.0.1
+      - name: Check Code Style
+        uses: pre-commit/action@v3.0.1
 
-    - name: Set up Python
-      run: uv python install
+      - name: Set up Python
+        run: uv python install
 
-    - name: Install the project
-      run: uv sync --all-extras
+      - name: Install the project
+        run: uv sync --all-extras
 
-    - name: Run Django Check
-      env:
-        SECRET_KEY: 3573c6f0e4f77934f1f41f19cbd9704eb841c96ff96f6974bab92dac01c61741448ed427c680e5b26c23fcc2a79df2e2e514
-      run: DJANGO_SETTINGS_MODULE=website.settings.prod python manage.py check --deploy
+      - name: Run Django Check
+        env:
+          DJANGO_SETTINGS_MODULE: website.settings.prod
+        run: uv run python manage.py check --deploy
 
-    - name: Run Mypy Check
-      run: uv run mypy .
+      - name: Run Mypy Check
+        run: uv run mypy .
 
-    - name: Run Tests
-      run: |
-        uv run python manage.py collectstatic --noinput
-        uv run coverage run -m pytest -n auto
+      - name: Run Tests
+        run: |
+          uv run python manage.py collectstatic --noinput
+          uv run coverage run -m pytest -n auto
+
+      - name: Show coverage report
+        run: uv run coverage report
