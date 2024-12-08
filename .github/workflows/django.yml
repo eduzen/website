@@ -53,10 +53,11 @@ jobs:
       - name: Run Mypy Check
         run: uv run mypy .
 
+      - name: Collect Static
+        run: uv run python manage.py collectstatic --noinput
+
       - name: Run Tests
-        run: |
-          uv run python manage.py collectstatic --noinput
-          uv run coverage run -m pytest -n auto
+        run: uv run coverage run -m pytest
 
       - name: Show coverage report
         run: uv run coverage report

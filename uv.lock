@@ -435,12 +435,6 @@ wheels = [
 ]
 
 [[package]]
-name = "django-restframework"
-version = "0.0.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f7/26/2db73a9d06c9e103ee97296b4848fd11e3e06a454888152e479d0606d30b/django-restframework-0.0.1.tar.gz", hash = "sha256:2bec9265463693ada558ad9a58c31f6f3de005a932fbfeaadf983c5c9f3b7058", size = 8758 }
-
-[[package]]
 name = "django-robots"
 version = "6.1"
 source = { registry = "https://pypi.org/simple" }
@@ -512,6 +506,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ca/62/a7129909d3c94eac957c02eeb05ac57cbca81db4f3f6270a8503697f376a/django_stubs_ext-5.1.1.tar.gz", hash = "sha256:db7364e4f50ae7e5360993dbd58a3a57ea4b2e7e5bab0fbd525ccdb3e7975d1c", size = 9455 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6a/ed/f79ae5ad993bdf900d61892d2a9fc0145441a507a7579890fb8e21e4a7bc/django_stubs_ext-5.1.1-py3-none-any.whl", hash = "sha256:3907f99e178c93323e2ce908aef8352adb8c047605161f8d9e5e7b4efb5a6a9c", size = 8965 },
+]
+
+[[package]]
+name = "djangorestframework"
+version = "3.15.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2c/ce/31482eb688bdb4e271027076199e1aa8d02507e530b6d272ab8b4481557c/djangorestframework-3.15.2.tar.gz", hash = "sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad", size = 1067420 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/b6/fa99d8f05eff3a9310286ae84c4059b08c301ae4ab33ae32e46e8ef76491/djangorestframework-3.15.2-py3-none-any.whl", hash = "sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20", size = 1071235 },
 ]
 
 [[package]]
@@ -1713,10 +1719,10 @@ dependencies = [
     { name = "django-filter" },
     { name = "django-htmx" },
     { name = "django-image-cropping" },
-    { name = "django-restframework" },
     { name = "django-robots" },
     { name = "django-rosetta" },
     { name = "django-storages", extra = ["google"] },
+    { name = "djangorestframework" },
     { name = "easy-thumbnails" },
     { name = "gevent" },
     { name = "gunicorn" },
@@ -1777,11 +1783,11 @@ requires-dist = [
     { name = "django-filter-stubs", marker = "extra == 'types'" },
     { name = "django-htmx" },
     { name = "django-image-cropping" },
-    { name = "django-restframework" },
     { name = "django-robots" },
     { name = "django-rosetta" },
     { name = "django-storages", extras = ["google"] },
     { name = "django-stubs", extras = ["compatible-mypy"], marker = "extra == 'types'" },
+    { name = "djangorestframework" },
     { name = "easy-thumbnails" },
     { name = "factory-boy", marker = "extra == 'dev'" },
     { name = "gevent" },

@@ -35,7 +35,7 @@ dependencies = [
   "django-robots",
   "django-storages[google]",
   "django-debug-toolbar",
-  "django-restframework",
+  "djangorestframework",
   "django-rosetta",
   "dj-database-url",
   "easy_thumbnails",  # Needed for django-image-cropping
@@ -100,9 +100,8 @@ exclude = [
 
 [tool.coverage.run]
 branch = true
-source = ["."]
+source = ["blog", "core", "snippets"]
 omit = [
-  "website/runner.py",
   "website/__init__.py",
   "website/settings/*",
   "website/wsgi.py",
