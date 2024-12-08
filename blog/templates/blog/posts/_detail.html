@@ -25,7 +25,7 @@
           <time class="text-gray-400" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
           |
           <span class="text-gray-400">
-            {% translate 'Author'%}: {{ post.author.first_name }} {{ post.author.last_name }}
+            {% translate 'Author' %}: {{ post.author.first_name }} {{ post.author.last_name }}
           </span>
         </small>
       {% endif %}
@@ -49,4 +49,4 @@
 
   <script src="{% static 'blog/js/codeHighlight.js' %}"></script>
 
-{% endblock %}
+{% endblock content %}

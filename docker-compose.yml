@@ -1,5 +1,3 @@
-version: '3.9'
-
 volumes:
   pgdata:
   shell_history:
@@ -13,8 +11,22 @@ services:
       target: development
     command: python manage.py runserver 0.0.0.0:80
     tty: true
+    develop:
+      # Create a `watch` configuration to update the appl
+      # https://docs.docker.com/compose/file-watch/#compose-watch-versus-bind-mounts
+      watch:
+        # Sync the working directory with the `/app` directory in the container
+        - action: sync
+          path: .
+          target: /code
+          # Exclude the project virtual environment — it could be for a
+          # different platform in the container
+          ignore:
+            - .venv/
+        # Rebuild the image on changes to the `pyproject.toml`
+        - action: rebuild
+          path: ./pyproject.toml
     volumes:
-      - .:/code
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
       - ./secrets/eduzen.json:/root/keys/eduzen.json
@@ -28,7 +40,7 @@ services:
       - .env
 
   db:
-    image: postgres:13-alpine
+    image: postgres:13-alpine3.17
     volumes:
       - pgdata:/var/lib/postgresql/data/
       - ./scripts/db/:/docker-entrypoint-initdb.d/

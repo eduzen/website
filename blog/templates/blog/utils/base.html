@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load i18n static %}
 
 {% get_current_language as LANGUAGE_CODE %}
 
@@ -7,7 +7,7 @@
 
   <head>
     {% block head %}
-      {% include 'blog/utils/head.html'%}
+      {% include 'blog/utils/head.html' %}
     {% endblock head %}
   </head>
 
@@ -18,7 +18,7 @@
 
     <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
 
-      {% block content %}{% endblock content %}
+      {% block content %}{% endblock %}
     </main>
 
     {% block footer %}

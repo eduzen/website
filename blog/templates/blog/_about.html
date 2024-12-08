@@ -7,7 +7,7 @@
 <section class="pt-6">
   <p class="text-xl mt-4">
     {% translate "Hello World! My name is Eduardo and I'm a developer 💻." %}
-    {% blocktrans with years=years_in_python %}I've been working ⛏️ with Python 🐍 for the last {{ years }} years, most of the time working as a backend developer with Django.{% endblocktrans %}
+    {% blocktranslate with years=years_in_python %}I've been working ⛏️ with Python 🐍 for the last {{ years }} years, most of the time working as a backend developer with Django.{% endblocktranslate %}
     {% translate "Currently living in" %} <s>{% translate "Buenos Aires" %}</s>, <s>{% translate "München" %}</s>, {% translate "Amsterdam" %}, {% translate "while working from home." %} 🏠
   </p>
 </section>
@@ -48,7 +48,7 @@
           {% translate "Naturally, I have some experience 💡 with other things like Javascript, Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿, and Linux 🐧." %}
         </p>
         <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4 ">
-          {% translate "You can check my code at " %}<a target="_blank" class="text-pink-400 hover:underline" href="{{global_data.github}}">{{global_data.github}}</a>.
+          {% translate "You can check my code at " %}<a target="_blank" class="text-pink-400 hover:underline" href="{{ global_data.github }}">{{ global_data.github }}</a>.
           {% translate "There you can find some bots like the one that I have for Telegram," %}
           <a target="_blank" class="text-pink-400 hover:underline" href="https://github.com/eduzen/bot">eduzen_bot</a> 🤖
           {% translate "(you can talk to it following this link:" %}
@@ -62,7 +62,7 @@
           {% translate "Besides computers, I like good music, books, philosophy, movies, series, and good food. I started trying some mechanical keyboards (right now using a Leo pold 75 %)! But I have also a Keychron K12." %}
         </p>
         <p class="text-base gray-100 text-justify leading-relaxed tracking-wide my-4">
-          {% translate "Some people find it weird that I have a bachelor's degree in philosophy from the University of Buenos Aires 🇦🇷. But I think that rational thinking is something that my profession and studies share."%}
+          {% translate "Some people find it weird that I have a bachelor's degree in philosophy from the University of Buenos Aires 🇦🇷. But I think that rational thinking is something that my profession and studies share." %}
           {% translate "In general, philosophy has shaped my analytical thinking and fostered my curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and Foucault." %}
           {% translate "Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and many more..." %}
         </p>
@@ -81,7 +81,7 @@
           href={% url 'contact' %}>
           {% translate "form" %}
         </a>
-        {% translate "or through my " %}<a target="_blank" class="text-pink-400 hover:underline" href="{{global_data.linkedin}}">{% translate "LinkedIn." %}</a>
+        {% translate "or through my " %}<a target="_blank" class="text-pink-400 hover:underline" href="{{ global_data.linkedin }}">{% translate "LinkedIn." %}</a>
       </p>
     </div>
   </div>
