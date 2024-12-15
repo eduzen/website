@@ -10,7 +10,7 @@
       hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
       hx-target="#related-post-container">
       <i class="fas fa-chevron-left mr-2"></i>
-      {% translate "Previous"%}
+      {% translate "Previous" %}
     </a>
   {% else %}
     <div class="hidden md:block w-10"></div> <!-- Placeholder for larger screens only -->
@@ -35,7 +35,7 @@
       href="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
       hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
       hx-target="#related-post-container">
-      {% translate "Next"%}&nbsp;
+      {% translate "Next" %}&nbsp;
       <i class="fas fa-chevron-right mr-2"></i>
     </a>
   {% else %}

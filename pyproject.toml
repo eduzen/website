@@ -9,7 +9,7 @@ path = "website/__about__.py"
 name = "website"
 description = 'My django blog Repo: http://eduzen.com.ar'
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 version = "2.1.1"
 license = { text = "MIT" }
 authors = [
@@ -35,7 +35,7 @@ dependencies = [
   "django-robots",
   "django-storages[google]",
   "django-debug-toolbar",
-  "django-restframework",
+  "djangorestframework",
   "django-rosetta",
   "dj-database-url",
   "easy_thumbnails",  # Needed for django-image-cropping
@@ -69,6 +69,7 @@ dev = [
   "types-redis",
   "types-requests",
   "django-browser-reload",
+  "pre-commit",
   # "wdb",
 ]
 types = [
@@ -85,11 +86,6 @@ types = [
 addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb"
 filterwarnings = []
 
-[tool.black]
-line-length = 120
-safe = true
-target-version = ['py311']
-
 [tool.isort]
 profile = "black"
 include_trailing_comma = true
@@ -104,9 +100,8 @@ exclude = [
 
 [tool.coverage.run]
 branch = true
-source = ["."]
+source = ["blog", "core", "snippets"]
 omit = [
-  "website/runner.py",
   "website/__init__.py",
   "website/settings/*",
   "website/wsgi.py",
