@@ -5,7 +5,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include("core.urls")),
-    path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
     path("robots.txt", include("robots.urls")),
     path("api/", include("snippets.urls")),
 ]

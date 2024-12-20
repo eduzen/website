@@ -15,7 +15,7 @@ dependencies = [
   "beautifulsoup4",
   "crispy-tailwind",
   "django",
-  "django-ckeditor",
+  "django-ckeditor-5",
   "django-cors-headers",
   "django-crispy-forms",
   "django-extensions",
@@ -42,6 +42,8 @@ dependencies = [
   "requests",
   "whitenoise[brotli]",
   "django-browser-reload>=1.17.0",
+  "faker>=33.1.0",
+  "django-cacheops>=7.1",
 ]
 
 [dependency-groups]
@@ -50,6 +52,7 @@ dev = [
     "factory-boy>=3.3.1",
     "ipdb>=0.13.13",
     "ipython>=8.29.0",
+    "pgcli>=4.1.0",
     "pre-commit>=4.0.1",
     "pytest>=8.3.3",
     "pytest-django>=4.9.0",

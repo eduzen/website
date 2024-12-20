@@ -34,9 +34,9 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "cacheops",
     "rest_framework",
-    "ckeditor",
-    "ckeditor_uploader",
+    "django_ckeditor_5",
     "corsheaders",
     "crispy_forms",
     "crispy_tailwind",
@@ -166,21 +166,133 @@ GS_DEFAULT_ACL = "publicRead"  # Make the files public
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+REDIS_URL = config("REDIS_URL", default="redis://localhost:6379/0")
+# Cache
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": config("REDIS_URL", default="redis://redis:6379/0"),
+        "LOCATION": REDIS_URL,
+    }
+}
+CACHEOPS_REDIS = REDIS_URL
+
+CACHEOPS = {
+    # Automatically cache any User.objects.get() calls for 15 minutes
+    # This also includes .first() and .last() calls,
+    # as well as request.user or post.author access,
+    # where Post.author is a foreign key to auth.User
+    'auth.user': {'ops': 'get', 'timeout': 60*15},
+
+    # Automatically cache all gets and queryset fetches
+    # to other django.contrib.auth models for an hour
+    'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60*60},
+
+    # Cache all queries to Permission
+    # 'all' is an alias for {'get', 'fetch', 'count', 'aggregate', 'exists'}
+    'auth.permission': {'ops': 'all', 'timeout': 60*60},
+
+    # Enable manual caching on all other models with default timeout of an hour
+    # Use Post.objects.cache().get(...)
+    #  or Tags.objects.filter(...).order_by(...).cache()
+    # to cache particular ORM request.
+    # Invalidation is still automatic
+    'blog.*': {'ops': "all", 'timeout': 60*60},
+}
+
+
+# CKEditor
+# CKEDITOR_JQUERY_URL = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
+customColorPalette = [
+    {
+        'color': 'hsl(4, 90%, 58%)',
+        'label': 'Red'
+    },
+    {
+        'color': 'hsl(340, 82%, 52%)',
+        'label': 'Pink'
+    },
+    {
+        'color': 'hsl(291, 64%, 42%)',
+        'label': 'Purple'
+    },
+    {
+        'color': 'hsl(262, 52%, 47%)',
+        'label': 'Deep Purple'
+    },
+    {
+        'color': 'hsl(231, 48%, 48%)',
+        'label': 'Indigo'
+    },
+    {
+        'color': 'hsl(207, 90%, 54%)',
+        'label': 'Blue'
+    },
+]
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
+                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
+
+    },
+    'extends': {
+        'blockToolbar': [
+            'paragraph', 'heading1', 'heading2', 'heading3',
+            '|',
+            'bulletedList', 'numberedList',
+            '|',
+            'blockQuote',
+        ],
+        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
+        'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
+                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
+                    'insertTable',],
+        'image': {
+            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
+                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|'],
+            'styles': [
+                'full',
+                'side',
+                'alignLeft',
+                'alignRight',
+                'alignCenter',
+            ]
+
+        },
+        'table': {
+            'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells',
+            'tableProperties', 'tableCellProperties' ],
+            'tableProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
+            },
+            'tableCellProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
+            }
+        },
+        'heading' : {
+            'options': [
+                { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },
+                { 'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1' },
+                { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
+                { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
+            ]
+        }
+    },
+    'list': {
+        'properties': {
+            'styles': 'true',
+            'startIndex': 'true',
+            'reversed': 'true',
+        }
     }
 }
 
-CKEDITOR_JQUERY_URL = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
-CKEDITOR_UPLOAD_PATH = "/"
-CKEDITOR_CONFIGS = {
-    "default": {
-        "toolbar": "basic",
-        "width": "100%",
-    },
-}
+# Define a constant in settings.py to specify file upload permissions
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Possible values: "staff", "authenticated", "any"
+
 
 TELEGRAM_TOKEN = config("TELEGRAM_TOKEN", default="foo")
 TELEGRAM_CHAT_ID = config("TELEGRAM_CHAT_ID", default="foo")

@@ -1,11 +1,15 @@
 import logging
 
-from ckeditor_uploader.fields import RichTextUploadingField  # type: ignore
 from django.db import models
 from django.db.models import Count
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+# from ckeditor_uploader.fields import RichTextUploadingField  # type: ignore
+from django_ckeditor_5.fields import (
+    CKEditor5Field as RichTextUploadingField,  # type: ignore
+)
 from image_cropping import ImageRatioField  # type: ignore
 
 logger = logging.getLogger(__name__)
