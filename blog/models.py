@@ -54,7 +54,7 @@ class Post(models.Model):
     text = RichTextUploadingField(verbose_name=_("Body text"))
 
     image = models.ImageField(upload_to="post-img/%Y/%m/%d", blank=True, null=True)
-    cropping = ImageRatioField("image", "260x120")
+    cropping = ImageRatioField("image", "260x120")  # type: ignore
 
     objects = PostQuerySet.as_manager()
 

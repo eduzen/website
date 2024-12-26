@@ -9,7 +9,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development
-    command: python manage.py runserver 0.0.0.0:80
+    command: python manage.py runserver 0.0.0.0:80 --nostatic
+    user: "${UID:-1000}:${GID:-1000}"
     tty: true
     develop:
       # Create a `watch` configuration to update the appl
@@ -27,9 +28,13 @@ services:
         - action: rebuild
           path: ./pyproject.toml
     volumes:
+     # Bind-mount the current directory to /code in the container
+     # because watch is not work for run --rm
+      - .:/code
+      - /code/.venv
+      - ./secrets/eduzen.json:/code/keys/eduzen.json
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
-      - ./secrets/eduzen.json:/root/keys/eduzen.json
     ports:
       - "8000:80"
       - "3000:3000"

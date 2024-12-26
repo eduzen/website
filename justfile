@@ -1,7 +1,7 @@
 DCO := "docker compose"
 RUNDJANGO := "docker compose run --rm web"
 EXEC := "docker compose web exec"
-DJMANAGE := "docker compose run --rm web python manage.py"
+DJMANAGE := "docker compose run --rm web uv run manage.py"
 
 copy-env:
     @if [ ! -f .env ]; then cp .env.sample .env; fi
@@ -41,5 +41,15 @@ migrate:
 make-migrations:
   {{DJMANAGE}} makemigrations
 
-createsuperuser:
-  {{DJMANAGE}} createsuperuser
+createsuperuser username='admin':
+  {{DJMANAGE}} createsuperuser --username {{username}}
+
+coverage:
+  {{DCO}} run --rm web uv run coverage run -m pytest
+  {{DCO}} run --rm web uv run coverage report
+
+build:
+  {{DCO}} build web
+
+test:
+  {{DCO}} run --rm web coverage run -m pytest
