@@ -1,3 +1,4 @@
+# type: ignore
 import pytest
 
 from blog.tests.factories import PostFactory, TagFactory

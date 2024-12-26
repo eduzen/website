@@ -121,22 +121,18 @@ pretty_print=true
 python_version = "3.13"
 warn_return_any = false
 warn_unused_configs = true
+ignore_missing_imports = true
 plugins = [
   "mypy_django_plugin.main",
 ]
 exclude = [
+  "^venv/",
+  "^website/settings/",
+  "^blog/tests/",
+  "^blog/tests/factories.py",
   "migrations",
-  "tests",
+  "^factories\\.py$",  # TOML basic string (double-quotes, backslash and other characters need escaping)
 ]
 
 [tool.django-stubs]
 django_settings_module = "website.settings.dev"
-
-
-[[tool.mypy.overrides]]
-module = [
-    "decouple",
-    "crispy_forms",
-    "image_cropping",
-]
-ignore_missing_imports = true

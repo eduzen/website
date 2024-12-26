@@ -39,11 +39,8 @@ jobs:
       - name: Check Code Style
         uses: pre-commit/action@v3.0.1
 
-      - name: Set up Python
-        run: uv python install
-
       - name: Install the project
-        run: uv sync --all-extras
+        run: uv sync --all-extras --all-groups
 
       - name: Run Django Check
         env:
