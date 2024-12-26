@@ -8,11 +8,11 @@ urlpatterns = [
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("robots.txt", include("robots.urls")),
     path("api/", include("snippets.urls")),
+    path("eduardo/", admin.site.urls),
 ]
 
 urlpatterns += i18n_patterns(  # type: ignore
     path("", include("blog.urls")),
-    path("eduardo/", admin.site.urls),
 )
 
 
