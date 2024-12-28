@@ -362,16 +362,16 @@ wheels = [
 ]
 
 [[package]]
-name = "django-ckeditor-5"
-version = "0.2.15"
+name = "django-ckeditor"
+version = "6.7.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
-    { name = "pillow" },
+    { name = "django-js-asset" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/58/61/86d285a9b690c785393083e4d3604ac07c8ec5360dca92ca3f6701c0a8b4/django_ckeditor_5-0.2.15.tar.gz", hash = "sha256:587f0485a3dca6a1a7c7c68e4160770e46389b8cf50205bf352bd47fcb63567c", size = 2563275 }
+sdist = { url = "https://files.pythonhosted.org/packages/8e/ad/73c303e8e58b38ef4f3ed475334dca2cd4509b4bbdfb573f2d13745e3cd8/django_ckeditor-6.7.2.tar.gz", hash = "sha256:a66be4f0ca13924d756e4930260144b31df4164eae8b942ca610f4313df00d5f", size = 1726242 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/59/ac/771a22ff54cd9e7f252a4a4f431fc638153dfa89f386537394e90a508ea6/django_ckeditor_5-0.2.15-py3-none-any.whl", hash = "sha256:71980998d4bef7b272e50cb6878cca5c0bedec42b389a3827ffe1bbb88babd29", size = 2603644 },
+    { url = "https://files.pythonhosted.org/packages/16/ed/e48cc43a987facd99e7ad24cc466e2578b0cbdba345a01f068d55daa2a1a/django_ckeditor-6.7.2-py3-none-any.whl", hash = "sha256:2b3f147ce21eba861db481683e9a4639c11f0ad1f0d37c179003ef07f9eb65a4", size = 2455602 },
 ]
 
 [[package]]
@@ -474,6 +474,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/af/f1/fabd56516baf0efe5db723c61b0ede674367a13ce991568c1a4608eac9dc/django-image-cropping-1.7.tar.gz", hash = "sha256:971d1a92c9ef14f1bf95996dd4eeed0a00dbb2221bfa762290d9525696243232", size = 32945 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2a/28/c2ce1794282fc7aee6118ac1b39057952a9b8dd17406dcd23d0b77ea3ca7/django_image_cropping-1.7-py3-none-any.whl", hash = "sha256:429ad2c3ccad5ddeb079fbee24dc1536105b3e9d30beb53d1446fd560da04d5b", size = 43884 },
+]
+
+[[package]]
+name = "django-js-asset"
+version = "3.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0a/02/5d3b57d2ad3c1819aaf921fa6b9d7fbc54ec5d81871a7fb6f4f0b146dd4e/django_js_asset-3.0.1.tar.gz", hash = "sha256:5ad51814edf38d28e6280e6ecad50ee40551363a2f6a6bfe93577dee793dc378", size = 7701 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/61/d1/be003d14c880c100d8713b2ca0a286728e6e8b47e50d25e2fab31adc9632/django_js_asset-3.0.1-py3-none-any.whl", hash = "sha256:0b7ee73c45ca65cccbcc2f60cbe8fbc87ff133b543c282cb64fe6c13d7ca4c10", size = 4283 },
 ]
 
 [[package]]
@@ -1879,7 +1891,7 @@ dependencies = [
     { name = "django" },
     { name = "django-browser-reload" },
     { name = "django-cacheops" },
-    { name = "django-ckeditor-5" },
+    { name = "django-ckeditor" },
     { name = "django-cors-headers" },
     { name = "django-crispy-forms" },
     { name = "django-debug-toolbar" },
@@ -1941,7 +1953,7 @@ requires-dist = [
     { name = "django" },
     { name = "django-browser-reload", specifier = ">=1.17.0" },
     { name = "django-cacheops", specifier = ">=7.1" },
-    { name = "django-ckeditor-5" },
+    { name = "django-ckeditor" },
     { name = "django-cors-headers" },
     { name = "django-crispy-forms" },
     { name = "django-debug-toolbar" },

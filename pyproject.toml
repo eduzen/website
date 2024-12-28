@@ -15,7 +15,7 @@ dependencies = [
   "beautifulsoup4",
   "crispy-tailwind",
   "django",
-  "django-ckeditor-5",
+  "django-ckeditor",
   "django-cors-headers",
   "django-crispy-forms",
   "django-extensions",
