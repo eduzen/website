@@ -17,12 +17,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 FROM python:3.13-slim-bullseye AS production
 
 WORKDIR /code
-COPY --from=builder /code /code
-
 # Place executables in the environment at the front of the path
 ENV PATH="/code/.venv/bin:$PATH"
-
-EXPOSE 80
 
 ARG RELEASE=0.0.0+dev
 ENV RELEASE=$RELEASE
@@ -42,8 +38,13 @@ RUN --mount=target=/var/cache/apt,mode=0755,type=cache,sharing=locked \
     curl \
     libpq-dev \
     postgresql-client \
+    iptools-ping \
     httpie \
   && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /code /code
+
+EXPOSE 80
 
 RUN python manage.py collectstatic --no-input
 RUN python manage.py compilemessages
@@ -53,9 +54,10 @@ CMD ["sh", "/code/scripts/gunicorn_start.sh"]
 FROM builder AS development
 ENV DJANGO_SETTINGS_MODULE=website.settings.dev
 
+# Place executables in the environment at the front of the path
+ENV PATH="/code/.venv/bin:$PATH"
+
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --all-extras
 
-ENV PATH="/code/.venv/bin:$PATH"
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:80", "--settings=website.settings.dev", "--nostatic"]

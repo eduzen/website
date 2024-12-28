@@ -100,8 +100,9 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
         return f"<img src='{obj.image.url}' width='100' height='100'/>"
 
     def get_queryset(self, request: HttpRequest) -> QuerySet[Post]:
-        return super().get_queryset(request).prefetch_related("tags")
+        return super().get_queryset(request).select_related("author").prefetch_related("tags")
 
+    @admin.display(description="Tags")
     def tag_list(self, obj: Post):
         return ", ".join(o.word for o in obj.tags.all())
 
@@ -109,6 +110,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     def raw_body(self, obj: Post) -> str:
         return obj.text
 
+    @admin.display(description="Blog link")
     def blog_link(self, obj: Post) -> str:
         if not obj.published:
             return "-"
