@@ -3,13 +3,19 @@ RUNDJANGO := "docker compose run --rm web"
 EXEC := "docker compose web exec"
 DJMANAGE := "docker compose run --rm web python manage.py"
 
+copy-env:
+    @if [ ! -f .env ]; then cp .env.sample .env; fi
+
 fmt:
   uv run pre-commit run --all-files
+
+format:
+  just fmt
 
 logs:
   {{DCO}} logs -f web
 
-run:
+run: copy-env
   {{DCO}} up -d --build
   just logs
 
@@ -23,7 +29,7 @@ reset:
   {{DCO}} down -v
   {{DCO}} up -d --build
 
-shell:
+shell: copy-env
   {{EXEC}} web bash
 
 mypy:
@@ -35,8 +41,18 @@ check:
 migrate:
   {{DJMANAGE}} migrate
 
-make-migrations:
+makemigrations:
   {{DJMANAGE}} makemigrations
 
-createsuperuser:
-  {{DJMANAGE}} createsuperuser
+createsuperuser username='admin':
+  {{DJMANAGE}} createsuperuser --username {{username}}
+
+coverage:
+  {{DCO}} run --rm web uv run coverage run -m pytest
+  {{DCO}} run --rm web uv run coverage report
+
+build: copy-env
+  {{DCO}} build web
+
+test:
+  {{DCO}} run --rm web coverage run -m pytest
