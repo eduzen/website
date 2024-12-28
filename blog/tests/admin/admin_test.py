@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from .factories import PostFactory, TagFactory
+from blog.tests.factories import PostFactory, TagFactory
 
 
 @pytest.fixture(scope="session")
