@@ -8,8 +8,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
-    command: python manage.py runserver 0.0.0.0:80
+      target: ${TARGET:-development}
     tty: true
     develop:
       # Create a `watch` configuration to update the appl
@@ -28,6 +27,7 @@ services:
           path: ./pyproject.toml
     volumes:
       - .:/code
+      - /code/.venv
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
       - ./secrets/eduzen.json:/root/keys/eduzen.json
@@ -41,7 +41,7 @@ services:
       - .env
 
   db:
-    image: postgres:13-alpine3.17
+    image: postgres:17-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data/
       - ./scripts/db/:/docker-entrypoint-initdb.d/

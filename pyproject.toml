@@ -60,7 +60,6 @@ dev = [
   "types-requests",
   "django-browser-reload",
   "pre-commit",
-  # "wdb",
 ]
 types = [
   "types-redis",

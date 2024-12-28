@@ -1,7 +1,8 @@
 DCO := "docker compose"
 RUNDJANGO := "docker compose run --rm web"
-EXEC := "docker compose web exec"
-DJMANAGE := "docker compose run --rm web python manage.py"
+EXEC := "docker compose web exec uv"
+UV := "docker compose run --rm web uv run"
+MANAGE := "docker compose run --rm web uv manage.py"
 
 copy-env:
     @if [ ! -f .env ]; then cp .env.sample .env; fi
@@ -16,7 +17,11 @@ logs:
   {{DCO}} logs -f web
 
 run: copy-env
-  {{DCO}} up -d --build
+  {{DCO}} up -d
+  just logs
+
+restart:
+  {{DCO}} restart web
   just logs
 
 stop:
@@ -30,22 +35,24 @@ reset:
   {{DCO}} up -d --build
 
 shell: copy-env
-  {{EXEC}} web bash
+  {{DCO}} run --rm web bash
+
+dockershell: shell
 
 mypy:
-  {{RUNDJANGO}} mypy .
+  {{MANAGE}} mypy .
 
 check:
-  {{DJMANAGE}} check --deploy
+  {{MANAGE}} check --deploy
 
 migrate:
-  {{DJMANAGE}} migrate
+  {{MANAGE}} migrate
 
 makemigrations:
-  {{DJMANAGE}} makemigrations
+  {{MANAGE}} makemigrations
 
 createsuperuser username='admin':
-  {{DJMANAGE}} createsuperuser --username {{username}}
+  {{MANAGE}} createsuperuser --username {{username}}
 
 coverage:
   {{DCO}} run --rm web uv run coverage run -m pytest
@@ -55,4 +62,4 @@ build: copy-env
   {{DCO}} build web
 
 test:
-  {{DCO}} run --rm web coverage run -m pytest
+  {{UV}} coverage run -m pytest
