@@ -27,6 +27,7 @@ services:
         - action: rebuild
           path: ./pyproject.toml
     volumes:
+      - .:/code
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
       - ./secrets/eduzen.json:/root/keys/eduzen.json
