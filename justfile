@@ -2,7 +2,7 @@ DCO := "docker compose"
 RUNDJANGO := "docker compose run --rm web"
 EXEC := "docker compose web exec uv"
 UV := "docker compose run --rm web uv run"
-MANAGE := "docker compose run --rm web uv manage.py"
+MANAGE := "docker compose run --rm web uv run manage.py"
 
 copy-env:
     @if [ ! -f .env ]; then cp .env.sample .env; fi

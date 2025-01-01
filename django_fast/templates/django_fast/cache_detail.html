@@ -1,0 +1,87 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Cache Detail: {{ alias }}{% endblock %}
+
+{% block extrastyle %}
+<style>
+.back-link {
+    text-decoration: none;
+    color: currentColor;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    transition: color 0.2s ease-in-out;
+}
+
+.back-link:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* Enhance the theme-switch button */
+button.theme-toggle, a.theme-toggle {
+    background-color: var(--primary-color, #007bff); /* Primary color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+button.theme-toggle:hover, a.theme-toggle:hover {
+    background-color: var(--primary-hover-color, #0056b3); /* Darker shade on hover */
+    transform: scale(1.05); /* Slight zoom-in */
+}
+
+/* Active/focus effect */
+button.theme-toggle:active, a.theme-toggle:active {
+    transform: scale(1);
+    background-color: var(--primary-active-color, #003d80); /* Even darker shade */
+}
+
+/* Adapt button for dark mode */
+body[data-theme='dark'] button.theme-toggle,
+body[data-theme='dark'] a.theme-toggle {
+    background-color: #1e1e1e; /* Neutral dark background */
+    color: #f1f1f1; /* Light text */
+}
+
+body[data-theme='dark'] button.theme-toggle:hover,
+body[data-theme='dark'] a.theme-toggle:hover {
+    background-color: #333333;
+}
+
+body[data-theme='dark'] button.theme-toggle:active,
+body[data-theme='dark'] a.theme-toggle:active {
+    background-color: #444444;
+}
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+<a href="{% url 'cache_explorer' %}" class="back-link">
+  ← Back to Cache Explorer
+</a>
+
+<h1>Cache Details: {{ alias }}</h1>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% else %}
+    <h2>Statistics</h2>
+    <ul>
+        {% for key, value in stats.items %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Actions</h2>
+    <form method="post">
+        {% csrf_token %}
+        <submit class="theme-toggle" type="submit" name="clear_cache" value="{{ alias }}">Clear Cache</button>
+    </form>
+{% endif %}
+{% endblock content %}

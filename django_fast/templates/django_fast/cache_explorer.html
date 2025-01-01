@@ -1,0 +1,56 @@
+{% extends "admin/base_site.html" %}
+{% load dict_filters %}
+
+{% block title %}Cache Explorer{% endblock %}
+
+{% block extrastyle %}
+<style>
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.clickable-row:hover {
+    background-color: var(--hover-bg-color, rgba(235, 235, 235, 0.51)); /* Light mode fallback */
+}
+
+body[data-theme='dark'] .clickable-row:hover {
+    background-color: rgb(74, 77, 79); /* Dark mode hover color */
+}
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+
+<h1>Cache Explorer</h1>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Alias</th>
+            <th>Backend</th>
+            <th>Location</th>
+            <th>Options</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for alias, config in cache_settings.items %}
+        <tr class="clickable-row" onclick="window.location='{% url 'cache_detail' alias=alias %}'">
+            <td>{{ alias }}</td>
+            <td>{{ config.BACKEND }}</td>
+            <td>{{ config.LOCATION|default:"N/A" }}</td>
+            <td>
+                <ul>
+                    {% for key, value in config.items %}
+                        {% if key not in "BACKEND LOCATION" %}
+                            <li><strong>{{ key }}:</strong> {{ value }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>{{ status|dict_get:alias }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
