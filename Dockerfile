@@ -55,4 +55,4 @@ RUN echo 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --all-extras --all-groups --dev
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
+CMD ["uv", "run", "manage.py", "runserver", "0.0.0.0:80"]
