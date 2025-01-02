@@ -49,6 +49,7 @@ THIRD_PARTY_APPS = [
 ]
 
 APPS = [
+    "django_fast",
     "blog",
     "snippets",
     "core",
@@ -170,7 +171,11 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": config("REDIS_URL", default="redis://redis:6379/0"),
-    }
+    },
+    'localmemcache': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    },
 }
 
 CKEDITOR_JQUERY_URL = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"

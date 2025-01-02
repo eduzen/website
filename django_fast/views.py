@@ -1,8 +1,14 @@
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.admin import site
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.cache import caches
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views import View
+
+from django_fast.services.cache.factory import get_cache_service
 
 
 def check_cache_health(alias: str) -> str:
@@ -17,62 +23,87 @@ def check_cache_health(alias: str) -> str:
     return status
 
 
-@staff_member_required
-def cache_explorer(request):
-    cache_settings = settings.CACHES
-    status = {}
+@method_decorator(staff_member_required, name="dispatch")
+class CacheExplorerView(View):
+    template_name = "django_fast/cache_explorer.html"
 
-    status = {alias: check_cache_health(alias) for alias in cache_settings.keys()}
-
-    return render(
-        request,
-        "django_fast/cache_explorer.html",
-        {
-            "cache_settings": cache_settings,
-            "status": status,
-        },
-    )
-
-
-@staff_member_required
-def cache_detail(request, alias):
-    cache = caches[alias]
-    if not cache:
-        return render(
-            request,
-            "django_fast/cache_detail.html",
+    def get(self, request):
+        # Admin-specific context
+        admin_context = site.each_context(request)
+        admin_context.update(
             {
-                "alias": alias,
-                "error": f"Cache alias '{alias}' not found.",
-            },
+                "title": "Cache Explorer",
+                "breadcrumbs": [
+                    {"name": "Home", "url": reverse("admin:index")},
+                    {"name": "Cache Explorer", "url": ""},
+                ],
+            }
         )
 
-    # Handle cache actions
-    if request.method == "POST" and "clear_cache" in request.POST:
-        cache.clear()
-        messages.success(request, f"Cache '{alias}' cleared successfully.")
-        return render(
-            request,
-            "django_fast/cache_detail.html",
+        # Custom context for your view
+        cache_settings = settings.CACHES
+        status_dict = {
+            alias: "🟢 Live" if get_cache_service(alias).ping() else "🔴 Unavailable" for alias in cache_settings.keys()
+        }
+
+        admin_context.update(
             {
-                "alias": alias,
-                "stats": {"message": "Cache cleared successfully."},
-            },
+                "cache_settings": cache_settings,
+                "status": status_dict,
+            }
+        )
+        return render(request, self.template_name, admin_context)
+
+
+@method_decorator(staff_member_required, name="dispatch")
+class CacheDetailView(View):
+    template_name = "django_fast/cache_detail.html"
+
+    def get(self, request, alias):
+        cache_service = get_cache_service(alias)
+        admin_context = site.each_context(request)
+        admin_context.update(
+            {
+                "title": f"Cache Detail: {alias}",
+                "breadcrumbs": [
+                    {"name": "Home", "url": reverse("admin:index")},
+                    {"name": "Cache Explorer", "url": reverse("cache_explorer")},
+                    {"name": f"Cache Detail: {alias}", "url": ""},
+                ],
+            }
         )
 
-    # Retrieve cache stats (if supported)
-    stats = {}
-    try:
-        stats["keys"] = len(cache.keys("*"))  # Example for Redis
-        stats["ttl"] = {key: cache.ttl(key) for key in cache.keys("*")[:5]}  # First 5 keys
-    except AttributeError:
-        stats["message"] = "Cache backend does not support stats."
+        if not cache_service.ping():
+            admin_context.update(
+                {
+                    "alias": alias,
+                    "error": f"Cache alias '{alias}' is unreachable or not configured properly.",
+                }
+            )
+            return render(request, self.template_name, admin_context)
 
-    return render(
-        request,
-        "django_fast/cache_detail.html",
-        {
-            "alias": alias,
-            "stats": stats,
-        },
-    )
+        stats = cache_service.get_stats()
+
+        admin_context.update(
+            {
+                "alias": alias,
+                "stats": stats,
+            }
+        )
+        return render(request, self.template_name, admin_context)
+
+    def post(self, request, alias):
+        cache_service = get_cache_service(alias)
+        action = request.POST.get("action")
+
+        if action == "clear":
+            cache_service.clear_cache()
+            messages.success(request, f"Cache '{alias}' cleared successfully.")
+        elif action == "ping":
+            if cache_service.ping():
+                messages.success(request, f"Cache '{alias}' is alive.")
+            else:
+                messages.error(request, f"Cache '{alias}' is unreachable.")
+        # Add more elifs for new actions
+
+        return redirect("cache_detail", alias=alias)

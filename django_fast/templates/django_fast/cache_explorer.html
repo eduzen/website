@@ -4,6 +4,7 @@
 {% block title %}Cache Explorer{% endblock %}
 
 {% block extrastyle %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 .clickable-row {
     cursor: pointer;
@@ -11,18 +12,19 @@
 }
 
 .clickable-row:hover {
-    background-color: var(--hover-bg-color, rgba(235, 235, 235, 0.51)); /* Light mode fallback */
+    background-color: var(--hover-bg-color, rgba(95, 153, 224, 0.51)); /* Light mode fallback */
 }
 
 body[data-theme='dark'] .clickable-row:hover {
     background-color: rgb(74, 77, 79); /* Dark mode hover color */
 }
+
+
 </style>
 {% endblock extrastyle %}
 
 {% block content %}
 
-<h1>Cache Explorer</h1>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>

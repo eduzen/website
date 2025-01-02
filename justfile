@@ -63,3 +63,6 @@ build: copy-env
 
 test:
   {{UV}} coverage run -m pytest
+
+showurls:
+  {{MANAGE}} show_urls
