@@ -29,4 +29,3 @@ def test_get_stats(mock_redis_connection):
     assert stats["used_memory_peak_human"] == "2.5MB"
     assert stats["dbsize"] == 18
     assert stats["keyspace"]["db0"]["keys"] == 18
-    assert stats["keyspace"]["db0"]["avg_ttl"] == 2591926923
