@@ -37,22 +37,32 @@ def get_cache_service(alias: str) -> AbstractCacheService:
                 db=db,
                 socket_timeout=socket_timeout,
             )
-        except Exception:
-            logger.exception("Error creating redis client.")
-            r_client = None
-        return RedisCacheService(alias, redis_connection=r_client)
+            # Test the connection
+            if not r_client.ping():
+                logger.error(f"Redis server at '{url}' is not responding to PING.")
+                raise ConnectionError(f"Cannot connect to Redis server at '{url}'.")
+
+            return RedisCacheService(alias, redis_connection=r_client)
+        except Exception as e:
+            logger.exception(f"Error creating Redis client for alias '{alias}': {e}")
+            raise RuntimeError(f"Failed to initialize RedisCacheService for alias '{alias}': {e}") from e
 
     elif "MemcachedCache" in backend:
+        logger.info(f"Creating MemcachedService for alias '{alias}'")
         return MemcachedService(alias)
 
     elif "DatabaseCache" in backend:
+        logger.info(f"Creating DatabaseCacheService for alias '{alias}'")
         return DatabaseCacheService(alias)
 
     elif "FileBasedCache" in backend:
+        logger.info(f"Creating FileBasedCacheService for alias '{alias}'")
         return FileBasedCacheService(alias)
 
     elif "DummyCache" in backend:
+        logger.info(f"Creating DummyCacheService for alias '{alias}'")
         return DummyCacheService(alias)
 
     # Fallback if unrecognized
+    logger.warning(f"Unrecognized cache backend '{backend}' for alias '{alias}'. Falling back to DummyCacheService.")
     return DummyCacheService(alias)

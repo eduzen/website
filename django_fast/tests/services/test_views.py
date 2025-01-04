@@ -19,7 +19,8 @@ class CacheExplorerViewTests(TestCase):
     def test_access_for_non_staff(self):
         self.client.login(username="regular", password="password")
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 403)  # Forbidden
+        self.assertEqual(response.status_code, 302)  # Redirect to login page
+        self.assertRedirects(response, f"{reverse('admin:login')}?next={self.url}")
 
     def test_render_cache_settings(self):
         self.client.login(username="staff", password="password")

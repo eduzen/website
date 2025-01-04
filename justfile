@@ -40,7 +40,7 @@ shell: copy-env
 dockershell: shell
 
 mypy:
-  {{MANAGE}} mypy .
+  {{UV}} mypy .
 
 check:
   {{MANAGE}} check --deploy

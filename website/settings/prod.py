@@ -53,7 +53,7 @@ RELEASE = config("SENTRY_RELEASE", default="0.0.0+dev")
 if (not DEBUG) and SENTRY_DSN:
     sentry_sdk.init(
         dsn=SENTRY_DSN,  # type: ignore
-        release=RELEASE,  # type: ignore\
+        release=RELEASE,  # type: ignore
         enable_tracing=True,
         traces_sample_rate=0.20,
         profiles_sample_rate=0.20,

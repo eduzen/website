@@ -1,9 +1,13 @@
 # services/caches.py
 import abc
 import datetime
+import logging
 from typing import Any
 
+import redis
 from django.core.cache import caches
+
+logger = logging.getLogger(__name__)
 
 
 class AbstractCacheService(abc.ABC):
@@ -32,56 +36,58 @@ class AbstractCacheService(abc.ABC):
 class RedisCacheService(AbstractCacheService):
     """Redis-specific implementation."""
 
-    def __init__(self, alias: str, redis_connection=None):
+    def __init__(self, alias: str, redis_connection: redis.Redis):
         super().__init__(alias)
+        if not redis_connection:
+            raise ValueError("A valid Redis connection must be provided for RedisCacheService.")
         self.redis_connection = redis_connection
 
     def ping(self) -> bool:
-        if self.redis_connection:
-            try:
-                return self.redis_connection.ping() is True
-            except Exception:
-                return False
-        else:
-            # Fallback: do a simple set/get using Django’s cache if supported
-            try:
-                self.cache.set("redis_ping_check", "ok", timeout=5)
-                return self.cache.get("redis_ping_check") == "ok"
-            except Exception:
-                return False
+        """Check if Redis is alive by pinging the server."""
+        try:
+            return self.redis_connection.ping()
+        except redis.ConnectionError:
+            logger.error("Error pinging Redis.")
+            return False
+        except redis.RedisError:
+            logger.error("Redis error.")
+            return False
 
     def clear_cache(self) -> None:
-        self.cache.clear()
+        """Flush the entire Redis cache."""
+        try:
+            self.redis_connection.flushdb()
+        except redis.RedisError as e:
+            raise RuntimeError(f"Failed to clear Redis cache: {e}")
 
     def get_stats(self) -> dict[str, Any]:
         stats = {}
-        if self.redis_connection:
-            # Example: gather memory and keyspace info from direct Redis connection
-            try:
-                mem_info = self.redis_connection.info("memory")
-                stats["used_memory_human"] = mem_info.get("used_memory_human", "N/A")
-                stats["used_memory_peak_human"] = mem_info.get("used_memory_peak_human", "N/A")
+        try:
+            mem_info = self.redis_connection.info("memory")
+            stats["used_memory_human"] = mem_info.get("used_memory_human", "N/A")
+            stats["used_memory_peak_human"] = mem_info.get("used_memory_peak_human", "N/A")
 
-                keyspace_info = self.redis_connection.info("keyspace")
-                readable_keyspace = {}
-                for db, db_stats in keyspace_info.items():
-                    readable_keyspace[db] = db_stats.copy()
-                    if "avg_ttl" in db_stats:
-                        readable_keyspace[db]["avg_ttl"] = self._format_ttl(db_stats["avg_ttl"])
+            keyspace_info = self.redis_connection.info("keyspace")
+            readable_keyspace = {}
+            for db, db_stats in keyspace_info.items():
+                readable_keyspace[db] = db_stats.copy()
+                if "avg_ttl" in db_stats:
+                    readable_keyspace[db]["avg_ttl"] = self._format_ttl(db_stats["avg_ttl"])
 
-                stats["keyspace"] = readable_keyspace
-                # total keys
-                stats["dbsize"] = self.redis_connection.dbsize()
-            except Exception as exc:
-                stats["error"] = str(exc)
-        else:
-            # Fallback using Django’s cache interface (limited: .keys, .ttl)
-            try:
-                all_keys = self.cache.keys("*")
-                stats["keys_count"] = len(all_keys)
-                stats["sample_ttl"] = {k: self.cache.ttl(k) for k in all_keys[:5]}
-            except AttributeError:
-                stats["message"] = "Backend does not support .keys() or .ttl()."
+            stats["keyspace"] = readable_keyspace
+            stats["dbsize"] = self.redis_connection.dbsize()
+
+            # Additional Stats: Keys Count and Sample TTL
+            # Caution: The KEYS command can be slow on large databases
+            all_keys = self.redis_connection.keys("*")
+            stats["keys_count"] = len(all_keys)
+            # Fetch TTLs for a sample of keys
+            sample_keys = all_keys[:5]
+            stats["sample_ttl"] = {key.decode("utf-8"): self.redis_connection.ttl(key) for key in sample_keys}
+        except Exception as exc:
+            logger.error("Error fetching Redis stats.")
+            stats["error"] = str(exc)
+
         return stats
 
     def _format_ttl(self, ttl_ms: int) -> str:
@@ -111,7 +117,7 @@ class MemcachedService(AbstractCacheService):
         #    self.cache._cache.get_stats()
         # But this is very library-specific.
         try:
-            mem_stats = self.cache._cache.get_stats()
+            mem_stats = self.cache._cache.get_stats()  # type: ignore
             # parse results
             return {"raw_stats": mem_stats}
         except Exception:
