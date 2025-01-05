@@ -1,0 +1,137 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Cache Detail: {{ alias }}{% endblock %}
+
+{% block extrastyle %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+<style>
+.back-link {
+    text-decoration: none;
+    color: currentColor;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    transition: color 0.2s ease-in-out;
+}
+
+.back-link:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+button.default {
+    background-color: var(--primary-color, #007bff); /* Primary color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Enhance the theme-switch button */
+button.theme-toggle, a.theme-toggle {
+    background-color: var(--primary-color, #007bff); /* Primary color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+button.theme-toggle:hover, a.theme-toggle:hover {
+    background-color: var(--primary-hover-color, #0056b3); /* Darker shade on hover */
+    transform: scale(1.05); /* Slight zoom-in */
+}
+
+/* Active/focus effect */
+button.theme-toggle:active, a.theme-toggle:active {
+    transform: scale(1);
+    background-color: var(--primary-active-color, #003d80); /* Even darker shade */
+}
+
+.row-hover:hover {
+  background-color: var(--hover-bg-color, rgba(95, 153, 224, 0.51)); /* Light mode fallback */
+}
+
+body[data-theme='dark'] .row-hover:hover {
+  background-color: rgb(74, 77, 79); /* Dark mode hover color */
+}
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+<a href="{% url 'cache_explorer' %}" class="back-link">
+  ← Back to Cache Explorer
+</a>
+
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% else %}
+  <h2>Statistics</h2>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for key, value in stats.items %}
+        {% if key == "keyspace" %}
+          <tr class="row-hover">
+            <td>{{ key }}</td>
+            <td>
+              <ul>
+                {% for db, db_stats in value.items %}
+                  <li><strong>{{ db }}</strong>:</li>
+                  <ul>
+                    {% for stat_key, stat_value in db_stats.items %}
+                      <li>{{ stat_key }}: {{ stat_value }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        {% else %}
+          <tr class="row-hover">
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+    <div style="display: inline-block; margin-top: 20px; margin-right: 10px;">
+      <!-- Clear Cache form -->
+      <form method="post" action="{% url 'cache_clear' alias=alias %}" style="display: inline-block; margin-right: 10px;">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="clear" />
+          <button class="default" type="submit">Clear Cache</button>
+      </form>
+
+      <!-- Ping Cache form -->
+      <form method="post" action="{% url 'cache_ping' alias=alias %}" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="ping" />
+          <button class="default" type="submit">Ping Cache</button>
+      </form>
+  </div>
+{% endif %}
+{% endblock content %}
