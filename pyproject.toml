@@ -25,6 +25,7 @@ dependencies = [
   "django-robots",
   "django-storages[google]",
   "django-debug-toolbar",
+  "django-browser-reload",
   "djangorestframework",
   "django-rosetta",
   "dj-database-url",
@@ -43,8 +44,9 @@ dependencies = [
   "whitenoise[brotli]",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
+  "pre-commit>=4.0.1",
   "coverage",
   "ipdb",
   "ipython",
@@ -58,10 +60,6 @@ dev = [
   "pytest-recording",
   "types-redis",
   "types-requests",
-  "django-browser-reload",
-  "pre-commit",
-]
-types = [
   "types-redis",
   "types-requests",
   "django-stubs[compatible-mypy]",
@@ -130,7 +128,6 @@ exclude = [
 
 [tool.django-stubs]
 django_settings_module = "website.settings.dev"
-
 
 [[tool.mypy.overrides]]
 module = [

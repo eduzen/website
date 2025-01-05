@@ -100,7 +100,7 @@ name = "cffi"
 version = "1.17.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pycparser" },
+    { name = "pycparser", marker = "platform_python_implementation != 'PyPy'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/fc/97/c783634659c2920c3fc70419e3af40972dbaf758daa229a7d6ea6135c90d/cffi-1.17.1.tar.gz", hash = "sha256:1c39c6016c32bc48dd54561950ebd6836e1670f2ae46128f67cf49e789c52824", size = 516621 }
 wheels = [
@@ -1738,6 +1738,7 @@ dependencies = [
     { name = "crispy-tailwind" },
     { name = "dj-database-url" },
     { name = "django" },
+    { name = "django-browser-reload" },
     { name = "django-ckeditor" },
     { name = "django-cors-headers" },
     { name = "django-crispy-forms" },
@@ -1765,10 +1766,11 @@ dependencies = [
     { name = "whitenoise", extra = ["brotli"] },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "coverage" },
-    { name = "django-browser-reload" },
+    { name = "django-filter-stubs" },
+    { name = "django-stubs", extra = ["compatible-mypy"] },
     { name = "factory-boy" },
     { name = "ipdb" },
     { name = "ipython" },
@@ -1780,12 +1782,6 @@ dev = [
     { name = "pytest-recording" },
     { name = "pytest-sugar" },
     { name = "pytest-xdist" },
-    { name = "types-redis" },
-    { name = "types-requests" },
-]
-types = [
-    { name = "django-filter-stubs" },
-    { name = "django-stubs", extra = ["compatible-mypy"] },
     { name = "types-beautifulsoup4" },
     { name = "types-factory-boy" },
     { name = "types-pygments" },
@@ -1796,56 +1792,58 @@ types = [
 [package.metadata]
 requires-dist = [
     { name = "beautifulsoup4" },
-    { name = "coverage", marker = "extra == 'dev'" },
     { name = "crispy-tailwind" },
     { name = "dj-database-url" },
     { name = "django" },
-    { name = "django-browser-reload", marker = "extra == 'dev'" },
+    { name = "django-browser-reload" },
     { name = "django-ckeditor" },
     { name = "django-cors-headers" },
     { name = "django-crispy-forms" },
     { name = "django-debug-toolbar" },
     { name = "django-extensions" },
     { name = "django-filter" },
-    { name = "django-filter-stubs", marker = "extra == 'types'" },
     { name = "django-htmx" },
     { name = "django-image-cropping" },
     { name = "django-robots" },
     { name = "django-rosetta" },
     { name = "django-storages", extras = ["google"] },
-    { name = "django-stubs", extras = ["compatible-mypy"], marker = "extra == 'types'" },
     { name = "djangorestframework" },
     { name = "easy-thumbnails" },
-    { name = "factory-boy", marker = "extra == 'dev'" },
     { name = "gevent" },
     { name = "gunicorn" },
-    { name = "ipdb", marker = "extra == 'dev'" },
-    { name = "ipython", marker = "extra == 'dev'" },
     { name = "markdown" },
-    { name = "mypy", marker = "extra == 'dev'" },
     { name = "openai" },
     { name = "pillow" },
-    { name = "pre-commit", marker = "extra == 'dev'" },
     { name = "psycopg2-binary" },
     { name = "pygments" },
-    { name = "pytest", marker = "extra == 'dev'" },
-    { name = "pytest-django", marker = "extra == 'dev'" },
-    { name = "pytest-mock", marker = "extra == 'dev'" },
-    { name = "pytest-recording", marker = "extra == 'dev'" },
-    { name = "pytest-sugar", marker = "extra == 'dev'" },
-    { name = "pytest-xdist", marker = "extra == 'dev'" },
     { name = "python-decouple" },
     { name = "redis" },
     { name = "requests" },
     { name = "sentry-sdk", extras = ["django"] },
-    { name = "types-beautifulsoup4", marker = "extra == 'types'" },
-    { name = "types-factory-boy", marker = "extra == 'types'" },
-    { name = "types-pygments", marker = "extra == 'types'" },
-    { name = "types-redis", marker = "extra == 'dev'" },
-    { name = "types-redis", marker = "extra == 'types'" },
-    { name = "types-requests", marker = "extra == 'dev'" },
-    { name = "types-requests", marker = "extra == 'types'" },
     { name = "whitenoise", extras = ["brotli"] },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "coverage" },
+    { name = "django-filter-stubs" },
+    { name = "django-stubs", extras = ["compatible-mypy"] },
+    { name = "factory-boy" },
+    { name = "ipdb" },
+    { name = "ipython" },
+    { name = "mypy" },
+    { name = "pre-commit", specifier = ">=4.0.1" },
+    { name = "pytest" },
+    { name = "pytest-django" },
+    { name = "pytest-mock" },
+    { name = "pytest-recording" },
+    { name = "pytest-sugar" },
+    { name = "pytest-xdist" },
+    { name = "types-beautifulsoup4" },
+    { name = "types-factory-boy" },
+    { name = "types-pygments" },
+    { name = "types-redis" },
+    { name = "types-requests" },
 ]
 
 [[package]]

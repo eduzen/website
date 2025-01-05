@@ -1,5 +1,6 @@
 import sentry_sdk
 from decouple import Csv, config
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
 from .base import LOG_LEVEL  # noqa
@@ -53,6 +54,15 @@ if (not DEBUG) and SENTRY_DSN:
     sentry_sdk.init(
         dsn=SENTRY_DSN,  # type: ignore
         release=RELEASE,  # type: ignore
-        traces_sample_rate=0.10,
-        profiles_sample_rate=0.10,
+        enable_tracing=True,
+        traces_sample_rate=0.20,
+        profiles_sample_rate=0.20,
+        integrations=[
+            DjangoIntegration(
+                cache_spans=True,
+                transaction_style="url",
+                middleware_spans=True,
+                signals_spans=True,
+            )
+        ],
     )
