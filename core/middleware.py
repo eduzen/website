@@ -1,9 +1,7 @@
-import logging
 from collections.abc import Callable
 
+import logfire
 from django.http import HttpRequest, HttpResponse
-
-logger = logging.getLogger(__name__)
 
 
 class CloudflareMiddleware:
@@ -39,6 +37,6 @@ class CloudflareMiddleware:
             ip = request.headers.get("CF-Connecting-IP", request.META["REMOTE_ADDR"])
             request.ip = ip  # type: ignore
         except KeyError:
-            logger.warning("REMOTE_ADDR header not found in request.")
+            logfire.warning("REMOTE_ADDR header not found in request.")
 
         return self.get_response(request)

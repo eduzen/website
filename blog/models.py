@@ -1,5 +1,3 @@
-import logging
-
 from ckeditor_uploader.fields import RichTextUploadingField  # type: ignore
 from django.db import models
 from django.db.models import Count
@@ -7,8 +5,6 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from image_cropping import ImageRatioField  # type: ignore
-
-logger = logging.getLogger(__name__)
 
 
 class Tag(models.Model):

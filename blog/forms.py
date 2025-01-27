@@ -1,6 +1,6 @@
-import logging
 from typing import Any
 
+import logfire
 from crispy_forms.helper import FormHelper  # type: ignore
 from crispy_forms.layout import Field, Layout, Submit  # type: ignore
 from django import forms
@@ -9,8 +9,6 @@ from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 
 from blog.services.captcha import verify_captcha
-
-logger = logging.getLogger(__name__)
 
 msg = _("Message")
 email = _("Email")
@@ -38,7 +36,7 @@ class EmailForm(forms.Form):
     def send_email(self):
         data = self._prepare_data()
         send_mail(**data)
-        logger.info(f"{data} sent to me")
+        logfire.info(f"{data} sent to me")
 
     def __str__(self):
         return f"<Form from {self.data}>"

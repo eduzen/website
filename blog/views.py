@@ -1,7 +1,7 @@
 import datetime as dt
-import logging
 from typing import Any
 
+import logfire
 from django.contrib.auth.decorators import login_required
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
@@ -17,8 +17,6 @@ from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
 from .services.parsers import apply_styles
 from .services.telegram import send_contact_message
-
-logger = logging.getLogger(__name__)
 
 MIN = 60
 HOUR = 60 * MIN
@@ -177,9 +175,9 @@ class ContactView(HtmxGetMixin, FormView):
 
         try:
             response = send_contact_message(**context)
-            logger.info(response)
+            logfire.info(response)
         except Exception:
-            logger.exception("Contact problems")
+            logfire.exception("Contact problems")
             return redirect(self.error_url)
 
         return render(self.request, "blog/success.html", context)

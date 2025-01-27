@@ -1,0 +1,10 @@
+<!-- mycache/templates/debug_toolbar/panels/cache.html -->
+<h2>Cache Status ({{ panel.stats.backend }})</h2>
+<table>
+    {% for key, value in panel.stats.status.items %}
+    <tr>
+        <th>{{ key }}</th>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+</table>

@@ -1,11 +1,8 @@
-import logging
-
+import logfire
 from django.conf import settings
 from openai import OpenAI
 
 from blog.models import Post
-
-logger = logging.getLogger(__name__)
 
 client = OpenAI(
     api_key=settings.OPENAI_API_KEY,
@@ -17,15 +14,15 @@ gpt_models = {"3-5": "gpt-3.5-turbo-16k-0613", "3-5-16": "gpt-3.5-turbo-16k"}
 
 def ask_openai(prompt: str) -> str:
     try:
-        logger.debug(f"Sending prompt to chatgpt: {prompt}")
+        logfire.debug(f"Sending prompt to chatgpt: {prompt}")
         response = client.chat.completions.create(
             model=gpt_models["3-5-16"], messages=[{"role": "user", "content": prompt}]
         )
         content = response["choices"][0]["message"]["content"].replace('"', "")  # type: ignore
-        logger.debug(f"Chatgpt answer: {content}")
+        logfire.debug(f"Chatgpt answer: {content}")
         return content
     except Exception as e:
-        logger.error(f"Error asking chatgpt: {e}")
+        logfire.error(f"Error asking chatgpt: {e}")
         raise
 
 
@@ -79,4 +76,4 @@ def improve_blog_post(post: Post) -> None:
         suggestions = blog_post_suggestion(post)  # type: ignore
         Post.objects.filter(id=post.pk).update(suggestions=suggestions)
     except Exception as e:
-        logger.error(f"Error improving post title for {post}: {e}")
+        logfire.error(f"Error improving post title for {post}: {e}")

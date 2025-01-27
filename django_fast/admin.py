@@ -1,7 +1,14 @@
 from django.contrib import admin
 
-from .models import CacheExplorer
+from .models import CacheExplorer, RequestProfile
 from .views import CacheExplorerView
+
+
+@admin.register(RequestProfile)
+class RequestProfileAdmin(admin.ModelAdmin):
+    list_display = ("method", "path", "status_code", "user", "duration_ms", "start_time")
+    list_filter = ("method", "status_code")
+    search_fields = ("path", "user__username")
 
 
 @admin.register(CacheExplorer)

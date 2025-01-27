@@ -1,13 +1,11 @@
 # services/caches.py
 import abc
 import datetime
-import logging
 from typing import Any
 
+import logfire
 import redis
 from django.core.cache import caches
-
-logger = logging.getLogger(__name__)
 
 
 class AbstractCacheService(abc.ABC):
@@ -47,10 +45,10 @@ class RedisCacheService(AbstractCacheService):
         try:
             return self.redis_connection.ping()
         except redis.ConnectionError:
-            logger.error("Error pinging Redis.")
+            logfire.error("Error pinging Redis.")
             return False
         except redis.RedisError:
-            logger.error("Redis error.")
+            logfire.error("Redis error.")
             return False
 
     def clear_cache(self) -> None:
@@ -85,7 +83,7 @@ class RedisCacheService(AbstractCacheService):
             sample_keys = all_keys[:5]
             stats["sample_ttl"] = {key.decode("utf-8"): self.redis_connection.ttl(key) for key in sample_keys}
         except Exception as exc:
-            logger.error("Error fetching Redis stats.")
+            logfire.error("Error fetching Redis stats.")
             stats["error"] = str(exc)
 
         return stats

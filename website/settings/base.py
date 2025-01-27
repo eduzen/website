@@ -9,8 +9,6 @@ from easy_thumbnails.conf import Settings as thumbnail_settings  # type: ignore
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SITE_ID = 1
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY", default="django-insecure-)b*6^n!osj#+4-*5aag6d106&@haowpc9_c0**nvw-sg#e-c9h")
@@ -72,6 +70,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.CloudflareMiddleware",
+    "django_fast.middleware.ProfilerMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"
@@ -97,7 +96,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "website.wsgi.application"
 
 # Database
-DATABASES = {"default": config("DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3", cast=db_url)}
+DATABASES = {
+    'default': config(
+        'DATABASE_URL',
+        default=f"sqlite:///{BASE_DIR}/db.sqlite3",
+        cast=db_url
+    )
+}
+
+DATABASES['default']["OPTIONS"] = {"pool": True}  # NOQA
 
 
 # Password validation

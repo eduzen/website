@@ -29,19 +29,20 @@ dependencies = [
   "djangorestframework",
   "django-rosetta",
   "dj-database-url",
-  "easy_thumbnails",  # Needed for django-image-cropping
+  "easy_thumbnails", # Needed for django-image-cropping
   "gunicorn",
   "gevent",
   "Markdown",
   "openai",
   "Pillow",
   "python-decouple",
-  "psycopg2-binary",
+  "psycopg[pool]",
   "pygments",
   "redis",
   "sentry-sdk[django]",
   "requests",
   "whitenoise[brotli]",
+  "logfire[django,psycopg,sqlite3,redis,requests]>=3.3.0",
 ]
 
 [dependency-groups]
