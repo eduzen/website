@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 from django.contrib.auth.models import User
-from django.test import Client, SimpleTestCase, TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
 
 from blog.tests.factories import PostFactory
@@ -15,7 +15,7 @@ def test_media_view_not_found(client, url):
     assert response.status_code == 404
 
 
-class FaviconTests(SimpleTestCase):
+class FaviconTests(TestCase):
     def test_get(self):
         response = self.client.get("/favicon.ico")
 
@@ -25,7 +25,7 @@ class FaviconTests(SimpleTestCase):
         assert response.content.startswith(b"<svg")
 
 
-class LanguageDropdownViewTest(SimpleTestCase):
+class LanguageDropdownViewTest(TestCase):
     def test_language_dropdown_renders_correct_template(self):
         # Use the reverse() function to get the URL of the view.
         # Assuming the name of the URL pattern for this view is 'language_dropdown'

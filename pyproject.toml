@@ -71,8 +71,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb"
-filterwarnings = []
+addopts = "--ds=website.settings.test"
 
 [tool.isort]
 profile = "black"
