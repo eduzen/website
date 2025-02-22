@@ -13,9 +13,12 @@ class TestPublicViews(TestCase):
         cls.user = UserFactory.create()
         cls.tags = TagFactory.create_batch(2)
         cls.posts = PostFactory.create_batch(3, author=cls.user, tags=cls.tags)
+        cls.draft_post = PostFactory.create(author=cls.user, published_date=None)
 
     def setUp(self):
         activate("en")
+        self.post_detail_url = reverse("blog_slug", kwargs={"slug": self.posts[0].slug})
+        self.post_list_url = reverse("post_list")
 
     def test_home_view(self):
         home_url = reverse("home")
