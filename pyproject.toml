@@ -43,6 +43,7 @@ dependencies = [
   "requests",
   "whitenoise[brotli]",
   "logfire[django,psycopg,sqlite3,redis,requests]>=3.3.0",
+  "pydantic-ai-slim[logfire,openai]>=0.0.24",
 ]
 
 [dependency-groups]

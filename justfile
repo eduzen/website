@@ -66,3 +66,6 @@ test:
 
 showurls:
   {{MANAGE}} show_urls
+
+improve-posts:
+  {{MANAGE}} improve_posts
