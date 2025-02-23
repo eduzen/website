@@ -43,6 +43,7 @@ dependencies = [
   "requests",
   "whitenoise[brotli]",
   "logfire[django,psycopg,sqlite3,redis,requests]>=3.3.0",
+  "pydantic-ai-slim[logfire,openai]>=0.0.24",
 ]
 
 [dependency-groups]
@@ -71,8 +72,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--ds=website.settings.test --pdbcls=IPython.terminal.debugger:Pdb"
-filterwarnings = []
+addopts = "--ds=website.settings.test"
 
 [tool.isort]
 profile = "black"
