@@ -19,7 +19,7 @@ repos:
       - id: debug-statements
 
   - repo: https://github.com/crate-ci/typos
-    rev: typos-dict-v0.12.4
+    rev: v1.30.0
     hooks:
       - id: typos
 
@@ -48,14 +48,14 @@ repos:
         args: [--py313]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.9.6'
+    rev: 'v0.9.9'
     hooks:
       - id: ruff
         args: ["--fix"]
       - id: ruff-format
 
   - repo: https://github.com/PyCQA/isort
-    rev: 6.0.0
+    rev: 6.0.1
     hooks:
       - id: isort
         args: ["--profile", "black", "--filter-files"]
