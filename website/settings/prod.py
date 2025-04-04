@@ -1,9 +1,14 @@
+import logfire
 import sentry_sdk
 from decouple import Csv, config
 from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
 from .base import LOG_LEVEL  # noqa
+
+logfire.configure(send_to_logfire="if-token-present", environment="production")
+logfire.instrument_django()
+logfire.instrument_psycopg()
 
 DEBUG = False
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=".eduzen.com.ar,.eduardoenriquez.com.ar,.eduzen.ar", cast=Csv())

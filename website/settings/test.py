@@ -1,4 +1,10 @@
+import logfire
+
 from .base import *  # noqa
+
+logfire.configure(send_to_logfire='if-token-present', environment="local")
+logfire.instrument_django()
+logfire.instrument_psycopg()
 
 DEBUG = False
 TEMPLATE_DEBUG = False

@@ -39,7 +39,6 @@ repos:
     rev: "1.24.0"
     hooks:
     -   id: django-upgrade
-        args: [--target-version, "5.1"]
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.19.1

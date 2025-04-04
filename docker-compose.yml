@@ -9,7 +9,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: ${TARGET:-development}
-    command: python manage.py runserver --nothreading
     tty: true
     develop:
       # Create a `watch` configuration to update the appl

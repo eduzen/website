@@ -1,15 +1,9 @@
 from pathlib import Path
 
-import logfire
 from decouple import Csv, config
 from dj_database_url import parse as db_url
 from django.utils.translation import gettext_lazy as _
 from easy_thumbnails.conf import Settings as thumbnail_settings  # type: ignore
-
-logfire.configure(send_to_logfire='if-token-present')
-logfire.instrument_django()
-logfire.instrument_psycopg()
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

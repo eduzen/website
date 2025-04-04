@@ -34,6 +34,9 @@ restart:
 stop:
   {{DCO}} down
 
+down:
+  just stop
+
 hard-stop:
   {{DCO}} down -v
 
