@@ -37,9 +37,13 @@ def get_better_title(title: str) -> str:
     )
 
     logfire.debug(f"Asking pydantic-ai for an improved title:\n{prompt}")
-    response = agent.run_sync(prompt)
-    improved_title = response.data.title
-    logfire.debug(f"Improved title: {improved_title}")
+    try:
+        response = agent.run_sync(prompt)
+        improved_title = response.data.title
+        logfire.debug(f"Improved title: {improved_title}")
+    except Exception as e:
+        logfire.error(f"Error getting improved title: {e}")
+        raise
     return improved_title
 
 
