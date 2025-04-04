@@ -5,7 +5,14 @@ UV := "docker compose run --rm web uv run"
 MANAGE := "docker compose run --rm web uv run manage.py"
 
 copy-env:
-    @if [ ! -f .env ]; then cp .env.sample .env; fi
+    @if [ ! -f .env ]; then \
+        if [ -f .env.sample ]; then \
+            cp .env.sample .env; \
+        else \
+            echo ".env.sample not found, creating empty .env"; \
+            touch .env; \
+        fi; \
+    fi
 
 fmt:
   uv run pre-commit run --all-files
@@ -52,7 +59,7 @@ makemigrations:
   {{MANAGE}} makemigrations
 
 createsuperuser username='admin':
-  {{MANAGE}} createsuperuser --username {{username}}
+  {{MANAGE}} createsuperuser --username "{{username}}" --email "{{username}}@example.com" --noinput
 
 coverage:
   {{DCO}} run --rm web uv run coverage run -m pytest

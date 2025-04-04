@@ -10,13 +10,11 @@ from pydantic_ai.models import KnownModelName
 from blog.models import Post
 
 
-# 1. A Pydantic model that describes the result we expect from the model
 class TitleSummaryModel(BaseModel):
     title: str
     summary: str
 
 
-# 2. Choose which model to use
 model = cast(KnownModelName, settings.PYDANTIC_AI_MODEL)
 agent = Agent(model, result_type=TitleSummaryModel)
 
