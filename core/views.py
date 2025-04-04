@@ -1,7 +1,7 @@
 import json
 
 import logfire
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.cache import cache_control
@@ -18,7 +18,6 @@ def language_dropdown(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-@permission_required("blog.change_post")
 def chatgpt_improve_post(request: HttpRequest, post_id: int) -> HttpResponse:
     try:
         post = Post.objects.get(pk=post_id)
@@ -32,7 +31,7 @@ def chatgpt_improve_post(request: HttpRequest, post_id: int) -> HttpResponse:
         else:
             return HttpResponse(status=204)
     except Post.DoesNotExist:
-        return HttpResponse("Post not found", status=404, content_type="text/html")
+        return HttpResponse(status=404)
     except Exception:
         logfire.exception("Error improving post")
         return HttpResponse("An internal error occurred.", status=500, content_type="text/html")
