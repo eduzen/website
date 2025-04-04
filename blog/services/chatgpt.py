@@ -1,79 +1,93 @@
+# blog/services/chatgpt.py
+from typing import cast
+
 import logfire
 from django.conf import settings
-from openai import OpenAI
+from pydantic import BaseModel
+from pydantic_ai import Agent
+from pydantic_ai.models import KnownModelName
 
 from blog.models import Post
 
-client = OpenAI(
-    api_key=settings.OPENAI_API_KEY,
-    organization=settings.OPENAI_ORGANIZATION,
-)
 
-gpt_models = {"3-5": "gpt-3.5-turbo-16k-0613", "3-5-16": "gpt-3.5-turbo-16k"}
+class TitleSummaryModel(BaseModel):
+    title: str
+    summary: str
 
 
-def ask_openai(prompt: str) -> str:
-    try:
-        logfire.debug(f"Sending prompt to chatgpt: {prompt}")
-        response = client.chat.completions.create(
-            model=gpt_models["3-5-16"], messages=[{"role": "user", "content": prompt}]
-        )
-        content = response["choices"][0]["message"]["content"].replace('"', "")  # type: ignore
-        logfire.debug(f"Chatgpt answer: {content}")
-        return content
-    except Exception as e:
-        logfire.error(f"Error asking chatgpt: {e}")
-        raise
+model = cast(KnownModelName, settings.PYDANTIC_AI_MODEL)
+agent = Agent(model, result_type=TitleSummaryModel)
 
 
 def get_better_title(title: str) -> str:
+    """
+    Returns a single improved title for the given blog post title
+    using pydantic-ai + OpenAI (GPT-4 or whichever you've set).
+    """
     prompt = (
-        "Given the language and context of the following title, provide a captivating and"
-        "improved title that will intrigue readers. Not too serious."
-        "Constrains:"
-        "    - The word title doesn't need to appear in the text.\n"
+        "Given the language and context of the following title, provide a captivating and "
+        "improved title that will intrigue readers. Not too serious. "
+        "Constraints:\n"
+        "    - The word 'title' doesn't need to appear.\n"
         "    - I need only one suggested title.\n"
-        "    - The max length is 200, but I would like to keep it shorter like 50 or 80.\n"
-        "    - Please respect the language of the text."
-        "    If it is in spanish, give me a title in spanish\n"
-        "    If it's english, give me a title in english.\n"
-        f"The title of my blog post is: '{title}'."
+        "    - The max length is 200, ideally shorter (50–80).\n"
+        "    - Please respect the language of the text.\n"
+        "If it is Spanish, respond in Spanish. If English, respond in English.\n"
+        f"Title: '{title}'"
     )
 
-    response = ask_openai(prompt)
-    return response
+    logfire.debug(f"Asking pydantic-ai for an improved title:\n{prompt}")
+    try:
+        response = agent.run_sync(prompt)
+        improved_title = response.data.title
+        logfire.debug(f"Improved title: {improved_title}")
+    except Exception as e:
+        logfire.error(f"Error getting improved title: {e}")
+        raise
+    return improved_title
 
 
 def get_better_summary(text: str) -> str:
+    """
+    Returns a single improved summary for the given blog post content
+    using pydantic-ai + OpenAI.
+    """
     prompt = (
-        "Given the language and context of the following blog post content,"
-        " provide a concise and intriguing summary that captures its essence. "
-        f"The content of my blog post is: '{text}'."
-        "Constrains:"
-        "1) the word summary doesn't need to appear in the text.\n"
-        "2) The max length is 300, but I would like to keep it around 200.\n"
-        "3) Please respect the language of the text."
-        " If it is in spanish, give me a summary in spanish\n"
-        " If it's english, give me a summary in english.\n"
+        "Given the language and context of the following blog post content, "
+        "provide a concise and intriguing summary that captures its essence.\n"
+        "Constraints:\n"
+        "1) The word 'summary' doesn't need to appear.\n"
+        "2) The max length is 300, ideally ~200.\n"
+        "3) Respect the language of the text: if Spanish, respond in Spanish; if English, in English.\n"
         "4) Only one summary is needed.\n"
+        f"Content: '{text}'"
     )
-    response = ask_openai(prompt)
-    return response
+
+    logfire.debug(f"Asking pydantic-ai for an improved summary:\n{prompt}")
+    response = agent.run_sync(prompt)
+    improved_summary = response.data.summary
+    logfire.debug(f"Improved summary: {improved_summary}")
+    return improved_summary
 
 
 def blog_post_suggestion(post: Post) -> dict[str, str]:
+    """
+    Generates a new title and summary for the given Post model instance
+    and returns them as a dictionary.
+    """
     title = get_better_title(post.title)
     summary = get_better_summary(post.text)
-
     return {"title": title, "summary": summary}
 
 
 def improve_blog_post(post: Post) -> None:
     """
-    Improve the post title and summary using chatgpt.
+    Improves the post title and summary using pydantic-ai,
+    then updates the 'suggestions' field (assuming your model can store it).
     """
     try:
-        suggestions = blog_post_suggestion(post)  # type: ignore
-        Post.objects.filter(id=post.pk).update(suggestions=suggestions)
+        suggestions = blog_post_suggestion(post)
+        Post.objects.filter(id=post.id).update(suggestions=suggestions)
     except Exception as e:
         logfire.error(f"Error improving post title for {post}: {e}")
+        raise

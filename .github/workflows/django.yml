@@ -15,6 +15,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/github_actions
       DJANGO_SETTINGS_MODULE: website.settings.test
       SECRET_KEY: 3573c6f0e4f7793
+      OPENAI_API_KEY: test
 
     services:
       postgres:

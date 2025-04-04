@@ -1,5 +1,11 @@
+import logfire
+
 from .base import *  # noqa
 from .base import INSTALLED_APPS, MIDDLEWARE
+
+logfire.configure(send_to_logfire="if-token-present", environment="local")
+logfire.instrument_django()
+logfire.instrument_psycopg()
 
 DEBUG = True
 ALLOWED_HOSTS = ["*"]

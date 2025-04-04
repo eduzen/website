@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 from django.contrib.auth.models import User
-from django.test import Client, SimpleTestCase, TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
 
 from blog.tests.factories import PostFactory
@@ -15,7 +15,7 @@ def test_media_view_not_found(client, url):
     assert response.status_code == 404
 
 
-class FaviconTests(SimpleTestCase):
+class FaviconTests(TestCase):
     def test_get(self):
         response = self.client.get("/favicon.ico")
 
@@ -25,7 +25,7 @@ class FaviconTests(SimpleTestCase):
         assert response.content.startswith(b"<svg")
 
 
-class LanguageDropdownViewTest(SimpleTestCase):
+class LanguageDropdownViewTest(TestCase):
     def test_language_dropdown_renders_correct_template(self):
         # Use the reverse() function to get the URL of the view.
         # Assuming the name of the URL pattern for this view is 'language_dropdown'
@@ -53,26 +53,47 @@ class ChatGPTImprovePostTest(TestCase):
         wrong_post_id_url = reverse("chatgpt_improve_post", args=[9999])
         response = self.client.get(wrong_post_id_url)
 
-        assert response.status_code == HTTPStatus.OK
-        assert response.content.decode() == "Post not found"
-        mock_improve.assert_not_called()  # Since the post doesn't exist, improve_blog_post shouldn't be called
+        assert response.status_code == HTTPStatus.NOT_FOUND
+        mock_improve.assert_not_called()
 
     @patch("core.views.improve_blog_post")
     def test_post_with_suggestions(self, mock_improve):
-        mock_improve.return_value = None  # Assume this function returns None after modifying the post
-        self.post.suggestions = {"suggestion": "Improved Title"}
+        # Set up post with suggestions
+        self.post.suggestions = {"title": "Improved Title", "summary": "Better summary"}
         self.post.save()
 
         self.client.login(username="testuser", password="12345")
         response = self.client.get(self.url)
-        assert "Improved Title" in response.content.decode()
-        mock_improve.assert_called_once()  # Ensure the function was called
+
+        # Verify response
+        assert response.status_code == HTTPStatus.OK
+        content = response.content.decode()
+        assert "Improved Title" in content
+        assert "Better summary" in content
+        mock_improve.assert_called_once_with(self.post)
 
     @patch("core.views.improve_blog_post")
     def test_post_without_suggestions(self, mock_improve):
-        mock_improve.return_value = None
+        # Ensure post has no suggestions
+        self.post.suggestions = None
+        self.post.save()
+
         self.client.login(username="testuser", password="12345")
         response = self.client.get(self.url)
 
-        assert response.json() == {"message": "No suggestions found!"}
-        mock_improve.assert_called_once()
+        # Verify response is No Content
+        assert response.status_code == HTTPStatus.NO_CONTENT
+        mock_improve.assert_called_once_with(self.post)
+
+    @patch("core.views.improve_blog_post")
+    def test_exception_handling(self, mock_improve):
+        # Make the improve_blog_post function raise an exception
+        mock_improve.side_effect = Exception("Test exception")
+
+        self.client.login(username="testuser", password="12345")
+        response = self.client.get(self.url)
+
+        # Verify response is Internal Server Error
+        assert response.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
+        assert "An internal error occurred" in response.content.decode()
+        mock_improve.assert_called_once_with(self.post)

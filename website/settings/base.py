@@ -225,3 +225,5 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 # ChatGPT:
 OPENAI_ORGANIZATION = config("OPENAI_ORGANIZATION", default="")
 OPENAI_API_KEY = config("OPENAI_API_KEY", default="")
+OPENAI_MODEL = config("OPENAI_MODEL", default="openai:gpt-4o")
+PYDANTIC_AI_MODEL = OPENAI_MODEL

@@ -73,7 +73,7 @@ class ErrorView(TemplateView):
 class AdvanceSearch(FormView):
     template_name = "blog/search.html"
     form_class = AdvanceSearchForm
-    success_url = "/sucess/"
+    success_url = "/success/"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")

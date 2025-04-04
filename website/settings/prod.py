@@ -6,7 +6,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from .base import *  # noqa
 from .base import LOG_LEVEL  # noqa
 
-logfire.configure()
+logfire.configure(send_to_logfire="if-token-present", environment="production")
 logfire.instrument_django()
 logfire.instrument_psycopg()
 

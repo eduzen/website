@@ -42,7 +42,16 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
         "tag_list",
     ]
     list_display_links = ("title",)
-    readonly_fields = ("preview", "pk", "raw_body", "improve_button", "blog_link", "apply_styles")
+    readonly_fields = (
+        "preview",
+        "pk",
+        "raw_body",
+        "improve_button",
+        "blog_link",
+        "apply_styles",
+        "suggested_title",
+        "suggested_summary",
+    )
     prepopulated_fields = {"slug": ("title",)}
     filter_horizontal = ("tags",)
     formfield_overrides = {
@@ -72,6 +81,8 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
             {
                 "classes": ("collapse",),
                 "fields": (
+                    "suggested_title",
+                    "suggested_summary",
                     "suggestions",
                     "improve_button",
                 ),
@@ -88,6 +99,14 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     class Meta:
         js = ("blog/js/htmx.min.1.9.4.js",)
+
+    @admin.display(description="Suggested Title")
+    def suggested_title(self, obj: Post) -> str:
+        return obj.suggestions.get("title", "") if obj.suggestions else ""
+
+    @admin.display(description="Suggested Summary")
+    def suggested_summary(self, obj: Post) -> str:
+        return obj.suggestions.get("summary", "") if obj.suggestions else ""
 
     @admin.display(boolean=True)
     def published(self, obj: Post):

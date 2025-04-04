@@ -2,7 +2,7 @@ import json
 
 import logfire
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
@@ -29,29 +29,29 @@ def chatgpt_improve_post(request: HttpRequest, post_id: int) -> HttpResponse:
             formatted_response = highlight_json(response)
             return HttpResponse(formatted_response, content_type="text/html")
         else:
-            return JsonResponse({"message": "No suggestions found!"}, status=200)
+            return HttpResponse(status=204)
     except Post.DoesNotExist:
-        return HttpResponse("Post not found", content_type="text/html")
-    except Exception as e:
+        return HttpResponse(status=404)
+    except Exception:
         logfire.exception("Error improving post")
-        return HttpResponse(str(e), content_type="text/html")
+        return HttpResponse("An internal error occurred.", status=500, content_type="text/html")
 
 
 class MediaView(RedirectView):
-    is_permanent = True
+    permanent = True
 
     def get_redirect_url(self, *args: list[str | None], **kwargs: dict[str, str]) -> str | None:
         self.url = f"https://media.eduzen.com.ar/{kwargs['path']}"
-        logfire.warn("url redirected %s", (self.url,))
+        logfire.warning("url redirected {url}", url=self.url)
         return super().get_redirect_url(*args, **kwargs)
 
 
 class StaticView(RedirectView):
-    is_permanent = True
+    permanent = True
 
     def get_redirect_url(self, *args: list[str | None], **kwargs: dict) -> str | None:
         self.url = f"https://static.eduzen.com.ar/{kwargs['path']}"
-        logfire.warn("url redirected %s", (self.url,))
+        logfire.warning("url redirected {url}", url=self.url)
         return super().get_redirect_url(*args, **kwargs)
 
 
