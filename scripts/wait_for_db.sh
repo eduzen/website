@@ -3,11 +3,11 @@
 postgres_ready() {
 python << END
 import sys
-import psycopg2
+import psycopg
 
 try:
-    conn = psycopg2.connect("$DATABASE_URL")
-except psycopg2.OperationalError:
+    conn = psycopg.connect("$DATABASE_URL")
+except psycopg.OperationalError:
     sys.exit(-1)
 sys.exit(0)
 END
