@@ -47,8 +47,6 @@ jobs:
         run: uv sync --all-extras
 
       - name: Run Django Check
-        env:
-          DJANGO_SETTINGS_MODULE: website.settings.prod
         run: uv run python manage.py check --deploy
 
       - name: Run Mypy Check

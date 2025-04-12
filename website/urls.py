@@ -1,3 +1,7 @@
+"""
+URL configuration for website project.
+"""
+
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
@@ -25,3 +29,6 @@ if settings.DEBUG:
         path("__reload__/", include("django_browser_reload.urls")),
         path("rosetta/", include("rosetta.urls")),
     ]
+
+handler404 = "core.views.handler404"
+handler500 = "core.views.handler500"

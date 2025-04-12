@@ -1,0 +1,11 @@
+{% load i18n %}
+{% block title %}
+    {% translate "Page Not Found" %}
+{% endblock title %}
+{% block content %}
+    <div class="container mx-auto px-4 py-8 text-center">
+        <h1 class="text-4xl font-bold text-red-500 mb-4">{% translate "404 - Page Not Found" %}</h1>
+        <p class="text-lg text-gray-300 mb-8">{% translate "Oops! The page you are looking for does not exist." %}</p>
+        <a href="/" class="text-blue-400 hover:text-blue-300 underline">{% translate "Go back to Home" %}</a>
+    </div>
+{% endblock content %}

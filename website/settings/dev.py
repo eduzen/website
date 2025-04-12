@@ -1,4 +1,5 @@
 import logfire
+from decouple import config
 
 from .base import *  # noqa
 from .base import INSTALLED_APPS, MIDDLEWARE
@@ -7,7 +8,6 @@ logfire.configure(send_to_logfire="if-token-present", environment="local")
 logfire.instrument_django()
 logfire.instrument_psycopg()
 
-DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 SHELL_PLUS_PRINT_SQL = True
@@ -19,13 +19,15 @@ MEDIA_URL = "https://media.eduzen.ar/"
 
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
 
-INSTALLED_APPS += [
-    "debug_toolbar",
-    "django_browser_reload",
-]
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-MIDDLEWARE = (
-    ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-    + MIDDLEWARE
-    + ["django_browser_reload.middleware.BrowserReloadMiddleware"]
-)
+if DEBUG:
+    INSTALLED_APPS += [
+        "debug_toolbar",
+        "django_browser_reload",
+    ]
+    MIDDLEWARE = (
+        ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+        + MIDDLEWARE
+        + ["django_browser_reload.middleware.BrowserReloadMiddleware"]
+    )
