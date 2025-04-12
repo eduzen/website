@@ -13,6 +13,18 @@ from blog.services.chatgpt import improve_blog_post
 from core.services.pretty import highlight_json
 
 
+def handler404(request: HttpRequest, exception: Exception) -> HttpResponse:
+    """Custom 404 handler."""
+    logfire.warning("Page not found {path}", path=request.path)
+    return render(request, "core/404.html", status=404)
+
+
+def handler500(request: HttpRequest) -> HttpResponse:
+    """Custom 500 handler."""
+    logfire.exception("Internal server error at {path}", path=request.path)
+    return render(request, "core/500.html", status=500)
+
+
 def language_dropdown(request: HttpRequest) -> HttpResponse:
     return render(request, "core/language_dropdown.html")
 

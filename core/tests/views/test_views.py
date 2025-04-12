@@ -97,3 +97,16 @@ class ChatGPTImprovePostTest(TestCase):
         assert response.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
         assert "An internal error occurred" in response.content.decode()
         mock_improve.assert_called_once_with(self.post)
+
+
+class CoreViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_custom_404_page(self):
+        """Test that a non-existent URL returns the custom 404 page."""
+        response = self.client.get("/a-non-existent-url/")
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, "core/404.html")
+        self.assertContains(response, "404 - Page Not Found", status_code=404)
+        self.assertContains(response, "Go back to Home", status_code=404)
