@@ -46,19 +46,21 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function updateActiveLink(event) {
-    if (!event || !event.detail || !event.detail.pathInfo || !event.detail.pathInfo.requestPath) {
-      return; // Exit if no proper event details are provided
-    }
-
     const navLinks = document.querySelectorAll("#main-navbar .nav-link");
     navLinks.forEach(link => {
-      // If the href in the id of the link matches the current path
-      if (event.detail.pathInfo.requestPath.includes(link.id)) {
-        link.classList.add('active-link');
-      } else {
-        link.classList.remove('active-link');
-      }
+      // Remove 'active-link' class from all links
+      link.classList.remove("active-link");
     });
+
+    if (event && event.detail && event.detail.pathInfo && event.detail.pathInfo.requestPath) {
+      const currentPath = event.detail.pathInfo.requestPath;
+      navLinks.forEach(link => {
+        // Add 'active-link' class to the link matching the current path
+        if (currentPath.includes(link.id)) {
+          link.classList.add("active-link");
+        }
+      });
+    }
   }
 
   function handleHTMXEvents() {
