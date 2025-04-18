@@ -1,6 +1,6 @@
 import datetime as dt
 import logging
-from typing import Any
+from typing import Any, cast
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured
@@ -45,13 +45,13 @@ class HtmxGetMixin(TemplateResponseMixin):
     Uses `partial_template_name` for HTMX and `template_name` otherwise.
     """
 
-    request: HtmxHttpRequest
-
     template_name: str | None = None
     partial_template_name: str | None = None
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx and self.partial_template_name:
+        request = cast(HtmxHttpRequest, self.request)
+
+        if request.htmx and self.partial_template_name:
             return [self.partial_template_name]
 
         if self.template_name:
