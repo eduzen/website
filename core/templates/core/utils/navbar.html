@@ -1,6 +1,10 @@
 {% load i18n static %}
 
-<nav id="main-navbar" class="fixed z-10 top-0 w-full bg-slate-800 dracula-border shadow-lg">
+{# Add Alpine component state here #}
+<nav id="main-navbar"
+     x-data="{ isMobileMenuOpen: false }"
+     @click.away="isMobileMenuOpen = false"
+     class="fixed z-10 top-0 w-full bg-slate-800 dracula-border shadow-lg">
   <div class="mx-auto px-4 py-2 flex justify-between items-center text-sm">
     <div class="text-lg font-bold">
       <a href="{% url 'home' %}" class="flex items-center">
@@ -10,21 +14,23 @@
       </a>
     </div>
       <!-- Desktop Links -->
-    <div class="hidden md:flex space-x-2" x-data="{ open: false }" @click.away="open = false">
-      {# Moved to core/templates/core/utils #}
+    {# Remove Alpine from here, managed above #}
+    <div class="hidden md:flex space-x-2">
       {% include 'core/utils/nav_links.html' %}
     </div>
 
-      <!-- Mobile Menu -->
-    <button class="md:hidden p-2" id="mobile-menu-button">
+      <!-- Mobile Menu Button -->
+    {# Add click handler to toggle state #}
+    <button class="md:hidden p-2" id="mobile-menu-button" @click="isMobileMenuOpen = !isMobileMenuOpen">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
   </div>
-  <!-- Mobile Links -->
-  <div class="md:hidden bg-gray-100 p-4" id="mobile-menu">
-    {# Moved to core/templates/core/utils #}
+  <!-- Mobile Links Container -->
+  {# Control visibility with Alpine state, remove id #}
+  <div class="md:hidden bg-gray-100 p-4" x-show="isMobileMenuOpen" style="display: none;">
+    {# Include mobile links, Alpine will handle link clicks via the included template #}
     {% include 'core/utils/nav_links_mobile.html' %}
   </div>
 </nav>

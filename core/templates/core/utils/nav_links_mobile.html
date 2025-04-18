@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<a @click="open = false"
+<a x-on:click="isMobileMenuOpen = false"
    id="mobile-blog"
    href="#"
    hx-get="{% url 'blog' %}"
@@ -13,7 +13,7 @@
   {% translate "Blog" %}
 </a>
 
-<a @click="open = false"
+<a x-on:click="isMobileMenuOpen = false"
    id="mobile-consultancy"
    href="#"
    hx-get="{% url 'consultancy' %}"
@@ -26,7 +26,7 @@
   {% translate "Consultancy" %}
 </a>
 
-<a @click="open = false"
+<a x-on:click="isMobileMenuOpen = false"
    id="mobile-classes"
    href="#"
    hx-get="{% url 'classes' %}"
@@ -39,7 +39,7 @@
   {% translate "Classes" %}
 </a>
 
-<a @click="open = false"
+<a x-on:click="isMobileMenuOpen = false"
    id="mobile-about"
    href="#"
    hx-get="{% url 'about' %}"
@@ -52,7 +52,7 @@
   {% translate "About" %}
 </a>
 
-<a @click="open = false"
+<a x-on:click="isMobileMenuOpen = false"
    id="mobile-contact"
    href="#"
    hx-get="{% url 'contact' %}"
@@ -66,8 +66,7 @@
 </a>
 
 {% if user.is_superuser %}
-  <a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
+  <a x-on:click="isMobileMenuOpen = false" href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
 {% endif %}
 
-{# Moved to core/templates/core/utils #}
 {% include 'core/utils/language_dropdown_button.html' %}
