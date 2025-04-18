@@ -1,8 +1,9 @@
 import datetime as dt
+import logging
 from typing import Any
 
-import logfire
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -12,11 +13,15 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django_filters.views import FilterView
 
+from core.mixins import HtmxGetMixin
+
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
 from .services.parsers import apply_styles
 from .services.telegram import send_contact_message
+
+logger = logging.getLogger(__name__)
 
 MIN = 60
 HOUR = 60 * MIN
@@ -32,21 +37,6 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
     post.text = apply_styles(post.text)
     post.save()
     return redirect("admin:blog_post_change", post_id)
-
-
-class HtmxGetMixin:
-    partial_template_name: str
-
-    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if request.htmx and self.partial_template_name:  # type: ignore
-            self.template_name = self.partial_template_name
-        return super().get(request, *args, **kwargs)  # type: ignore
-
-    def get_template_names(self):
-        """Return the correct template based on the request type (HTMX or regular)."""
-        if self.request.htmx:
-            return [self.partial_template_name]
-        return [self.template_name]
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
@@ -175,13 +165,29 @@ class ContactView(HtmxGetMixin, FormView):
 
         try:
             response = send_contact_message(**context)
-            logfire.info(response)
+            logger.info(response)
         except Exception:
-            logfire.exception("Contact problems")
+            logger.exception("Contact problems")
             return redirect(self.error_url)
 
         return render(self.request, "blog/success.html", context)
 
     def form_invalid(self, form: ContactForm):
+        # Ensure partial_template_name is set, as it's required for rendering errors via HTMX
+        if not self.partial_template_name:
+            logger.error(f"{self.__class__.__name__} called form_invalid without a partial_template_name.")
+            # Optionally, raise ImproperlyConfigured or handle differently
+            # For now, we might fall back to the main template, but ideally this shouldn't happen.
+            template_name_to_render = self.template_name
+        else:
+            template_name_to_render = self.partial_template_name
+
+        # Ensure at least one template name is available
+        if not template_name_to_render:
+            raise ImproperlyConfigured(
+                f"{self.__class__.__name__} requires a template_name or partial_template_name for form_invalid."
+            )
+
         context_data = self.get_context_data(form=form)
-        return render(self.request, self.partial_template_name, context_data)
+        # Use the determined template name
+        return render(self.request, template_name_to_render, context_data)

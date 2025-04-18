@@ -11,7 +11,8 @@
     </div>
       <!-- Desktop Links -->
     <div class="hidden md:flex space-x-2" x-data="{ open: false }" @click.away="open = false">
-      {% include 'blog/utils/nav_links.html' %}
+      {# Moved to core/templates/core/utils #}
+      {% include 'core/utils/nav_links.html' %}
     </div>
 
       <!-- Mobile Menu -->
@@ -23,7 +24,8 @@
   </div>
   <!-- Mobile Links -->
   <div class="md:hidden bg-gray-100 p-4" id="mobile-menu">
-    {% include 'blog/utils/nav_links_mobile.html' %}
+    {# Moved to core/templates/core/utils #}
+    {% include 'core/utils/nav_links_mobile.html' %}
   </div>
 </nav>
 <div id="loadingIndicator" class="h-1 w-full bg-blue-500 fixed top-0 left-0 z-50 transform scale-x-0 origin-left transition-transform duration-1500 ease-in-out"></div>

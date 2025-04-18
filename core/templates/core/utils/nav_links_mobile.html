@@ -69,4 +69,5 @@
   <a href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
 {% endif %}
 
-{% include 'blog/utils/language_dropdown_button.html' %}
+{# Moved to core/templates/core/utils #}
+{% include 'core/utils/language_dropdown_button.html' %}

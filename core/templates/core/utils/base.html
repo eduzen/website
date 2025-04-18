@@ -7,13 +7,13 @@
 
   <head>
     {% block head %}
-      {% include 'blog/utils/head.html' %}
+      {% include 'core/utils/head.html' %}
     {% endblock head %}
   </head>
 
   <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
     {% block navbar %}
-      {% include "blog/utils/navbar.html" %}
+      {% include "core/utils/navbar.html" %}
     {% endblock navbar %}
 
     <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
@@ -22,12 +22,13 @@
     </main>
 
     {% block footer %}
-      {% include "blog/utils/footer.html" %}
+      {% include "core/utils/footer.html" %}
     {% endblock footer %}
 
     {% block extra_scripts %}
-      <script src="{% static 'blog/js/menu.js' %}"></script>
-      <script src="{% static 'blog/js/colorize.js' %}"></script>
+      {# Moved to core/static/core/js #}
+      <script src="{% static 'core/js/menu.js' %}"></script>
+      <script src="{% static 'core/js/colorize.js' %}"></script>
     {% endblock extra_scripts %}
   </body>
 </html>
