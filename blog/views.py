@@ -84,7 +84,7 @@ class ClassesView(HtmxGetMixin, TemplateView):
     partial_template_name = "blog/partials/classes.html"
 
 
-@method_decorator(cache_page(MONTH), name="dispatch")
+# @method_decorator(cache_page(MONTH), name="dispatch")
 class PostListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
