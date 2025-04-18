@@ -32,6 +32,17 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://localhost$",
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": config("REDIS_URL", default="redis://redis:6379/0"),
+    },
+    "localmemcache": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    },
+}
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

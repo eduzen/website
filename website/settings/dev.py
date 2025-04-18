@@ -31,3 +31,7 @@ if DEBUG:
         + MIDDLEWARE
         + ["django_browser_reload.middleware.BrowserReloadMiddleware"]
     )
+
+CACHES = {
+    "default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"},
+}

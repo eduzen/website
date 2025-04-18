@@ -1,8 +1,9 @@
 import datetime as dt
+import logging
 from typing import Any
 
-import logfire
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,6 +11,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
+from django.views.generic.base import TemplateResponseMixin
 from django_filters.views import FilterView
 
 from .filters import PostFilter
@@ -17,6 +19,9 @@ from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
 from .services.parsers import apply_styles
 from .services.telegram import send_contact_message
+from .types import HtmxHttpRequest
+
+logger = logging.getLogger(__name__)
 
 MIN = 60
 HOUR = 60 * MIN
@@ -34,19 +39,25 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
     return redirect("admin:blog_post_change", post_id)
 
 
-class HtmxGetMixin:
-    partial_template_name: str
+class HtmxGetMixin(TemplateResponseMixin):
+    """
+    Dynamically select templates based on whether the request is an HTMX request.
+    Uses `partial_template_name` for HTMX and `template_name` otherwise.
+    """
 
-    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if request.htmx and self.partial_template_name:  # type: ignore
-            self.template_name = self.partial_template_name
-        return super().get(request, *args, **kwargs)  # type: ignore
+    request: HtmxHttpRequest
 
-    def get_template_names(self):
-        """Return the correct template based on the request type (HTMX or regular)."""
-        if self.request.htmx:
+    template_name: str | None = None
+    partial_template_name: str | None = None
+
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx and self.partial_template_name:
             return [self.partial_template_name]
-        return [self.template_name]
+
+        if self.template_name:
+            return [self.template_name]
+
+        raise ImproperlyConfigured(f"{self.__class__.__name__} requires `template_name` or `partial_template_name`.")
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
@@ -94,7 +105,7 @@ class ClassesView(HtmxGetMixin, TemplateView):
     partial_template_name = "blog/partials/classes.html"
 
 
-@method_decorator(cache_page(MONTH), name="dispatch")
+# @method_decorator(cache_page(MONTH), name="dispatch")
 class PostListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
@@ -175,9 +186,9 @@ class ContactView(HtmxGetMixin, FormView):
 
         try:
             response = send_contact_message(**context)
-            logfire.info(response)
+            logging.info(response)
         except Exception:
-            logfire.exception("Contact problems")
+            logging.exception("Contact problems")
             return redirect(self.error_url)
 
         return render(self.request, "blog/success.html", context)
