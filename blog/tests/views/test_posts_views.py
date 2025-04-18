@@ -34,7 +34,7 @@ class TestPublicViews(TestCase):
 
     def test_post_list_view_htmx_partial_template(self):
         # Simulate an HTMX request by setting the HX-Request header
-        response = self.client.get(self.post_list_url, **{"HTTP_HX_REQUEST": "true"})
+        response = self.client.get(self.post_list_url, HTTP_HX_REQUEST="true")
         assert response.status_code == HTTPStatus.OK
         # Ensure partial template is used
         self.assertTemplateUsed(response, "blog/partials/posts/list.html")

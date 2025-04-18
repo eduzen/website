@@ -22,6 +22,7 @@ repos:
     rev: v1
     hooks:
       - id: typos
+        exclude: ^.*htmx\.min\..*\.js$
 
   - repo: https://github.com/abravalheri/validate-pyproject
     rev: v0.24.1

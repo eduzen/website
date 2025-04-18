@@ -3,7 +3,7 @@ import datetime as dt
 import pytest
 from django.test import RequestFactory
 
-from blog.context_processor import (
+from core.context_processor import (
     START_DEVELOPMENT_YEAR,
     START_PYTHON_YEAR,
     global_data,
