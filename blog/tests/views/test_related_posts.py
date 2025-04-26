@@ -34,8 +34,15 @@ class TestRelatedPostsView(TestCase):
     def test_related_posts_view_uses_correct_template(self):
         response = self.client.get(self.url2)
         assert response.status_code == HTTPStatus.OK
-        self.assertTemplateUsed(response, "blog/partials/posts/related_posts.html")
+        self.assertTemplateUsed(response, "blog/posts/related_posts.html")
         self.assertTemplateUsed(response, "core/utils/base.html")
+        self.assertTemplateUsed(response, "blog/posts/_related_posts.html")
+
+    def test_related_posts_view_uses_correct_template_for_htmx(self):
+        response = self.client.get(self.url2, headers={"HX-Request": "true"})
+        assert response.status_code == HTTPStatus.OK
+        self.assertTemplateUsed(response, "blog/partials/posts/related_posts.html")
+        self.assertTemplateUsed(response, "core/utils/partial.html")
         self.assertTemplateUsed(response, "blog/posts/_related_posts.html")
 
     def test_related_posts(self):

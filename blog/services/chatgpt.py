@@ -1,5 +1,5 @@
 # blog/services/chatgpt.py
-from typing import cast
+from typing import Any, cast
 
 import logfire
 from django.conf import settings
@@ -16,7 +16,15 @@ class TitleSummaryModel(BaseModel):
 
 
 model = cast(KnownModelName, settings.PYDANTIC_AI_MODEL)
-agent = Agent(model, result_type=TitleSummaryModel)
+agent: Agent[Any, TitleSummaryModel] | None = None
+
+
+def _get_agent() -> Agent[Any, TitleSummaryModel]:
+    """Initializes and returns the Pydantic AI Agent."""
+    global agent
+    if agent is None:
+        agent = Agent(model, output_type=TitleSummaryModel)
+    return agent
 
 
 def get_better_title(title: str) -> str:
@@ -24,6 +32,7 @@ def get_better_title(title: str) -> str:
     Returns a single improved title for the given blog post title
     using pydantic-ai + OpenAI (GPT-4 or whichever you've set).
     """
+    current_agent = _get_agent()
     prompt = (
         "Given the language and context of the following title, provide a captivating and "
         "improved title that will intrigue readers. Not too serious. "
@@ -38,7 +47,7 @@ def get_better_title(title: str) -> str:
 
     logfire.debug(f"Asking pydantic-ai for an improved title:\n{prompt}")
     try:
-        response = agent.run_sync(prompt)
+        response = current_agent.run_sync(prompt)
         improved_title = response.data.title
         logfire.debug(f"Improved title: {improved_title}")
     except Exception as e:
@@ -52,6 +61,7 @@ def get_better_summary(text: str) -> str:
     Returns a single improved summary for the given blog post content
     using pydantic-ai + OpenAI.
     """
+    current_agent = _get_agent()
     prompt = (
         "Given the language and context of the following blog post content, "
         "provide a concise and intriguing summary that captures its essence.\n"
@@ -64,7 +74,7 @@ def get_better_summary(text: str) -> str:
     )
 
     logfire.debug(f"Asking pydantic-ai for an improved summary:\n{prompt}")
-    response = agent.run_sync(prompt)
+    response = current_agent.run_sync(prompt)
     improved_summary = response.data.summary
     logfire.debug(f"Improved summary: {improved_summary}")
     return improved_summary

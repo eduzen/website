@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 from pydantic import BaseModel
@@ -24,11 +24,16 @@ class MockAgentResponse:
 
 @pytest.fixture
 def mock_agent_run_sync():
-    with patch("blog.services.chatgpt.agent.run_sync") as mock_run_sync:
-        mock_response_data = MockResponseData()
-        mock_agent_response = MockAgentResponse(data=mock_response_data)
-        mock_run_sync.return_value = mock_agent_response
-        yield mock_run_sync
+    mock_response_data = MockResponseData()
+    mock_agent_response = MockAgentResponse(data=mock_response_data)
+
+    # Create a mock agent with a mock run_sync method
+    mock_agent = MagicMock()
+    mock_agent.run_sync.return_value = mock_agent_response
+
+    # Patch _get_agent to return our mock agent
+    with patch("blog.services.chatgpt._get_agent", return_value=mock_agent):
+        yield mock_agent  # Yield the mock agent itself for assertions
 
 
 @pytest.fixture
@@ -41,7 +46,8 @@ def test_get_better_title(mock_agent_run_sync):
     improved_title = get_better_title(original_title)
 
     assert improved_title == "Mocked Improved Title"
-    mock_agent_run_sync.assert_called_once()
+    # Assert run_sync was called on the mock agent returned by the patched _get_agent
+    mock_agent_run_sync.run_sync.assert_called_once()
 
 
 def test_get_better_summary(mock_agent_run_sync):
@@ -49,7 +55,8 @@ def test_get_better_summary(mock_agent_run_sync):
     improved_summary = get_better_summary(original_text)
 
     assert improved_summary == "Mocked Improved Summary"
-    mock_agent_run_sync.assert_called_once()
+    # Assert run_sync was called on the mock agent returned by the patched _get_agent
+    mock_agent_run_sync.run_sync.assert_called_once()
 
 
 @patch("blog.services.chatgpt.get_better_title", return_value="Patched Title")

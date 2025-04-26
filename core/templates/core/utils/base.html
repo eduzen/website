@@ -11,7 +11,7 @@
     {% endblock head %}
   </head>
 
-  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
+  <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
     {% block navbar %}
       {% include "core/utils/navbar.html" %}
     {% endblock navbar %}

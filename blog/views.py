@@ -124,7 +124,9 @@ class PostDetailView(HtmxGetMixin, DetailView):
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class RelatedPostsView(HtmxGetMixin, ListView):
-    template_name = "blog/partials/posts/related_posts.html"
+    # Use the new full template for normal requests
+    template_name = "blog/posts/related_posts.html"
+    # Keep the partial template for HTMX requests
     partial_template_name = "blog/partials/posts/related_posts.html"
     context_object_name = "related_posts"
     paginate_by = 4
