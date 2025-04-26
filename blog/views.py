@@ -1,6 +1,6 @@
 import datetime as dt
 import logging
-from typing import Any, cast
+from typing import Any
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured
@@ -11,15 +11,15 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, FormView, ListView, TemplateView
-from django.views.generic.base import TemplateResponseMixin
 from django_filters.views import FilterView
+
+from core.mixins import HtmxGetMixin
 
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
 from .models import Post
 from .services.parsers import apply_styles
 from .services.telegram import send_contact_message
-from .types import HtmxHttpRequest
 
 logger = logging.getLogger(__name__)
 
@@ -37,27 +37,6 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
     post.text = apply_styles(post.text)
     post.save()
     return redirect("admin:blog_post_change", post_id)
-
-
-class HtmxGetMixin(TemplateResponseMixin):
-    """
-    Dynamically select templates based on whether the request is an HTMX request.
-    Uses `partial_template_name` for HTMX and `template_name` otherwise.
-    """
-
-    template_name: str | None = None
-    partial_template_name: str | None = None
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-
-        if request.htmx and self.partial_template_name:
-            return [self.partial_template_name]
-
-        if self.template_name:
-            return [self.template_name]
-
-        raise ImproperlyConfigured(f"{self.__class__.__name__} requires `template_name` or `partial_template_name`.")
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
@@ -145,7 +124,9 @@ class PostDetailView(HtmxGetMixin, DetailView):
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class RelatedPostsView(HtmxGetMixin, ListView):
-    template_name = "blog/partials/posts/related_posts.html"
+    # Use the new full template for normal requests
+    template_name = "blog/posts/related_posts.html"
+    # Keep the partial template for HTMX requests
     partial_template_name = "blog/partials/posts/related_posts.html"
     context_object_name = "related_posts"
     paginate_by = 4
@@ -186,13 +167,29 @@ class ContactView(HtmxGetMixin, FormView):
 
         try:
             response = send_contact_message(**context)
-            logging.info(response)
+            logger.info(response)
         except Exception:
-            logging.exception("Contact problems")
+            logger.exception("Contact problems")
             return redirect(self.error_url)
 
         return render(self.request, "blog/success.html", context)
 
     def form_invalid(self, form: ContactForm):
+        # Ensure partial_template_name is set, as it's required for rendering errors via HTMX
+        if not self.partial_template_name:
+            logger.error(f"{self.__class__.__name__} called form_invalid without a partial_template_name.")
+            # Optionally, raise ImproperlyConfigured or handle differently
+            # For now, we might fall back to the main template, but ideally this shouldn't happen.
+            template_name_to_render = self.template_name
+        else:
+            template_name_to_render = self.partial_template_name
+
+        # Ensure at least one template name is available
+        if not template_name_to_render:
+            raise ImproperlyConfigured(
+                f"{self.__class__.__name__} requires a template_name or partial_template_name for form_invalid."
+            )
+
         context_data = self.get_context_data(form=form)
-        return render(self.request, self.partial_template_name, context_data)
+        # Use the determined template name
+        return render(self.request, template_name_to_render, context_data)

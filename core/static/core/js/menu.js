@@ -10,38 +10,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("click", function(event) {
       const dropdown = document.getElementById("language-dropdown");
       const button = document.getElementById("language-button");
-      const mobileMenu = document.getElementById("mobile-menu");
-      const mobileButton = document.getElementById("mobile-menu-button");
 
       // Hide language dropdown if clicked outside
       if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && !dropdown.classList.contains("hidden")) {
         dropdown.classList.add("hidden");
       }
-
-      // Hide mobile menu if clicked outside
-      if (mobileMenu && mobileButton && !mobileMenu.contains(event.target) && !mobileButton.contains(event.target) && !mobileMenu.classList.contains("hidden")) {
-        mobileMenu.classList.add("hidden");
-      }
-
-    });
-  }
-
-  function handleMobileMenuBehavior() {
-    const mobileButton = document.getElementById("mobile-menu-button");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : []; // Get all anchor tags within the mobile menu
-
-    if (mobileButton && mobileMenu) {
-      mobileButton.addEventListener("click", function() {
-        mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
-      });
-    }
-
-    // Close the mobile menu when a link is clicked
-    mobileLinks.forEach(link => {
-      link.addEventListener("click", function() {
-        mobileMenu.style.display = "none";
-      });
     });
   }
 
@@ -77,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Initialize functions
   handleDropdownBehavior();
-  handleMobileMenuBehavior();
   updateActiveLink();
   handleHTMXEvents();
 

@@ -10,13 +10,16 @@
 <meta name="keywords" content="python">
 <meta name="cf-2fa-verify" content="791afb1afc0b531">
 <meta name="author" content="eduzen.ar">
-<link rel="apple-touch-icon" sizes="180x180" href="{% static 'blog/img/favicon/apple-touch-icon.png' %}">
-<link rel="icon" type="image/png" sizes="32x32" href="{% static 'blog/img/favicon/favicon-32x32.png' %}">
-<link rel="icon" type="image/png" sizes="16x16" href="{% static 'blog/img/favicon/favicon-16x16.png' %}">
-<link rel="manifest" href="{% static 'blog/img/favicon/site.webmanifest' %}">
-<link rel="mask-icon" href="{% static 'blog/img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+
+{# Favicon links - Assuming files are moved to core/static/core/img/favicon/ #}
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'core/img/favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'core/img/favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'core/img/favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'core/img/favicon/site.webmanifest' %}">
+<link rel="mask-icon" href="{% static 'core/img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.ico"> {# Assuming favicon.ico is at the root #}
 
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" />
 <title>{% block title %}eduzen{% endblock %}</title>
@@ -41,8 +44,7 @@
   crossorigin="anonymous"
   referrerpolicy="no-referrer">
 </script>
-<script src="{% static 'blog/js/htmx.min.1.9.4.js' %}" defer></script>
-{% django_htmx_script %}
+<script src="{% static 'core/js/htmx.min.1.9.4.js' %}" defer></script>
+{% htmx_script %}
 
-<link href="{% static 'blog/css/base.css' %}" rel="stylesheet">
-<link rel="icon" href="/favicon.ico">
+<link href="{% static 'core/css/base.css' %}" rel="stylesheet">
