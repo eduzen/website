@@ -48,6 +48,8 @@ services:
     - "traefik.media.headers.contentTypeNosniff=true"
     - "traefik.media.headers.forceSTSHeader=true"
     - "traefik.media.headers.browserXSSFilter=true"
+    - "traefik.http.routers.media.middlewares=sec@docker,limit@docker"
+
 
   web:
     image: index.docker.io/eduzen/website:latest
@@ -63,14 +65,28 @@ services:
       - db
       - redis
     labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.web.rule=Host(Host(`eduzen.ar`) || Host(`eduzen.com.ar`)) || Host(`eduardoenriquez.com.ar`)"
-    - "traefik.http.routers.web.entrypoints=websecure"
-    - "traefik.http.routers.web.tls.certresolver=myresolver"
-    - "traefik.http.services.web.loadbalancer.server.port=8080"
-    - "traefik.web.headers.contentTypeNosniff=true"
-    - "traefik.web.headers.forceSTSHeader=true"
-    - "traefik.web.headers.browserXSSFilter=true"
+      - "traefik.enable=true"
+
+      # Router rule (single Host with multiple domains)
+      - "traefik.http.routers.web.rule=Host(`eduzen.ar`, `eduzen.com.ar`, `eduardoenriquez.com.ar`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+
+      # Apply both middlewares (security + rate limit)
+      - "traefik.http.routers.web.middlewares=sec@docker,limit@docker"
+
+      # Security headers middleware
+      - "traefik.http.middlewares.sec.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.sec.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.sec.headers.browserXSSFilter=true"
+
+      # Rate limiting middleware
+      - "traefik.http.middlewares.limit.rateLimit.average=20"
+      - "traefik.http.middlewares.limit.rateLimit.burst=50"
+      - "traefik.http.middlewares.limit.rateLimit.period=1s"
+
+      # Load balancer port
+      - "traefik.http.services.web.loadbalancer.server.port=8080"
 
 
   db:
