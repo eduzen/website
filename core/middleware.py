@@ -3,11 +3,13 @@ import logging
 from collections.abc import Callable
 
 # Add type annotations for custom request attribute
-from typing import TYPE_CHECKING, Final
+from typing import TYPE_CHECKING, Final, TypeVar
 
 from django.http import HttpRequest, HttpResponse
 
 if TYPE_CHECKING:
+    # Create a type variable for request types
+    RequestT = TypeVar("RequestT", bound=HttpRequest)
 
     class CustomHttpRequest(HttpRequest):
         ip: str | None
@@ -55,7 +57,7 @@ class CloudflareRealIPMiddleware:
     def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
         self.get_response = get_response
 
-    def __call__(self, request: "CustomHttpRequest") -> HttpResponse:
+    def __call__(self, request: HttpRequest) -> HttpResponse:
         cf_ip = request.headers.get("CF-Connecting-IP")
         proxy_ip = request.META.get("REMOTE_ADDR")
 
@@ -68,6 +70,7 @@ class CloudflareRealIPMiddleware:
                 logger.debug("REMOTE_ADDR sustituido por CF-Connecting-IP %s", cf_ip)
 
         # atributo de conveniencia
-        request.ip = request.META.get("REMOTE_ADDR")
+        # Set request.ip to CF-Connecting-IP when available, otherwise use REMOTE_ADDR
+        setattr(request, "ip", cf_ip if cf_ip else request.META.get("REMOTE_ADDR"))
 
         return self.get_response(request)
