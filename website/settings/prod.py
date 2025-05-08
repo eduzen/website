@@ -49,19 +49,45 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "default": {
-            "format": ("[DJANGO] %(levelname)s %(asctime)s %(module)s %(name)s.%(funcName)s:%(lineno)s: %(message)s")
-        },
         "verbose": {
             "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             "datefmt": "%d/%b/%Y %H:%M:%S",
         },
         "simple": {"format": "%(levelname)s %(message)s"},
     },
-    "handlers": {"console": {"level": LOG_LEVEL, "class": "logging.StreamHandler", "formatter": "verbose"}},
+    "handlers": {
+        "console": {
+            "level": LOG_LEVEL,
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        }
+    },
     "loggers": {
-        "*": {"handlers": ["console"], "level": LOG_LEVEL, "propagate": True},
-        "django": {"handlers": ["console"], "propagate": False, "level": LOG_LEVEL},
+        "django": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        "django.db.backends": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        "logfire": {
+            "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "*": {
+            "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": True,
+        },
     },
 }
 

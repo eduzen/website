@@ -1,11 +1,19 @@
 import ipaddress
 import logging
 from collections.abc import Callable
-from typing import Final
+
+# Add type annotations for custom request attribute
+from typing import TYPE_CHECKING, Final
 
 from django.http import HttpRequest, HttpResponse
 
-# Rangos oficiales Cloudflare — mayo 2025
+if TYPE_CHECKING:
+
+    class CustomHttpRequest(HttpRequest):
+        ip: str | None
+
+
+# Rangos oficiales Cloudflare — mayo 2025
 CF_RANGES: Final[tuple[str, ...]] = (
     "173.245.48.0/20",
     "103.21.244.0/22",
@@ -47,12 +55,12 @@ class CloudflareRealIPMiddleware:
     def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
         self.get_response = get_response
 
-    def __call__(self, request: HttpRequest) -> HttpResponse:
+    def __call__(self, request: "CustomHttpRequest") -> HttpResponse:
         cf_ip = request.headers.get("CF-Connecting-IP")
         proxy_ip = request.META.get("REMOTE_ADDR")
 
         if cf_ip and proxy_ip and _is_cloudflare_addr(proxy_ip):
-            if _is_cloudflare_addr(cf_ip):  # ≈ nunca, pero evita spoofing interno
+            if _is_cloudflare_addr(cf_ip):
                 logger.debug("CF-Connecting-IP (%s) también pertenece a rango CF; usando REMOTE_ADDR", cf_ip)
             else:
                 # Sobrescribimos REMOTE_ADDR para que cualquier código downstream lo vea
