@@ -105,7 +105,7 @@ DATABASES: dict = {
     )
 }
 
-DATABASES['default'].get("OPTIONS", {}).update({"pool": True})  # NOQA
+DATABASES['default'].setdefault("OPTIONS", {}).update({"pool": True})  # NOQA
 
 
 # Password validation
