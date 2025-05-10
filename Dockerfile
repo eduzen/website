@@ -39,8 +39,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 COPY . /code
 
-RUN python manage.py collectstatic --no-input
-RUN python manage.py compilemessages
+RUN python manage.py collectstatic --no-input --settings=website.settings.prod
+RUN python manage.py compilemessages --settings=website.settings.prod
 
 EXPOSE 80
 CMD ["sh", "/code/scripts/gunicorn_start.sh"]
