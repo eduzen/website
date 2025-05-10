@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from decouple import Csv, config
@@ -69,7 +70,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "core.middleware.CloudflareMiddleware",
+    "core.middleware.CloudflareRealIPMiddleware",
     "django_fast.middleware.ProfilerMiddleware",
 ]
 
@@ -96,7 +97,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "website.wsgi.application"
 
 # Database
-DATABASES = {
+DATABASES: dict = {
     'default': config(
         'DATABASE_URL',
         default=f"sqlite:///{BASE_DIR}/db.sqlite3",
@@ -104,7 +105,7 @@ DATABASES = {
     )
 }
 
-DATABASES['default']["OPTIONS"] = {"pool": True}  # NOQA
+DATABASES['default'].setdefault("OPTIONS", {}).update({"pool": True})  # NOQA
 
 
 # Password validation
@@ -216,3 +217,8 @@ OPENAI_ORGANIZATION = config("OPENAI_ORGANIZATION", default="")
 OPENAI_API_KEY = config("OPENAI_API_KEY", default="")
 OPENAI_MODEL = config("OPENAI_MODEL", default="openai:gpt-4o")
 PYDANTIC_AI_MODEL = OPENAI_MODEL
+
+IGNORABLE_404_URLS = [
+    re.compile(r"\.php$"),
+    re.compile(r"^/wp-"),
+]
