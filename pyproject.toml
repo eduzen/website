@@ -31,7 +31,6 @@ dependencies = [
   "dj-database-url",
   "easy_thumbnails", # Needed for django-image-cropping
   "gunicorn",
-  "gevent",
   "Markdown",
   "openai",
   "Pillow",
