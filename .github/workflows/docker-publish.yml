@@ -9,7 +9,7 @@ on:
 permissions:
   contents: write
   packages: write
-  actions: write
+  actions: read
 
 env:
   IMAGE_NAME: website
@@ -70,6 +70,9 @@ jobs:
   release:
     needs: push
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
     env:
       TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
@@ -81,8 +84,12 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
+          tag_name: "latest-main"
+          name: "Latest build on main"
+          target_commitish: ${{ github.sha }} # point tag at this commit
+          allow_update: true
+          update_tag: true
+          make_latest: true
           body: |
             • Date: ${{ steps.date.outputs.date }}
             • Commit: ${{ github.sha }}
