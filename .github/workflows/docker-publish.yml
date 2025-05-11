@@ -2,27 +2,38 @@ name: Docker
 
 on:
   push:
-    branches: [main]
-    tags:
-      - v*
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  actions: read
 
 env:
   IMAGE_NAME: website
-  DJANGO_SETTINGS_MODULE: website.settings
+  DJANGO_SETTINGS_MODULE: website.settings.prod
 
 jobs:
-  # See also https://docs.docker.com/docker-hub/builds/
   push:
-
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-
     steps:
+      - name: Validate env vars
+        run: |
+          : "${{ secrets.DOCKERHUB_USERNAME }}" || { echo "Missing DOCKERHUB_USERNAME"; exit 1; }
+          : "${{ secrets.DOCKERHUB_TOKEN }}"    || { echo "Missing DOCKERHUB_TOKEN"; exit 1; }
+          : "${{ secrets.TELEGRAM_TOKEN }}"     || { echo "Missing TELEGRAM_TOKEN"; exit 1; }
+          : "${{ secrets.TELEGRAM_TO }}"        || { echo "Missing TELEGRAM_TO"; exit 1; }
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.10.0
+        with:
+          buildkitd-flags: --allow-insecure-entitlement network.host
 
       - name: Login to DockerHub
         uses: docker/login-action@v3.4.0
@@ -35,26 +46,62 @@ jobs:
         uses: docker/build-push-action@v6.16.0
         with:
           push: true
+          targets: production
+          file: ./Dockerfile
           tags: |
             eduzen/website:latest
             eduzen/website:${{ github.sha }}
-          target: production
-          file: ./Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
             RELEASE=${{ github.sha }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.created=$(date --utc +'%Y-%m-%dT%H:%M:%SZ')
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
 
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+      - name: Print image digest
+        run: echo "→ ${{ steps.docker_build.outputs.digest }}"
 
-      - name: Get today's date in European format
+  release:
+    needs: push
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
+    steps:
+      - name: Get today's date (Europe)
         id: date
-        run: echo "::set-output name=date::$(date +'%d.%m.%Y')"
+        run: echo "date=$(date +'%d.%m.%Y')" >> $GITHUB_OUTPUT
 
-      - name: Release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: ${{ steps.date.outputs.date }}-${{ github.sha }}
-          tag_name: ${{ steps.date.outputs.date }}-${{ github.sha }}
-          body: Release ${{ github.sha }} from ${{ steps.date.outputs.date }}
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: |
+            • Date: ${{ steps.date.outputs.date }}
+            • Commit: ${{ github.sha }}
+
+      - name: Notify Telegram via curl
+        if: always()
+        run: |
+          status="${{ job.status }}"
+          emoji="❌"
+          [[ "$status" == "success" ]] && emoji="✅"
+
+          # strip leading spaces with <<-EOF
+          read -r -d '' msg <<-EOF
+          ${emoji} *Build ${status^^}*
+          • Platforms: ${{ steps.docker_build.outputs.platforms }}
+          • Image: \`eduzen/website:${{ github.sha }}\`
+          • Digest: \`${{ steps.docker_build.outputs.digest }}\`
+          • Date: ${{ steps.date.outputs.date }}
+          • Commit: [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+          EOF
+
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            -d parse_mode=Markdown \
+            -d text="$msg"
