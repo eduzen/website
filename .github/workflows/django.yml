@@ -8,25 +8,19 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  pull-requests: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/github_actions
-      DJANGO_SETTINGS_MODULE: website.settings.test
-      SECRET_KEY: 3573c6f0e4f7793
-      OPENAI_API_KEY: test
-
-    services:
-      postgres:
-        image: postgres:16-alpine3.17
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_DB: github_actions
-        ports:
-          - 5432:5432
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,26 +31,106 @@ jobs:
       - name: Set up Python
         run: uv python install
 
-      - name: Check Code Style
-        uses: pre-commit/action@v3.0.1
-
-      - name: Set up Python
-        run: uv python install
-
-      - name: Install the project
+      - name: Install project dependencies
         run: uv sync --all-extras
 
       - name: Run Django Check
         run: uv run python manage.py check --deploy
 
-      - name: Run Mypy Check
-        run: uv run mypy .
-
       - name: Collect Static
         run: uv run python manage.py collectstatic --noinput
 
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install project dependencies
+        run: uv sync --all-extras
+
+      - name: Check Style
+        uses: pre-commit/action@v3.0.1
+
+  typecheck:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install project dependencies
+        run: uv sync --all-extras
+
+      - name: Mypy
+        run: uv run mypy .
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/github_actions
+      DJANGO_SETTINGS_MODULE: website.settings.test
+      SECRET_KEY: dummy-secret-key-test-test
+      OPENAI_API_KEY: dummy-openai-api-key-test-test
+    services:
+      postgres:
+        image: postgres:17-alpine3.17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install project dependencies
+        run: uv sync --all-extras
+
+      - name: Wait for Postgres
+        id: wait-postgres
+        run: |
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for Postgres…"
+            sleep 1
+          done
+
       - name: Run Tests
-        run: uv run coverage run -m pytest
+        run: |
+          set -euxo pipefail
+          uv run coverage run -m pytest
 
       - name: Show coverage report
         run: uv run coverage report
+
+      - name: Save coverage XML
+        if: always()
+        run: uv run coverage xml -o coverage.xml
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage.xml
