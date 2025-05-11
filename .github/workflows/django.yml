@@ -127,10 +127,3 @@ jobs:
       - name: Save coverage XML
         if: always()
         run: uv run coverage xml -o coverage.xml
-
-      - name: Upload coverage report
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: coverage.xml
