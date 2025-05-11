@@ -86,8 +86,6 @@ jobs:
           tag_name: "latest-main"
           name: "Latest build on main"
           target_commitish: ${{ github.sha }} # point tag at this commit
-          allow_update: true
-          update_tag: true
           make_latest: true
           body: |
             • Date: ${{ steps.date.outputs.date }}
@@ -96,20 +94,8 @@ jobs:
       - name: Notify Telegram via curl
         if: always()
         run: |
-          status="${{ job.status }}"
-          emoji="❌"
-          [[ "$status" == "success" ]] && emoji="✅"
-
-          read -r -d '' msg <<-EOF
-          ${emoji} *Build ${status^^}*
-          • Platforms: ${{ needs.push.outputs.platforms }}
-          • Image: \`eduzen/website:${{ github.sha }}\`
-          • Digest: \`${{ needs.push.outputs.digest }}\`
-          • Date: ${{ steps.date.outputs.date }}
-          • Commit: [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
-          EOF
-
+          echo "🔴 REMOVE this (or guard it properly)"
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
                 -d chat_id="${TELEGRAM_CHAT_ID}" \
                 -d parse_mode=Markdown \
-                -d text="$msg"
+                -d text="🔴 REMOVE this (or guard it properly)"
