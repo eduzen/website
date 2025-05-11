@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup:
+  setup-check-collectstatic:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -43,7 +43,6 @@ jobs:
         run: uv run python manage.py collectstatic --noinput
 
   lint:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -64,7 +63,6 @@ jobs:
         uses: pre-commit/action@v3.0.1
 
   typecheck:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -85,7 +83,6 @@ jobs:
         run: uv run mypy .
 
   test:
-    needs: setup
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/github_actions
