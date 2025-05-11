@@ -94,10 +94,8 @@ jobs:
       - name: Notify Telegram via curl
         if: always()
         run: |
-          status="${{ job.status }}"
           emoji="❌"; [[ "$status" == "success" ]] && emoji="✅"
-          echo "${emoji} ${status} build"
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
-                -d chat_id="${TELEGRAM_CHAT_ID}" \
-                -d parse_mode=Markdown \
-                -d text="${emoji} ${status} build"
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            -d parse_mode=Markdown \
+            -d text="${emoji} Github Actions: https://github.com/eduzen/website/actions/runs/${{ github.run_id }}"
