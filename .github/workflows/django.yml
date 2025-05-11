@@ -94,7 +94,7 @@ jobs:
       OPENAI_API_KEY: dummy-openai-api-key-test-test
     services:
       postgres:
-        image: postgres:17-alpine3.17
+        image: postgres:17-alpine
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
