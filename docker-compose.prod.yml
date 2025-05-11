@@ -109,4 +109,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/eduzen/.docker/config.json:/config.json:ro
-    command: --interval 60 --cleanup
+    environment:
+      - WATCHTOWER_NOTIFICATIONS=shoutrrr
+      - WATCHTOWER_NOTIFICATION_URL=telegram://${TELEGRAM_TOKEN}@telegram?channels=${TELEGRAM_TO}
+      - WATCHTOWER_NOTIFICATION_REPORT_SUCCESSES=true
+      - WATCHTOWER_NOTIFICATION_TEMPLATE="✅ *Container Updated* - {{.Name}} to {{.Image}}"
+    command: --interval 60 --cleanup --monitor

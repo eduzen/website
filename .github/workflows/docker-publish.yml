@@ -65,7 +65,6 @@ jobs:
 
   release:
     needs: push
-    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     env:
       TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
