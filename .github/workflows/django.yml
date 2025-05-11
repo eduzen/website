@@ -125,13 +125,4 @@ jobs:
           done
 
       - name: Run Tests
-        run: |
-          set -euxo pipefail
-          uv run coverage run -m pytest
-
-      - name: Show coverage report
-        run: uv run coverage report
-
-      - name: Save coverage XML
-        if: always()
-        run: uv run coverage xml -o coverage.xml
+        run: uv run coverage run -m pytest
