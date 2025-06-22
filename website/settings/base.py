@@ -41,6 +41,7 @@ THIRD_PARTY_APPS = [
     "crispy_tailwind",
     "django_extensions",
     "django_htmx",
+    "template_partials",
     "easy_thumbnails",
     "image_cropping",
     "robots",

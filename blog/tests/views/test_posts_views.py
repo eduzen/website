@@ -30,14 +30,16 @@ class TestPublicViews(TestCase):
 
         assert response.status_code == HTTPStatus.OK
         assert response.context["object_list"].count() == 0
-        self.assertContains(response, "We could not find what you are looking for..")
+        self.assertContains(response, "We could not find what you are looking for...")
 
     def test_post_list_view_htmx_partial_template(self):
         # Simulate an HTMX request by setting the HX-Request header
         response = self.client.get(self.post_list_url, HTTP_HX_REQUEST="true")
         assert response.status_code == HTTPStatus.OK
-        # Ensure partial template is used
-        self.assertTemplateUsed(response, "blog/partials/posts/list.html")
+        # HTMX requests with django-template-partials render only the partial content
+        self.assertTemplateUsed(response, "blog/posts/_list.html")
+        self.assertTemplateNotUsed(response, "blog/posts/list.html")
+        self.assertTemplateNotUsed(response, "core/utils/base.html")
 
     def test_get_post_by_slug(self):
         response = self.client.get(self.post_detail_url)

@@ -4,6 +4,5 @@
 {% block title %}{% translate 'Related Posts' %} | {{ block.super }}{% endblock %}
 
 {% block content %}
-  {# Include the actual content partial #}
-  {% include "blog/posts/_related_posts.html" with related_posts=related_posts post_id=post_id %}
+{% include "blog/posts/_related_posts.html" with related_posts=related_posts post_id=post_id %}
 {% endblock content %}

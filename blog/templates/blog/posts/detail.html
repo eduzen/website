@@ -1,12 +1,5 @@
-{% load django_htmx %}
-
-{% if not request.htmx %}
 {% extends 'core/utils/base.html' %}
+
 {% block content %}
-{% endif %}
-
 {% include "blog/posts/_detail.html" %}
-
-{% if not request.htmx %}
 {% endblock content %}
-{% endif %}

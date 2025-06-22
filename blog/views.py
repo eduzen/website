@@ -3,7 +3,6 @@ import logging
 from typing import Any
 
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ImproperlyConfigured
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -42,7 +41,7 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
 @method_decorator(cache_page(MONTH), name="dispatch")
 class AboutView(HtmxGetMixin, TemplateView):
     template_name = "blog/about.html"
-    partial_template_name = "blog/partials/about.html"
+    partial_template_name = "blog/_about.html"
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -69,19 +68,19 @@ class AdvanceSearch(FormView):
 @method_decorator(cache_page(MONTH), name="dispatch")
 class HomeView(HtmxGetMixin, TemplateView):
     template_name = "blog/home.html"
-    partial_template_name = "blog/partials/home.html"
+    partial_template_name = "blog/_home.html"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class ConsultancyView(HtmxGetMixin, TemplateView):
     template_name = "blog/consultancy.html"
-    partial_template_name = "blog/partials/consultancy.html"
+    partial_template_name = "blog/_consultancy.html"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class ClassesView(HtmxGetMixin, TemplateView):
     template_name = "blog/classes.html"
-    partial_template_name = "blog/partials/classes.html"
+    partial_template_name = "blog/_classes.html"
 
 
 # @method_decorator(cache_page(MONTH), name="dispatch")
@@ -89,10 +88,10 @@ class PostListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
-    partial_template_name = "blog/partials/posts/list.html"
     ordering = ["-published_date"]
     filterset_class = PostFilter
     paginate_by = 12
+    partial_template_name = "blog/posts/_list.html"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
@@ -100,10 +99,10 @@ class PostTagsListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
-    partial_template_name = "blog/partials/posts/list.html"
     ordering = ["-published_date"]
     filterset_class = PostFilter
     paginate_by = 12
+    partial_template_name = "blog/posts/_list.html"
 
     def get_context_data(self, object_list=None, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -119,17 +118,15 @@ class PostDetailView(HtmxGetMixin, DetailView):
     queryset = Post.objects.prefetch_related("tags").published()
     context_object_name = "post"
     template_name = "blog/posts/detail.html"
-    partial_template_name = "blog/partials/posts/detail.html"
+    partial_template_name = "blog/posts/_detail.html"
 
 
 @method_decorator(cache_page(MONTH), name="dispatch")
 class RelatedPostsView(HtmxGetMixin, ListView):
-    # Use the new full template for normal requests
     template_name = "blog/posts/related_posts.html"
-    # Keep the partial template for HTMX requests
-    partial_template_name = "blog/partials/posts/related_posts.html"
     context_object_name = "related_posts"
     paginate_by = 4
+    partial_template_name = "blog/posts/_related_posts.html"
 
     def get_queryset(self) -> QuerySet[Post]:
         post_id = self.kwargs.get("post_id")
@@ -154,9 +151,9 @@ class RelatedPostsView(HtmxGetMixin, ListView):
 
 class ContactView(HtmxGetMixin, FormView):
     template_name = "blog/contact.html"
-    partial_template_name = "blog/partials/contact.html"
     form_class = ContactForm
     error_url = reverse_lazy("error")
+    partial_template_name = "blog/_contact.html"
 
     def form_valid(self, form):
         context = {
@@ -175,21 +172,7 @@ class ContactView(HtmxGetMixin, FormView):
         return render(self.request, "blog/success.html", context)
 
     def form_invalid(self, form: ContactForm):
-        # Ensure partial_template_name is set, as it's required for rendering errors via HTMX
-        if not self.partial_template_name:
-            logger.error(f"{self.__class__.__name__} called form_invalid without a partial_template_name.")
-            # Optionally, raise ImproperlyConfigured or handle differently
-            # For now, we might fall back to the main template, but ideally this shouldn't happen.
-            template_name_to_render = self.template_name
-        else:
-            template_name_to_render = self.partial_template_name
-
-        # Ensure at least one template name is available
-        if not template_name_to_render:
-            raise ImproperlyConfigured(
-                f"{self.__class__.__name__} requires a template_name or partial_template_name for form_invalid."
-            )
-
+        # Use the same template for both HTMX and normal requests
+        # The template will handle the conditional rendering based on request.htmx
         context_data = self.get_context_data(form=form)
-        # Use the determined template name
-        return render(self.request, template_name_to_render, context_data)
+        return render(self.request, self.template_name, context_data)
