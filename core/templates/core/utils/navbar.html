@@ -6,7 +6,7 @@
      class="fixed z-10 top-0 w-full bg-slate-800 dracula-border shadow-lg">
   <div class="mx-auto px-4 py-2 flex justify-between items-center text-sm">
     <div class="text-lg font-bold">
-      <a href="{% url 'home' %}" 
+      <a href="{% url 'home' %}"
          hx-get="{% url 'home' %}"
          hx-target="#content"
          hx-push-url="true"
@@ -16,7 +16,7 @@
         </span>
       </a>
     </div>
-    
+
     <!-- Desktop Links -->
     <div class="hidden md:flex space-x-2">
       {% include 'core/utils/nav_links.html' %}
@@ -29,7 +29,7 @@
       </svg>
     </button>
   </div>
-  
+
   <!-- Mobile Links Container -->
   <div class="md:hidden bg-gray-100 p-4" x-show="isMobileMenuOpen" style="display: none;">
     {% include 'core/utils/nav_links_mobile.html' %}

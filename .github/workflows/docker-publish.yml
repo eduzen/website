@@ -124,7 +124,7 @@ jobs:
             emoji="❌"
             status_text="Release failed"
           fi
-          
+
           # Send notification with error handling
           response=$(curl -s -w "HTTPSTATUS:%{http_code}" -X POST \
             "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
@@ -132,7 +132,7 @@ jobs:
             -d parse_mode=Markdown \
             -d disable_web_page_preview=true \
             -d text="${emoji} ${status_text}: https://github.com/eduzen/website/actions/runs/${{ github.run_id }}")
-          
+
           http_code=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
           if [[ ${http_code} -lt 200 || ${http_code} -gt 299 ]]; then
             echo "Failed to send Telegram notification. HTTP status: ${http_code}"

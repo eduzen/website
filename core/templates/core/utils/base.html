@@ -30,7 +30,7 @@
       <script src="{% static 'core/js/menu.js' %}"></script>
       <script src="{% static 'core/js/colorize.js' %}"></script>
       <script async defer data-domain="eduzen.ar" src="https://stats.eduzen.ar/js/plausible.js"></script>
-      
+
       <script>
         // Global HTMX configuration and event handlers
         document.addEventListener('DOMContentLoaded', function() {
@@ -42,7 +42,7 @@
               indicator.classList.add('scale-x-100');
             }
           });
-          
+
           // Hide loading indicator when request completes
           document.body.addEventListener('htmx:afterRequest', function(evt) {
             const indicator = document.getElementById('loadingIndicator');
@@ -53,7 +53,7 @@
               }, 200);
             }
           });
-          
+
           // Handle HTMX errors
           document.body.addEventListener('htmx:responseError', function(evt) {
             console.error('HTMX Request failed:', evt.detail);
