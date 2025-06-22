@@ -1,14 +1,16 @@
-{% extends 'core/utils/base.html' %}
-{% load i18n %}
+{% load django_htmx i18n %}
 
+{% if not request.htmx %}
+{% extends 'core/utils/base.html' %}
 {% block content %}
+{% endif %}
   <div class="text-center mt-24">
     <a
       class="text-green-400 pt-12 text-4xl text-center font-bold mb-4 hover:text-purple-400"
+      href="{% url 'about' %}"
       hx-get="{% url 'about' %}"
       hx-target="#content"
-      hx-push-url="true"
-      href="{% url 'about' %}">
+      hx-push-url="true">
       Eduardo Enriquez
     </a>
   </div>
@@ -17,10 +19,10 @@
     {% translate 'Software Engineer' %} &amp;
     <a
       class="hover:text-purple-400"
+      href="{% url 'consultancy' %}"
       hx-get="{% url 'consultancy' %}"
-      hx-push-url="true"
       hx-target="#content"
-      href="{% url 'consultancy' %}">
+      hx-push-url="true">
       {% translate 'Consultancy' %}
     </a>
   </p>
@@ -31,4 +33,7 @@
       <span class="relative text-white">{% translate 'everywhere!' %}</span>
     </span>
   </blockquote>
+
+{% if not request.htmx %}
 {% endblock content %}
+{% endif %}

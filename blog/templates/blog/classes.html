@@ -1,5 +1,12 @@
-{% extends 'core/utils/base.html' %}
+{% load django_htmx %}
 
+{% if not request.htmx %}
+{% extends 'core/utils/base.html' %}
 {% block content %}
-  {% include "blog/_classes.html" %}
+{% endif %}
+
+{% include "blog/_classes.html" %}
+
+{% if not request.htmx %}
 {% endblock content %}
+{% endif %}

@@ -76,9 +76,10 @@
         {% translate "If you want to contact me, you can do it through this " %}
         <a
           class="text-pink-400 hover:underline"
-          hx-get={% url 'contact' %}
+          href="{% url 'contact' %}"
+          hx-get="{% url 'contact' %}"
           hx-target="#content"
-          href={% url 'contact' %}>
+          hx-push-url="true">
           {% translate "form" %}
         </a>
         {% translate "or through my " %}<a target="_blank" class="text-pink-400 hover:underline" href="{{ global_data.linkedin }}">{% translate "LinkedIn." %}</a>
