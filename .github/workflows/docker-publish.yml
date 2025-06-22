@@ -23,9 +23,6 @@ jobs:
       platforms: ${{ steps.docker_build.outputs.platforms }}
     if: github.event_name == 'push'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Validate env vars
         run: |
           [[ -n "${{ secrets.DOCKERHUB_USERNAME }}" ]] || { echo "Missing DOCKERHUB_USERNAME"; exit 1; }
