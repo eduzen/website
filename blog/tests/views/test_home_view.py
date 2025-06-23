@@ -83,3 +83,95 @@ class TestHomeView(TestCase):
         """Test home view with invalid HTTP method"""
         response = self.client.put(self.url)
         self.assertIn(response.status_code, [HTTPStatus.METHOD_NOT_ALLOWED, HTTPStatus.NOT_FOUND])
+
+    def test_navbar_duplication_bug(self):
+        """Test that clicking eduzen link doesn't cause navbar duplication"""
+        # Simulate clicking the eduzen link with HTMX
+        response = self.client.get(self.url, headers={"HX-Request": "true"})
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "blog/_home.html")
+
+        # The partial response should not contain any navbar elements
+        # This test should pass once the bug is fixed
+        self.assertNotContains(response, 'id="main-navbar"')
+        self.assertNotContains(response, "<nav")
+        self.assertNotContains(response, "loadingIndicator")
+
+    def test_cache_bug_regular_first_then_htmx(self):
+        """Test cache bug: regular request first, then HTMX request"""
+        cache.clear()
+
+        # First request: regular HTTP request (gets cached)
+        regular_response = self.client.get(self.url)
+        self.assertEqual(regular_response.status_code, HTTPStatus.OK)
+        self.assertContains(regular_response, 'id="main-navbar"', count=1)
+        self.assertTemplateUsed(regular_response, "blog/home.html")
+
+        # Second request: HTMX request (should get partial, but might get cached full page)
+        htmx_response = self.client.get(self.url, headers={"HX-Request": "true"})
+        self.assertEqual(htmx_response.status_code, HTTPStatus.OK)
+
+        print("\nRegular request first, then HTMX:")
+        print(f"HTMX response contains navbar: {'id="main-navbar"' in htmx_response.content.decode()}")
+        print(f"HTMX response template used: {htmx_response.templates[0].name if htmx_response.templates else 'None'}")
+
+        # This test should FAIL if cache is broken (reproducing the bug)
+        # The cached full page response should NOT be served for HTMX requests
+        try:
+            self.assertNotContains(htmx_response, 'id="main-navbar"')
+            print("✓ HTMX request correctly got partial template (cache working correctly)")
+        except AssertionError:
+            print("✗ CACHE BUG REPRODUCED: HTMX request got cached full page!")
+            raise
+
+    def test_cache_bug_htmx_first_then_regular(self):
+        """Test cache behavior: HTMX request first, then regular request"""
+        cache.clear()
+
+        # First request: HTMX request (partial gets cached)
+        htmx_response = self.client.get(self.url, headers={"HX-Request": "true"})
+        self.assertEqual(htmx_response.status_code, HTTPStatus.OK)
+        self.assertNotContains(htmx_response, 'id="main-navbar"')
+        self.assertTemplateUsed(htmx_response, "blog/_home.html")
+
+        # Second request: regular HTTP request (should get full page, but might get cached partial)
+        regular_response = self.client.get(self.url)
+        self.assertEqual(regular_response.status_code, HTTPStatus.OK)
+
+        print("\nHTMX request first, then regular:")
+        print(f"Regular response contains navbar: {'id="main-navbar"' in regular_response.content.decode()}")
+        print(
+            f"Regular response template used: {regular_response.templates[0].name if regular_response.templates else 'None'}"
+        )
+
+        # This test should FAIL if cache is broken
+        # The cached partial response should NOT be served for regular requests
+        try:
+            self.assertContains(regular_response, 'id="main-navbar"', count=1)
+            print("✓ Regular request correctly got full template (cache working correctly)")
+        except AssertionError:
+            print("✗ CACHE BUG: Regular request got cached partial instead of full page!")
+            raise
+
+    def test_no_cache_both_requests_work_correctly(self):
+        """Test without cache: both request types work correctly"""
+        # Clear cache and disable caching for this test
+        cache.clear()
+
+        with self.settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}):
+            # Regular request
+            regular_response = self.client.get(self.url)
+            self.assertEqual(regular_response.status_code, HTTPStatus.OK)
+            self.assertContains(regular_response, 'id="main-navbar"', count=1)
+            self.assertTemplateUsed(regular_response, "blog/home.html")
+
+            # HTMX request
+            htmx_response = self.client.get(self.url, headers={"HX-Request": "true"})
+            self.assertEqual(htmx_response.status_code, HTTPStatus.OK)
+            self.assertNotContains(htmx_response, 'id="main-navbar"')
+            self.assertTemplateUsed(htmx_response, "blog/_home.html")
+
+            print("\nNo cache test:")
+            print(f"Regular template: {regular_response.templates[0].name}")
+            print(f"HTMX template: {htmx_response.templates[0].name}")
