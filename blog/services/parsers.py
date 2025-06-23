@@ -63,7 +63,7 @@ def _style_p_tags(tags: list[Tag]) -> None:
 
 def _style_pre_tags(soup: BeautifulSoup, tags: list[Tag]) -> None:
     for tag in tags:
-        tag["class"] = "relative bg-white text-black n p-6 rounded-lg"
+        tag["class"] = "relative bg-white text-black p-6 rounded-lg"
 
         # Adding the copy button as a child to each <pre> tag
         copy_button = soup.new_tag(

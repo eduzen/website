@@ -1,7 +1,7 @@
 import requests
 from django.conf import settings
 
-TELEGRAM_TOKEN = settings.TELEGRAM_TOKEN  # trype: ignore
+TELEGRAM_TOKEN = settings.TELEGRAM_TOKEN  # type: ignore
 TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID  # type: ignore
 
 BASE_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
