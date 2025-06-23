@@ -1,72 +1,52 @@
 {% load i18n %}
 
-<a x-on:click="isMobileMenuOpen = false"
-   id="mobile-blog"
-   href="#"
+<a href="{% url 'blog' %}"
    hx-get="{% url 'blog' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
+   @click="isMobileMenuOpen = false"
    class="block py-2 text-gray-700 hover:text-black">
   {% translate "Blog" %}
 </a>
 
-<a x-on:click="isMobileMenuOpen = false"
-   id="mobile-consultancy"
-   href="#"
+<a href="{% url 'consultancy' %}"
    hx-get="{% url 'consultancy' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
+   @click="isMobileMenuOpen = false"
    class="block py-2 text-gray-700 hover:text-black">
   {% translate "Consultancy" %}
 </a>
 
-<a x-on:click="isMobileMenuOpen = false"
-   id="mobile-classes"
-   href="#"
+<a href="{% url 'classes' %}"
    hx-get="{% url 'classes' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
+   @click="isMobileMenuOpen = false"
    class="block py-2 text-gray-700 hover:text-black">
   {% translate "Classes" %}
 </a>
 
-<a x-on:click="isMobileMenuOpen = false"
-   id="mobile-about"
-   href="#"
+<a href="{% url 'about' %}"
    hx-get="{% url 'about' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
+   @click="isMobileMenuOpen = false"
    class="block py-2 text-gray-700 hover:text-black">
   {% translate "About" %}
 </a>
 
-<a x-on:click="isMobileMenuOpen = false"
-   id="mobile-contact"
-   href="#"
+<a href="{% url 'contact' %}"
    hx-get="{% url 'contact' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
+   @click="isMobileMenuOpen = false"
    class="block py-2 text-gray-700 hover:text-black">
   {% translate "Contact" %}
 </a>
 
 {% if user.is_superuser %}
-  <a x-on:click="isMobileMenuOpen = false" href="{% url 'admin:index' %}" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
+  <a href="{% url 'admin:index' %}" @click="isMobileMenuOpen = false" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
 {% endif %}
 
 {% include 'core/utils/language_dropdown_button.html' %}

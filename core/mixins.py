@@ -8,8 +8,8 @@ from .types import HtmxHttpRequest
 
 class HtmxGetMixin(TemplateResponseMixin):
     """
-    Dynamically select templates based on whether the request is an HTMX request.
-    Uses `partial_template_name` for HTMX and `template_name` otherwise.
+    Handle HTMX requests by swapping to partial templates.
+    Follows django-htmx recommended pattern for base template swapping.
     """
 
     template_name: str | None = None
@@ -18,10 +18,11 @@ class HtmxGetMixin(TemplateResponseMixin):
     def get_template_names(self) -> list[str]:
         request = cast(HtmxHttpRequest, self.request)
 
+        # For HTMX requests, render just the partial template
         if request.htmx and self.partial_template_name:
             return [self.partial_template_name]
 
         if self.template_name:
             return [self.template_name]
 
-        raise ImproperlyConfigured(f"{self.__class__.__name__} requires `template_name` or `partial_template_name`.")
+        raise ImproperlyConfigured(f"{self.__class__.__name__} requires `template_name`.")
