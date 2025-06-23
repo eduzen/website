@@ -58,7 +58,6 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v6.18.0
         with:
-          context: .
           file: ./Dockerfile
           target: production
           tags: ${{ steps.meta.outputs.tags }}
