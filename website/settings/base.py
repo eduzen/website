@@ -223,3 +223,6 @@ IGNORABLE_404_URLS = [
     re.compile(r"\.php$"),
     re.compile(r"^/wp-"),
 ]
+
+BUILD_DATE = config("BUILD_DATE", default="unknown")
+RELEASE = config("RELEASE", default="unknown")

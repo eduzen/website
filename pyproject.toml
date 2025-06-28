@@ -87,6 +87,9 @@ exclude = [
   "website/settings/test.py",
 ]
 
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
 [tool.coverage.run]
 branch = true
 source = ["blog", "core", "snippets"]

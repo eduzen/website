@@ -92,7 +92,7 @@ LOGGING = {
 }
 
 SENTRY_DSN = config("SENTRY_DSN", default="")
-RELEASE = config("SENTRY_RELEASE", default="0.0.0+dev")
+RELEASE = config("RELEASE", default="0.0.0+dev", cast=str)
 
 if (not DEBUG) and SENTRY_DSN:
     sentry_sdk.init(

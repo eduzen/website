@@ -10,7 +10,7 @@
          hx-get="{% url 'home' %}"
          hx-target="#content"
          hx-push-url="true"
-         class="flex items-center">
+         class="flex items-center {% if request.resolver_match.url_name == 'home' %}active-link{% endif %}">
         <span class="ml-2"><i class="fa-regular fa-lightbulb bulb-fade"></i>
           eduzen
         </span>
