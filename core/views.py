@@ -115,7 +115,7 @@ def version_view(request: HttpRequest) -> HttpResponse:
     """
 
     # If it's an HTMX request, return just the table
-    if request.htmx:
+    if request.htmx:  # type: ignore
         return HttpResponse(html_content)
 
     # Otherwise, return with the base template
