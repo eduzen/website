@@ -37,6 +37,9 @@ services:
     depends_on:
       - db
       - redis
+    environment:
+      - BUILD_DATE=$(date +%Y-%m-%d)
+      - RELEASE=$(git describe --tags --always --dirty)
     env_file:
       - .env
 
