@@ -48,14 +48,9 @@ repos:
         args: [--py313]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.11.13'
+    rev: 'v0.12.1'
     hooks:
-      - id: ruff
-        args: ["--fix"]
+      - id: ruff-check
+        args: ["--fix", "--target-version", "py313"]
       - id: ruff-format
-
-  - repo: https://github.com/PyCQA/isort
-    rev: 6.0.1
-    hooks:
-      - id: isort
-        args: ["--profile", "black", "--filter-files"]
+        args: ["--target-version", "py313"]

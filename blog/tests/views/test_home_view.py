@@ -112,10 +112,6 @@ class TestHomeView(TestCase):
         htmx_response = self.client.get(self.url, headers={"HX-Request": "true"})
         self.assertEqual(htmx_response.status_code, HTTPStatus.OK)
 
-        print("\nRegular request first, then HTMX:")
-        print(f"HTMX response contains navbar: {'id="main-navbar"' in htmx_response.content.decode()}")
-        print(f"HTMX response template used: {htmx_response.templates[0].name if htmx_response.templates else 'None'}")
-
         # This test should FAIL if cache is broken (reproducing the bug)
         # The cached full page response should NOT be served for HTMX requests
         try:
@@ -138,12 +134,6 @@ class TestHomeView(TestCase):
         # Second request: regular HTTP request (should get full page, but might get cached partial)
         regular_response = self.client.get(self.url)
         self.assertEqual(regular_response.status_code, HTTPStatus.OK)
-
-        print("\nHTMX request first, then regular:")
-        print(f"Regular response contains navbar: {'id="main-navbar"' in regular_response.content.decode()}")
-        print(
-            f"Regular response template used: {regular_response.templates[0].name if regular_response.templates else 'None'}"
-        )
 
         # This test should FAIL if cache is broken
         # The cached partial response should NOT be served for regular requests
@@ -171,7 +161,3 @@ class TestHomeView(TestCase):
             self.assertEqual(htmx_response.status_code, HTTPStatus.OK)
             self.assertNotContains(htmx_response, 'id="main-navbar"')
             self.assertTemplateUsed(htmx_response, "blog/_home.html")
-
-            print("\nNo cache test:")
-            print(f"Regular template: {regular_response.templates[0].name}")
-            print(f"HTMX template: {htmx_response.templates[0].name}")

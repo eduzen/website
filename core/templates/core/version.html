@@ -1,0 +1,21 @@
+{% extends 'core/utils/base.html' %}
+{% load django_htmx %}
+
+{% block content %}
+
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Version Information</h1>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        {{ version_table|safe }}
+    </div>
+
+    <div class="mt-6">
+        <a href="?format=json"
+           class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            View as JSON
+        </a>
+    </div>
+</div>
+
+{% endblock content %}

@@ -5,7 +5,7 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 text-gray-700 hover:text-black">
+   class="block py-2 {% if 'blog' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
   {% translate "Blog" %}
 </a>
 
@@ -14,7 +14,7 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 text-gray-700 hover:text-black">
+   class="block py-2 {% if 'consultancy' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
   {% translate "Consultancy" %}
 </a>
 
@@ -23,7 +23,7 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 text-gray-700 hover:text-black">
+   class="block py-2 {% if 'classes' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
   {% translate "Classes" %}
 </a>
 
@@ -32,7 +32,7 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 text-gray-700 hover:text-black">
+   class="block py-2 {% if 'about' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
   {% translate "About" %}
 </a>
 
@@ -41,7 +41,7 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 text-gray-700 hover:text-black">
+   class="block py-2 {% if 'contact' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
   {% translate "Contact" %}
 </a>
 
