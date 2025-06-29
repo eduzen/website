@@ -26,7 +26,9 @@ class TestClassesView(TestCase):
         response = self.client.get(self.url, HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_classes.html")
+        # With django-template-partials, HTMX requests render the partial content only
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Classes")
 
     def test_classes_view_regular_request(self):
         """Test classes view with regular HTTP request"""
@@ -41,8 +43,9 @@ class TestClassesView(TestCase):
         response = self.client.get(self.url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_classes.html")
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Classes")
 
     def test_classes_view_post_request(self):
         """Test POST request to classes view (should handle gracefully)"""

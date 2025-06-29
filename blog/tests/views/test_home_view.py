@@ -36,7 +36,9 @@ class TestHomeView(TestCase):
         response = self.client.get(self.url, HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_home.html")
+        # With django-template-partials, HTMX requests render the partial content only
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Eduardo Enriquez")
 
     def test_home_view_regular_request(self):
         """Test home view with regular HTTP request"""
@@ -52,9 +54,9 @@ class TestHomeView(TestCase):
         response = self.client.get(self.url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_home.html")
-        # HTMX request should not include full page structure
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Eduardo Enriquez")
 
     def test_home_view_is_cached(self):
         """Test that home view is cached"""
@@ -90,10 +92,10 @@ class TestHomeView(TestCase):
         response = self.client.get(self.url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_home.html")
+        # With django-template-partials, HTMX requests render only the partial content
+        self.assertNotContains(response, "<!DOCTYPE html>")
 
         # The partial response should not contain any navbar elements
-        # This test should pass once the bug is fixed
         self.assertNotContains(response, 'id="main-navbar"')
         self.assertNotContains(response, "<nav")
         self.assertNotContains(response, "loadingIndicator")
@@ -129,7 +131,8 @@ class TestHomeView(TestCase):
         htmx_response = self.client.get(self.url, headers={"HX-Request": "true"})
         self.assertEqual(htmx_response.status_code, HTTPStatus.OK)
         self.assertNotContains(htmx_response, 'id="main-navbar"')
-        self.assertTemplateUsed(htmx_response, "blog/_home.html")
+        # With django-template-partials, no specific template assertion needed
+        self.assertNotContains(htmx_response, "<!DOCTYPE html>")
 
         # Second request: regular HTTP request (should get full page, but might get cached partial)
         regular_response = self.client.get(self.url)
@@ -160,4 +163,5 @@ class TestHomeView(TestCase):
             htmx_response = self.client.get(self.url, headers={"HX-Request": "true"})
             self.assertEqual(htmx_response.status_code, HTTPStatus.OK)
             self.assertNotContains(htmx_response, 'id="main-navbar"')
-            self.assertTemplateUsed(htmx_response, "blog/_home.html")
+            # With django-template-partials, HTMX requests render only partial content
+            self.assertNotContains(htmx_response, "<!DOCTYPE html>")

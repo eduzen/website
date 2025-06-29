@@ -36,16 +36,16 @@ class TestRelatedPostsView(TestCase):
         assert response.status_code == HTTPStatus.OK
         self.assertTemplateUsed(response, "blog/posts/related_posts.html")
         self.assertTemplateUsed(response, "core/utils/base.html")
-        self.assertTemplateUsed(response, "blog/posts/_related_posts.html")
+        # With django-template-partials, partial content is included in main template
+        self.assertContains(response, "<!DOCTYPE html>")
 
     def test_related_posts_view_uses_correct_template_for_htmx(self):
         response = self.client.get(self.url2, headers={"HX-Request": "true"})
         assert response.status_code == HTTPStatus.OK
-        # HTMX requests with django-template-partials render only the partial content
-        self.assertTemplateUsed(response, "blog/posts/_related_posts.html")
-        # HTMX requests should NOT include the base template or main template
-        self.assertTemplateNotUsed(response, "core/utils/base.html")
-        self.assertTemplateNotUsed(response, "blog/posts/related_posts.html")
+        # With django-template-partials, HTMX requests render only the partial content
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        # Should contain related posts pagination structure
+        self.assertContains(response, "flex flex-wrap justify-between items-center")
 
     def test_related_posts(self):
         # post1 and post2 share the tag 'test_tag1'

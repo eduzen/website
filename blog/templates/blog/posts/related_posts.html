@@ -1,8 +1,57 @@
 {% extends 'core/utils/base.html' %}
-{% load i18n %}
+{% load i18n partials %}
 
 {% block title %}{% translate 'Related Posts' %} | {{ block.super }}{% endblock %}
 
 {% block content %}
-{% include "blog/posts/_related_posts.html" with related_posts=related_posts post_id=post_id %}
+
+{% partialdef related-posts-content %}
+{% load i18n %}
+
+<div class="flex flex-wrap justify-between items-center">
+
+  <!-- Left div (conditional) -->
+  {% if page_obj.has_previous %}
+    <a
+      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400 mt-2 md:mt-0"
+      href="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
+      hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.previous_page_number }}"
+      hx-target="#related-post-container">
+      <i class="fas fa-chevron-left mr-2"></i>
+      {% translate "Previous" %}
+    </a>
+  {% else %}
+    <div class="hidden md:block w-10"></div> <!-- Placeholder for larger screens only -->
+  {% endif %}
+
+  <!-- Center div -->
+  <div class="w-full md:flex-grow flex flex-wrap justify-center space-x-2 md:space-x-4 mt-4 md:mt-0">
+    {% for post in related_posts %}
+      <div class="card w-full md:flex-shrink-0 md:w-1/4 bg-gray-700 rounded-xl shadow-md overflow-hidden hover:bg-pink-400 mb-4">
+        <div class="p-4">
+          <h2 class="text-lg font-semibold">{{ post.title }}</h2>
+          <a href="{{ post.get_absolute_url }}" class="text-sm text-blue-500 hover:underline mt-2">Read more</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Right div (conditional) -->
+  {% if page_obj.has_next %}
+    <a
+      class="flex items-center flex-shrink-0 w-auto py-2 px-4 border rounded bg-purple-400 hover:bg-pink-400 mt-2 md:mt-0"
+      href="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
+      hx-get="{% url 'related_posts' post_id %}?page={{ page_obj.next_page_number }}"
+      hx-target="#related-post-container">
+      {% translate "Next" %}&nbsp;
+      <i class="fas fa-chevron-right mr-2"></i>
+    </a>
+  {% else %}
+    <div class="hidden md:block w-10"></div> <!-- Placeholder for larger screens only -->
+  {% endif %}
+</div>
+{% endpartialdef related-posts-content %}
+
+{% partial related-posts-content %}
+
 {% endblock content %}

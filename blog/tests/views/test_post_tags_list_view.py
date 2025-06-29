@@ -90,8 +90,9 @@ class TestPostTagsListView(TestCase):
         response = self.client.get(url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/posts/_list.html")
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Blog")
 
     def test_tag_with_empty_posts(self):
         """Test tag view with tag that has no posts"""
