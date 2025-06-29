@@ -226,3 +226,4 @@ IGNORABLE_404_URLS = [
 
 BUILD_DATE = config("BUILD_DATE", default="unknown")
 RELEASE = config("RELEASE", default="unknown")
+SENTRY_DSN = config("SENTRY_DSN", default="")

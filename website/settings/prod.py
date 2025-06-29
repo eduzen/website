@@ -6,7 +6,7 @@ from decouple import Csv, config
 from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
-from .base import LOG_LEVEL  # noqa
+from .base import LOG_LEVEL, RELEASE, SENTRY_DSN  # noqa
 
 logfire.configure(send_to_logfire="if-token-present", environment="production")
 logfire.instrument_django(capture_headers=True)
@@ -91,8 +91,6 @@ LOGGING = {
     },
 }
 
-SENTRY_DSN = config("SENTRY_DSN", default="")
-RELEASE = config("RELEASE", default="0.0.0+dev", cast=str)
 
 if (not DEBUG) and SENTRY_DSN:
     sentry_sdk.init(
