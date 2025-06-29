@@ -7,9 +7,6 @@ from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_headers
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django_filters.views import FilterView
 
@@ -23,12 +20,6 @@ from .services.telegram import send_contact_message
 
 logger = logging.getLogger(__name__)
 
-MIN = 60
-HOUR = 60 * MIN
-DAY = 24 * HOUR
-MONTH = 30 * DAY
-HALF_YEAR = 6 * MONTH
-
 
 @login_required
 def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
@@ -39,7 +30,6 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
     return redirect("admin:blog_post_change", post_id)
 
 
-@method_decorator([cache_page(MONTH), vary_on_headers("HX-Request")], name="dispatch")
 class AboutView(HtmxGetMixin, TemplateView):
     template_name = "blog/about.html"
     partial_template_name = "blog/_about.html"
@@ -66,25 +56,21 @@ class AdvanceSearch(FormView):
     success_url = "/success/"
 
 
-@method_decorator([cache_page(MONTH), vary_on_headers("HX-Request")], name="dispatch")
 class HomeView(HtmxGetMixin, TemplateView):
     template_name = "blog/home.html"
     partial_template_name = "blog/_home.html"
 
 
-@method_decorator([cache_page(MONTH), vary_on_headers("HX-Request")], name="dispatch")
 class ConsultancyView(HtmxGetMixin, TemplateView):
     template_name = "blog/consultancy.html"
     partial_template_name = "blog/_consultancy.html"
 
 
-@method_decorator([cache_page(MONTH), vary_on_headers("HX-Request")], name="dispatch")
 class ClassesView(HtmxGetMixin, TemplateView):
     template_name = "blog/classes.html"
     partial_template_name = "blog/_classes.html"
 
 
-@method_decorator(vary_on_headers("HX-Request"), name="dispatch")
 class PostListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
@@ -95,7 +81,6 @@ class PostListView(HtmxGetMixin, FilterView):
     partial_template_name = "blog/posts/_list.html"
 
 
-@method_decorator([cache_page(MONTH), vary_on_headers("HX-Request")], name="dispatch")
 class PostTagsListView(HtmxGetMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
@@ -114,7 +99,6 @@ class PostTagsListView(HtmxGetMixin, FilterView):
         return self.queryset.filter(tags__slug=self.kwargs.get("tag"))
 
 
-@method_decorator([cache_page(MONTH), vary_on_headers("HX-Request")], name="dispatch")
 class PostDetailView(HtmxGetMixin, DetailView):
     queryset = Post.objects.prefetch_related("tags").published()
     context_object_name = "post"
@@ -122,7 +106,6 @@ class PostDetailView(HtmxGetMixin, DetailView):
     partial_template_name = "blog/posts/_detail.html"
 
 
-@method_decorator([cache_page(MONTH), vary_on_headers("HX-Request")], name="dispatch")
 class RelatedPostsView(HtmxGetMixin, ListView):
     template_name = "blog/posts/related_posts.html"
     context_object_name = "related_posts"
@@ -150,7 +133,6 @@ class RelatedPostsView(HtmxGetMixin, ListView):
         return context
 
 
-@method_decorator(vary_on_headers("HX-Request"), name="dispatch")
 class ContactView(HtmxGetMixin, FormView):
     template_name = "blog/contact.html"
     form_class = ContactForm
