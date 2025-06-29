@@ -114,21 +114,38 @@ website/
 The website uses HTMX for SPA-like behavior. Recent refactoring (2024) eliminated template duplication:
 
 ### Template Pattern
-All main templates now use this pattern:
-```django
-{% load django_htmx %}
+Templates now use django-template-partials for cleaner HTMX integration:
 
-{% if not request.htmx %}
-{% extends 'core/utils/base.html' %}
-{% block content %}
-{% endif %}
+**View Pattern:**
+```python
+class MyView(TemplateView):
+    template_name = "app/template.html"
 
-<!-- Actual content here -->
-
-{% if not request.htmx %}
-{% endblock content %}
-{% endif %}
+    def get_template_names(self):
+        if self.request.htmx:
+            return ["app/template.html#partial-name"]
+        return [self.template_name]
 ```
+
+**Template Pattern:**
+```django
+{% extends 'core/utils/base.html' %}
+{% load partials %}
+
+{% block content %}
+
+{% partialdef partial-name %}
+<!-- Actual content here -->
+{% endpartialdef partial-name %}
+
+{% partial partial-name %}
+
+{% endblock content %}
+```
+
+**Important**:
+- Do NOT use `request.htmx` checks in templates. Use django-template-partials instead.
+- Use `{% static %}` instead of `{% get_static_prefix %}` within partialdef blocks.
 
 ### HTMX Features
 - **Single Template Design**: Each template serves both full page and HTMX partial requests
@@ -146,7 +163,8 @@ All main templates now use this pattern:
 ## Common Issues & Solutions
 
 ### Template Errors
-- Always use `{% load django_htmx %}` in templates that check `request.htmx`
+- Always use `{% load partials %}` for django-template-partials
+- Do NOT use `request.htmx` checks - use partialdef instead
 - Ensure no duplicate partials exist (they were removed in 2024 refactor)
 
 ### HTMX Issues
@@ -190,6 +208,14 @@ just run
 
 ## Recent Changes (2024)
 
+### Django-Template-Partials Migration (Latest)
+- **Converted All Views**: Migrated from `HtmxGetMixin` to django-template-partials pattern
+- **Template Consolidation**: All 8 views now use single-template structure with `{% partialdef %}`
+- **View Pattern**: Views use `get_template_names()` returning `"template.html#partial-name"` for HTMX requests
+- **File Cleanup**: Removed 8 unused `_*.html` partial template files
+- **Static File Fix**: Fixed image 404s by replacing `{% get_static_prefix %}` with `{% static %}` in partials
+- **Alpine.js Improvements**: Enhanced image slideshow with pause-on-hover and proper memory management
+
 ### HTMX Refactoring
 - **Eliminated Template Duplication**: Removed 7 duplicate partial templates
 - **Single Template Pattern**: Templates now handle both full-page and HTMX requests
@@ -199,11 +225,12 @@ just run
 - **Alpine.js Cleanup**: Reduced conflicts between Alpine.js and HTMX
 
 ### Key Benefits
-- 50% fewer template files
+- 50% fewer template files (eliminated all `_*.html` partials)
 - No more navbar duplication issues
-- Cleaner HTMX implementation
+- Cleaner HTMX implementation with django-template-partials
 - Better error handling and loading states
-- More maintainable codebase
+- More maintainable codebase with single-template architecture
+- Proper static file handling in partial contexts
 
 ## Code Style
 
@@ -232,7 +259,7 @@ Key environment variables (see `.env.sample`):
 
 ## Architecture Notes
 
-- **Templates**: Use `{% if not request.htmx %}` pattern for dual rendering
+- **Templates**: Use django-template-partials with `{% partialdef %}` for dual rendering
 - **Navigation**: All links use HTMX with fallback href for accessibility
 - **Loading States**: Global HTMX event handlers manage loading indicators
 - **Error Handling**: Failed requests show red loading bar and console errors
