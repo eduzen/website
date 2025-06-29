@@ -29,7 +29,9 @@ class TestContactView(TestCase):
         response = self.client.get(self.url, HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_contact.html")
+        # With django-template-partials, HTMX requests render the partial content only
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Contact")
 
     def test_contact_view_regular_request(self):
         """Test contact view with regular HTTP request"""
@@ -44,8 +46,9 @@ class TestContactView(TestCase):
         response = self.client.get(self.url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_contact.html")
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Contact")
 
     def test_contact_form_valid_submission(self):
         """Test valid contact form submission"""
@@ -119,7 +122,8 @@ class TestContactView(TestCase):
         response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_contact.html")
+        # With django-template-partials, HTMX requests render the contact template
+        self.assertTemplateUsed(response, "blog/contact.html")
         self.assertContains(response, "This field is required")
 
     def test_contact_form_with_long_message(self):

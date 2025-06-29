@@ -66,7 +66,9 @@ class TestPostDetailView(TestCase):
         response = self.client.get(url, HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/posts/_detail.html")
+        # With django-template-partials, HTMX requests render the partial content only
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, self.post.title)
 
     def test_post_detail_regular_request(self):
         """Test post detail view with regular HTTP request"""
@@ -83,8 +85,9 @@ class TestPostDetailView(TestCase):
         response = self.client.get(url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/posts/_detail.html")
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, self.post.title)
 
     def test_post_detail_prefetch_tags(self):
         """Test that tags are prefetched"""

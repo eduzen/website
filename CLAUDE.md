@@ -87,6 +87,9 @@ uv run python manage.py runserver
 # Django shell with extensions
 uv run python manage.py shell_plus
 
+# Run tests
+uv run pytest
+
 # Any Django management command
 uv run python manage.py <command>
 ```

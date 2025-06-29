@@ -38,10 +38,9 @@ class TestPostListView(TestCase):
         response = self.client.get(self.url, HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        # HTMX requests render only the partial content
-        self.assertTemplateUsed(response, "blog/posts/_list.html")
-        self.assertTemplateNotUsed(response, "blog/posts/list.html")
-        self.assertTemplateNotUsed(response, "core/utils/base.html")
+        # With django-template-partials, HTMX requests render only the partial content
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Blog")
 
     def test_post_list_view_regular_request(self):
         """Test post list view with regular HTTP request"""
@@ -62,8 +61,9 @@ class TestPostListView(TestCase):
         response = self.client.get(self.url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/posts/_list.html")
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Blog")
 
     def test_empty_post_list(self):
         """Test post list with no posts"""
@@ -234,5 +234,6 @@ class TestPostListView(TestCase):
         response = self.client.get(self.url + "?page=2", HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/posts/_list.html")
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "Blog")

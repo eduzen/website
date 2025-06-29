@@ -40,7 +40,9 @@ class TestAboutView(TestCase):
         response = self.client.get(self.url, HTTP_HX_REQUEST="true")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_about.html")
+        # With django-template-partials, HTMX requests render the partial content only
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "About me")
 
     def test_about_view_regular_request(self):
         """Test about view with regular HTTP request"""
@@ -55,8 +57,9 @@ class TestAboutView(TestCase):
         response = self.client.get(self.url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/_about.html")
+        # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "About me")
 
     def test_about_view_cached_performance(self):
         """Test that cached views perform better on subsequent requests"""
