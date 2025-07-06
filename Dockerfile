@@ -1,7 +1,9 @@
 FROM python:3.13-slim-bookworm AS production
 
 ARG RELEASE=0.0.0+dev
+ARG BUILD_DATE=unknown
 ENV RELEASE=$RELEASE
+ENV BUILD_DATE=$BUILD_DATE
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 ENV PATH="/code/.venv/bin:$PATH"
 # PYTHONUNBUFFERED non empty value force the stdout and stderr streams to be unbuffered.

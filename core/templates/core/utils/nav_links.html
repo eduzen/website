@@ -1,65 +1,45 @@
 {% load i18n static %}
 
-<a id="blog"
-   href="{% url 'blog' %}"
+<a href="{% url 'blog' %}"
    hx-get="{% url 'blog' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
    class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">
   {% translate "Blog" %}
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="consultancy"
-   href="{% url 'consultancy' %}"
+<a href="{% url 'consultancy' %}"
    hx-get="{% url 'consultancy' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
    class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">
   {% translate "Consultancy" %}
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="classes"
-   href="{% url 'classes' %}"
+<a href="{% url 'classes' %}"
    hx-get="{% url 'classes' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
    class="nav-link {% if 'classes' in request.path %}active-link{% endif %}">
   {% translate "Classes" %}
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="about"
-   href="{% url 'about' %}"
+<a href="{% url 'about' %}"
    hx-get="{% url 'about' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
    class="nav-link {% if 'about' in request.path %}active-link{% endif %}">
   {% translate "About" %}
 </a>
 <span class="text-gray-400">·</span>
 
-<a id="contact"
-   href="{% url 'contact' %}"
+<a href="{% url 'contact' %}"
    hx-get="{% url 'contact' %}"
-   hx-trigger="click"
    hx-target="#content"
-   hx-indicator="#loadingIndicator"
    hx-push-url="true"
-   hx-swap="innerHTML"
    class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">
   {% translate "Contact" %}
 </a>
@@ -70,5 +50,4 @@
   <span class="text-gray-400">·</span>
 {% endif %}
 
-{# Moved to core/templates/core/utils #}
 {% include 'core/utils/language_dropdown_button.html' %}

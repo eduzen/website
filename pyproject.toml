@@ -43,6 +43,7 @@ dependencies = [
   "whitenoise[brotli]",
   "logfire[django,psycopg,sqlite3,redis,requests]>=3.3.0",
   "pydantic-ai-slim[logfire,openai]>=0.0.24",
+  "django-template-partials>=24.4",
 ]
 
 [dependency-groups]
@@ -68,6 +69,7 @@ dev = [
   "types-beautifulsoup4",
   "types-Pygments",
   "types-factory-boy",
+  "ty>=0.0.1a11",
 ]
 
 [tool.pytest.ini_options]
@@ -84,6 +86,9 @@ exclude = [
   "website/settings/base.py",
   "website/settings/test.py",
 ]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
 
 [tool.coverage.run]
 branch = true

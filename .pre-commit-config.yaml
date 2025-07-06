@@ -37,25 +37,20 @@ repos:
         args: [--target-version, "5.1"]
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.24.0"
+    rev: "1.25.0"
     hooks:
     -   id: django-upgrade
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
+    rev: v3.20.0
     hooks:
       - id: pyupgrade
         args: [--py313]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.11.8'
+    rev: 'v0.12.1'
     hooks:
-      - id: ruff
-        args: ["--fix"]
+      - id: ruff-check
+        args: ["--fix", "--target-version", "py313"]
       - id: ruff-format
-
-  - repo: https://github.com/PyCQA/isort
-    rev: 6.0.1
-    hooks:
-      - id: isort
-        args: ["--profile", "black", "--filter-files"]
+        args: ["--target-version", "py313"]

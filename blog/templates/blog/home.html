@@ -1,34 +1,41 @@
 {% extends 'core/utils/base.html' %}
-{% load i18n %}
+{% load partials %}
 
 {% block content %}
-  <div class="text-center mt-24">
-    <a
-      class="text-green-400 pt-12 text-4xl text-center font-bold mb-4 hover:text-purple-400"
-      hx-get="{% url 'about' %}"
-      hx-target="#content"
-      hx-push-url="true"
-      href="{% url 'about' %}">
-      Eduardo Enriquez
-    </a>
-  </div>
 
-  <p class="text-center text-xl font-medium pt-4 mb-4">
-    {% translate 'Software Engineer' %} &amp;
-    <a
-      class="hover:text-purple-400"
-      hx-get="{% url 'consultancy' %}"
-      hx-push-url="true"
-      hx-target="#content"
-      href="{% url 'consultancy' %}">
-      {% translate 'Consultancy' %}
-    </a>
-  </p>
+{% partialdef home-content %}
+{% load i18n %}
+<div class="text-center mt-24">
+  <a
+    class="text-green-400 pt-12 text-4xl text-center font-bold mb-4 hover:text-purple-400"
+    href="{% url 'about' %}"
+    hx-get="{% url 'about' %}"
+    hx-target="#content"
+    hx-push-url="true">
+    Eduardo Enriquez
+  </a>
+</div>
 
-  <blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mt-8">
-    {% translate 'Based in Amsterdam' %}, {% translate 'available' %}
-    <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-      <span class="relative text-white">{% translate 'everywhere!' %}</span>
-    </span>
-  </blockquote>
+<p class="text-center text-xl font-medium pt-4 mb-4">
+  {% translate 'Software Engineer' %} &amp;
+  <a
+    class="hover:text-purple-400"
+    href="{% url 'consultancy' %}"
+    hx-get="{% url 'consultancy' %}"
+    hx-target="#content"
+    hx-push-url="true">
+    {% translate 'Consultancy' %}
+  </a>
+</p>
+
+<blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mt-8">
+  {% translate 'Based in Amsterdam' %}, {% translate 'available' %}
+  <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+    <span class="relative text-white">{% translate 'everywhere!' %}</span>
+  </span>
+</blockquote>
+{% endpartialdef home-content %}
+
+{% partial home-content %}
+
 {% endblock content %}

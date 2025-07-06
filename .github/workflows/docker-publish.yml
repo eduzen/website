@@ -25,10 +25,31 @@ jobs:
     steps:
       - name: Validate env vars
         run: |
-          : "${{ secrets.DOCKERHUB_USERNAME }}" || { echo "Missing DOCKERHUB_USERNAME"; exit 1; }
-          : "${{ secrets.DOCKERHUB_TOKEN }}"    || { echo "Missing DOCKERHUB_TOKEN"; exit 1; }
-          : "${{ secrets.TELEGRAM_TOKEN }}"     || { echo "Missing TELEGRAM_TOKEN"; exit 1; }
-          : "${{ secrets.TELEGRAM_TO }}"        || { echo "Missing TELEGRAM_TO"; exit 1; }
+          [[ -n "${{ secrets.DOCKERHUB_USERNAME }}" ]] || { echo "Missing DOCKERHUB_USERNAME"; exit 1; }
+          [[ -n "${{ secrets.DOCKERHUB_TOKEN }}" ]] || { echo "Missing DOCKERHUB_TOKEN"; exit 1; }
+          [[ -n "${{ secrets.TELEGRAM_TOKEN }}" ]] || { echo "Missing TELEGRAM_TOKEN"; exit 1; }
+          [[ -n "${{ secrets.TELEGRAM_TO }}" ]] || { echo "Missing TELEGRAM_TO"; exit 1; }
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            eduzen/website
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3.4.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -38,43 +59,45 @@ jobs:
         with:
           buildkitd-flags: --allow-insecure-entitlement network.host
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v3.4.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v6.16.0
+        uses: docker/build-push-action@v6.18.0
         with:
           file: ./Dockerfile
           target: production
-          tags: |
-            eduzen/website:latest
-            eduzen/website:${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ github.ref_name }}
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}
           build-args: |
             RELEASE=${{ github.sha }}
-          labels: |
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.created=$(date --utc +'%Y-%m-%dT%H:%M:%SZ')
-            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            BUILD_DATE=${{ github.event.head_commit.timestamp }}
 
       - name: Print image digest
         run: echo "→ ${{ steps.docker_build.outputs.digest }}"
 
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: eduzen/website:${{ github.sha }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        continue-on-error: true
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
   release:
     needs: push
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
-    env:
-      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
     steps:
       - name: Get today's date (Europe)
         id: date
@@ -91,11 +114,33 @@ jobs:
             • Date: ${{ steps.date.outputs.date }}
             • Commit: ${{ github.sha }}
 
-      - name: Notify Telegram via curl
+      - name: Notify Telegram
         if: always()
         run: |
-          emoji="❌"; [[ "$status" == "success" ]] && emoji="✅"
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
+          # Check if the push job (Docker build) was successful
+          if [[ "${{ needs.push.result }}" == "success" && "${{ job.status }}" == "success" ]]; then
+            emoji="✅"
+            status_text="Docker build and release successful"
+          elif [[ "${{ needs.push.result }}" == "failure" ]]; then
+            emoji="❌"
+            status_text="Docker build failed"
+          else
+            emoji="❌"
+            status_text="Release failed"
+          fi
+
+          # Send notification with error handling
+          response=$(curl -s -w "HTTPSTATUS:%{http_code}" -X POST \
+            "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_TO }}" \
             -d parse_mode=Markdown \
-            -d text="${emoji} Github Actions: https://github.com/eduzen/website/actions/runs/${{ github.run_id }}"
+            -d disable_web_page_preview=true \
+            -d text="${emoji} ${status_text}: https://github.com/eduzen/website/actions/runs/${{ github.run_id }}")
+
+          http_code=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          if [[ ${http_code} -lt 200 || ${http_code} -gt 299 ]]; then
+            echo "Failed to send Telegram notification. HTTP status: ${http_code}"
+            echo "Response: $(echo $response | sed -e 's/HTTPSTATUS:.*//')"
+          else
+            echo "Telegram notification sent successfully"
+          fi

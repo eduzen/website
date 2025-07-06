@@ -1,8 +1,9 @@
 import json
 
 import logfire
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
@@ -78,3 +79,44 @@ def favicon_view(request: HttpRequest) -> HttpResponse:
         ),
         content_type="image/svg+xml",
     )
+
+
+@require_GET
+def version_view(request: HttpRequest) -> HttpResponse:
+    version_data = {
+        "version": settings.RELEASE,
+        "build_date": settings.BUILD_DATE,
+    }
+
+    # Check if JSON format is requested
+    if request.GET.get("format") == "json":
+        return JsonResponse(version_data)
+
+    # Return HTML table by default
+    html_content = f"""
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Version</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{version_data["version"]}</td>
+            </tr>
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Build Date</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{version_data["build_date"]}</td>
+            </tr>
+        </tbody>
+    </table>
+    """
+
+    # If it's an HTMX request, return just the table
+    if request.htmx:  # type: ignore
+        return HttpResponse(html_content)
+
+    # Otherwise, return with the base template
+    return render(request, "core/version.html", {"version_table": html_content})
