@@ -33,7 +33,6 @@ services:
       - ./secrets/eduzen.json:/root/keys/eduzen.json
     ports:
       - "8000:80"
-      - "3000:3000"
     depends_on:
       - db
       - redis

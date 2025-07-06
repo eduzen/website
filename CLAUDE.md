@@ -1,4 +1,6 @@
-# Claude AI Assistant Instructions
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 This file contains information for Claude AI to better understand and work with this Django blog project.
 
@@ -181,18 +183,6 @@ class MyView(TemplateView):
 - Check `just mypy` for type issues
 - Use `just check` for Django deployment checks
 
-## Testing
-
-```bash
-# Run all tests with coverage
-just test
-
-# Full coverage report
-just coverage
-
-# Run specific test
-uv run python manage.py test blog.tests.test_views
-```
 
 ## Deployment
 
@@ -208,6 +198,34 @@ just check
 # Run production-like environment
 just run
 ```
+
+## Testing
+
+The project has comprehensive test coverage with pytest:
+
+```bash
+# Run all tests with coverage
+just test
+
+# Full coverage report
+just coverage
+
+# Run specific test file
+uv run pytest blog/tests/views/test_home_view.py
+
+# Run specific test class
+uv run pytest blog/tests/views/test_home_view.py::TestHomeView
+
+# Run with parallel execution
+uv run pytest -n auto
+```
+
+### Test Structure
+- **Unit Tests**: Located in `*/tests/` directories
+- **View Tests**: Comprehensive testing of all views with HTMX support
+- **Service Tests**: Testing business logic (ChatGPT, Telegram, etc.)
+- **Factory Tests**: Using factory-boy for test data generation
+- **Coverage**: Minimum 80% coverage required
 
 ## Recent Changes (2024)
 
@@ -240,7 +258,9 @@ just run
 - Use pre-commit hooks (`just fmt`)
 - Follow Django best practices
 - Type hints with mypy
-- Template naming: `_content.html` for partials included by both full and HTMX templates
+- Python 3.13+ with modern syntax
+- Ruff for linting and formatting
+- Coverage minimum 80%
 
 ## Environment Variables
 
@@ -248,6 +268,8 @@ Key environment variables (see `.env.sample`):
 - `DATABASE_URL`: PostgreSQL connection
 - `DJANGO_SETTINGS_MODULE`: Settings module
 - `SECRET_KEY`: Django secret key
+- `DEBUG`: Debug mode (False in production)
+- `ALLOWED_HOSTS`: Comma-separated list of allowed hosts
 - API keys for ChatGPT, Telegram integration
 
 ## Useful URLs
@@ -262,8 +284,24 @@ Key environment variables (see `.env.sample`):
 
 ## Architecture Notes
 
+### Core Architecture
+- **Django Apps**: `blog` (main content), `core` (utilities), `snippets` (code snippets), `django_fast` (performance)
 - **Templates**: Use django-template-partials with `{% partialdef %}` for dual rendering
 - **Navigation**: All links use HTMX with fallback href for accessibility
 - **Loading States**: Global HTMX event handlers manage loading indicators
 - **Error Handling**: Failed requests show red loading bar and console errors
 - **Mobile**: Alpine.js handles mobile menu state, HTMX handles navigation
+
+### Key Patterns
+- **Service Layer**: Business logic in `*/services/` modules (ChatGPT, Telegram, etc.)
+- **Factory Pattern**: Test data generation with factory-boy
+- **Type Safety**: Full type hints with mypy and django-stubs
+- **Caching**: Custom caching service in `django_fast` app
+- **Internationalization**: Django i18n with English/Spanish support
+
+### Performance Optimizations
+- **Static Files**: Whitenoise with Brotli compression
+- **Database**: PostgreSQL with connection pooling
+- **Caching**: Redis for session/cache backend
+- **Monitoring**: Logfire integration for observability
+- **CDN**: Static file serving optimized for production
