@@ -2,6 +2,8 @@ volumes:
   pgdata:
   shell_history:
   ipy_history:
+  plausible_db_data:
+  plausible_event_data:
 
 services:
   web:
@@ -55,9 +57,43 @@ services:
     expose:
       - "6379"
 
-  adminer:
-    image: adminer:latest
-    profiles: ["debug"]
-    restart: always
+  plausible:
+    image: plausible/analytics:latest
+    container_name: plausible
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
     ports:
-        - 8000:8000
+      - "8010:8000"
+    depends_on:
+      - plausible_db
+      - plausible_events_db
+    environment:
+      - SECRET_KEY_BASE=Cw0pgBXLqnmVnL48KcDgLCgU5dvqI2hHxEPWcUJNtX1PqQ7Vr9kYV4wRTP9mZKRK10LILXuJMvD1Hl7NLPkI9Xu2vCU3
+      - ADMIN_USER_EMAIL=me@eduzen.ar
+      - ADMIN_USER_PASSWORD=test
+      - BASE_URL=http://localhost:8010
+      - DATABASE_URL=postgres://postgres:postgres@plausible_db:5432/plausible
+      - CLICKHOUSE_DATABASE_URL=http://plausible_events_db:8123/plausible
+
+  plausible_db:
+    image: postgres:14-alpine
+    container_name: plausible_db
+    restart: always
+    volumes:
+      - plausible_db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=plausible
+
+  plausible_events_db:
+    image: clickhouse/clickhouse-server:22.6-alpine
+    container_name: plausible_events_db
+    restart: always
+    volumes:
+      - plausible_event_data:/var/lib/clickhouse
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    environment:
+      - CLICKHOUSE_DB=plausible
