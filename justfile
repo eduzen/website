@@ -82,8 +82,8 @@ improve-posts:
   {{MANAGE}} improve_posts
 
 [group('testing')]
-test:
-  {{UV}} coverage run -m pytest --ignore=tests/e2e
+test *args:
+  {{UV}} coverage run -m pytest --ignore=tests/e2e {{args}}
 
 [group('testing')]
 coverage:
