@@ -71,9 +71,14 @@ dev = [
   "types-factory-boy",
   "ty>=0.0.1a11",
 ]
+e2e = [
+  "playwright",
+  "pytest-playwright",
+]
 
 [tool.pytest.ini_options]
 addopts = "--ds=website.settings.test"
+asyncio_mode = "auto"
 
 [tool.isort]
 profile = "black"

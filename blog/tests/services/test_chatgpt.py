@@ -19,7 +19,7 @@ class MockResponseData(BaseModel):
 
 class MockAgentResponse:
     def __init__(self, data):
-        self.data = data
+        self.output = data
 
 
 @pytest.fixture

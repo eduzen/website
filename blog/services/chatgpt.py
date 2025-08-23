@@ -48,7 +48,7 @@ def get_better_title(title: str) -> str:
     logfire.debug(f"Asking pydantic-ai for an improved title:\n{prompt}")
     try:
         response = current_agent.run_sync(prompt)
-        improved_title = response.data.title
+        improved_title = response.output.title
         logfire.debug(f"Improved title: {improved_title}")
     except Exception as e:
         logfire.error(f"Error getting improved title: {e}")
@@ -75,7 +75,7 @@ def get_better_summary(text: str) -> str:
 
     logfire.debug(f"Asking pydantic-ai for an improved summary:\n{prompt}")
     response = current_agent.run_sync(prompt)
-    improved_summary = response.data.summary
+    improved_summary = response.output.summary
     logfire.debug(f"Improved summary: {improved_summary}")
     return improved_summary
 

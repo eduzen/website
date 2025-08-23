@@ -220,11 +220,28 @@ uv run pytest blog/tests/views/test_home_view.py::TestHomeView
 uv run pytest -n auto
 ```
 
+### E2E Testing with Playwright
+
+The project supports end-to-end testing with Playwright. Dependencies are separated into an `e2e` group for granular installations:
+
+```bash
+# Run E2E tests (development environment)
+just e2e
+just e2e-headed  # With browser UI
+just e2e-debug   # Slow motion debugging
+```
+
+**Docker E2E Layer**: The Dockerfile includes a dedicated `e2e` stage with:
+- Playwright browsers pre-installed
+- Additional system dependencies for browser compatibility
+- Proper Docker flags (`--init`, `--ipc=host`) following Playwright best practices
+
 ### Test Structure
 - **Unit Tests**: Located in `*/tests/` directories
 - **View Tests**: Comprehensive testing of all views with HTMX support
 - **Service Tests**: Testing business logic (ChatGPT, Telegram, etc.)
 - **Factory Tests**: Using factory-boy for test data generation
+- **E2E Tests**: End-to-end browser tests with Playwright
 - **Coverage**: Minimum 80% coverage required
 
 ## Recent Changes (2024)
@@ -305,3 +322,5 @@ Key environment variables (see `.env.sample`):
 - **Caching**: Redis for session/cache backend
 - **Monitoring**: Logfire integration for observability
 - **CDN**: Static file serving optimized for production
+
+- Use always justfile recipes
