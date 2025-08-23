@@ -122,7 +122,7 @@ jobs:
           done
 
       - name: Run Tests
-        run: uv run coverage run -m pytest
+        run: uv run coverage run -m pytest  --ignore=tests/e2e --tb=short
 
   e2e-test:
     runs-on: ubuntu-latest
@@ -131,6 +131,10 @@ jobs:
       DJANGO_SETTINGS_MODULE: website.settings.test
       SECRET_KEY: dummy-secret-key-test-test
       OPENAI_API_KEY: dummy-openai-api-key-test-test
+      DJANGO_ALLOW_ASYNC_UNSAFE: true
+      PLAYWRIGHT_BASE_URL: http://web:80
+      PLAYWRIGHT_BROWSER: chromium
+      PLAYWRIGHT_HEADLESS: true
     services:
       postgres:
         image: postgres:17-alpine

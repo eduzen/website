@@ -83,11 +83,11 @@ improve-posts:
 
 [group('testing')]
 test:
-  {{UV}} coverage run -m pytest
+  {{UV}} coverage run -m pytest --ignore=tests/e2e
 
 [group('testing')]
 coverage:
-  {{DCO}} run --rm web uv run coverage run -m pytest
+  {{DCO}} run --rm web uv run coverage run -m pytest --ignore=tests/e2e
   {{DCO}} run --rm web uv run coverage report
 
 
