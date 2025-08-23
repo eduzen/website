@@ -123,3 +123,51 @@ jobs:
 
       - name: Run Tests
         run: uv run coverage run -m pytest
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/github_actions
+      DJANGO_SETTINGS_MODULE: website.settings.test
+      SECRET_KEY: dummy-secret-key-test-test
+      OPENAI_API_KEY: dummy-openai-api-key-test-test
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install project dependencies with e2e extras
+        run: uv sync --group e2e
+
+      - name: Wait for Postgres
+        run: |
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for Postgres…"
+            sleep 1
+          done
+
+      - name: Install Playwright browsers
+        run: uv run playwright install --with-deps chromium
+
+      - name: Run E2E Tests
+        run: uv run pytest tests/e2e --tb=short

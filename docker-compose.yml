@@ -55,6 +55,41 @@ services:
     expose:
       - "6379"
 
+  e2e:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: e2e
+    profiles: ["e2e"]
+    tty: true
+    init: true
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /code
+          ignore:
+            - .venv/
+        - action: rebuild
+          path: ./pyproject.toml
+    volumes:
+      - .:/code
+      - /code/.venv
+    depends_on:
+      - db
+      - redis
+      - web
+    environment:
+      - BUILD_DATE=$(date +%Y-%m-%d)
+      - RELEASE=$(git describe --tags --always --dirty)
+      - DJANGO_ALLOW_ASYNC_UNSAFE=true
+      - PLAYWRIGHT_BASE_URL=http://web:80
+      - PLAYWRIGHT_BROWSER=chromium
+      - PLAYWRIGHT_HEADLESS=true
+    env_file:
+      - .env
+
+
   adminer:
     image: adminer:latest
     profiles: ["debug"]

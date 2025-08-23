@@ -55,6 +55,32 @@ ENV DJANGO_SETTINGS_MODULE=website.settings.dev
 RUN echo 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --all-extras --all-groups --dev
+    uv sync --all-extras --group dev
 
 CMD ["uv", "run", "manage.py", "runserver", "0.0.0.0:80"]
+
+# E2E TESTING
+FROM development AS e2e
+
+# Install additional system dependencies for better browser compatibility
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+    libnss3-dev \
+    libatk-bridge2.0-dev \
+    libdrm-dev \
+    libxkbcommon-dev \
+    libxcomposite-dev \
+    libxdamage-dev \
+    libxrandr-dev \
+    libgbm-dev \
+    libxss-dev \
+    libasound-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --all-extras --group dev --group e2e
+
+# Install playwright browsers with dependencies
+RUN uv run playwright install --with-deps
+
+CMD ["uv", "run", "pytest", "/code/tests/e2e"]
