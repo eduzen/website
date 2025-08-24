@@ -1,0 +1,22 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="module">
+        <table summary="External Links" style="width:100%">
+            <caption><a href="#" class="section" id="external-links">{% translate 'External Links' %}</a></caption>
+            <tbody>
+                <tr class="model-link">
+                    <th scope="row">
+                        <a href="https://eduzen.goatcounter.com/" target="_blank" rel="noopener">
+                            {% translate 'GoatCounter Analytics' %}
+                        </a>
+                    </th>
+                    <td>{% translate 'View website analytics and visitor statistics' %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
