@@ -108,3 +108,13 @@ if (not DEBUG) and SENTRY_DSN:
             )
         ],
     )
+
+
+DBBACKUP_STORAGE = {
+    "BACKEND": "django.core.files.storage.FileSystemStorage",
+    "LOCATION": "/code/backup/",
+}
+
+DBBACKUP_FILENAME_TEMPLATE = "eduzen_{database_name}_{timestamp}.sql"
+DBBACKUP_MEDIA_PATH = "/code/media/"
+DBBACKUP_CLEANUP_KEEP = 7

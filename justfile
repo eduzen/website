@@ -2,7 +2,8 @@ DCO := "docker compose"
 RUNDJANGO := "docker compose run --rm web"
 EXEC := "docker compose web exec uv"
 UV := "docker compose run --rm web uv run"
-MANAGE := "docker compose run --rm web uv run manage.py"
+# Always run Django management commands against dev settings in local 'just'
+MANAGE := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.dev web uv run manage.py"
 
 # Helper recipe
 copy-env:
@@ -54,8 +55,8 @@ shell: copy-env
 dockershell: shell
 
 [group('development')]
-build: copy-env
-  {{DCO}} build web
+build *args: copy-env
+  {{DCO}} build {{args}}
 
 [group('django')]
 check:
@@ -115,3 +116,32 @@ format:
 [group('code-quality')]
 mypy:
   {{UV}} mypy .
+
+# Database and media backups via django-dbbackup
+[group('backup')]
+dbbackup *args="":
+  {{MANAGE}} dbbackup {{args}}
+
+[group('backup')]
+dbrestore *args="":
+  {{MANAGE}} dbrestore {{args}}
+
+[group('backup')]
+mediabackup *args="":
+  {{MANAGE}} mediabackup {{args}}
+
+[group('backup')]
+mediarestore *args="":
+  {{MANAGE}} mediarestore {{args}}
+
+[group('backup')]
+listbackups *args="":
+  {{MANAGE}} listbackups {{args}}
+
+[group('backup')]
+dbbackup-cleanup:
+  {{MANAGE}} dbbackup -c
+
+[group('backup')]
+backups-ls:
+  {{DCO}} run --rm web ls -lah /code/backup || true

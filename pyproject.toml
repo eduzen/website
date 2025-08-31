@@ -44,6 +44,7 @@ dependencies = [
   "logfire[django,psycopg,sqlite3,redis,requests]>=3.3.0",
   "pydantic-ai-slim[logfire,openai]>=0.0.24",
   "django-template-partials>=24.4",
+  "django-dbbackup>=5.0.0",
 ]
 
 [dependency-groups]

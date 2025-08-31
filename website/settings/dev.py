@@ -17,6 +17,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 MEDIA_URL = "https://media.eduzen.ar/"
 
+# Local filesystem paths for dbbackup in development
+DBBACKUP_STORAGE = {
+    "BACKEND": "django.core.files.storage.FileSystemStorage",
+    "LOCATION": "/code/backup/",
+}
+
+# Use a safe template that does not require database_name
+DBBACKUP_FILENAME_TEMPLATE = "{servername}-{datetime}.psql.bin"
+DBBACKUP_MEDIA_PATH = "/code/media/"
+DBBACKUP_CLEANUP_KEEP = 7
+
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda x: True}
 
 DEBUG = config("DEBUG", default=True, cast=bool)
