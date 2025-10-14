@@ -31,7 +31,7 @@ jobs:
           [[ -n "${{ secrets.TELEGRAM_TO }}" ]] || { echo "Missing TELEGRAM_TO"; exit 1; }
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Docker meta
         id: meta
