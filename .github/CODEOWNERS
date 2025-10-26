@@ -1,0 +1,10 @@
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+* @eduzen
+
+blog/ @eduzen
+core/ @eduzen
+snippets/ @eduzen
+django_fast/ @eduzen
+website/ @eduzen
+tests/ @eduzen
+scripts/ @eduzen

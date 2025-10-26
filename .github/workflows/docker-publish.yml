@@ -11,24 +11,40 @@ permissions:
   packages: write
   actions: read
 
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   IMAGE_NAME: website
   DJANGO_SETTINGS_MODULE: website.settings.prod
 
 jobs:
+  lint-dockerfile:
+    name: Lint Dockerfile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
   push:
     runs-on: ubuntu-latest
     outputs:
       digest:    ${{ steps.docker_build.outputs.digest }}
       platforms: ${{ steps.docker_build.outputs.platforms }}
-    if: github.event_name == 'push'
+      tags:      ${{ steps.meta.outputs.tags }}
+    needs: lint-dockerfile
+    if: github.event_name != 'pull_request'
     steps:
       - name: Validate env vars
         run: |
           [[ -n "${{ secrets.DOCKERHUB_USERNAME }}" ]] || { echo "Missing DOCKERHUB_USERNAME"; exit 1; }
           [[ -n "${{ secrets.DOCKERHUB_TOKEN }}" ]] || { echo "Missing DOCKERHUB_TOKEN"; exit 1; }
-          [[ -n "${{ secrets.TELEGRAM_TOKEN }}" ]] || { echo "Missing TELEGRAM_TOKEN"; exit 1; }
-          [[ -n "${{ secrets.TELEGRAM_TO }}" ]] || { echo "Missing TELEGRAM_TO"; exit 1; }
 
       - name: Checkout
         uses: actions/checkout@v5
@@ -75,7 +91,16 @@ jobs:
             BUILD_DATE=${{ github.event.head_commit.timestamp }}
 
       - name: Print image digest
-        run: echo "→ ${{ steps.docker_build.outputs.digest }}"
+        run: |
+          echo "→ ${{ steps.docker_build.outputs.digest }}"
+          {
+            echo "### Docker image"
+            echo "* Digest: \`${{ steps.docker_build.outputs.digest }}\`"
+            echo "* Tags:"
+            echo '```'
+            echo "${{ steps.meta.outputs.tags }}"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -92,10 +117,67 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
+  notify:
+    needs: push
+    runs-on: ubuntu-latest
+    if: always() && github.event_name != 'pull_request'
+    steps:
+      - name: Validate Telegram secrets
+        run: |
+          [[ -n "${{ secrets.TELEGRAM_TOKEN }}" ]] || { echo "Missing TELEGRAM_TOKEN"; exit 1; }
+          [[ -n "${{ secrets.TELEGRAM_TO }}" ]] || { echo "Missing TELEGRAM_TO"; exit 1; }
+
+      - name: Send Telegram notification
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
+          BUILD_RESULT: ${{ needs.push.result }}
+          DIGEST: ${{ needs.push.outputs.digest }}
+          TAGS: ${{ needs.push.outputs.tags }}
+        run: |
+          set -eo pipefail
+
+          if [[ "${BUILD_RESULT}" == "success" ]]; then
+            emoji="✅"
+            status_line="Docker image pushed successfully."
+          else
+            emoji="❌"
+            status_line="Docker build or push failed."
+          fi
+
+          tags_formatted=$(printf '%s\n' "${TAGS}")
+          message=$(
+            printf '%s\n' "${emoji} ${status_line}"
+            printf 'Repository: %s\n' "${{ github.repository }}"
+            printf 'Ref: %s\n' "${{ github.ref_name }}"
+            printf 'Digest: %s\n' "${DIGEST:-n/a}"
+            printf 'Tags:\n'
+            if [[ -n "${tags_formatted}" ]]; then
+              printf '%s\n' "${tags_formatted}"
+            else
+              printf 'n/a\n'
+            fi
+            printf 'Workflow run: https://github.com/%s/actions/runs/%s\n' "${{ github.repository }}" "${{ github.run_id }}"
+          )
+
+          response=$(curl -s -w "HTTPSTATUS:%{http_code}" -X POST \
+            "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_TO}" \
+            -d disable_web_page_preview=true \
+            --data-urlencode text="${message}")
+
+          http_code=$(echo "${response}" | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          if [[ ${http_code} -lt 200 || ${http_code} -gt 299 ]]; then
+            echo "Failed to send Telegram notification (HTTP ${http_code})."
+            echo "Response: $(echo "${response}" | sed -e 's/HTTPSTATUS:.*//')"
+            exit 1
+          fi
+          echo "Telegram notification sent."
+
   release:
     needs: push
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: needs.push.result == 'success' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
     steps:
@@ -113,34 +195,6 @@ jobs:
           body: |
             • Date: ${{ steps.date.outputs.date }}
             • Commit: ${{ github.sha }}
-
-      - name: Notify Telegram
-        if: always()
-        run: |
-          # Check if the push job (Docker build) was successful
-          if [[ "${{ needs.push.result }}" == "success" && "${{ job.status }}" == "success" ]]; then
-            emoji="✅"
-            status_text="Docker build and release successful"
-          elif [[ "${{ needs.push.result }}" == "failure" ]]; then
-            emoji="❌"
-            status_text="Docker build failed"
-          else
-            emoji="❌"
-            status_text="Release failed"
-          fi
-
-          # Send notification with error handling
-          response=$(curl -s -w "HTTPSTATUS:%{http_code}" -X POST \
-            "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
-            -d chat_id="${{ secrets.TELEGRAM_TO }}" \
-            -d parse_mode=Markdown \
-            -d disable_web_page_preview=true \
-            -d text="${emoji} ${status_text}: https://github.com/eduzen/website/actions/runs/${{ github.run_id }}")
-
-          http_code=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
-          if [[ ${http_code} -lt 200 || ${http_code} -gt 299 ]]; then
-            echo "Failed to send Telegram notification. HTTP status: ${http_code}"
-            echo "Response: $(echo $response | sed -e 's/HTTPSTATUS:.*//')"
-          else
-            echo "Telegram notification sent successfully"
-          fi
+            • Digest: ${{ needs.push.outputs.digest }}
+            • Tags:
+              ${{ needs.push.outputs.tags }}
