@@ -3,6 +3,7 @@ import logging
 from typing import Any
 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -17,6 +18,59 @@ from .services.parsers import apply_styles
 from .services.telegram import send_contact_message
 
 logger = logging.getLogger(__name__)
+
+
+class SafePaginationMixin:
+    """Mixin to handle pagination errors by redirecting to the last valid page."""
+
+    def paginate_queryset(self, queryset, page_size):
+        """Override to handle pagination errors gracefully."""
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty(),
+        )
+        page_kwarg = self.page_kwarg
+        page = self.kwargs.get(page_kwarg) or self.request.GET.get(page_kwarg) or 1
+
+        try:
+            page_number = int(page)
+        except (ValueError, TypeError):
+            # Invalid page number, redirect to page 1
+            query_params = self.request.GET.copy()
+            query_params["page"] = 1
+            redirect_url = f"{self.request.path}?{query_params.urlencode()}"
+            # Store redirect info to be handled in get method
+            self._redirect_url = redirect_url
+            page_number = 1
+
+        try:
+            page_obj = paginator.page(page_number)
+            return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
+        except EmptyPage:
+            # Page out of range, redirect to last page
+            query_params = self.request.GET.copy()
+            if paginator.num_pages > 0:
+                query_params["page"] = paginator.num_pages
+            else:
+                query_params["page"] = 1
+            redirect_url = f"{self.request.path}?{query_params.urlencode()}"
+            # Store redirect info to be handled in get method
+            self._redirect_url = redirect_url
+            # Return the last page temporarily
+            page_obj = paginator.page(paginator.num_pages if paginator.num_pages > 0 else 1)
+            return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
+
+    def get(self, request, *args, **kwargs):
+        """Override get to perform redirect if pagination error occurred."""
+        response = super().get(request, *args, **kwargs)
+        # Check if we stored a redirect URL during pagination
+        if hasattr(self, "_redirect_url"):
+            redirect_url = self._redirect_url
+            delattr(self, "_redirect_url")
+            return redirect(redirect_url)
+        return response
 
 
 @login_required
@@ -85,7 +139,7 @@ class ClassesView(TemplateView):
         return [self.template_name]
 
 
-class PostListView(FilterView):
+class PostListView(SafePaginationMixin, FilterView):
     queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
@@ -99,7 +153,7 @@ class PostListView(FilterView):
         return [self.template_name]
 
 
-class PostTagsListView(FilterView):
+class PostTagsListView(SafePaginationMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"

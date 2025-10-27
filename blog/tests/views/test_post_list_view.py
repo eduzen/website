@@ -104,8 +104,9 @@ class TestPostListView(TestCase):
 
         response = self.client.get(self.url + "?page=999")
 
-        # Django handles out of range gracefully, showing last page or 404
-        self.assertIn(response.status_code, [HTTPStatus.OK, HTTPStatus.NOT_FOUND])
+        # Should redirect to last page instead of raising 404
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertIn("page=1", response.url)
 
     def test_pagination_invalid_page(self):
         """Test pagination with invalid page parameter"""
@@ -113,8 +114,29 @@ class TestPostListView(TestCase):
 
         response = self.client.get(self.url + "?page=invalid")
 
-        # Django handles invalid page gracefully, showing first page or 404
-        self.assertIn(response.status_code, [HTTPStatus.OK, HTTPStatus.NOT_FOUND])
+        # Should redirect to first page for invalid page parameter
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertIn("page=1", response.url)
+
+    def test_pagination_page_beyond_last_page(self):
+        """Test accessing a page number beyond the last valid page"""
+        # Create exactly 30 posts (3 from setup + 30 = 33 total, which is 3 pages)
+        PostFactory.create_batch(30, author=self.user, published_date=timezone.now())
+
+        # Try to access page 4 when only 3 pages exist
+        response = self.client.get(self.url + "?page=4")
+
+        # Should redirect to the last page (page 3)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertIn("page=3", response.url)
+
+        # Follow the redirect and verify we're on the correct page
+        response = self.client.get(self.url + "?page=4", follow=True)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        # Should have posts from the last page (33 total: 12 + 12 + 9)
+        self.assertEqual(len(response.context["posts"]), 9)
+        # Should indicate we're on the last page
+        self.assertFalse(response.context["page_obj"].has_next())
 
     def test_post_list_only_published_posts(self):
         """Test that only published posts are shown"""

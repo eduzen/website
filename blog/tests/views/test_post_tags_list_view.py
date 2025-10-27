@@ -156,3 +156,47 @@ class TestPostTagsListView(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.context["tag"], "Espanol")
+
+    def test_tag_pagination(self):
+        """Test pagination works correctly for tags"""
+        # Create 15 posts with python tag to trigger pagination
+        PostFactory.create_batch(15, author=self.user, tags=[self.python_tag], published_date=timezone.now())
+
+        url = reverse("bytag", kwargs={"tag": "python"})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTrue(response.context["is_paginated"])
+        self.assertEqual(len(response.context["posts"]), 12)  # paginate_by = 12
+
+    def test_tag_pagination_page_beyond_last_page(self):
+        """Test accessing a page number beyond the last valid page for tag view"""
+        # Create exactly 30 posts with python tag (3 from setup + 30 = 33 total)
+        PostFactory.create_batch(30, author=self.user, tags=[self.python_tag], published_date=timezone.now())
+
+        url = reverse("bytag", kwargs={"tag": "python"})
+        # Try to access page 4 when only 3 pages exist
+        response = self.client.get(url + "?page=4")
+
+        # Should redirect to the last page (page 3)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertIn("page=3", response.url)
+
+        # Follow the redirect and verify we're on the correct page
+        response = self.client.get(url + "?page=4", follow=True)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        # Should have posts from the last page (33 total: 12 + 12 + 9)
+        self.assertEqual(len(response.context["posts"]), 9)
+        # Should indicate we're on the last page
+        self.assertFalse(response.context["page_obj"].has_next())
+
+    def test_tag_pagination_invalid_page(self):
+        """Test pagination with invalid page parameter for tag view"""
+        PostFactory.create(author=self.user, tags=[self.python_tag], published_date=timezone.now())
+
+        url = reverse("bytag", kwargs={"tag": "python"})
+        response = self.client.get(url + "?page=invalid")
+
+        # Should redirect to first page for invalid page parameter
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertIn("page=1", response.url)
