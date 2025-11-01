@@ -1,4 +1,4 @@
-FROM python:3.13-slim-bookworm AS production
+FROM python:3.14-slim-bookworm AS production
 
 ARG RELEASE=0.0.0+dev
 ARG BUILD_DATE=unknown
