@@ -13,8 +13,12 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # DJANGO_SETTINGS_MODULE is the settings module to use
 ENV DJANGO_SETTINGS_MODULE=website.settings.prod
 
-RUN echo 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
+# Use bash with pipefail for safer pipelines
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+RUN printf '%s\n' 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
+
+# hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     gettext \
@@ -40,15 +44,15 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-project --no-dev
 
-ADD pyproject.toml uv.lock /code/
+COPY pyproject.toml uv.lock /code/
 
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
 COPY . /code
 
-RUN python manage.py collectstatic --no-input --settings=website.settings.prod
-RUN python manage.py compilemessages --settings=website.settings.prod
+RUN python manage.py collectstatic --no-input --settings=website.settings.prod && \
+    python manage.py compilemessages --settings=website.settings.prod
 
 EXPOSE 80
 CMD ["sh", "/code/scripts/gunicorn_start.sh"]
@@ -58,7 +62,7 @@ FROM production AS development
 
 ENV DJANGO_SETTINGS_MODULE=website.settings.dev
 
-RUN echo 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
+RUN printf '%s\n' 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashrc
 
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --all-extras --group dev
@@ -69,6 +73,7 @@ CMD ["uv", "run", "manage.py", "runserver", "0.0.0.0:80"]
 FROM development AS e2e
 
 # Install additional system dependencies for better browser compatibility
+# hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     libnss3-dev \
