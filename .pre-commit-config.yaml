@@ -42,13 +42,13 @@ repos:
     -   id: django-upgrade
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.0
+    rev: v3.21.1
     hooks:
       - id: pyupgrade
         args: [--py313]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.14.2'
+    rev: 'v0.14.5'
     hooks:
       - id: ruff-check
         args: ["--fix", "--target-version", "py313"]
