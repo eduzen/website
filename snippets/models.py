@@ -28,10 +28,29 @@ class Snippet(models.Model):
         """
         Use the `pygments` library to create a highlighted HTML
         representation of the code snippet.
+        Only re-highlights if code, language, style, linenos, or title changed.
         """
-        lexer = get_lexer_by_name(self.language, stripall=True)
-        linenos = "table" if self.linenos else False
-        options = {"title": self.title} if self.title else {}
-        formatter = HtmlFormatter(style=self.style, linenos=linenos, full=False, noclasses=True, **options)
-        self.highlighted = highlight(self.code, lexer, formatter)
+        # Check if we need to re-highlight
+        should_highlight = True
+        if self.pk:
+            try:
+                old = Snippet.objects.only("code", "language", "style", "linenos", "title").get(pk=self.pk)
+                if (
+                    old.code == self.code
+                    and old.language == self.language
+                    and old.style == self.style
+                    and old.linenos == self.linenos
+                    and old.title == self.title
+                ):
+                    should_highlight = False
+            except Snippet.DoesNotExist:
+                pass
+
+        if should_highlight:
+            lexer = get_lexer_by_name(self.language, stripall=True)
+            linenos = "table" if self.linenos else False
+            options = {"title": self.title} if self.title else {}
+            formatter = HtmlFormatter(style=self.style, linenos=linenos, full=False, noclasses=True, **options)
+            self.highlighted = highlight(self.code, lexer, formatter)
+
         super().save(*args, **kwargs)

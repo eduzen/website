@@ -68,3 +68,11 @@ class Post(models.Model):
         verbose_name = "post"
         verbose_name_plural = "posts"
         ordering = ["-published_date"]
+        indexes = [
+            # For filtering published posts and ordering by date (most common query)
+            models.Index(fields=["-published_date"], name="post_published_date_idx"),
+            # For admin date_hierarchy on created_date
+            models.Index(fields=["-created_date"], name="post_created_date_idx"),
+            # For filtering by author
+            models.Index(fields=["author"], name="post_author_idx"),
+        ]

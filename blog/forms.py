@@ -6,16 +6,17 @@ from crispy_forms.layout import Field, Layout, Submit  # type: ignore
 from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from blog.services.captcha import verify_captcha
 
 log = logging.getLogger(__name__)
 
-msg = _("Message")
-email = _("Email")
-name = _("Name")
-captcha = _("What color is the red rabbit?")
+msg = mark_safe(f"<span class='text-white'>{_('Message')}</span>")
+email_label = mark_safe(f"<span class='text-white'>{_('Email')}</span>")
+name_label = mark_safe(f"<span class='text-white'>{_('Name')}</span>")
+captcha_label = mark_safe(f"<span class='text-white'>{_('What color is the red rabbit?')}</span>")
 
 
 class EmailForm(forms.Form):
@@ -53,10 +54,10 @@ class AdvanceSearchForm(forms.Form):
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(label=f"<span class='text-white'>{name}</span>")
-    email = forms.EmailField(label=f"<span class='text-white'>{email}</span>")
-    message = forms.CharField(label=f"<span class='text-white'>{msg}</span>", widget=forms.Textarea)
-    captcha = forms.CharField(label=f"<span class='text-white'>{captcha}</span>")
+    name = forms.CharField(label=name_label)
+    email = forms.EmailField(label=email_label)
+    message = forms.CharField(label=msg, widget=forms.Textarea)
+    captcha = forms.CharField(label=captcha_label)
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)

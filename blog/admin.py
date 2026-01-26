@@ -6,6 +6,7 @@ from django.forms import Textarea, TextInput
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from image_cropping import ImageCroppingMixin
 
@@ -131,7 +132,7 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
     def blog_link(self, obj: Post) -> str:
         if not obj.published:
             return "-"
-        return mark_safe(f"<a href='{obj.get_absolute_url()}'>Go to eduzen.ar</a>")
+        return format_html('<a href="{}">Go to eduzen.ar</a>', obj.get_absolute_url())
 
     @mark_safe
     def apply_styles(self, post: Post) -> str:

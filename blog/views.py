@@ -154,7 +154,7 @@ class PostListView(SafePaginationMixin, FilterView):
 
 
 class PostTagsListView(SafePaginationMixin, FilterView):
-    queryset = Post.objects.published()
+    queryset = Post.objects.published().prefetch_related("tags")
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
     ordering = ["-published_date"]
@@ -172,7 +172,7 @@ class PostTagsListView(SafePaginationMixin, FilterView):
         return context
 
     def get_queryset(self) -> QuerySet[Post]:
-        return self.queryset.filter(tags__slug=self.kwargs.get("tag"))
+        return self.queryset.filter(tags__slug__iexact=self.kwargs.get("tag"))
 
 
 class PostDetailView(DetailView):
@@ -198,18 +198,15 @@ class RelatedPostsView(ListView):
 
     def get_queryset(self) -> QuerySet[Post]:
         post_id = self.kwargs.get("post_id")
-        post = get_object_or_404(Post, pk=post_id)
-
-        tag_ids = post.tags.values_list("id", flat=True)
-        related_posts = (
+        # Use subquery to avoid extra query for fetching the post first
+        tag_ids = Post.objects.filter(pk=post_id).values("tags__id")
+        return (
             Post.objects.published()
             .filter(tags__id__in=tag_ids)
-            .order_by("-published_date")
+            .exclude(pk=post_id)
             .distinct()
-            .exclude(pk=post.pk)
+            .order_by("-published_date")
         )
-
-        return related_posts
 
     def get_context_data(self, object_list=None, **kwargs: dict[str, Any]) -> dict[str, Any]:
         context = super().get_context_data(object_list=object_list, **kwargs)

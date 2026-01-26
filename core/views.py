@@ -82,6 +82,7 @@ def favicon_view(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@cache_control(max_age=3600, public=True)  # Cache for 1 hour
 def version_view(request: HttpRequest) -> HttpResponse:
     version_data = {
         "version": settings.RELEASE,
