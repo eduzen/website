@@ -48,7 +48,7 @@ repos:
         args: [--py313]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.14.13'
+    rev: 'v0.14.14'
     hooks:
       - id: ruff-check
         args: ["--fix", "--target-version", "py313"]
