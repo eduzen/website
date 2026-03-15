@@ -69,6 +69,21 @@ class StaticView(RedirectView):
 
 
 @require_GET
+def proposal_view(request: HttpRequest, filename: str) -> HttpResponse:
+    """Serve redesign proposal HTML files for local preview."""
+    import pathlib
+
+    proposals_dir = pathlib.Path(settings.BASE_DIR) / "proposals"
+    file_path = proposals_dir / filename
+    # Prevent directory traversal
+    if not file_path.resolve().is_relative_to(proposals_dir.resolve()):
+        return HttpResponse(status=403)
+    if not file_path.exists() or not file_path.suffix == ".html":
+        return HttpResponse(status=404)
+    return HttpResponse(file_path.read_text(), content_type="text/html")
+
+
+@require_GET
 @cache_control(max_age=60 * 60 * 24 * 365, immutable=True, public=True)  # one year
 def favicon_view(request: HttpRequest) -> HttpResponse:
     return HttpResponse(
