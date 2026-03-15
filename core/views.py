@@ -73,7 +73,7 @@ def proposal_view(request: HttpRequest, filename: str) -> HttpResponse:
     """Serve redesign proposal HTML files for local preview."""
     import pathlib
 
-    proposals_dir = pathlib.Path(settings.BASE_DIR) / "proposals"
+    proposals_dir = pathlib.Path(settings.BASE_DIR).parent / "proposals"
     file_path = proposals_dir / filename
     # Prevent directory traversal
     if not file_path.resolve().is_relative_to(proposals_dir.resolve()):

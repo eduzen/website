@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proposal A — Philosopher Engineer | eduzen.ar</title>
+  <title>Proposal A1 — Warm Touch | eduzen.ar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
-       PROPOSAL A — PHILOSOPHER ENGINEER
-       Visual: serif headlines, minimal palette, essay-like spacing,
-       quotes/fragments/notes, strong typography hierarchy
-       Tone: thoughtful, elegant, memorable
+       PROPOSAL A1 — WARM TOUCH
+       Based on Proposal A (Philosopher Engineer) with activated
+       orange/warm accent palette. Smallest delta from base.
        ============================================================ */
 
     :root {
       --bg: #faf8f5;
       --bg-alt: #f0ece6;
+      --bg-warm: #fdf6f0;
       --text: #2a2a2a;
       --text-muted: #6b6560;
       --accent: #5c6b4f;
-      --accent-warm: #a0522d;
+      --accent-warm: #c2692d;
+      --accent-warm-light: #e8a87c;
       --serif: 'Cormorant Garamond', 'Georgia', serif;
       --sans: 'Inter', -apple-system, sans-serif;
       --max-width: 1200px;
@@ -86,7 +87,7 @@
     }
 
     nav .nav-links a:hover {
-      color: var(--accent);
+      color: var(--accent-warm);
     }
 
     /* ---- Hero ---- */
@@ -108,6 +109,22 @@
       letter-spacing: -0.03em;
       color: var(--text);
       margin-bottom: 1.5rem;
+      min-height: 1.1em;
+    }
+
+    .hero-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.75em;
+      background: var(--accent-warm);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .hero-tagline {
@@ -149,6 +166,24 @@
       background: var(--accent);
     }
 
+    .hero-name-origin {
+      display: block;
+      margin-top: 1rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--accent-warm);
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    .hero-name-origin span {
+      color: var(--accent-warm);
+      font-weight: 500;
+    }
+
     /* ---- Sections ---- */
     section {
       max-width: var(--max-width);
@@ -175,7 +210,7 @@
       margin-bottom: 2rem;
     }
 
-    /* ---- Divider ---- */
+    /* ---- Divider (warm gradient) ---- */
     .divider {
       max-width: var(--max-width);
       margin: 0 auto;
@@ -185,7 +220,7 @@
     .divider hr {
       border: none;
       height: 1px;
-      background: rgba(0,0,0,0.08);
+      background: linear-gradient(90deg, transparent, var(--accent-warm-light), var(--accent-warm), var(--accent-warm-light), transparent);
     }
 
     /* ---- Writing / Essays ---- */
@@ -205,17 +240,20 @@
       text-decoration: none;
       color: inherit;
       transition: var(--transition);
+      border-left: 3px solid transparent;
     }
 
     .essay-item:hover {
       padding-left: 1rem;
+      border-left-color: var(--accent-warm);
     }
 
     .essay-number {
       font-family: var(--serif);
       font-size: 0.9rem;
-      color: var(--text-muted);
+      color: var(--accent-warm);
       font-style: italic;
+      font-weight: 600;
     }
 
     .essay-title {
@@ -227,7 +265,7 @@
     }
 
     .essay-item:hover .essay-title {
-      color: var(--accent);
+      color: var(--accent-warm);
     }
 
     .essay-date {
@@ -266,13 +304,138 @@
     .identity-card .card-accent {
       width: 32px;
       height: 2px;
-      background: var(--accent);
       margin-bottom: 1.5rem;
+    }
+
+    .identity-card:nth-child(odd) .card-accent {
+      background: var(--accent);
+    }
+
+    .identity-card:nth-child(even) .card-accent {
+      background: var(--accent-warm);
+    }
+
+    /* ---- Projects Mosaic ---- */
+    .projects-section {
+      background: var(--text);
+    }
+
+    .projects-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .projects-section .section-label {
+      color: var(--accent-warm);
+    }
+
+    .projects-section .section-title {
+      color: #fff;
+    }
+
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .mosaic-card {
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: 100%;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .mosaic-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .mosaic-preview {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--bg-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .mosaic-preview .placeholder {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .mosaic-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mosaic-info {
+      padding: 1.2rem 1.4rem;
+    }
+
+    .mosaic-name {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .mosaic-url {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--accent-warm);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .mosaic-desc {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .mosaic-card:hover .mosaic-name {
+      color: var(--accent-warm);
+    }
+
+    /* Mosaic featured card — spans 2 rows */
+    .mosaic-card.featured {
+      grid-row: span 2;
+    }
+
+    .mosaic-card.featured .mosaic-preview {
+      aspect-ratio: auto;
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .mosaic {
+        grid-template-columns: 1fr;
+      }
+
+      .mosaic-card.featured {
+        grid-row: span 1;
+      }
     }
 
     /* ---- Manifesto / Quote ---- */
     .manifesto {
-      background: var(--bg-alt);
+      background: var(--bg-warm);
     }
 
     .manifesto-inner {
@@ -292,6 +455,8 @@
       font-style: italic;
       line-height: 1.5;
       color: var(--text);
+      border-left: 3px solid var(--accent-warm);
+      padding-left: 2rem;
     }
 
     .manifesto blockquote cite {
@@ -354,8 +519,9 @@
     }
 
     .contact-link:hover {
-      background: var(--accent);
-      color: var(--bg);
+      background: var(--accent-warm);
+      border-color: var(--accent-warm);
+      color: #fff;
     }
 
     /* ---- Footer ---- */
@@ -374,7 +540,7 @@
     }
 
     footer a:hover {
-      color: var(--accent);
+      color: var(--accent-warm);
     }
 
     /* ---- Scroll Reveal Animation ---- */
@@ -428,13 +594,16 @@
 
   <!-- Hero -->
   <header class="hero">
-    <h1 class="hero-name reveal">Eduardo<br>Enriquez</h1>
+    <h1 class="hero-name reveal"><span id="typed-name"></span><span class="hero-cursor"></span></h1>
     <p class="hero-tagline reveal">Python, systems, writing,<br>and thinking clearly.</p>
     <p class="hero-intro reveal">
       I build software, write about engineering, and teach with philosophical patience.
       Backend systems, web architecture, and technical clarity — from Amsterdam, with taste.
     </p>
     <span class="hero-location reveal">Amsterdam, NL</span>
+    <small class="hero-name-origin reveal">
+      Eduardo Enriquez → edus enriquez → edus enri → edus en → <span>eduzen</span>
+    </small>
   </header>
 
   <div class="divider"><hr></div>
@@ -510,6 +679,51 @@
     </div>
   </section>
 
+  <!-- Projects Mosaic -->
+  <div class="projects-section">
+    <div class="projects-inner">
+      <span class="section-label reveal">Projects</span>
+      <h2 class="section-title reveal">Things I've Built</h2>
+
+      <div class="mosaic">
+        <a href="https://groomit.io" class="mosaic-card reveal" target="_blank">
+          <div class="mosaic-preview">
+            <span class="placeholder">groomit</span>
+          </div>
+          <div class="mosaic-info">
+            <div class="mosaic-name">Groomit</div>
+            <div class="mosaic-url">groomit.io</div>
+            <div class="mosaic-desc">Pet grooming platform connecting pet owners with professional groomers at home.</div>
+          </div>
+        </a>
+
+        <a href="https://maiteblog.com" class="mosaic-card reveal" target="_blank">
+          <div class="mosaic-preview">
+            <span class="placeholder">maite</span>
+          </div>
+          <div class="mosaic-info">
+            <div class="mosaic-name">Maite Blog</div>
+            <div class="mosaic-url">maiteblog.com</div>
+            <div class="mosaic-desc">A personal blog built with care and simplicity.</div>
+          </div>
+        </a>
+
+        <a href="https://champi.dev" class="mosaic-card reveal" target="_blank">
+          <div class="mosaic-preview">
+            <span class="placeholder">champi</span>
+          </div>
+          <div class="mosaic-info">
+            <div class="mosaic-name">Champi</div>
+            <div class="mosaic-url">champi.dev</div>
+            <div class="mosaic-desc">Developer tools and experiments in the wild.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr></div>
+
   <!-- Manifesto -->
   <div class="manifesto">
     <div class="manifesto-inner">
@@ -559,8 +773,9 @@
     <p style="margin-top: 1rem;">© 2026 Eduardo Enriquez — eduzen.ar</p>
   </footer>
 
-  <!-- Scroll Reveal Script -->
+  <!-- Scripts -->
   <script>
+    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -570,6 +785,99 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Typing animation
+    const nameEl = document.getElementById('typed-name');
+    const TYPE_SPEED = 80;
+    const DELETE_SPEED = 40;
+
+    function setName(text) {
+      nameEl.innerHTML = '';
+      const parts = text.split('\n');
+      parts.forEach((part, i) => {
+        nameEl.appendChild(document.createTextNode(part));
+        if (i < parts.length - 1) {
+          nameEl.appendChild(document.createElement('br'));
+        }
+      });
+    }
+
+    function getName() {
+      return nameEl.innerText;
+    }
+
+    function typeChars(text, from, callback) {
+      let i = from;
+      function next() {
+        if (i <= text.length) {
+          setName(text.slice(0, i));
+          i++;
+          setTimeout(next, TYPE_SPEED);
+        } else {
+          callback();
+        }
+      }
+      next();
+    }
+
+    function deleteLine(line1, line2, callback) {
+      // Delete line2 char by char, keeping line1 + br visible
+      let len = line2.length;
+      function next() {
+        if (len > 0) {
+          len--;
+          setName(line1 + '\n' + line2.slice(0, len));
+          setTimeout(next, DELETE_SPEED);
+        } else {
+          // Remove the br, show just line1
+          setName(line1);
+          setTimeout(callback, 100);
+        }
+      }
+      next();
+    }
+
+    function deleteWord(callback) {
+      // Delete remaining single-line text char by char
+      function next() {
+        const text = nameEl.textContent;
+        if (text.length > 0) {
+          setName(text.slice(0, -1));
+          setTimeout(next, DELETE_SPEED);
+        } else {
+          callback();
+        }
+      }
+      next();
+    }
+
+    function runCycle() {
+      // 1. Type "Eduardo"
+      typeChars('Eduardo', 0, () => {
+        setTimeout(() => {
+          // 2. Add line break + type "Enriquez"
+          setName('Eduardo\n');
+          typeChars('Eduardo\nEnriquez', 'Eduardo\n'.length, () => {
+            setTimeout(() => {
+              // 3. Delete "Enriquez" first, then "Eduardo"
+              deleteLine('Eduardo', 'Enriquez', () => {
+                deleteWord(() => {
+                  setTimeout(() => {
+                    // 4. Type "eduzen"
+                    typeChars('eduzen', 0, () => {
+                      // 5. Pause, then restart
+                      setTimeout(runCycle, 3000);
+                    });
+                  }, 300);
+                });
+              });
+            }, 1500);
+          });
+        }, 400);
+      });
+    }
+
+    setTimeout(runCycle, 800);
   </script>
 
 </body>

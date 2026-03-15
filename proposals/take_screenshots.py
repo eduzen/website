@@ -1,4 +1,4 @@
-"""Take screenshots of all three redesign proposals using Playwright."""
+"""Take screenshots of redesign proposals using Playwright."""
 
 import pathlib
 
@@ -6,9 +6,7 @@ from playwright.sync_api import sync_playwright
 
 PROPOSALS_DIR = pathlib.Path(__file__).parent
 PROPOSALS = [
-    ("proposal-a-philosopher-engineer.html", "Proposal A — Philosopher Engineer"),
-    ("proposal-b-modern-systems-portfolio.html", "Proposal B — Modern Systems Portfolio"),
-    ("proposal-c-experimental-author.html", "Proposal C — Experimental Author"),
+    ("proposal-a1-warm-touch.html", "Proposal A1 — Warm Touch"),
 ]
 
 # Force all reveal elements to be visible (they start hidden for scroll animation)
@@ -18,6 +16,19 @@ document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
     el.style.opacity = '1';
     el.style.transform = 'none';
 });
+"""
+
+# Force typing animation to final state for screenshots.
+# Must clear all pending timeouts first to stop any running animation.
+FORCE_TYPING_ANIMATION_JS = """
+const highestId = window.setTimeout(() => {}, 0);
+for (let i = 0; i <= highestId; i++) {
+    window.clearTimeout(i);
+}
+const typedEl = document.getElementById('typed-name');
+if (typedEl) {
+    typedEl.innerHTML = 'Eduardo<br>Enriquez';
+}
 """
 
 
@@ -35,6 +46,7 @@ def take_screenshots():
             page.set_content(html_content, wait_until="commit")
             page.wait_for_timeout(3000)  # let fonts load
             page.evaluate(FORCE_VISIBLE_JS)
+            page.evaluate(FORCE_TYPING_ANIMATION_JS)
             page.wait_for_timeout(500)
             page.screenshot(
                 path=str(PROPOSALS_DIR / f"{stem}-desktop.png"),
@@ -57,6 +69,7 @@ def take_screenshots():
             page.set_content(html_content, wait_until="commit")
             page.wait_for_timeout(3000)
             page.evaluate(FORCE_VISIBLE_JS)
+            page.evaluate(FORCE_TYPING_ANIMATION_JS)
             page.wait_for_timeout(500)
             page.screenshot(
                 path=str(PROPOSALS_DIR / f"{stem}-mobile.png"),
