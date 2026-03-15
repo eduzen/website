@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal B — Modern Systems Portfolio | eduzen.ar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       PROPOSAL B — MODERN SYSTEMS PORTFOLIO
+       Visual: strong grid, code snippets, clean premium cards,
+       minimal motion, dark UI
+       Tone: precise, senior, technical
+       ============================================================ */
+
+    :root {
+      --bg: #0f1117;
+      --bg-card: #161922;
+      --bg-elevated: #1c1f2b;
+      --border: rgba(255,255,255,0.06);
+      --text: #e4e4e7;
+      --text-muted: #71717a;
+      --text-dim: #52525b;
+      --accent: #3b82f6;
+      --accent-green: #22c55e;
+      --accent-amber: #f59e0b;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --max-width: 1200px;
+      --radius: 12px;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: clamp(14px, 1vw, 16px);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- Navigation ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 17, 23, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .logo {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent-green);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    nav .logo::before {
+      content: '> ';
+      color: var(--text-dim);
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      list-style: none;
+    }
+
+    nav .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all var(--transition);
+    }
+
+    nav .nav-links a:hover {
+      color: var(--text);
+      background: var(--bg-elevated);
+    }
+
+    /* ---- Status Bar ---- */
+    .status-bar {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .status-bar-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: var(--sans);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name span {
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-family: var(--sans);
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 580px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      transition: all var(--transition);
+    }
+
+    .hero-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ---- Sections ---- */
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: var(--sans);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .section-count {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* ---- Post Cards ---- */
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .post-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .post-card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .post-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .post-card-date {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .post-card-tags {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .post-card-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      padding: 0.15rem 0.5rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 4px;
+    }
+
+    .post-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .post-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ---- Services Grid ---- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all var(--transition);
+    }
+
+    .service-card:hover {
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .service-icon {
+      font-family: var(--mono);
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .service-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ---- Tech Stack ---- */
+    .tech-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tech-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .tech-group h4 {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .tech-group ul {
+      list-style: none;
+    }
+
+    .tech-group li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.3rem 0;
+    }
+
+    .tech-group li::before {
+      content: '—  ';
+      color: var(--text-dim);
+    }
+
+    /* ---- Code Block ---- */
+    .code-block {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 3rem 0;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .code-block .comment { color: var(--text-dim); }
+    .code-block .keyword { color: var(--accent); }
+    .code-block .string { color: var(--accent-green); }
+    .code-block .function { color: var(--accent-amber); }
+
+    /* ---- About ---- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-stats {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .stat {
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .stat-number {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 0.3rem;
+    }
+
+    /* ---- Contact ---- */
+    .contact-section {
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    .contact-section p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text-muted);
+      color: var(--text);
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    footer a:hover {
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .post-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+      footer { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo">eduzen</a>
+    <ul class="nav-links">
+      <li><a href="#writing">writing</a></li>
+      <li><a href="#services">services</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <span class="hero-label">// software engineer & consultant</span>
+    <h1 class="hero-name">Eduardo Enriquez <span>— eduzen</span></h1>
+    <p class="hero-tagline">
+      Senior backend engineer building reliable systems with Python and Django.
+      Based in Amsterdam. Consulting, teaching, and writing about engineering that lasts.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">Python</span>
+      <span class="hero-tag">Django</span>
+      <span class="hero-tag">Backend</span>
+      <span class="hero-tag">Docker</span>
+      <span class="hero-tag">PostgreSQL</span>
+      <span class="hero-tag">System Design</span>
+    </div>
+  </header>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <div class="status-bar-inner">
+      <span class="status-dot"></span>
+      <span>available for consulting</span>
+      <span>·</span>
+      <span>amsterdam, nl</span>
+      <span>·</span>
+      <span>12+ years experience</span>
+    </div>
+  </div>
+
+  <!-- Recent Writing -->
+  <section id="writing">
+    <div class="section-header">
+      <h2 class="section-title">Recent Writing</h2>
+      <span class="section-count">5 posts</span>
+    </div>
+
+    <div class="post-grid">
+      <a href="#" class="post-card">
+        <div class="post-card-meta">
+          <span class="post-card-date">2026-03-10</span>
+          <div class="post-card-tags">
+            <span class="post-card-tag">python</span>
+            <span class="post-card-tag">architecture</span>
+          </div>
+        </div>
+        <h3>On the architecture of small systems</h3>
+        <p>Why simplicity is the hardest design constraint, and how to build systems that stay small on purpose.</p>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-meta">
+          <span class="post-card-date">2026-01-22</span>
+          <div class="post-card-tags">
+            <span class="post-card-tag">teaching</span>
+          </div>
+        </div>
+        <h3>Teaching Python as if ideas matter</h3>
+        <p>Notes on how I teach programming — starting from concepts, not syntax.</p>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-meta">
+          <span class="post-card-date">2025-11-15</span>
+          <div class="post-card-tags">
+            <span class="post-card-tag">django</span>
+          </div>
+        </div>
+        <h3>Django beyond the tutorial</h3>
+        <p>What senior Django code looks like, and the patterns that matter after your first year.</p>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-card-meta">
+          <span class="post-card-date">2025-09-03</span>
+          <div class="post-card-tags">
+            <span class="post-card-tag">testing</span>
+          </div>
+        </div>
+        <h3>Code review as a form of care</h3>
+        <p>How reviewing code well is a skill, and why it matters more than most engineers think.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="section-header">
+      <h2 class="section-title">What I Do</h2>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">{ }</span>
+        <h3>Engineering</h3>
+        <p>Backend development, API design, system architecture. Python, Django, PostgreSQL, Docker. Clean, tested, production-ready code.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">></span>
+        <h3>Consulting</h3>
+        <p>Code audits, performance optimization, legacy system evaluation. Helping teams write better Python and ship more confidently.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">~</span>
+        <h3>Teaching</h3>
+        <p>Private classes and mentoring for developers. Python fundamentals to advanced Django. Patient, structured, concept-first.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <div class="tech-section">
+    <div class="tech-inner">
+      <div class="section-header">
+        <h2 class="section-title">Tech Stack</h2>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-group">
+          <h4>Languages</h4>
+          <ul>
+            <li>Python</li>
+            <li>JavaScript</li>
+            <li>SQL</li>
+            <li>Bash</li>
+          </ul>
+        </div>
+        <div class="tech-group">
+          <h4>Frameworks</h4>
+          <ul>
+            <li>Django</li>
+            <li>Flask</li>
+            <li>HTMX</li>
+            <li>Alpine.js</li>
+          </ul>
+        </div>
+        <div class="tech-group">
+          <h4>Infrastructure</h4>
+          <ul>
+            <li>Docker</li>
+            <li>PostgreSQL</li>
+            <li>Redis</li>
+            <li>Linux</li>
+          </ul>
+        </div>
+        <div class="tech-group">
+          <h4>Practices</h4>
+          <ul>
+            <li>Testing (pytest)</li>
+            <li>CI/CD</li>
+            <li>Code Review</li>
+            <li>System Design</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Code Block -->
+      <div class="code-block">
+        <pre><span class="comment"># How I approach engineering</span>
+
+<span class="keyword">class</span> <span class="function">Engineer</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.name = <span class="string">"Eduardo Enriquez"</span>
+        self.location = <span class="string">"Amsterdam"</span>
+        self.experience = <span class="string">"12+ years"</span>
+        self.philosophy = <span class="string">"Clear thinking, simple systems"</span>
+
+    <span class="keyword">def</span> <span class="function">build</span>(self, problem):
+        <span class="string">"""Start simple. Stay simple. Ship."""</span>
+        solution = self.think_clearly(problem)
+        <span class="keyword">return</span> self.test_thoroughly(solution)</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-header">
+      <h2 class="section-title">About</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm Eduardo Enriquez, a senior backend engineer based in Amsterdam.
+          I've spent over 12 years building software — mostly in Python and Django,
+          with deep experience in system architecture, API design, and making
+          legacy codebases better.
+        </p>
+        <p>
+          Before engineering, I studied philosophy at the University of Buenos Aires.
+          That background shapes everything: how I think about problems, how I teach,
+          and why I value clarity in code as much as correctness.
+        </p>
+        <p>
+          I consult for companies and individuals, teach Python and Django privately,
+          and write about the craft of engineering. I care about code that works,
+          teams that communicate, and systems that last.
+        </p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Years in engineering</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">AMS</div>
+          <div class="stat-label">Based in Amsterdam</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">BA</div>
+          <div class="stat-label">Philosophy, UBA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section">
+    <h2 class="section-title">Let's build something</h2>
+    <p>
+      Looking for a senior Python developer, a consultant for your Django project,
+      or a teacher who explains things clearly? Let's talk.
+    </p>
+    <div class="contact-actions">
+      <a href="#" class="btn btn-primary">Get in touch</a>
+      <a href="#" class="btn btn-outline">View on GitHub</a>
+      <a href="#" class="btn btn-outline">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2026 Eduardo Enriquez — eduzen.ar</span>
+    <div class="footer-links">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Telegram</a>
+      <a href="#">Email</a>
+    </div>
+  </footer>
+
+</body>
+</html>

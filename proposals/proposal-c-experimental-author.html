@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal C — Experimental Author Site | eduzen.ar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       PROPOSAL C — EXPERIMENTAL AUTHOR SITE
+       Visual: broken grid, oversized words, layered motion,
+       sticky narrative sections, visual tension
+       Tone: artistic, bold, niche
+       ============================================================ */
+
+    :root {
+      --bg: #111111;
+      --bg-alt: #0a0a0a;
+      --bg-warm: #1a1816;
+      --text: #f0ece6;
+      --text-muted: #8a8580;
+      --text-dim: #5a5550;
+      --accent: #c5705d;
+      --accent-blue: #6b8cce;
+      --accent-green: #7a9e7e;
+      --serif: 'Instrument Serif', 'Georgia', serif;
+      --sans: 'Space Grotesk', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: clamp(15px, 1.1vw, 18px);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ---- Grain Overlay ---- */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px;
+    }
+
+    /* ---- Navigation ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: difference;
+    }
+
+    nav .logo {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: white;
+      text-decoration: none;
+      font-style: italic;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    nav .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: opacity var(--transition);
+    }
+
+    nav .nav-links a:hover {
+      opacity: 0.5;
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 0;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem 3rem 4rem;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 3rem 4rem;
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 9vw, 9rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 2rem;
+    }
+
+    .hero-statement {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--text);
+      max-width: 480px;
+    }
+
+    .hero-statement .dim {
+      color: var(--text-muted);
+    }
+
+    .hero-meta {
+      margin-top: 3rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    /* ---- Horizontal Divider with Text ---- */
+    .text-divider {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem 3rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      overflow: hidden;
+    }
+
+    .text-divider::before,
+    .text-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ---- Sticky Narrative Sections ---- */
+    .narrative {
+      position: relative;
+    }
+
+    .narrative-sticky {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 3rem;
+    }
+
+    .narrative-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .narrative-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .narrative-heading {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .narrative-text {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 2;
+      max-width: 420px;
+    }
+
+    .narrative-text p + p {
+      margin-top: 1.5rem;
+    }
+
+    /* ---- Writing Section ---- */
+    .writing-section {
+      background: var(--bg-warm);
+      padding: 6rem 3rem;
+    }
+
+    .writing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .writing-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .writing-header span {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .essay-list {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .essay-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 120px;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      text-decoration: none;
+      color: inherit;
+      transition: all var(--transition);
+    }
+
+    .essay-row:last-child {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .essay-row:hover {
+      padding-left: 2rem;
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .essay-row:hover .essay-row-title {
+      color: var(--accent);
+    }
+
+    .essay-row-num {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--text-dim);
+    }
+
+    .essay-row-title {
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 400;
+      line-height: 1.3;
+      transition: color var(--transition);
+    }
+
+    .essay-row-date {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-align: right;
+    }
+
+    /* ---- Identities / Roles ---- */
+    .roles-section {
+      padding: 8rem 3rem;
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .role-card {
+      padding: 3rem;
+      border-left: 1px solid rgba(255,255,255,0.04);
+      transition: all var(--transition);
+    }
+
+    .role-card:first-child {
+      border-left: none;
+    }
+
+    .role-card:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .role-number {
+      font-family: var(--serif);
+      font-size: 3rem;
+      font-style: italic;
+      color: var(--text-dim);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    .role-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    /* ---- Fragment / Quote Block ---- */
+    .fragment {
+      padding: 10rem 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: var(--bg-alt);
+    }
+
+    .fragment-inner {
+      max-width: 700px;
+    }
+
+    .fragment blockquote {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .fragment cite {
+      display: block;
+      margin-top: 2rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-style: normal;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ---- Code Fragment Decoration ---- */
+    .code-decoration {
+      position: fixed;
+      bottom: 2rem;
+      right: 3rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.08);
+      text-align: right;
+      line-height: 1.8;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ---- Contact ---- */
+    .contact-section {
+      padding: 8rem 3rem;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-section p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      line-height: 1.8;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-pill {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      transition: all var(--transition);
+    }
+
+    .contact-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    footer a:hover {
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    /* ---- Scroll Reveal ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-left {
+        padding: 8rem 2rem 2rem;
+        justify-content: center;
+      }
+
+      .hero-right {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding: 3rem 2rem;
+        min-height: auto;
+      }
+
+      .hero-name {
+        font-size: clamp(3rem, 12vw, 5rem);
+      }
+
+      nav { padding: 1.2rem 2rem; }
+      nav .nav-links { display: none; }
+
+      .narrative-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .narrative-sticky {
+        position: relative;
+        min-height: auto;
+        padding: 5rem 2rem;
+      }
+
+      .roles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .role-card {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.04);
+        padding: 2rem;
+      }
+
+      .role-card:first-child {
+        border-top: none;
+      }
+
+      .essay-row {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+      }
+
+      .essay-row-num { display: none; }
+      .essay-row-date { text-align: left; }
+
+      .writing-section { padding: 4rem 2rem; }
+      .contact-section { padding: 5rem 2rem; }
+      .fragment { padding: 6rem 2rem; }
+
+      .code-decoration { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative Code Fragment -->
+  <div class="code-decoration">
+    def think(problem):<br>
+    &nbsp;&nbsp;clarity = observe(problem)<br>
+    &nbsp;&nbsp;return build(clarity)<br>
+    <br>
+    # amsterdam / python / philosophy
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo">eduzen</a>
+    <ul class="nav-links">
+      <li><a href="#writing">writing</a></li>
+      <li><a href="#work">work</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-left">
+      <h1 class="hero-name reveal">
+        <em>Code,</em><br>
+        thought,<br>
+        &amp; structure.
+      </h1>
+      <span class="hero-subtitle reveal">Eduardo Enriquez — Software & Writing</span>
+    </div>
+    <div class="hero-right">
+      <p class="hero-statement reveal">
+        I build software, write about engineering,
+        <span class="dim">and teach with philosophical patience.</span>
+      </p>
+      <div class="hero-meta reveal">
+        <span>Based in Amsterdam</span>
+        <span>Python / Django / Backend</span>
+        <span>Philosophy BA, UBA</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="text-divider">Selected Writing</div>
+
+  <!-- Writing Section -->
+  <div class="writing-section" id="writing">
+    <div class="writing-header">
+      <h2 class="reveal-left">Essays & notes</h2>
+      <span class="reveal">public thinking</span>
+    </div>
+
+    <div class="essay-list">
+      <a href="#" class="essay-row reveal">
+        <span class="essay-row-num">I</span>
+        <span class="essay-row-title">On the architecture of small systems</span>
+        <span class="essay-row-date">Mar 2026</span>
+      </a>
+      <a href="#" class="essay-row reveal">
+        <span class="essay-row-num">II</span>
+        <span class="essay-row-title">Teaching Python as if ideas matter</span>
+        <span class="essay-row-date">Jan 2026</span>
+      </a>
+      <a href="#" class="essay-row reveal">
+        <span class="essay-row-num">III</span>
+        <span class="essay-row-title">Django beyond the tutorial: what senior code looks like</span>
+        <span class="essay-row-date">Nov 2025</span>
+      </a>
+      <a href="#" class="essay-row reveal">
+        <span class="essay-row-num">IV</span>
+        <span class="essay-row-title">Philosophy and debugging share the same muscle</span>
+        <span class="essay-row-date">Sep 2025</span>
+      </a>
+      <a href="#" class="essay-row reveal">
+        <span class="essay-row-num">V</span>
+        <span class="essay-row-title">Notes on code review as a form of care</span>
+        <span class="essay-row-date">Jul 2025</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Narrative: Building -->
+  <div class="narrative" id="work">
+    <div class="narrative-sticky">
+      <div class="narrative-content">
+        <div class="reveal-left">
+          <span class="narrative-label">01 — Building</span>
+          <h2 class="narrative-heading">Backend<br>systems<br>that last</h2>
+        </div>
+        <div class="narrative-text reveal">
+          <p>
+            Python, Django, PostgreSQL, Docker. I build APIs, data pipelines,
+            and infrastructure. I care about code that is correct, clear,
+            and built to survive its authors.
+          </p>
+          <p>
+            Over 12 years of engineering — from startups to established teams.
+            I've seen what breaks and what endures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fragment -->
+  <div class="fragment">
+    <div class="fragment-inner reveal">
+      <blockquote>
+        "Rational thinking is something that engineering and philosophy share.
+        Both are about seeing clearly."
+      </blockquote>
+      <cite>On code and Descartes</cite>
+    </div>
+  </div>
+
+  <!-- Roles -->
+  <div class="roles-section" id="about">
+    <div class="text-divider" style="margin-bottom: 4rem;">What I do</div>
+
+    <div class="roles-grid">
+      <div class="role-card reveal">
+        <div class="role-number">i.</div>
+        <h3 class="role-title">Building</h3>
+        <p class="role-text">
+          Backend systems in Python and Django. APIs, infrastructure, architecture.
+          Clean code that survives change.
+        </p>
+      </div>
+
+      <div class="role-card reveal">
+        <div class="role-number">ii.</div>
+        <h3 class="role-title">Writing</h3>
+        <p class="role-text">
+          Essays and notes on software, architecture, and the thinking behind the code.
+          Public notes — not polished thought leadership.
+        </p>
+      </div>
+
+      <div class="role-card reveal">
+        <div class="role-number">iii.</div>
+        <h3 class="role-title">Teaching</h3>
+        <p class="role-text">
+          Private classes and mentoring. Python, Django, testing, engineering practices.
+          Patient, structured, concept-first teaching.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-divider">From Amsterdam, with taste</div>
+
+  <!-- Contact -->
+  <div class="contact-section" id="contact">
+    <h2 class="reveal">Let's talk</h2>
+    <p class="reveal">
+      Whether you need a developer, a teacher, or someone to think through
+      a hard problem with you.
+    </p>
+    <div class="contact-links reveal">
+      <a href="#" class="contact-pill">Read essays</a>
+      <a href="#" class="contact-pill">Book a class</a>
+      <a href="#" class="contact-pill">Send a message</a>
+      <a href="#" class="contact-pill">GitHub</a>
+      <a href="#" class="contact-pill">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span>eduzen.ar — 2026</span>
+    <div class="footer-links">
+      <a href="#">github</a>
+      <a href="#">linkedin</a>
+      <a href="#">telegram</a>
+    </div>
+  </footer>
+
+  <!-- Scroll Reveal Script -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
