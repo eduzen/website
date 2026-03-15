@@ -14,4 +14,5 @@ urlpatterns = [
     path("version/", views.version_view, name="version"),
     path("language-dropdown/", views.language_dropdown, name="language_dropdown"),
     path("chatgpt_improve_post/<int:post_id>/", views.chatgpt_improve_post, name="chatgpt_improve_post"),
+    path("proposals/<str:filename>", views.proposal_view, name="proposal_view"),
 ]
