@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -15,7 +16,7 @@ class RequestProfile(models.Model):
     method = models.CharField(max_length=10)
     path = models.CharField(max_length=255)
     status_code = models.PositiveIntegerField()
-    user = models.ForeignKey("auth.User", null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     duration_ms = models.FloatField()
@@ -28,7 +29,7 @@ class RequestProfile(models.Model):
             models.Index(fields=["-start_time", "path"], name="reqprofile_time_path_idx"),
         ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.method} {self.path} - {self.duration_ms} ms"
 
     @classmethod

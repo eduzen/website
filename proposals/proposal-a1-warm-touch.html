@@ -38,7 +38,7 @@
 
     body {
       font-family: var(--sans);
-      background: var(--bg);
+      background: linear-gradient(160deg, var(--bg) 0%, #fdf5ee 40%, var(--bg) 70%, #fdf8f2 100%);
       color: var(--text);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
@@ -585,22 +585,23 @@
     <a href="/" class="logo">eduzen</a>
     <ul class="nav-links">
       <li><a href="#writing">writing</a></li>
-      <li><a href="#building">building</a></li>
-      <li><a href="#teaching">teaching</a></li>
-      <li><a href="#about">about</a></li>
+      <li><a href="#building">what I do</a></li>
       <li><a href="#contact">contact</a></li>
+      <li><a href="/blog/">blog</a></li>
+      <li><a href="/about/" style="opacity: 0.5; font-size: 0.75rem;">EN / ES</a></li>
     </ul>
   </nav>
 
   <!-- Hero -->
   <header class="hero">
     <h1 class="hero-name reveal"><span id="typed-name"></span><span class="hero-cursor"></span></h1>
-    <p class="hero-tagline reveal">Python, systems, writing,<br>and thinking clearly.</p>
+    <p class="hero-tagline reveal">Philosophy graduate turned Python dev.<br>Still asking why before how.</p>
     <p class="hero-intro reveal">
-      I build software, write about engineering, and teach with philosophical patience.
-      Backend systems, web architecture, and technical clarity — from Amsterdam, with taste.
+      I studied philosophy at the University of Buenos Aires, then spent 15+ years building backend systems
+      with Python and Django. I moved from Buenos Aires to München to Amsterdam — each city
+      taught me something different. These days I build, write, and teach. Mostly with patience, sometimes with Nietzsche.
     </p>
-    <span class="hero-location reveal">Amsterdam, NL</span>
+    <span class="hero-location reveal">Buenos Aires → München → Amsterdam</span>
     <small class="hero-name-origin reveal">
       Eduardo Enriquez → edus enriquez → edus enri → edus en → <span>eduzen</span>
     </small>
@@ -610,34 +611,34 @@
 
   <!-- Selected Writing -->
   <section id="writing">
-    <span class="section-label reveal">Selected Writing</span>
-    <h2 class="section-title reveal">Essays & Notes</h2>
+    <span class="section-label reveal">Things I Think About</span>
+    <h2 class="section-title reveal">Writing & Notes</h2>
 
     <div class="writing-grid">
-      <a href="#" class="essay-item reveal">
+      <a href="/blog/" class="essay-item reveal">
         <span class="essay-number">01</span>
-        <span class="essay-title">On the architecture of small systems</span>
-        <span class="essay-date">Mar 2026</span>
+        <span class="essay-title">Python, Django, and the craft of clean backend code</span>
+        <span class="essay-date">Blog</span>
       </a>
-      <a href="#" class="essay-item reveal">
+      <a href="/blog/" class="essay-item reveal">
         <span class="essay-number">02</span>
-        <span class="essay-title">Teaching Python as if ideas matter</span>
-        <span class="essay-date">Jan 2026</span>
+        <span class="essay-title">Teaching programming — how to guide without creating dependency</span>
+        <span class="essay-date">Blog</span>
       </a>
-      <a href="#" class="essay-item reveal">
+      <a href="/blog/" class="essay-item reveal">
         <span class="essay-number">03</span>
-        <span class="essay-title">Django beyond the tutorial: what senior code looks like</span>
-        <span class="essay-date">Nov 2025</span>
+        <span class="essay-title">Unit testing, refactoring, and the things nobody tells juniors</span>
+        <span class="essay-date">Blog</span>
       </a>
-      <a href="#" class="essay-item reveal">
+      <a href="/blog/" class="essay-item reveal">
         <span class="essay-number">04</span>
-        <span class="essay-title">Philosophy and debugging share the same muscle</span>
-        <span class="essay-date">Sep 2025</span>
+        <span class="essay-title">From philosophy to code — what Foucault and debugging have in common</span>
+        <span class="essay-date">Blog</span>
       </a>
-      <a href="#" class="essay-item reveal">
+      <a href="/blog/" class="essay-item reveal">
         <span class="essay-number">05</span>
-        <span class="essay-title">Notes on code review as a form of care</span>
-        <span class="essay-date">Jul 2025</span>
+        <span class="essay-title">Docker, infrastructure, and making things work on any machine</span>
+        <span class="essay-date">Blog</span>
       </a>
     </div>
   </section>
@@ -654,8 +655,9 @@
         <div class="card-accent"></div>
         <h3>Building</h3>
         <p>
-          Backend systems in Python and Django. APIs, data pipelines, infrastructure.
-          I care about code that is correct, clear, and built to last.
+          Python, Django, Flask, FastAPI — mostly backend, always with tests.
+          Docker, Redis, RabbitMQ, Celery, Linux. I also fix Django performance issues,
+          evaluate legacy code, and help teams upgrade versions without tears.
         </p>
       </div>
 
@@ -663,8 +665,9 @@
         <div class="card-accent"></div>
         <h3>Writing</h3>
         <p>
-          Essays and notes about software engineering, architecture decisions,
-          and the thinking behind the code. Public notes, not polished articles.
+          Notes about Python, clean code, object-oriented programming, and whatever
+          catches my curiosity. Public thinking, not polished articles — because
+          the interesting stuff happens before the final draft.
         </p>
       </div>
 
@@ -672,8 +675,10 @@
         <div class="card-accent"></div>
         <h3>Teaching</h3>
         <p>
-          Private classes, mentoring, and consulting for developers and teams.
-          Python, Django, testing, and engineering practices — with patience.
+          Private classes and mentoring for developers who want to grow.
+          Python, Django, unit testing, clean code — my goal is to help you
+          become autonomous. If you're in the Netherlands, let's grab a coffee ☕.
+          Otherwise, Zoom works too.
         </p>
       </div>
     </div>
@@ -686,36 +691,50 @@
       <h2 class="section-title reveal">Things I've Built</h2>
 
       <div class="mosaic">
-        <a href="https://groomit.io" class="mosaic-card reveal" target="_blank">
+        <a href="https://t.me/eduzen_bot" class="mosaic-card featured reveal" target="_blank">
           <div class="mosaic-preview">
-            <span class="placeholder">groomit</span>
+            <span class="placeholder">🤖 @eduzen_bot</span>
           </div>
           <div class="mosaic-info">
-            <div class="mosaic-name">Groomit</div>
-            <div class="mosaic-url">groomit.io</div>
-            <div class="mosaic-desc">Pet grooming platform connecting pet owners with professional groomers at home.</div>
+            <div class="mosaic-name">eduzen_bot</div>
+            <div class="mosaic-url">t.me/eduzen_bot</div>
+            <div class="mosaic-desc">My Telegram bot — you can talk to it, ask things, and see what happens.
+              Built with Python, maintained with love and occasional stubbornness.</div>
           </div>
         </a>
 
-        <a href="https://maiteblog.com" class="mosaic-card reveal" target="_blank">
+        <a href="https://github.com/eduzen/website" class="mosaic-card reveal" target="_blank">
           <div class="mosaic-preview">
-            <span class="placeholder">maite</span>
+            <span class="placeholder">eduzen.ar</span>
           </div>
           <div class="mosaic-info">
-            <div class="mosaic-name">Maite Blog</div>
-            <div class="mosaic-url">maiteblog.com</div>
-            <div class="mosaic-desc">A personal blog built with care and simplicity.</div>
+            <div class="mosaic-name">This Website</div>
+            <div class="mosaic-url">github.com/eduzen/website</div>
+            <div class="mosaic-desc">Django + HTMX + Tailwind. Open source, continuously evolving.
+              The blog you're reading right now.</div>
           </div>
         </a>
 
-        <a href="https://champi.dev" class="mosaic-card reveal" target="_blank">
+        <a href="https://github.com/eduzen/bot" class="mosaic-card reveal" target="_blank">
           <div class="mosaic-preview">
-            <span class="placeholder">champi</span>
+            <span class="placeholder">bot</span>
           </div>
           <div class="mosaic-info">
-            <div class="mosaic-name">Champi</div>
-            <div class="mosaic-url">champi.dev</div>
-            <div class="mosaic-desc">Developer tools and experiments in the wild.</div>
+            <div class="mosaic-name">eduzen/bot</div>
+            <div class="mosaic-url">github.com/eduzen/bot</div>
+            <div class="mosaic-desc">The engine behind @eduzen_bot. Python, async, and a playground
+              for trying new ideas.</div>
+          </div>
+        </a>
+
+        <a href="https://github.com/eduzen" class="mosaic-card reveal" target="_blank">
+          <div class="mosaic-preview">
+            <span class="placeholder">& more</span>
+          </div>
+          <div class="mosaic-info">
+            <div class="mosaic-name">Open Source</div>
+            <div class="mosaic-url">github.com/eduzen</div>
+            <div class="mosaic-desc">Side projects, experiments, and contributions. Check out my GitHub for the full picture.</div>
           </div>
         </a>
       </div>
@@ -728,19 +747,22 @@
   <div class="manifesto">
     <div class="manifesto-inner">
       <blockquote class="reveal">
-        "Rational thinking is something that engineering and philosophy share.
-        Both are about seeing clearly."
-        <cite>— from a conversation about code and Descartes</cite>
+        "Some people find it weird that I have a degree in philosophy.
+        But rational thinking is something that my profession and studies share."
+        <cite>— Eduardo, on the about page 🤓</cite>
       </blockquote>
       <div class="manifesto-text reveal">
         <p>
-          I studied philosophy at the University of Buenos Aires before spending
-          over a decade building software. That combination shapes how I think
-          about systems, how I teach, and how I write.
+          Philosophy shaped my analytical thinking and fostered my curiosity.
+          Nietzsche, Descartes, Foucault — they taught me to question assumptions
+          before writing a single line of code. Writers too: Borges, Ursula K. Le Guin,
+          Arthur C. Clarke — they taught me that good systems tell stories.
         </p>
         <p>
-          I believe good software comes from clear thinking. And clear thinking
-          is a practice, not a talent — it can be taught.
+          I've been in the IT industry for 15+ years, most of it as a backend developer.
+          But I also lead teams, teach classes, and build side projects at odd hours.
+          My goal as a teacher is not just to impart knowledge — it's to guide you
+          in a way that you can lose me and be independent.
         </p>
       </div>
     </div>
@@ -751,26 +773,29 @@
   <!-- Contact -->
   <section id="contact" class="contact-section">
     <span class="section-label reveal">Get in Touch</span>
-    <h2 class="section-title reveal">Let's work together</h2>
+    <h2 class="section-title reveal">Let's talk</h2>
     <p class="reveal">
-      Whether you need a developer, a teacher, or someone to think through
-      a hard problem with you.
+      Need a backend developer, a Python teacher, or someone to think through
+      a hard problem with you? I'm always up for a good conversation.
     </p>
     <div class="contact-links reveal">
-      <a href="#" class="contact-link">Read essays</a>
-      <a href="#" class="contact-link">Book a class</a>
-      <a href="#" class="contact-link">Send a message</a>
+      <a href="/blog/" class="contact-link">Read the blog</a>
+      <a href="/classes/" class="contact-link">Book a class</a>
+      <a href="/contact/" class="contact-link">Send a message</a>
+      <a href="mailto:me@eduzen.com.ar" class="contact-link">me@eduzen.com.ar</a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
     <p>
-      <a href="#">GitHub</a> &nbsp;·&nbsp;
-      <a href="#">LinkedIn</a> &nbsp;·&nbsp;
-      <a href="#">Telegram</a>
+      <a href="https://github.com/eduzen">GitHub</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/eduzen/">LinkedIn</a> &nbsp;·&nbsp;
+      <a href="https://t.me/eduzen">Telegram</a> &nbsp;·&nbsp;
+      <a href="mailto:me@eduzen.com.ar">Email</a>
     </p>
-    <p style="margin-top: 1rem;">© 2026 Eduardo Enriquez — eduzen.ar</p>
+    <p style="margin-top: 0.8rem;">Typed on a Leopold FC750R 🤓</p>
+    <p style="margin-top: 0.5rem;">© 2026 Eduardo Enriquez — eduzen.ar</p>
   </footer>
 
   <!-- Scripts -->
@@ -788,8 +813,8 @@
 
     // Typing animation
     const nameEl = document.getElementById('typed-name');
-    const TYPE_SPEED = 80;
-    const DELETE_SPEED = 40;
+    const TYPE_SPEED = 100;
+    const DELETE_SPEED = 80;
 
     function setName(text) {
       nameEl.innerHTML = '';

@@ -85,9 +85,29 @@ def blog_post_suggestion(post: Post) -> dict[str, str]:
     Generates a new title and summary for the given Post model instance
     and returns them as a dictionary.
     """
-    title = get_better_title(post.title)
-    summary = get_better_summary(post.text)
-    return {"title": title, "summary": summary}
+    current_agent = _get_agent()
+    prompt = (
+        "Given the language and context of the following blog post, provide both:\n"
+        "1) a captivating improved title, not too serious\n"
+        "2) a concise and intriguing summary\n"
+        "Constraints:\n"
+        "1) Respect the language of the text: if Spanish, respond in Spanish; if English, in English.\n"
+        "2) Return exactly one title and one summary.\n"
+        "3) The title should be shorter than 200 characters, ideally 50-80.\n"
+        "4) The summary should be shorter than 300 characters, ideally around 200.\n"
+        f"Current title: '{post.title}'\n"
+        f"Content: '{post.text}'"
+    )
+
+    logfire.debug(f"Asking pydantic-ai for an improved title and summary:\n{prompt}")
+    try:
+        response = current_agent.run_sync(prompt)
+        suggestions = {"title": response.output.title, "summary": response.output.summary}
+        logfire.debug(f"Improved suggestions: {suggestions}")
+    except Exception as e:
+        logfire.error(f"Error getting improved title and summary: {e}")
+        raise
+    return suggestions
 
 
 def improve_blog_post(post: Post) -> None:

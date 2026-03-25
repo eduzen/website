@@ -6,6 +6,13 @@ from django.http import HttpRequest
 START_DEVELOPMENT_YEAR = 2011
 START_PYTHON_YEAR = 2014
 
+_STATIC_GLOBAL_DATA: dict[str, str] = {
+    "linkedin": "https://www.linkedin.com/in/eduzen/",
+    "github": "https://github.com/eduzen",
+    "email": "mailto:me@eduzen.com.ar",
+    "telegram": "https://t.me/eduzen",
+}
+
 
 def global_data(request: HttpRequest) -> dict[str, dict[str, str]]:
     """
@@ -25,15 +32,9 @@ def global_data(request: HttpRequest) -> dict[str, dict[str, str]]:
         whose value is a dictionary containing various global values accessible in templates.
     """
     current_year = dt.datetime.now().year
-    python_experience = current_year - START_PYTHON_YEAR
-    total_experience = current_year - START_DEVELOPMENT_YEAR
-
     data = {
-        "linkedin": "https://www.linkedin.com/in/eduzen/",
-        "github": "https://github.com/eduzen",
-        "email": "mailto:me@eduzen.com.ar",
-        "telegram": "https://t.me/eduzen",
-        "years_in_python": str(python_experience),
-        "years_of_experience": str(total_experience),
+        **_STATIC_GLOBAL_DATA,
+        "years_in_python": str(current_year - START_PYTHON_YEAR),
+        "years_of_experience": str(current_year - START_DEVELOPMENT_YEAR),
     }
     return {"global_data": data}

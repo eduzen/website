@@ -3,7 +3,7 @@ import logging
 from typing import Any
 
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import EmptyPage
+from django.core.paginator import EmptyPage, Page, Paginator
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -23,7 +23,9 @@ logger = logging.getLogger(__name__)
 class SafePaginationMixin:
     """Mixin to handle pagination errors by redirecting to the last valid page."""
 
-    def paginate_queryset(self, queryset, page_size):
+    def paginate_queryset(
+        self, queryset: QuerySet[Post], page_size: int
+    ) -> tuple[Paginator, Page[Post], QuerySet[Post], bool]:
         """Override to handle pagination errors gracefully."""
         paginator = self.get_paginator(
             queryset,
@@ -62,7 +64,7 @@ class SafePaginationMixin:
             page_obj = paginator.page(paginator.num_pages if paginator.num_pages > 0 else 1)
             return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: object, **kwargs: object) -> HttpResponse:
         """Override get to perform redirect if pagination error occurred."""
         response = super().get(request, *args, **kwargs)
         # Check if we stored a redirect URL during pagination
@@ -85,12 +87,12 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
 class AboutView(TemplateView):
     template_name = "blog/about.html"
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/about.html#about-content"]
         return [self.template_name]
 
-    def get_context_data(self, **kwargs) -> dict[str, Any]:
+    def get_context_data(self, **kwargs: object) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         start_year = 2014
         current_year = dt.datetime.now().year
@@ -115,7 +117,7 @@ class AdvanceSearch(FormView):
 class HomeView(TemplateView):
     template_name = "blog/home.html"
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/home.html#home-content"]
         return [self.template_name]
@@ -124,7 +126,7 @@ class HomeView(TemplateView):
 class ConsultancyView(TemplateView):
     template_name = "blog/consultancy.html"
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/consultancy.html#consultancy-content"]
         return [self.template_name]
@@ -133,40 +135,40 @@ class ConsultancyView(TemplateView):
 class ClassesView(TemplateView):
     template_name = "blog/classes.html"
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/classes.html#classes-content"]
         return [self.template_name]
 
 
 class PostListView(SafePaginationMixin, FilterView):
-    queryset = Post.objects.published().prefetch_related("tags")
+    queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
     ordering = ["-published_date"]
     filterset_class = PostFilter
     paginate_by = 12
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/posts/list.html#posts-list-content"]
         return [self.template_name]
 
 
 class PostTagsListView(SafePaginationMixin, FilterView):
-    queryset = Post.objects.published().prefetch_related("tags")
+    queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
     ordering = ["-published_date"]
     filterset_class = PostFilter
     paginate_by = 12
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/posts/list.html#posts-list-content"]
         return [self.template_name]
 
-    def get_context_data(self, object_list=None, **kwargs: dict[str, Any]) -> dict[str, Any]:
+    def get_context_data(self, object_list: object = None, **kwargs: object) -> dict[str, Any]:
         context = super().get_context_data(object_list=object_list, **kwargs)
         context["tag"] = self.kwargs.get("tag", "-").title()
         return context
@@ -176,11 +178,11 @@ class PostTagsListView(SafePaginationMixin, FilterView):
 
 
 class PostDetailView(DetailView):
-    queryset = Post.objects.prefetch_related("tags").published()
+    queryset = Post.objects.select_related("author").prefetch_related("tags").published()
     context_object_name = "post"
     template_name = "blog/posts/detail.html"
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/posts/detail.html#post-detail-content"]
         return [self.template_name]
@@ -191,24 +193,23 @@ class RelatedPostsView(ListView):
     context_object_name = "related_posts"
     paginate_by = 4
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/posts/related_posts.html#related-posts-content"]
         return [self.template_name]
 
     def get_queryset(self) -> QuerySet[Post]:
         post_id = self.kwargs.get("post_id")
-        # Use subquery to avoid extra query for fetching the post first
         tag_ids = Post.objects.filter(pk=post_id).values("tags__id")
         return (
-            Post.objects.published()
+            Post.objects.filter(published_date__isnull=False)
             .filter(tags__id__in=tag_ids)
             .exclude(pk=post_id)
             .distinct()
             .order_by("-published_date")
         )
 
-    def get_context_data(self, object_list=None, **kwargs: dict[str, Any]) -> dict[str, Any]:
+    def get_context_data(self, object_list: object = None, **kwargs: object) -> dict[str, Any]:
         context = super().get_context_data(object_list=object_list, **kwargs)
         context["post_id"] = self.kwargs.get("post_id")
         return context
@@ -219,12 +220,12 @@ class ContactView(FormView):
     form_class = ContactForm
     error_url = reverse_lazy("error")
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         if self.request.htmx:
             return ["blog/contact.html#contact-content"]
         return [self.template_name]
 
-    def form_valid(self, form):
+    def form_valid(self, form: ContactForm) -> HttpResponse:
         context = {
             "name": form.cleaned_data["name"],
             "email": form.cleaned_data["email"],
@@ -240,7 +241,7 @@ class ContactView(FormView):
 
         return render(self.request, "blog/success.html", context)
 
-    def form_invalid(self, form: ContactForm):
+    def form_invalid(self, form: ContactForm) -> HttpResponse:
         # Use the same template for both HTMX and normal requests
         # The template will handle the conditional rendering based on request.htmx
         context_data = self.get_context_data(form=form)

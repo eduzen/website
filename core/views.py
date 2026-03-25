@@ -1,4 +1,5 @@
 import json
+import pathlib
 
 import logfire
 from django.conf import settings
@@ -71,8 +72,6 @@ class StaticView(RedirectView):
 @require_GET
 def proposal_view(request: HttpRequest, filename: str) -> HttpResponse:
     """Serve redesign proposal HTML files for local preview."""
-    import pathlib
-
     proposals_dir = pathlib.Path(settings.BASE_DIR).parent / "proposals"
     file_path = proposals_dir / filename
     # Prevent directory traversal

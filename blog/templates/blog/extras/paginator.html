@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n pagination_tags %}
 
 <div class="flex justify-center items-center text-xs pt-4">
   {% if page_obj.has_previous %}
@@ -6,9 +6,12 @@
     <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border gray-100 nav-link">{% translate 'Previous' %}</a>
   {% endif %}
 
-  {% for num in page_obj.paginator.page_range %}
+  {% windowed_page_range page_obj.paginator page_obj.number as page_items %}
+  {% for num in page_items %}
     {% cycle 'text-blue-400' 'text-green-400' 'text-pink-400' 'text-orange-400' 'text-yellow-400' as color silent %}
-    {% if num == page_obj.number %}
+    {% if num is None %}
+      <span class="px-3 py-2 border dracula-border text-gray-500">…</span>
+    {% elif num == page_obj.number %}
       <span class="px-3 py-2 border dracula-border {{ color }}">{{ num }}</span>
     {% else %}
       <a href="?page={{ num }}" class="px-3 py-2 border dracula-border {{ color }} nav-link">{{ num }}</a>

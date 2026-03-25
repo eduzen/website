@@ -1,5 +1,7 @@
 import time
+from datetime import timedelta
 
+from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
 
@@ -7,22 +9,33 @@ from .models import RequestProfile
 
 
 class ProfilerMiddleware(MiddlewareMixin):
-    def process_view(self, request, view_func, view_args, view_kwargs):
+    def process_view(
+        self,
+        request: HttpRequest,
+        view_func: object,
+        view_args: tuple[object, ...],
+        view_kwargs: dict[str, object],
+    ) -> None:
         """
-        This method is called just before Django calls the view.
-        We'll store the start time on the request object.
+        Called just before Django calls the view.
+        Store both the wall-clock datetime and a high-resolution counter so we
+        can record an accurate start_time and compute a precise duration.
         """
-        request._start_time = time.perf_counter()
+        del view_func, view_args, view_kwargs
+        request._profile_start_dt = timezone.now()  # real wall-clock start
+        request._profile_start_perf = time.perf_counter()  # high-res timer for duration
 
-    def process_response(self, request, response):
+    def process_response(self, request: HttpRequest, response: HttpResponse) -> HttpResponse:
         """
-        This method is called just after the view is called (and a response is generated).
-        We'll calculate duration and store it in the DB.
+        Called just after the view returns a response.
+        Fix #11: previously both start_time and end_time were set to timezone.now()
+        at response time, making neither field meaningful.  Now start_time is the
+        datetime captured in process_view and end_time is derived from it plus the
+        measured duration.
         """
-        if not hasattr(request, "_start_time"):
-            return response  # some other middleware might short-circuit
+        if not hasattr(request, "_profile_start_perf"):
+            return response  # short-circuited by another middleware
 
-        # We can skip static files, admin, etc. if we want
         path = request.path_info
         if path.startswith("/static/") or path.startswith("/admin/"):
             return response
@@ -30,22 +43,21 @@ class ProfilerMiddleware(MiddlewareMixin):
         if path.startswith("/__reload__/") or path.startswith("/__debug__/"):
             return response
 
-        # Gather info
-        start_time = request._start_time
-        end_time = time.perf_counter()
-        duration = (end_time - start_time) * 1000.0  # ms
+        duration_ms = (time.perf_counter() - request._profile_start_perf) * 1000.0
+
+        start_dt = request._profile_start_dt
+        end_dt = start_dt + timedelta(milliseconds=duration_ms)
 
         user = request.user if request.user.is_authenticated else None
 
-        # Save to database
         RequestProfile.objects.create(
             method=request.method,
             path=path,
             status_code=response.status_code,
             user=user,
-            start_time=timezone.now(),
-            end_time=timezone.now(),
-            duration_ms=duration,
+            start_time=start_dt,
+            end_time=end_dt,
+            duration_ms=duration_ms,
         )
 
         return response

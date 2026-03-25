@@ -1,19 +1,19 @@
 # services/caches.py
 import abc
 import datetime
-from typing import Any
 
 import logfire
 import redis
 from django.core.cache import caches
+from django.core.cache.backends.base import BaseCache
 
 
 class AbstractCacheService(abc.ABC):
     """Interface for cache services, enforcing the methods all backends must implement."""
 
-    def __init__(self, alias: str):
+    def __init__(self, alias: str) -> None:
         self.alias = alias
-        self.cache = caches[alias]  # Django's cache instance
+        self.cache: BaseCache = caches[alias]
 
     @abc.abstractmethod
     def ping(self) -> bool:
@@ -26,7 +26,7 @@ class AbstractCacheService(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_stats(self) -> dict[str, Any]:
+    def get_stats(self) -> dict[str, object]:
         """Retrieves relevant statistics for this cache backend."""
         pass
 
@@ -34,7 +34,7 @@ class AbstractCacheService(abc.ABC):
 class RedisCacheService(AbstractCacheService):
     """Redis-specific implementation."""
 
-    def __init__(self, alias: str, redis_connection: redis.Redis):
+    def __init__(self, alias: str, redis_connection: redis.Redis) -> None:
         super().__init__(alias)
         if not redis_connection:
             raise ValueError("A valid Redis connection must be provided for RedisCacheService.")
@@ -58,15 +58,15 @@ class RedisCacheService(AbstractCacheService):
         except redis.RedisError as e:
             raise RuntimeError(f"Failed to clear Redis cache: {e}")
 
-    def get_stats(self) -> dict[str, Any]:
-        stats = {}
+    def get_stats(self) -> dict[str, object]:
+        stats: dict[str, object] = {}
         try:
             mem_info = self.redis_connection.info("memory")
             stats["used_memory_human"] = mem_info.get("used_memory_human", "N/A")
             stats["used_memory_peak_human"] = mem_info.get("used_memory_peak_human", "N/A")
 
             keyspace_info = self.redis_connection.info("keyspace")
-            readable_keyspace = {}
+            readable_keyspace: dict[str, dict[str, object]] = {}
             for db, db_stats in keyspace_info.items():
                 readable_keyspace[db] = db_stats.copy()
                 if "avg_ttl" in db_stats:
@@ -109,7 +109,7 @@ class MemcachedService(AbstractCacheService):
     def clear_cache(self) -> None:
         self.cache.clear()
 
-    def get_stats(self) -> dict[str, Any]:
+    def get_stats(self) -> dict[str, object]:
         # Memcached might support .stats() if you have a direct client.
         # django-pylibmc or python-memcached might let you do:
         #    self.cache._cache.get_stats()
@@ -136,7 +136,7 @@ class DatabaseCacheService(AbstractCacheService):
     def clear_cache(self) -> None:
         self.cache.clear()
 
-    def get_stats(self) -> dict[str, Any]:
+    def get_stats(self) -> dict[str, object]:
         # Not much to do here. Possibly query the table for row count, etc.
         # For instance, the DB cache uses a table (default: django_cache_table).
         # You might do a direct DB query here if you want row counts, etc.
@@ -157,7 +157,7 @@ class FileBasedCacheService(AbstractCacheService):
     def clear_cache(self) -> None:
         self.cache.clear()
 
-    def get_stats(self) -> dict[str, Any]:
+    def get_stats(self) -> dict[str, object]:
         # Possibly do a directory walk to count files, check disk usage, etc.
         return {"message": "File-based cache does not provide advanced stats by default."}
 
@@ -173,5 +173,5 @@ class DummyCacheService(AbstractCacheService):
         # No-op
         pass
 
-    def get_stats(self) -> dict[str, Any]:
+    def get_stats(self) -> dict[str, object]:
         return {"message": "Dummy cache does not store data."}
