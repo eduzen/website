@@ -11,12 +11,12 @@
     {% endblock head %}
   </head>
 
-  <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' class="bg-slate-800 text-gray-100 font-mono flex flex-col min-h-screen">
+  <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' class="flex flex-col min-h-screen">
     {% block navbar %}
       {% include "core/utils/navbar.html" %}
     {% endblock navbar %}
 
-    <main id="content" class="flex-grow pt-16 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-20">
+    <main id="content" class="flex-grow pt-20">
 
       {% block content %}{% endblock %}
     </main>
@@ -27,7 +27,8 @@
 
     {% block extra_scripts %}
       <script src="{% static 'core/js/menu.js' %}"></script>
-      <script src="{% static 'core/js/colorize.js' %}"></script>
+      <script src="{% static 'core/js/reveal.js' %}"></script>
+      <script src="{% static 'core/js/typing.js' %}"></script>
       <script async defer data-domain="eduzen.ar" src="https://stats.eduzen.ar/js/plausible.js"></script>
       <script data-goatcounter="https://eduzen.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     {% endblock extra_scripts %}

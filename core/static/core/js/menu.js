@@ -58,11 +58,11 @@ document.addEventListener("DOMContentLoaded", function() {
       console.error('HTMX Request failed:', evt.detail);
       const indicator = document.getElementById('loadingIndicator');
       if (indicator) {
-        indicator.classList.remove('scale-x-100', 'bg-blue-500');
-        indicator.classList.add('scale-x-0', 'bg-red-500');
+        indicator.classList.remove('scale-x-100');
+        indicator.classList.add('scale-x-0');
+        indicator.style.background = 'var(--error)';
         setTimeout(() => {
-          indicator.classList.remove('bg-red-500');
-          indicator.classList.add('bg-blue-500');
+          indicator.style.background = '';
         }, 2000);
       }
     });

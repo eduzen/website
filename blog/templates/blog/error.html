@@ -1,20 +1,25 @@
 {% load i18n %}
 
-<section class="text-center">
-  {% if error %}
-    <p class="text-2xl text-red-500 pb-4">{{ error }}</p>
-    <a class="text-pink-400 nav-link" href="{% url 'contact' %}">
-      <i class="fa fa-arrow-left" aria-hidden="true"></i> {% translate "Try again" %}
-    </a>
-  {% else %}
-    <h1 class="text-4xl text-yellow-400 pb-4">
-      {% translate 'Ups... something went wrong. 🙃' %}
-    </h1>
-    <p class="text-2xl text-yellow-400">
-      {% translate 'Please try again later... or contact me' %}
-      <a class="text-green-400 nav-link" href="{% url 'contact' %}">
-        {% translate "here" %}
+<div class="page-section">
+  <section class="text-center">
+    {% if error %}
+      <p class="text-2xl pb-4 text-error">{{ error }}</p>
+      <a class="warm-link" href="{% url 'contact' %}">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> {% translate "Try again" %}
       </a>
-    </p>
-  {% endif %}
-</section>
+    {% else %}
+      <h1 class="section-title">
+        {% translate 'Ups... something went wrong. 🙃' %}
+      </h1>
+      <p class="text-xl text-muted">
+        {% translate 'Please try again later... or contact me' %}
+        <a class="warm-link" href="{% url 'contact' %}"
+           hx-get="{% url 'contact' %}"
+           hx-target="#content"
+           hx-push-url="true">
+          {% translate "here" %}
+        </a>
+      </p>
+    {% endif %}
+  </section>
+</div>

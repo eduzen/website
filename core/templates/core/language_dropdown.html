@@ -1,13 +1,14 @@
 {% load i18n %}
 <div id="language-dropdown"
-     class="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl">
+     class="absolute right-0 z-20 mt-2 py-2 w-48 rounded shadow-lg"
+     style="background: var(--bg); border: 1px solid rgba(0,0,0,0.06);">
     <a href="/en"
-       class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+       class="block px-4 py-2 text-sm capitalize nav-link">
         <span class="fi fi-gb"></span>
         {% translate "English" %}
     </a>
     <a href="/es"
-       class="block px-4 py-2 text-sm text-black capitalize hover:bg-blue-500 hover:text-white">
+       class="block px-4 py-2 text-sm capitalize nav-link">
         <span class="fi fi-es"></span>
         {% translate "Spanish" %}
     </a>

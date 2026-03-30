@@ -5,35 +5,83 @@
 
 {% partialdef home-content %}
 {% load i18n %}
-<div class="text-center mt-24">
-  <a
-    class="text-green-400 pt-12 text-4xl text-center font-bold mb-4 hover:text-purple-400"
-    href="{% url 'about' %}"
-    hx-get="{% url 'about' %}"
-    hx-target="#content"
-    hx-push-url="true">
-    Eduardo Enriquez
-  </a>
-</div>
 
-<p class="text-center text-xl font-medium pt-4 mb-4">
-  {% translate 'Software Engineer' %} &amp;
-  <a
-    class="hover:text-purple-400"
-    href="{% url 'consultancy' %}"
-    hx-get="{% url 'consultancy' %}"
-    hx-target="#content"
-    hx-push-url="true">
-    {% translate 'Consultancy' %}
-  </a>
-</p>
+<header class="hero">
+  <h1 class="hero-name reveal"><span id="typed-name"></span><span class="hero-cursor"></span></h1>
+  <p class="hero-tagline reveal">
+    {% translate "Philosophy graduate turned Python dev." %}<br>
+    {% translate "Still asking why before how." %}
+  </p>
+  <p class="hero-intro reveal">
+    {% blocktranslate %}I studied philosophy at the University of Buenos Aires, then spent 15+ years building backend systems with Python and Django. I moved from Buenos Aires to München to Amsterdam — each city taught me something different. These days I build, write, and teach.{% endblocktranslate %}
+  </p>
+  <span class="hero-location reveal">Buenos Aires → München → Amsterdam</span>
+  <small class="hero-name-origin reveal">
+    Eduardo Enriquez → edus enriquez → edus enri → edus en → <span>eduzen</span>
+  </small>
+</header>
 
-<blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mt-8">
-  {% translate 'Based in Amsterdam' %}, {% translate 'available' %}
-  <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-    <span class="relative text-white">{% translate 'everywhere!' %}</span>
-  </span>
-</blockquote>
+<div class="divider"><hr></div>
+
+<section class="page-section">
+  <span class="section-label reveal">{% translate "What I Do" %}</span>
+  <h2 class="section-title reveal">{% translate "Building, Writing, Teaching" %}</h2>
+
+  <div class="identity-grid">
+    <div class="identity-card reveal">
+      <div class="card-accent"></div>
+      <h3>{% translate "Building" %}</h3>
+      <p>
+        {% translate "Python, Django, Flask, FastAPI — mostly backend, always with tests. Docker, Redis, RabbitMQ, Celery, Linux. I also fix Django performance issues, evaluate legacy code, and help teams upgrade versions." %}
+      </p>
+    </div>
+
+    <div class="identity-card reveal">
+      <div class="card-accent"></div>
+      <h3>{% translate "Writing" %}</h3>
+      <p>
+        {% translate "Notes about Python, clean code, object-oriented programming, and whatever catches my curiosity. Public thinking, not polished articles — because the interesting stuff happens before the final draft." %}
+      </p>
+    </div>
+
+    <div class="identity-card reveal">
+      <div class="card-accent"></div>
+      <h3>{% translate "Teaching" %}</h3>
+      <p>
+        {% translate "Private classes and mentoring for developers who want to grow. Python, Django, unit testing, clean code — my goal is to help you become autonomous." %}
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<section id="contact" class="contact-section">
+  <span class="section-label reveal">{% translate "Get in Touch" %}</span>
+  <h2 class="section-title reveal">{% translate "Let's talk" %}</h2>
+  <p class="reveal">
+    {% translate "Need a backend developer, a Python teacher, or someone to think through a hard problem with you? I'm always up for a good conversation." %}
+  </p>
+  <div class="contact-links reveal">
+    <a href="{% url 'blog' %}"
+       hx-get="{% url 'blog' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       class="contact-link">{% translate "Read the blog" %}</a>
+    <a href="{% url 'classes' %}"
+       hx-get="{% url 'classes' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       class="contact-link">{% translate "Book a class" %}</a>
+    <a href="{% url 'contact' %}"
+       hx-get="{% url 'contact' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       class="contact-link">{% translate "Send a message" %}</a>
+    <a href="mailto:me@eduzen.com.ar" class="contact-link">me@eduzen.com.ar</a>
+  </div>
+</section>
+
 {% endpartialdef home-content %}
 
 {% partial home-content %}

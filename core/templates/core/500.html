@@ -6,9 +6,9 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="container mx-auto px-4 py-8 text-center">
-        <h1 class="text-4xl font-bold text-red-500 mb-4">{% translate "500 - Server Error" %}</h1>
-        <p class="text-lg text-gray-300 mb-8">{% translate "Oops! Something went wrong on our end." %}</p>
-        <a href="/" class="text-blue-400 hover:text-blue-300 underline">{% translate "Go back to Home" %}</a>
+    <div class="page-section text-center">
+        <h1 class="section-title text-error">{% translate "500 - Server Error" %}</h1>
+        <p class="text-lg mb-8 text-muted">{% translate "Oops! Something went wrong on our end." %}</p>
+        <a href="/" class="warm-link">{% translate "Go back to Home" %}</a>
     </div>
 {% endblock content %}

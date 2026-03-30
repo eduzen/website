@@ -7,7 +7,6 @@
    class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">
   {% translate "Blog" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'consultancy' %}"
    hx-get="{% url 'consultancy' %}"
@@ -16,7 +15,6 @@
    class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">
   {% translate "Consultancy" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'classes' %}"
    hx-get="{% url 'classes' %}"
@@ -25,7 +23,6 @@
    class="nav-link {% if 'classes' in request.path %}active-link{% endif %}">
   {% translate "Classes" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'about' %}"
    hx-get="{% url 'about' %}"
@@ -34,7 +31,6 @@
    class="nav-link {% if 'about' in request.path %}active-link{% endif %}">
   {% translate "About" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'contact' %}"
    hx-get="{% url 'contact' %}"
@@ -43,11 +39,9 @@
    class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">
   {% translate "Contact" %}
 </a>
-<span class="text-gray-400">·</span>
 
 {% if user.is_superuser %}
-  <a href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
-  <span class="text-gray-400">·</span>
+  <a href="{% url 'admin:index' %}" class="nav-link">{% translate "Admin" %}</a>
 {% endif %}
 
 {% include 'core/utils/language_dropdown_button.html' %}
