@@ -5,6 +5,23 @@ from playwright.sync_api import Page, expect
 from .conftest import MOBILE_VIEWPORT
 
 
+def _has_no_horizontal_overflow(page: Page) -> bool:
+    return page.evaluate("() => document.documentElement.scrollWidth <= window.innerWidth + 1")
+
+
+def _content_width(page: Page, selector: str) -> float:
+    return page.locator(selector).evaluate(
+        """
+        (element) => {
+          const styles = window.getComputedStyle(element);
+          const paddingLeft = Number.parseFloat(styles.paddingLeft);
+          const paddingRight = Number.parseFloat(styles.paddingRight);
+          return element.getBoundingClientRect().width - paddingLeft - paddingRight;
+        }
+        """
+    )
+
+
 def test_contact_form_labels_visible(page: Page, live_server):
     page.goto(f"{live_server.url}/en/contact/")
 
@@ -116,3 +133,14 @@ def test_contact_form_responsive(page: Page, live_server):
 
     page.locator("#id_name").fill("Mobile User")
     expect(page.locator("#id_name")).to_have_value("Mobile User")
+
+    form_box = page.locator(".warm-form").bounding_box()
+    assert form_box is not None
+    assert form_box["x"] >= 0
+    assert form_box["width"] <= MOBILE_VIEWPORT["width"]
+
+    submit_box = page.locator("input[type='submit']").bounding_box()
+    assert submit_box is not None
+    assert submit_box["width"] >= _content_width(page, ".warm-form") - 2
+
+    assert _has_no_horizontal_overflow(page)

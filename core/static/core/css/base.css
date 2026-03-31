@@ -17,6 +17,7 @@
   --sans: 'Inter', -apple-system, sans-serif;
   --error: #c0392b;
   --max-width: 1200px;
+  --navbar-height: 5rem;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -137,13 +138,21 @@ body {
 
 /* ---- Hero ---- */
 .hero {
-  min-height: 100vh;
+  /* Keep the hero visually substantial without forcing a full-screen block
+     that pushes the footer too far below the fold. */
+  min-height: min(36rem, calc(100svh - var(--navbar-height)));
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8rem 2rem 4rem;
+  padding: 6rem 2rem 2rem;
   max-width: var(--max-width);
   margin: 0 auto;
+}
+
+/* The global main container reserves space for the fixed navbar.
+   Pull the home hero back up so it starts right beneath the navbar. */
+#content > .hero:first-child {
+  margin-top: calc(-1 * var(--navbar-height));
 }
 
 .hero-name {
@@ -180,7 +189,7 @@ body {
   color: var(--text-muted);
   max-width: 600px;
   line-height: 1.5;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero-intro {
@@ -189,7 +198,12 @@ body {
   font-weight: 300;
   color: var(--text-muted);
   max-width: 520px;
-  line-height: 1.8;
+  line-height: 1.7;
+  margin: 0 0 0.9rem;
+}
+
+.hero-intro:last-of-type {
+  margin-bottom: 0;
 }
 
 .hero-location {
@@ -198,7 +212,7 @@ body {
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 2rem;
+  margin-top: 1.25rem;
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--text-muted);
@@ -421,6 +435,7 @@ footer a:hover {
   background: var(--bg-alt);
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .warm-form input[type="text"],
@@ -430,6 +445,7 @@ footer a:hover {
   background: var(--bg);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
+  box-sizing: border-box;
   padding: 0.7rem 1rem;
   font-family: var(--sans);
   font-size: 0.9rem;
@@ -481,6 +497,9 @@ footer a:hover {
   font-size: 1rem;
   line-height: 1.8;
   color: var(--text);
+  max-width: 70ch;
+  margin: 0 auto;
+  overflow-wrap: break-word;
 }
 
 .post-content h1,
@@ -578,6 +597,7 @@ footer a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.25rem;
   padding-top: 2rem;
   font-size: 0.8rem;
@@ -585,6 +605,10 @@ footer a:hover {
 
 .pagination a,
 .pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   padding: 0.4rem 0.8rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: var(--text-muted);
@@ -617,7 +641,27 @@ footer a:hover {
 }
 
 /* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .identity-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
 @media (max-width: 768px) {
+  #main-navbar > div {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #main-navbar button.md\:hidden {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .identity-grid,
   .identity-grid-2 {
     grid-template-columns: 1fr;
@@ -633,9 +677,126 @@ footer a:hover {
     display: none;
   }
 
+  .essay-title {
+    font-size: 1.2rem;
+  }
+
+  .essay-date {
+    font-size: 0.7rem;
+    padding-left: 0;
+    white-space: normal;
+  }
+
   .hero {
     min-height: auto;
     padding: 6rem 1.5rem 3rem;
+  }
+}
+
+@media (max-height: 800px) and (min-width: 769px) {
+  .hero {
+    min-height: auto;
+    padding-top: 5.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .hero-name {
+    margin-bottom: 1rem;
+  }
+
+  .hero-tagline {
+    margin-bottom: 1rem;
+  }
+
+  .hero-intro {
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-location {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-section,
+  .contact-section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .page-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .contact-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .divider {
+    padding: 0 1.25rem;
+  }
+
+  footer {
+    padding: 2rem 1.25rem;
+  }
+
+  .hero {
+    padding: 5rem 1.25rem 2.5rem;
+  }
+
+  .hero-tagline {
+    margin-bottom: 2rem;
+  }
+
+  .hero-intro {
+    font-size: 0.9rem;
+  }
+
+  .hero-name-origin {
+    font-size: 0.7rem;
+  }
+
+  .warm-form {
+    padding: 1.5rem;
+  }
+
+  .warm-form button[type="submit"],
+  .warm-form input[type="submit"] {
+    width: 100%;
+  }
+
+  .post-content pre {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .post-content h1 { font-size: 1.6rem; }
+  .post-content h2 { font-size: 1.3rem; }
+  .post-content h3 { font-size: 1.1rem; }
+
+  .pagination {
+    gap: 0.4rem;
+  }
+
+  .pagination a,
+  .pagination span {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .contact-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 }
 

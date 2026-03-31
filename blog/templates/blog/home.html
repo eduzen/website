@@ -12,13 +12,12 @@
     {% translate "Philosophy graduate turned software engineer." %}
   </p>
   <p class="hero-intro reveal">
-    {% blocktranslate trimmed %}
-    I studied philosophy at the University of Buenos Aires, where I wrote my thesis on Nietzsche, though computers had already been part of my life since attending a programming-oriented high school.
-    {% endblocktranslate %}
-  </p>
-  <p class="hero-intro reveal">
     {% blocktranslate trimmed with email_link='<a class="warm-link" href="mailto:dev@eduzen.com.ar">dev@eduzen.com.ar</a>'|safe %}
-    For more than a decade I've worked mostly with Python, and today I work at the intersection of engineering and leadership. I like to think, teach, build things, and keep challenging myself. If you'd like to connect, you can reach me at {{ email_link }}.
+    For over a decade I've worked primarily with Python and JavaScript.
+    Today I lead teams, but I still get my hands dirty with code.
+    I enjoy thinking, teaching, and building things.
+    If you have a project to work on together, a question,
+    or just want to get in touch, you can reach me at {{ email_link }}.
     {% endblocktranslate %}
   </p>
   <span class="hero-location reveal">
@@ -35,67 +34,6 @@
     </span>
   </span>
 </header>
-
-<div class="divider"><hr></div>
-
-<section class="page-section">
-  <span class="section-label reveal">{% translate "What I Do" %}</span>
-  <h2 class="section-title reveal">{% translate "Building, Writing, Teaching" %}</h2>
-
-  <div class="identity-grid">
-    <div class="identity-card reveal">
-      <div class="card-accent"></div>
-      <h3>{% translate "Building" %}</h3>
-      <p>
-        {% translate "Python, Django, Flask, FastAPI — mostly backend, always with tests. Docker, Redis, RabbitMQ, Celery, Linux. I also fix Django performance issues, evaluate legacy code, and help teams upgrade versions." %}
-      </p>
-    </div>
-
-    <div class="identity-card reveal">
-      <div class="card-accent"></div>
-      <h3>{% translate "Writing" %}</h3>
-      <p>
-        {% translate "Notes about Python, clean code, object-oriented programming, and whatever catches my curiosity. Public thinking, not polished articles — because the interesting stuff happens before the final draft." %}
-      </p>
-    </div>
-
-    <div class="identity-card reveal">
-      <div class="card-accent"></div>
-      <h3>{% translate "Teaching" %}</h3>
-      <p>
-        {% translate "Private classes and mentoring for developers who want to grow. Python, Django, unit testing, clean code — my goal is to help you become autonomous." %}
-      </p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<section id="contact" class="contact-section">
-  <span class="section-label reveal">{% translate "Get in Touch" %}</span>
-  <h2 class="section-title reveal">{% translate "Let's talk" %}</h2>
-  <p class="reveal">
-    {% translate "Need a backend developer, a Python teacher, or someone to think through a hard problem with you? I'm always up for a good conversation." %}
-  </p>
-  <div class="contact-links reveal">
-    <a href="{% url 'blog' %}"
-       hx-get="{% url 'blog' %}"
-       hx-target="#content"
-       hx-push-url="true"
-       class="contact-link">{% translate "Read the blog" %}</a>
-    <a href="{% url 'classes' %}"
-       hx-get="{% url 'classes' %}"
-       hx-target="#content"
-       hx-push-url="true"
-       class="contact-link">{% translate "Book a class" %}</a>
-    <a href="{% url 'contact' %}"
-       hx-get="{% url 'contact' %}"
-       hx-target="#content"
-       hx-push-url="true"
-       class="contact-link">{% translate "Send a message" %}</a>
-    <a href="mailto:me@eduzen.com.ar" class="contact-link">me@eduzen.com.ar</a>
-  </div>
-</section>
 
 {% endpartialdef home-content %}
 

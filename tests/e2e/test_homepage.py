@@ -1,4 +1,31 @@
+import pytest
 from playwright.sync_api import Page, expect
+
+from blog.tests.factories import PostFactory
+
+
+def _has_no_horizontal_overflow(page: Page) -> bool:
+    return page.evaluate("() => document.documentElement.scrollWidth <= window.innerWidth + 1")
+
+
+def _element_dimensions(page: Page, selector: str) -> dict[str, float]:
+    js = """
+(element) => ({
+  width: element.getBoundingClientRect().width,
+  height: element.getBoundingClientRect().height,
+})
+"""
+    return page.locator(selector).evaluate(js)
+
+
+def _element_vertical_position(page: Page, selector: str) -> dict[str, float]:
+    js = """
+(element) => ({
+  top: element.getBoundingClientRect().top,
+  bottom: element.getBoundingClientRect().bottom,
+})
+"""
+    return page.locator(selector).evaluate(js)
 
 
 def test_homepage_loads(page: Page, live_server):
@@ -49,7 +76,7 @@ def test_htmx_navigation(page: Page, live_server):
 
 
 def test_responsive_design(page: Page, live_server):
-    """Test basic responsive design elements."""
+    """Test mobile navigation, hero placement, and overflow protection."""
     # Test desktop view
     page.set_viewport_size({"width": 1200, "height": 800})
     page.goto(live_server.url)
@@ -62,5 +89,34 @@ def test_responsive_design(page: Page, live_server):
     page.set_viewport_size({"width": 375, "height": 667})
     page.goto(live_server.url)
 
-    # Navigation should still be present (might be hamburger menu)
+    # Navigation should still be present and tappable.
     expect(nav).to_be_visible()
+    mobile_menu_button = page.locator("#main-navbar button.md\\:hidden")
+    expect(mobile_menu_button).to_be_visible()
+
+    dimensions = _element_dimensions(page, "#main-navbar button.md\\:hidden")
+    assert dimensions["width"] >= 44
+    assert dimensions["height"] >= 44
+
+    mobile_menu_button.click()
+    expect(page.locator(".mobile-menu-bg")).to_be_visible()
+
+    nav_position = _element_vertical_position(page, "#main-navbar")
+    hero_position = _element_vertical_position(page, ".hero")
+    assert hero_position["top"] <= nav_position["bottom"] + 16
+
+    assert _has_no_horizontal_overflow(page)
+
+
+@pytest.mark.django_db
+def test_blog_list_responsive_layout(page: Page, live_server):
+    """Test blog list remains readable on tablet widths."""
+    PostFactory(title="Responsive layouts need room to breathe")
+
+    for viewport in ({"width": 768, "height": 1024}, {"width": 1024, "height": 768}):
+        page.set_viewport_size(viewport)
+        page.goto(f"{live_server.url}/en/blog/")
+
+        expect(page.locator(".essay-item").first).to_be_visible()
+        expect(page.locator(".essay-title").first).to_contain_text("Responsive layouts")
+        assert _has_no_horizontal_overflow(page)

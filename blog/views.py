@@ -27,8 +27,9 @@ logger = logging.getLogger(__name__)
 class SafePaginationMixin(MultipleObjectMixin, View):
     """Mixin to handle pagination errors by redirecting to the last valid page."""
 
-    def paginate_queryset(self, queryset: Any, page_size: int) -> tuple[Paginator, Page[Any], Any, bool]:
+    def paginate_queryset(self, queryset: object, page_size: int) -> tuple[Paginator, Page[Post], QuerySet[Post], bool]:
         """Override to handle pagination errors gracefully."""
+        queryset = cast(QuerySet[Post], queryset)
         paginator = self.get_paginator(
             queryset,
             page_size,
@@ -51,7 +52,8 @@ class SafePaginationMixin(MultipleObjectMixin, View):
 
         try:
             page_obj = paginator.page(page_number)
-            return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
+            object_list = cast(QuerySet[Post], page_obj.object_list)
+            return (paginator, page_obj, object_list, page_obj.has_other_pages())
         except EmptyPage:
             # Page out of range, redirect to last page
             query_params = self.request.GET.copy()
@@ -64,7 +66,8 @@ class SafePaginationMixin(MultipleObjectMixin, View):
             self._redirect_url = redirect_url
             # Return the last page temporarily
             page_obj = paginator.page(paginator.num_pages if paginator.num_pages > 0 else 1)
-            return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
+            object_list = cast(QuerySet[Post], page_obj.object_list)
+            return (paginator, page_obj, object_list, page_obj.has_other_pages())
 
     def get(self, request: HttpRequest, *args: object, **kwargs: object) -> HttpResponse:
         """Override get to perform redirect if pagination error occurred."""
@@ -176,8 +179,8 @@ class PostTagsListView(SafePaginationMixin, FilterView):
             return ["blog/posts/list.html#posts-list-content"]
         return [self.template_name]
 
-    def get_context_data(self, object_list: Any = None, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(object_list=object_list, **kwargs)
+    def get_context_data(self, *, object_list: object | None = None, **kwargs: Any) -> dict[str, Any]:  # noqa: ANN401
+        context = super().get_context_data(object_list=cast(Any, object_list), **kwargs)
         context["tag"] = self.kwargs.get("tag", "-").title()
         return context
 
@@ -219,8 +222,8 @@ class RelatedPostsView(ListView):
             .order_by("-published_date")
         )
 
-    def get_context_data(self, object_list: Any = None, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(object_list=object_list, **kwargs)
+    def get_context_data(self, *, object_list: object | None = None, **kwargs: Any) -> dict[str, Any]:  # noqa: ANN401
+        context = super().get_context_data(object_list=cast(Any, object_list), **kwargs)
         context["post_id"] = self.kwargs.get("post_id")
         return context
 

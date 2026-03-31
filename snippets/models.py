@@ -1,9 +1,10 @@
 # Wrap heavy Pygments introspection in cache so it runs once per
 # process on first access rather than at every import / worker startup.
-from collections.abc import Collection
+from collections.abc import Collection, Iterable
 from functools import cache
 
 from django.db import models
+from django.db.models.base import ModelBase
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_all_lexers, get_lexer_by_name
@@ -37,7 +38,14 @@ class Snippet(models.Model):
     def __str__(self) -> str:
         return self.title or ""
 
-    def save(self, *args: int, **kwargs: str) -> None:
+    def save(
+        self,
+        *,
+        force_insert: bool | tuple[ModelBase, ...] = False,
+        force_update: bool = False,
+        using: str | None = None,
+        update_fields: Iterable[str] | None = None,
+    ) -> None:
         """
         Use the `pygments` library to create a highlighted HTML
         representation of the code snippet.
@@ -49,7 +57,6 @@ class Snippet(models.Model):
         highlighting.  For full saves we always re-highlight to stay correct.
         """
         _HIGHLIGHT_FIELDS = {"code", "language", "style", "linenos", "title"}
-        update_fields = kwargs.get("update_fields")
         normalized_update_fields: set[str] | None = None
         if isinstance(update_fields, Collection) and not isinstance(update_fields, str):
             normalized_update_fields = {field for field in update_fields if isinstance(field, str)}
@@ -76,6 +83,11 @@ class Snippet(models.Model):
             )
             self.highlighted = highlight(self.code, lexer, formatter)
             if normalized_update_fields is not None:
-                kwargs["update_fields"] = sorted({*normalized_update_fields, "highlighted"})
+                update_fields = sorted({*normalized_update_fields, "highlighted"})
 
-        super().save(*args, **kwargs)
+        super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
+        )
