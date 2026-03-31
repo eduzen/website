@@ -1,3 +1,4 @@
+import datetime as dt
 import time
 from datetime import timedelta
 
@@ -22,8 +23,9 @@ class ProfilerMiddleware(MiddlewareMixin):
         can record an accurate start_time and compute a precise duration.
         """
         del view_func, view_args, view_kwargs
-        request._profile_start_dt = timezone.now()  # real wall-clock start
-        request._profile_start_perf = time.perf_counter()  # high-res timer for duration
+        # Store per-request timing markers (dynamic attributes on HttpRequest).
+        setattr(request, "_profile_start_dt", timezone.now())  # real wall-clock start
+        setattr(request, "_profile_start_perf", time.perf_counter())  # high-res timer for duration
 
     def process_response(self, request: HttpRequest, response: HttpResponse) -> HttpResponse:
         """
@@ -33,7 +35,9 @@ class ProfilerMiddleware(MiddlewareMixin):
         datetime captured in process_view and end_time is derived from it plus the
         measured duration.
         """
-        if not hasattr(request, "_profile_start_perf"):
+        start_perf = getattr(request, "_profile_start_perf", None)
+        start_dt = getattr(request, "_profile_start_dt", None)
+        if not isinstance(start_perf, float) or not isinstance(start_dt, dt.datetime):
             return response  # short-circuited by another middleware
 
         path = request.path_info
@@ -43,15 +47,13 @@ class ProfilerMiddleware(MiddlewareMixin):
         if path.startswith("/__reload__/") or path.startswith("/__debug__/"):
             return response
 
-        duration_ms = (time.perf_counter() - request._profile_start_perf) * 1000.0
-
-        start_dt = request._profile_start_dt
+        duration_ms = (time.perf_counter() - start_perf) * 1000.0
         end_dt = start_dt + timedelta(milliseconds=duration_ms)
 
         user = request.user if request.user.is_authenticated else None
 
         RequestProfile.objects.create(
-            method=request.method,
+            method=request.method or "",
             path=path,
             status_code=response.status_code,
             user=user,

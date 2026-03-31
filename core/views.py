@@ -1,5 +1,6 @@
 import json
 import pathlib
+from typing import cast
 
 import logfire
 from django.conf import settings
@@ -13,6 +14,7 @@ from django.views.generic.base import RedirectView
 from blog.models import Post
 from blog.services.chatgpt import improve_blog_post
 from core.services.pretty import highlight_json
+from core.types import HtmxHttpRequest
 
 
 def handler404(request: HttpRequest, exception: Exception) -> HttpResponse:
@@ -25,10 +27,6 @@ def handler500(request: HttpRequest) -> HttpResponse:
     """Custom 500 handler."""
     logfire.exception("Internal server error at {path}", path=request.path)
     return render(request, "core/500.html", status=500)
-
-
-def language_dropdown(request: HttpRequest) -> HttpResponse:
-    return render(request, "core/language_dropdown.html")
 
 
 @login_required
@@ -130,7 +128,7 @@ def version_view(request: HttpRequest) -> HttpResponse:
     """
 
     # If it's an HTMX request, return just the table
-    if request.htmx:  # type: ignore
+    if cast(HtmxHttpRequest, request).htmx:
         return HttpResponse(html_content)
 
     # Otherwise, return with the base template

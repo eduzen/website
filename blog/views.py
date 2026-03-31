@@ -1,6 +1,6 @@
 import datetime as dt
 import logging
-from typing import Any
+from typing import Any, cast
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, Page, Paginator
@@ -9,7 +9,11 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView, ListView, TemplateView
+from django.views.generic.base import View
+from django.views.generic.list import MultipleObjectMixin
 from django_filters.views import FilterView
+
+from core.types import HtmxHttpRequest
 
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
@@ -20,12 +24,10 @@ from .services.telegram import send_contact_message
 logger = logging.getLogger(__name__)
 
 
-class SafePaginationMixin:
+class SafePaginationMixin(MultipleObjectMixin, View):
     """Mixin to handle pagination errors by redirecting to the last valid page."""
 
-    def paginate_queryset(
-        self, queryset: QuerySet[Post], page_size: int
-    ) -> tuple[Paginator, Page[Post], QuerySet[Post], bool]:
+    def paginate_queryset(self, queryset: Any, page_size: int) -> tuple[Paginator, Page[Any], Any, bool]:
         """Override to handle pagination errors gracefully."""
         paginator = self.get_paginator(
             queryset,
@@ -41,7 +43,7 @@ class SafePaginationMixin:
         except (ValueError, TypeError):
             # Invalid page number, redirect to page 1
             query_params = self.request.GET.copy()
-            query_params["page"] = 1
+            query_params["page"] = "1"
             redirect_url = f"{self.request.path}?{query_params.urlencode()}"
             # Store redirect info to be handled in get method
             self._redirect_url = redirect_url
@@ -54,9 +56,9 @@ class SafePaginationMixin:
             # Page out of range, redirect to last page
             query_params = self.request.GET.copy()
             if paginator.num_pages > 0:
-                query_params["page"] = paginator.num_pages
+                query_params["page"] = str(paginator.num_pages)
             else:
-                query_params["page"] = 1
+                query_params["page"] = "1"
             redirect_url = f"{self.request.path}?{query_params.urlencode()}"
             # Store redirect info to be handled in get method
             self._redirect_url = redirect_url
@@ -66,7 +68,7 @@ class SafePaginationMixin:
 
     def get(self, request: HttpRequest, *args: object, **kwargs: object) -> HttpResponse:
         """Override get to perform redirect if pagination error occurred."""
-        response = super().get(request, *args, **kwargs)
+        response = super().get(request, *args, **kwargs)  # type: ignore[misc]
         # Check if we stored a redirect URL during pagination
         if hasattr(self, "_redirect_url"):
             redirect_url = self._redirect_url
@@ -88,7 +90,8 @@ class AboutView(TemplateView):
     template_name = "blog/about.html"
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/about.html#about-content"]
         return [self.template_name]
 
@@ -118,7 +121,8 @@ class HomeView(TemplateView):
     template_name = "blog/home.html"
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/home.html#home-content"]
         return [self.template_name]
 
@@ -127,7 +131,8 @@ class ConsultancyView(TemplateView):
     template_name = "blog/consultancy.html"
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/consultancy.html#consultancy-content"]
         return [self.template_name]
 
@@ -136,7 +141,8 @@ class ClassesView(TemplateView):
     template_name = "blog/classes.html"
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/classes.html#classes-content"]
         return [self.template_name]
 
@@ -150,7 +156,8 @@ class PostListView(SafePaginationMixin, FilterView):
     paginate_by = 12
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/posts/list.html#posts-list-content"]
         return [self.template_name]
 
@@ -164,11 +171,12 @@ class PostTagsListView(SafePaginationMixin, FilterView):
     paginate_by = 12
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/posts/list.html#posts-list-content"]
         return [self.template_name]
 
-    def get_context_data(self, object_list: object = None, **kwargs: object) -> dict[str, Any]:
+    def get_context_data(self, object_list: Any = None, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(object_list=object_list, **kwargs)
         context["tag"] = self.kwargs.get("tag", "-").title()
         return context
@@ -183,7 +191,8 @@ class PostDetailView(DetailView):
     template_name = "blog/posts/detail.html"
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/posts/detail.html#post-detail-content"]
         return [self.template_name]
 
@@ -194,7 +203,8 @@ class RelatedPostsView(ListView):
     paginate_by = 4
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/posts/related_posts.html#related-posts-content"]
         return [self.template_name]
 
@@ -209,7 +219,7 @@ class RelatedPostsView(ListView):
             .order_by("-published_date")
         )
 
-    def get_context_data(self, object_list: object = None, **kwargs: object) -> dict[str, Any]:
+    def get_context_data(self, object_list: Any = None, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(object_list=object_list, **kwargs)
         context["post_id"] = self.kwargs.get("post_id")
         return context
@@ -221,7 +231,8 @@ class ContactView(FormView):
     error_url = reverse_lazy("error")
 
     def get_template_names(self) -> list[str]:
-        if self.request.htmx:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
             return ["blog/contact.html#contact-content"]
         return [self.template_name]
 

@@ -1,16 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-  function handleDropdownBehavior() {
-    document.addEventListener("click", function(event) {
-      const dropdown = document.getElementById("language-dropdown");
-      const button = document.getElementById("language-button");
-
-      // Hide language dropdown if clicked outside
-      if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && !dropdown.classList.contains("hidden")) {
-        dropdown.classList.add("hidden");
-      }
-    });
-  }
-
   function updateActiveNavigation() {
     const currentPath = window.location.pathname;
 
@@ -33,51 +21,47 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function handleHTMXEvents() {
-    // Show loading indicator on HTMX requests
-    document.body.addEventListener('htmx:beforeRequest', function(evt) {
-      const indicator = document.getElementById('loadingIndicator');
+    var indicator = document.getElementById('loadingIndicator');
+
+    document.body.addEventListener('htmx:beforeRequest', function() {
       if (indicator) {
         indicator.classList.remove('scale-x-0');
         indicator.classList.add('scale-x-100');
       }
     });
 
-    // Hide loading indicator when request completes
-    document.body.addEventListener('htmx:afterRequest', function(evt) {
-      const indicator = document.getElementById('loadingIndicator');
+    document.body.addEventListener('htmx:afterRequest', function() {
       if (indicator) {
-        setTimeout(() => {
+        setTimeout(function() {
           indicator.classList.remove('scale-x-100');
           indicator.classList.add('scale-x-0');
         }, 200);
       }
     });
 
-    // Handle HTMX errors
     document.body.addEventListener('htmx:responseError', function(evt) {
       console.error('HTMX Request failed:', evt.detail);
-      const indicator = document.getElementById('loadingIndicator');
       if (indicator) {
         indicator.classList.remove('scale-x-100');
         indicator.classList.add('scale-x-0');
         indicator.style.background = 'var(--error)';
-        setTimeout(() => {
+        setTimeout(function() {
           indicator.style.background = '';
         }, 2000);
       }
     });
 
-    // Update active navigation state after HTMX navigation
-    document.body.addEventListener('htmx:afterSettle', function(evt) {
-      // Small delay to ensure URL has been updated by hx-push-url
-      setTimeout(() => {
+    document.body.addEventListener('htmx:afterSettle', function() {
+      if (window.location.pathname !== lastPath) {
+        lastPath = window.location.pathname;
         updateActiveNavigation();
-      }, 10);
+      }
     });
   }
 
+  var lastPath = window.location.pathname;
+
   // Initialize functions
-  handleDropdownBehavior();
   handleHTMXEvents();
 
   // Update active state on initial page load

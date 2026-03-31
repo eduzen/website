@@ -1,3 +1,5 @@
+from typing import cast
+
 from django.contrib import admin
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
@@ -18,7 +20,7 @@ class CacheExplorerAdmin(admin.ModelAdmin):
     def changelist_view(self, request: HttpRequest, extra_context: dict[str, object] | None = None) -> HttpResponse:
         del extra_context
         view = CacheExplorerView.as_view()
-        return view(request)
+        return cast(HttpResponse, view(request))
 
     def has_add_permission(self, request: HttpRequest) -> bool:
         del request

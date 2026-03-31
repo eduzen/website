@@ -37,7 +37,7 @@ class Snippet(models.Model):
     def __str__(self) -> str:
         return self.title or ""
 
-    def save(self, *args: object, **kwargs: object) -> None:
+    def save(self, *args: int, **kwargs: str) -> None:
         """
         Use the `pygments` library to create a highlighted HTML
         representation of the code snippet.
@@ -67,7 +67,13 @@ class Snippet(models.Model):
             lexer = get_lexer_by_name(self.language, stripall=True)
             linenos = "table" if self.linenos else False
             options = {"title": self.title} if self.title else {}
-            formatter = HtmlFormatter(style=self.style, linenos=linenos, full=False, noclasses=True, **options)
+            formatter = HtmlFormatter(  # type: ignore[call-overload]
+                style=self.style,
+                linenos=linenos,
+                full=False,
+                noclasses=True,
+                **options,
+            )
             self.highlighted = highlight(self.code, lexer, formatter)
             if normalized_update_fields is not None:
                 kwargs["update_fields"] = sorted({*normalized_update_fields, "highlighted"})

@@ -169,6 +169,7 @@ plugins = [
 ]
 exclude = [
   "migrations",
+  "proposals",
   "tests",
 ]
 

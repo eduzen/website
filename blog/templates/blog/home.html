@@ -9,16 +9,31 @@
 <header class="hero">
   <h1 class="hero-name reveal"><span id="typed-name"></span><span class="hero-cursor"></span></h1>
   <p class="hero-tagline reveal">
-    {% translate "Philosophy graduate turned Python dev." %}<br>
-    {% translate "Still asking why before how." %}
+    {% translate "Philosophy graduate turned software engineer." %}
   </p>
   <p class="hero-intro reveal">
-    {% blocktranslate %}I studied philosophy at the University of Buenos Aires, then spent 15+ years building backend systems with Python and Django. I moved from Buenos Aires to München to Amsterdam — each city taught me something different. These days I build, write, and teach.{% endblocktranslate %}
+    {% blocktranslate trimmed %}
+    I studied philosophy at the University of Buenos Aires, where I wrote my thesis on Nietzsche, though computers had already been part of my life since attending a programming-oriented high school.
+    {% endblocktranslate %}
   </p>
-  <span class="hero-location reveal">Buenos Aires → München → Amsterdam</span>
-  <small class="hero-name-origin reveal">
-    Eduardo Enriquez → edus enriquez → edus enri → edus en → <span>eduzen</span>
-  </small>
+  <p class="hero-intro reveal">
+    {% blocktranslate trimmed with email_link='<a class="warm-link" href="mailto:dev@eduzen.com.ar">dev@eduzen.com.ar</a>'|safe %}
+    For more than a decade I've worked mostly with Python, and today I work at the intersection of engineering and leadership. I like to think, teach, build things, and keep challenging myself. If you'd like to connect, you can reach me at {{ email_link }}.
+    {% endblocktranslate %}
+  </p>
+  <span class="hero-location reveal">
+    <span class="hero-location-step">
+      <s class="hero-location-item"><span role="img" aria-label="Argentina flag">🇦🇷</span> Buenos Aires</s>
+    </span>
+    <span class="hero-location-step">
+      <span class="hero-location-sep" aria-hidden="true">→</span>
+      <s class="hero-location-item"><span role="img" aria-label="Germany flag">🇩🇪</span> München</s>
+    </span>
+    <span class="hero-location-step">
+      <span class="hero-location-sep" aria-hidden="true">→</span>
+      <span class="hero-location-item"><span role="img" aria-label="Netherlands flag">🇳🇱</span> Amsterdam</span>
+    </span>
+  </span>
 </header>
 
 <div class="divider"><hr></div>

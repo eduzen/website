@@ -25,17 +25,6 @@ class FaviconTests(TestCase):
         assert response.content.startswith(b"<svg")
 
 
-class LanguageDropdownViewTest(TestCase):
-    def test_language_dropdown_renders_correct_template(self):
-        # Use the reverse() function to get the URL of the view.
-        # Assuming the name of the URL pattern for this view is 'language_dropdown'
-        response = self.client.get(reverse("language_dropdown"))
-
-        assert response.status_code == HTTPStatus.OK
-        # Check that the correct template is used
-        self.assertTemplateUsed(response, "core/language_dropdown.html")
-
-
 class ChatGPTImprovePostTest(TestCase):
     def setUp(self):
         self.client = Client()

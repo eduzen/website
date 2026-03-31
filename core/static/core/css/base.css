@@ -9,7 +9,7 @@
   --bg-alt: #f0ece6;
   --bg-warm: #fdf6f0;
   --text: #2a2a2a;
-  --text-muted: #6b6560;
+  --text-muted: #554f4a;
   --accent: #5c6b4f;
   --accent-warm: #c2692d;
   --accent-warm-light: #e8a87c;
@@ -195,6 +195,8 @@ body {
 .hero-location {
   display: inline-flex;
   align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 2rem;
   font-size: 0.8rem;
@@ -209,6 +211,20 @@ body {
   width: 24px;
   height: 1px;
   background: var(--accent);
+}
+
+.hero-location-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.hero-location-item {
+}
+
+.hero-location-sep {
+  opacity: 0.7;
 }
 
 .hero-name-origin {
@@ -620,5 +636,16 @@ footer a:hover {
   .hero {
     min-height: auto;
     padding: 6rem 1.5rem 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-location {
+    gap: 0.35rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-location::before {
+    display: none;
   }
 }

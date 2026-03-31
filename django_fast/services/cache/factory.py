@@ -1,5 +1,6 @@
 import logging
 from collections.abc import Mapping
+from typing import Any
 
 import redis
 from django.conf import settings
@@ -26,7 +27,7 @@ def get_cache_service(alias: str) -> AbstractCacheService:
         # or possibly parse connection options from `cache_config['LOCATION']` or `cache_config['OPTIONS']`.
         try:
             url = settings.CACHES["default"]["LOCATION"]
-            raw_options = cache_config.get("OPTIONS", {})
+            raw_options: Any = cache_config.get("OPTIONS", {})
             options = raw_options if isinstance(raw_options, Mapping) else {}
             password = options.get("PASSWORD")
             db = options.get("DB", 0)

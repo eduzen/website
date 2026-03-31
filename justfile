@@ -2,8 +2,12 @@ DCO := "docker compose"
 RUNDJANGO := "docker compose run --rm web"
 EXEC := "docker compose web exec uv"
 UV := "docker compose run --rm web uv run"
+I18N_IGNORE := "--ignore .venv --ignore .git --ignore node_modules --ignore website/website"
+
 # Always run Django management commands against dev settings in local 'just'
+
 MANAGE := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.dev web uv run manage.py"
+MANAGE_PROD := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.prod web uv run manage.py"
 
 # Helper recipe
 copy-env:
@@ -18,130 +22,170 @@ copy-env:
 
 [group('development')]
 run: copy-env
-  {{DCO}} up -d
-  just logs
+    {{ DCO }} up -d
+    just logs
 
 [group('development')]
 restart:
-  {{DCO}} restart web
-  just logs
+    {{ DCO }} restart web
+    just logs
 
 [group('development')]
 stop:
-  {{DCO}} down
+    {{ DCO }} down
 
 [group('development')]
 down:
-  just stop
+    just stop
 
 [group('development')]
 hard-stop:
-  {{DCO}} down -v
+    {{ DCO }} down -v
 
 [group('development')]
 reset:
-  {{DCO}} down -v
-  {{DCO}} up -d --build
+    {{ DCO }} down -v
+    {{ DCO }} up -d --build
 
 [group('development')]
 logs:
-  {{DCO}} logs -f web
+    {{ DCO }} logs -f web
 
 [group('development')]
 shell: copy-env
-  {{DCO}} run --rm web bash
+    {{ DCO }} run --rm web bash
 
 [group('development')]
 dockershell: shell
 
 [group('development')]
 build *args: copy-env
-  {{DCO}} build {{args}}
+    {{ DCO }} build {{ args }}
 
 [group('django')]
 check:
-  {{MANAGE}} check --deploy
+    {{ MANAGE }} check
+
+[group('django')]
+check-deploy:
+    {{ MANAGE_PROD }} check --deploy
 
 [group('django')]
 migrate:
-  {{MANAGE}} migrate
+    {{ MANAGE }} migrate
 
 [group('django')]
 makemigrations:
-  {{MANAGE}} makemigrations
+    {{ MANAGE }} makemigrations
+
+[group('django')]
+showmigrations:
+    {{ MANAGE }} showmigrations
 
 [group('django')]
 createsuperuser username='admin':
-  {{MANAGE}} createsuperuser --username "{{username}}" --email "{{username}}@example.com" --noinput
+    @username="{{ username }}"; username="${username#username=}"; \
+        {{ MANAGE }} createsuperuser --username "$username" --email "$username@example.com" --noinput
 
 [group('django')]
 showurls:
-  {{MANAGE}} show_urls
+    {{ MANAGE }} show_urls
 
 [group('django')]
 improve-posts:
-  {{MANAGE}} improve_posts
+    {{ MANAGE }} improve_posts
+
+[group('i18n')]
+translations-extract locale='all' *args='': copy-env
+    @locale="{{ locale }}"; locale="${locale#locale=}"; \
+    if [ "$locale" = "all" ]; then \
+        {{ MANAGE }} makemessages --all {{ I18N_IGNORE }} {{ args }}; \
+    else \
+        {{ MANAGE }} makemessages --locale "$locale" {{ I18N_IGNORE }} {{ args }}; \
+    fi
+
+[group('i18n')]
+translations-compile locale='all' *args='': copy-env
+    @locale="{{ locale }}"; locale="${locale#locale=}"; \
+    if [ "$locale" = "all" ]; then \
+        {{ MANAGE }} compilemessages {{ I18N_IGNORE }} {{ args }}; \
+    else \
+        {{ MANAGE }} compilemessages --locale "$locale" {{ I18N_IGNORE }} {{ args }}; \
+    fi
+
+[group('i18n')]
+translations locale='all' *args='': copy-env
+    @locale="{{ locale }}"; locale="${locale#locale=}"; \
+    if [ "$locale" = "all" ]; then \
+        {{ MANAGE }} makemessages --all {{ I18N_IGNORE }} {{ args }}; \
+    else \
+        {{ MANAGE }} makemessages --locale "$locale" {{ I18N_IGNORE }} {{ args }}; \
+    fi; \
+    if [ "$locale" = "all" ]; then \
+        {{ MANAGE }} compilemessages {{ I18N_IGNORE }}; \
+    else \
+        {{ MANAGE }} compilemessages --locale "$locale" {{ I18N_IGNORE }}; \
+    fi
 
 [group('testing')]
 test *args:
-  {{UV}} coverage run -m pytest --ignore=tests/e2e {{args}}
+    {{ UV }} coverage run -m pytest --ignore=tests/e2e {{ args }}
 
 [group('testing')]
 coverage:
-  {{DCO}} run --rm web uv run coverage run -m pytest --ignore=tests/e2e
-  {{DCO}} run --rm web uv run coverage report
-
+    {{ DCO }} run --rm web uv run coverage run -m pytest --ignore=tests/e2e
+    {{ DCO }} run --rm web uv run coverage report
 
 # E2E tests using dedicated e2e Docker service
 [group('testing')]
 e2e *args="tests/e2e":
-  {{DCO}} --profile e2e run --rm e2e uv run pytest {{args}}
+    {{ DCO }} --profile e2e run --rm e2e uv run pytest {{ args }}
 
 [group('testing')]
 e2e-headed *args="":
-  {{DCO}} --profile e2e run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix e2e uv run pytest {{args}} --headed
+    {{ DCO }} --profile e2e run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix e2e uv run pytest {{ args }} --headed
 
 [group('testing')]
 e2e-build:
-  {{DCO}} --profile e2e build e2e
+    {{ DCO }} --profile e2e build e2e
 
 [group('code-quality')]
 fmt:
-  uv run pre-commit run --all-files
+    uv run pre-commit run --all-files
 
 [group('code-quality')]
 format:
-  just fmt
+    just fmt
 
 [group('code-quality')]
 mypy:
-  {{UV}} mypy .
+    {{ UV }} mypy .
 
 # Database and media backups via django-dbbackup
 [group('backup')]
 dbbackup *args="":
-  {{MANAGE}} dbbackup {{args}}
+    {{ MANAGE }} dbbackup {{ args }}
 
 [group('backup')]
 dbrestore *args="":
-  {{MANAGE}} dbrestore {{args}}
+    {{ MANAGE }} dbrestore {{ args }}
 
 [group('backup')]
 mediabackup *args="":
-  {{MANAGE}} mediabackup {{args}}
+    {{ MANAGE }} mediabackup {{ args }}
 
 [group('backup')]
 mediarestore *args="":
-  {{MANAGE}} mediarestore {{args}}
+    {{ MANAGE }} mediarestore {{ args }}
 
 [group('backup')]
 listbackups *args="":
-  {{MANAGE}} listbackups {{args}}
+    {{ MANAGE }} listbackups {{ args }}
 
 [group('backup')]
 dbbackup-cleanup:
-  {{MANAGE}} dbbackup -c
+    {{ MANAGE }} dbbackup -c
 
 [group('backup')]
 backups-ls:
-  {{DCO}} run --rm web ls -lah /code/backup || true
+    {{ DCO }} run --rm web ls -lah /code/backup || true

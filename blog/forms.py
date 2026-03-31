@@ -6,17 +6,11 @@ from crispy_forms.layout import Field, Layout, Submit  # type: ignore
 from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
-from django.utils.safestring import mark_safe
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from blog.services.captcha import verify_captcha
 
 log = logging.getLogger(__name__)
-
-msg = mark_safe(f"<span class='text-white'>{_('Message')}</span>")
-email_label = mark_safe(f"<span class='text-white'>{_('Email')}</span>")
-name_label = mark_safe(f"<span class='text-white'>{_('Name')}</span>")
-captcha_label = mark_safe(f"<span class='text-white'>{_('What color is the red rabbit?')}</span>")
 
 
 class EmailForm(forms.Form):
@@ -54,20 +48,20 @@ class AdvanceSearchForm(forms.Form):
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(label=name_label)
-    email = forms.EmailField(label=email_label)
-    message = forms.CharField(label=msg, widget=forms.Textarea)
-    captcha = forms.CharField(label=captcha_label)
+    name = forms.CharField(label=_("Name"))
+    email = forms.EmailField(label=_("Email"))
+    message = forms.CharField(label=_("Message"), widget=forms.Textarea)
+    captcha = forms.CharField(label=_("What color is the red rabbit?"))
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            Field("name", css_class="mt-1 p-2 w-full rounded-md text-gray-800"),
-            Field("email", css_class="mt-1 p-2 w-full rounded-md text-gray-800"),
-            Field("message", css_class="mt-1 p-2 w-full resize rounded-md text-gray-800", rows=6),
-            Field("captcha", css_class="mt-1 p-2 w-full rounded-md text-gray-800"),
-            Submit("submit", _("Send"), css_class="px-4 py-2 bg-purple-500 rounded hover:bg-pink-300"),
+            Field("name"),
+            Field("email"),
+            Field("message", rows=6),
+            Field("captcha"),
+            Submit("submit", _("Send")),
         )
 
     def clean_captcha(self) -> str:
