@@ -570,7 +570,7 @@ msgstr "Ultimo"
 
 #: blog/templates/blog/home.html:12
 msgid "Philosophy graduate turned software engineer."
-msgstr "Licenciado en filosofia convertido en ingeniero de software."
+msgstr "Licenciado en filosofía devenido ingeniero de software."
 
 #: blog/templates/blog/home.html:15
 msgid ""
