@@ -4,13 +4,32 @@
 {% block content %}
 
 {% partialdef home-content %}
-{% load i18n %}
+{% load i18n static %}
+
+<div class="page-waves" aria-hidden="true">
+  <svg class="page-waves__svg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+    <path d="M0,100 C150,40 300,140 450,80 C600,20 750,120 900,60 C1050,10 1150,90 1200,70 L1200,200 L0,200 Z" class="page-waves__layer page-waves__layer--1"/>
+    <path d="M0,120 C180,60 350,150 500,90 C650,30 800,130 950,70 C1100,20 1180,80 1200,85 L1200,200 L0,200 Z" class="page-waves__layer page-waves__layer--2"/>
+    <path d="M0,145 C200,100 400,160 600,120 C800,80 1000,150 1200,110 L1200,200 L0,200 Z" class="page-waves__layer page-waves__layer--3"/>
+  </svg>
+</div>
 
 <header class="hero">
+  <div class="hero-particles" aria-hidden="true">
+    <span class="hero-particle hero-particle--1"></span>
+    <span class="hero-particle hero-particle--2"></span>
+    <span class="hero-particle hero-particle--3"></span>
+  </div>
+
   <h1 class="hero-name reveal"><span id="typed-name"></span><span class="hero-cursor"></span></h1>
   <p class="hero-tagline reveal">
     {% translate "Philosophy graduate turned software engineer." %}
   </p>
+  <img src="{% static 'core/img/hero_photo.jpg' %}"
+       alt="Eduardo Enriquez"
+       class="hero-photo reveal"
+       loading="eager"
+       width="140" height="140">
   <p class="hero-intro reveal">
     {% blocktranslate trimmed with email_link='<a class="warm-link" href="mailto:dev@eduzen.com.ar">dev@eduzen.com.ar</a>'|safe %}
     For over a decade I've worked primarily with Python and JavaScript.

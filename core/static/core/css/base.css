@@ -140,6 +140,7 @@ body {
 .hero {
   /* Keep the hero visually substantial without forcing a full-screen block
      that pushes the footer too far below the fold. */
+  position: relative;
   min-height: min(36rem, calc(100svh - var(--navbar-height)));
   display: flex;
   flex-direction: column;
@@ -257,6 +258,106 @@ body {
 .hero-name-origin span {
   color: var(--accent-warm);
   font-weight: 500;
+}
+
+/* ---- Page-Level Waves ---- */
+.page-waves {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45vh;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page-waves__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.page-waves__layer--1 { fill: var(--accent-warm); opacity: 0.08; }
+.page-waves__layer--2 { fill: var(--accent-warm-light); opacity: 0.06; }
+.page-waves__layer--3 { fill: var(--accent); opacity: 0.05; }
+
+/* ---- Floating Particles ---- */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-warm);
+  animation: particleDrift 6s ease-in-out infinite alternate;
+}
+
+.hero-particle--1 {
+  top: 18%;
+  right: 30%;
+  width: 8px;
+  height: 8px;
+  opacity: 0.25;
+  animation-duration: 7s;
+}
+
+.hero-particle--2 {
+  top: 40%;
+  right: 16%;
+  width: 6px;
+  height: 6px;
+  opacity: 0.20;
+  background: var(--accent-warm-light);
+  animation-duration: 5s;
+  animation-delay: -2s;
+}
+
+.hero-particle--3 {
+  top: 28%;
+  right: 10%;
+  width: 7px;
+  height: 7px;
+  opacity: 0.18;
+  background: var(--accent);
+  animation-duration: 8s;
+  animation-delay: -4s;
+}
+
+@keyframes particleDrift {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-20px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-particle { animation: none; }
+}
+
+/* ---- Hero Photo ---- */
+.hero-photo {
+  position: absolute;
+  top: calc(var(--navbar-height) + 2rem);
+  right: 2rem;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: grayscale(0.8) sepia(0.4) brightness(1.08) contrast(0.95);
+  border: 3px solid rgba(194, 105, 45, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+/* Ensure hero content sits above background */
+.hero-name,
+.hero-tagline,
+.hero-intro,
+.hero-location {
+  position: relative;
+  z-index: 1;
 }
 
 /* ---- Page Section ---- */
@@ -691,6 +792,22 @@ footer a:hover {
     min-height: auto;
     padding: 6rem 1.5rem 3rem;
   }
+
+  .hero-photo {
+    position: static;
+    display: block;
+    margin: 1rem auto 1.5rem;
+    width: 120px;
+    height: 120px;
+  }
+
+  .page-waves {
+    height: 35vh;
+  }
+
+  .hero-particle {
+    display: none;
+  }
 }
 
 @media (max-height: 800px) and (min-width: 769px) {
@@ -745,6 +862,11 @@ footer a:hover {
 
   .hero {
     padding: 5rem 1.25rem 2.5rem;
+  }
+
+  .hero-photo {
+    width: 100px;
+    height: 100px;
   }
 
   .hero-tagline {
