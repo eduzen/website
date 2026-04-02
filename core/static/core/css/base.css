@@ -271,15 +271,74 @@ body {
   z-index: -1;
 }
 
-.page-waves__svg {
-  display: block;
-  width: 100%;
+/* Each layer is a separate SVG with its own drift speed */
+.page-waves__layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
   height: 100%;
 }
 
-.page-waves__layer--1 { fill: var(--accent-warm); opacity: 0.08; }
-.page-waves__layer--2 { fill: var(--accent-warm-light); opacity: 0.06; }
-.page-waves__layer--3 { fill: var(--accent); opacity: 0.05; }
+/* Layer 1: back — slowest drift, warm accent */
+.page-waves__layer--1 {
+  animation: waveDrift 45s linear infinite;
+  z-index: 1;
+}
+.page-waves__layer--1 path {
+  fill: var(--accent-warm);
+  opacity: 0.09;
+  animation: waveBob1 12s ease-in-out infinite alternate;
+}
+
+/* Layer 2: middle — medium drift */
+.page-waves__layer--2 {
+  animation: waveDrift 35s linear infinite;
+  z-index: 2;
+}
+.page-waves__layer--2 path {
+  fill: var(--accent-warm-light);
+  opacity: 0.07;
+  animation: waveBob2 9s ease-in-out infinite alternate;
+}
+
+/* Layer 3: front — fastest drift, sage accent */
+.page-waves__layer--3 {
+  animation: waveDrift 28s linear infinite;
+  z-index: 3;
+}
+.page-waves__layer--3 path {
+  fill: var(--accent);
+  opacity: 0.05;
+  animation: waveBob3 14s ease-in-out infinite alternate;
+}
+
+@keyframes waveDrift {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes waveBob1 {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+@keyframes waveBob2 {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(8px); }
+}
+
+@keyframes waveBob3 {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-waves__layer,
+  .page-waves__layer path {
+    animation: none !important;
+  }
+}
 
 /* ---- Floating Particles ---- */
 .hero-particles {
@@ -802,7 +861,7 @@ footer a:hover {
   }
 
   .page-waves {
-    height: 35vh;
+    height: 20vh; /* Flatter on mobile to keep wave shape, not mountains */
   }
 
   .hero-particle {
@@ -930,5 +989,9 @@ footer a:hover {
 
   .hero-location::before {
     display: none;
+  }
+
+  .page-waves {
+    height: 15vh;
   }
 }
