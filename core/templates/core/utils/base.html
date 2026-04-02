@@ -12,6 +12,18 @@
   </head>
 
   <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' class="flex flex-col min-h-screen">
+    <div class="page-waves" aria-hidden="true">
+      <svg class="page-waves__layer page-waves__layer--1" viewBox="0 0 2400 200" preserveAspectRatio="none">
+        <path d="M0,100 C150,60 300,140 450,100 C600,60 750,140 900,100 C1050,70 1150,120 1200,100 C1350,60 1500,140 1650,100 C1800,60 1950,140 2100,100 C2250,70 2350,120 2400,100 L2400,200 L0,200 Z"/>
+      </svg>
+      <svg class="page-waves__layer page-waves__layer--2" viewBox="0 0 2400 200" preserveAspectRatio="none">
+        <path d="M0,126 C180,92 350,156 500,126 C650,96 800,156 950,126 C1100,98 1180,144 1200,126 C1380,92 1550,156 1700,126 C1850,96 2000,156 2150,126 C2300,98 2380,144 2400,126 L2400,200 L0,200 Z"/>
+      </svg>
+      <svg class="page-waves__layer page-waves__layer--3" viewBox="0 0 2400 200" preserveAspectRatio="none">
+        <path d="M0,152 C200,118 400,170 600,152 C800,126 1000,170 1200,152 C1400,118 1600,170 1800,152 C2000,126 2200,170 2400,152 L2400,200 L0,200 Z"/>
+      </svg>
+    </div>
+
     {% block navbar %}
       {% include "core/utils/navbar.html" %}
     {% endblock navbar %}
@@ -25,9 +37,26 @@
       {% include "core/utils/footer.html" %}
     {% endblock footer %}
 
+    <!-- Custom confirmation dialog (uses native <dialog> for accessibility) -->
+    <dialog class="confirm-dialog" id="confirmDialog" aria-labelledby="confirmDialogTitle">
+      <form method="dialog" class="confirm-dialog__inner">
+        <h3 class="confirm-dialog__title" id="confirmDialogTitle">{% translate "Send this message?" %}</h3>
+        <div class="confirm-dialog__preview" id="confirmPreview"></div>
+        <div class="confirm-dialog__actions">
+          <button class="confirm-dialog__btn confirm-dialog__btn--cancel" value="cancel">
+            {% translate "Cancel" %}
+          </button>
+          <button class="confirm-dialog__btn confirm-dialog__btn--confirm" value="confirm">
+            {% translate "Send" %}
+          </button>
+        </div>
+      </form>
+    </dialog>
+
     {% block extra_scripts %}
       <script src="{% static 'core/js/menu.js' %}"></script>
       <script src="{% static 'core/js/reveal.js' %}"></script>
+      <script src="{% static 'core/js/confirm.js' %}"></script>
       <script src="{% static 'core/js/typing.js' %}"></script>
       <script async defer data-domain="eduzen.ar" src="https://stats.eduzen.ar/js/plausible.js"></script>
       <script data-goatcounter="https://eduzen.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

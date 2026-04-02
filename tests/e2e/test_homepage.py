@@ -108,6 +108,18 @@ def test_responsive_design(page: Page, live_server):
     assert _has_no_horizontal_overflow(page)
 
 
+def test_global_wave_layers_use_duplicated_2400_paths(page: Page, live_server):
+    """Ensure global wave layers use single 2400-wide looping SVG paths."""
+    for route in ("/en/", "/en/about/"):
+        page.goto(f"{live_server.url}{route}")
+
+        for layer in ("1", "2", "3"):
+            svg = page.locator(f"svg.page-waves__layer--{layer}")
+            expect(svg).to_have_count(1)
+            expect(svg).to_have_attribute("viewBox", "0 0 2400 200")
+            expect(svg.locator("path")).to_have_count(1)
+
+
 @pytest.mark.django_db
 def test_blog_list_responsive_layout(page: Page, live_server):
     """Test blog list remains readable on tablet widths."""

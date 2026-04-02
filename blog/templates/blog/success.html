@@ -1,14 +1,24 @@
 {% load i18n %}
 
-<div class="page-section">
-  <section class="text-center">
-    <h1 class="section-title reveal">
-      {% translate 'Contact' %}
+<div class="contact-page">
+  <div class="contact-result reveal">
+    <span class="contact-result__icon" aria-hidden="true">✓</span>
+    <h1 class="section-title">
+      {% translate 'Message Sent' %}
     </h1>
-    <h2 class="section-subtitle text-accent-warm reveal">
-      {% translate 'Thank you for your message' %}
-      {% if name %}: {{ name }}!{% endif %}
+    <div class="contact-accent" aria-hidden="true"></div>
+    <h2 class="contact-result__thanks">
+      {% translate 'Thank you' %}{% if name %}, {{ name }}{% endif %}!
     </h2>
-    <p class="text-lg pt-4 text-muted reveal">{% translate 'We are going to reply you soon!' %}</p>
-  </section>
+    <p class="contact-result__text">
+      {% translate "Your message is on its way. I'll get back to you as soon as I can." %}
+    </p>
+    <a class="contact-result__link warm-link"
+       href="{% url 'home' %}"
+       hx-get="{% url 'home' %}"
+       hx-target="#content"
+       hx-push-url="true">
+      ← {% translate "Back to home" %}
+    </a>
+  </div>
 </div>

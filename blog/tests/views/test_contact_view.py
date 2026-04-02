@@ -32,7 +32,7 @@ class TestContactView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Contact")
+        self.assertContains(response, "Get in Touch")
 
     def test_contact_view_regular_request(self):
         """Test contact view with regular HTTP request"""
@@ -49,7 +49,7 @@ class TestContactView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Contact")
+        self.assertContains(response, "Get in Touch")
 
     @patch("blog.views.send_contact_message")
     def test_contact_form_valid_submission(self, mock_send_telegram):
