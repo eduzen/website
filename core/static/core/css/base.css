@@ -164,7 +164,7 @@ body {
   letter-spacing: -0.03em;
   color: var(--text);
   margin-bottom: 1.5rem;
-  min-height: 1.1em;
+  min-height: 2.1em; /* Reserve space for two-line name (Eduardo\nEnriquez) */
 }
 
 .hero-cursor {

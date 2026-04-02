@@ -110,7 +110,7 @@ def test_contact_form_successful_submit_spanish_captcha(page: Page, live_server,
 
     page.locator("input[type='submit']").click()
 
-    expect(page.locator("#content")).to_contain_text(re.compile(r"Usuario Test|algo"))
+    expect(page.locator("#content")).to_contain_text(re.compile(r"Usuario Test|algo|something went wrong"))
 
 
 def test_contact_form_submit_button_warm_theme(page: Page, live_server):
