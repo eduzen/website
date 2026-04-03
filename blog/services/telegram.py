@@ -19,7 +19,7 @@ REQUEST_TIMEOUT_SECONDS = 10
 def send_message(message: str) -> dict[str, str]:
     if not TELEGRAM_TOKEN or TELEGRAM_TOKEN in _PLACEHOLDER_TOKENS:
         logger.warning("Telegram not configured (token=%r), skipping message", TELEGRAM_TOKEN)
-        return {"ok": True, "description": "skipped — Telegram not configured"}
+        return {"ok": "true", "description": "skipped — Telegram not configured"}
 
     endpoint = f"{BASE_URL}/sendMessage"
     payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message}

@@ -43,5 +43,5 @@ class SendMessageTest(unittest.TestCase):
         with patch("blog.services.telegram.TELEGRAM_TOKEN", "foo"):
             response = send_message("Hello!")
 
-        assert response["ok"] is True
+        assert response["ok"] == "true"
         assert "skipped" in response["description"]

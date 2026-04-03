@@ -86,7 +86,7 @@ def test_contact_form_wrong_captcha(page: Page, live_server, accept_dialogs):
     expect(page).to_have_url(re.compile(r"/contact/"))
 
 
-def test_contact_form_successful_submit(page: Page, live_server, accept_dialogs):
+def test_contact_form_successful_submit(page: Page, live_server):
     page.goto(f"{live_server.url}/en/contact/")
 
     page.locator("#id_name").fill("Test User")
@@ -96,11 +96,14 @@ def test_contact_form_successful_submit(page: Page, live_server, accept_dialogs)
 
     page.locator("input[type='submit']").click()
 
+    # The custom <dialog> confirmation appears — click "Send" to confirm
+    page.locator("#confirmDialog .confirm-dialog__btn--confirm").click()
+
     # Telegram is skipped in test env (placeholder token) — form always succeeds
     expect(page.locator("#content")).to_contain_text("Thank you")
 
 
-def test_contact_form_successful_submit_spanish_captcha(page: Page, live_server, accept_dialogs):
+def test_contact_form_successful_submit_spanish_captcha(page: Page, live_server):
     page.goto(f"{live_server.url}/es/contact/")
 
     page.locator("#id_name").fill("Usuario Test")
@@ -109,6 +112,9 @@ def test_contact_form_successful_submit_spanish_captcha(page: Page, live_server,
     page.locator("#id_captcha").fill("rojo")
 
     page.locator("input[type='submit']").click()
+
+    # The custom <dialog> confirmation appears — click confirm button
+    page.locator("#confirmDialog .confirm-dialog__btn--confirm").click()
 
     expect(page.locator("#content")).to_contain_text("Usuario Test")
 
