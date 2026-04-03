@@ -2,7 +2,7 @@
 
 <nav id="main-navbar"
      x-data="{ isMobileMenuOpen: false }"
-     @click.away="isMobileMenuOpen = false"
+     @click.outside="isMobileMenuOpen = false"
      class="fixed z-10 top-0 w-full">
   <div class="mx-auto px-6 py-3 flex justify-between items-center">
     <div>

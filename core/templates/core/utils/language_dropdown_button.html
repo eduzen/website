@@ -7,7 +7,7 @@
       <span class="fi fi-gb"></span>
     {% endif %}
   </button>
-  <div x-show="open" x-cloak @click.away="open = false"
+  <div x-show="open" x-cloak x-transition.opacity.duration.150ms @click.outside="open = false"
        class="absolute right-0 z-20 mt-2 py-2 w-48 rounded shadow-lg"
        style="background: var(--bg); border: 1px solid rgba(0,0,0,0.06);">
     <a :href="window.location.pathname.replace(/^\/(en|es)\//, '/en/')"

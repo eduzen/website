@@ -16,14 +16,14 @@
   {% translate "Consultancy" %}
 </a>
 
-<div class="nav-dropdown" x-data="{ open: false }">
+<div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
   <button @click="open = !open"
           class="nav-link nav-dropdown__trigger {% if 'classes' in request.path or 'mentoring' in request.path %}active-link{% endif %}"
           :aria-expanded="open ? 'true' : 'false'">
     {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="{ 'nav-dropdown__chevron--open': open }" aria-hidden="true">&#9662;</span>
   </button>
-  <div x-show="open" x-cloak
-       @click.away="open = false"
+  <div x-show="open" x-cloak x-transition.opacity.duration.150ms
+       @click.outside="open = false"
        class="nav-dropdown__menu">
     <a href="{% url 'mentoring' %}"
        hx-get="{% url 'mentoring' %}"
