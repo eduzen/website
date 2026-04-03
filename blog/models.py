@@ -1,4 +1,5 @@
 from ckeditor_uploader.fields import RichTextUploadingField  # type: ignore
+from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 from django.db.models import Count
 from django.urls import reverse
@@ -16,18 +17,17 @@ class Tag(models.Model):
         verbose_name = _("tag")
         verbose_name_plural = _("tags")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.slug or "-"
 
 
 class PostQuerySet(models.QuerySet):
-    def published(self):
+    def published(self) -> "PostQuerySet":
         return self.filter(published_date__isnull=False).prefetch_related("tags")
 
-    def count_tags(self):
+    def count_tags(self) -> "PostQuerySet":
         return (
-            self.published()
-            .only("tags__slug")
+            self.filter(published_date__isnull=False)
             .values("tags__slug")
             .annotate(total=Count("tags__slug"))
             .order_by("-total")
@@ -48,6 +48,8 @@ class Post(models.Model):
     image = models.ImageField(upload_to="post-img/%Y/%m/%d", blank=True, null=True)
     cropping = ImageRatioField("image", "260x120")
 
+    search_vector = SearchVectorField(null=True, blank=True)
+
     objects = PostQuerySet.as_manager()
 
     def publish(self) -> None:
@@ -61,7 +63,7 @@ class Post(models.Model):
     def get_absolute_url(self) -> str:
         return reverse("post_detail", args=[self.slug])
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.slug or "-"
 
     class Meta:
@@ -75,4 +77,7 @@ class Post(models.Model):
             models.Index(fields=["-created_date"], name="post_created_date_idx"),
             # For filtering by author
             models.Index(fields=["author"], name="post_author_idx"),
+            # NOTE: the GIN index on search_vector is created via RunPython in migration
+            # 0009 (PostgreSQL-only) and is intentionally not listed here so that
+            # makemigrations doesn't try to manage it via AddIndex on all backends.
         ]

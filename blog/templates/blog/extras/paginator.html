@@ -1,22 +1,24 @@
-{% load i18n %}
+{% load i18n pagination_tags %}
 
-<div class="flex justify-center items-center text-xs pt-4">
+<div class="pagination">
   {% if page_obj.has_previous %}
-    <a href="?page=1" class="px-3 py-2 border dracula-border rounded-l-md gray-100 nav-link">{% translate 'First' %}</a>
-    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border dracula-border gray-100 nav-link">{% translate 'Previous' %}</a>
+    <a href="?page=1" class="nav-link">{% translate 'First' %}</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="nav-link">{% translate 'Previous' %}</a>
   {% endif %}
 
-  {% for num in page_obj.paginator.page_range %}
-    {% cycle 'text-blue-400' 'text-green-400' 'text-pink-400' 'text-orange-400' 'text-yellow-400' as color silent %}
-    {% if num == page_obj.number %}
-      <span class="px-3 py-2 border dracula-border {{ color }}">{{ num }}</span>
+  {% windowed_page_range page_obj.paginator page_obj.number as page_items %}
+  {% for num in page_items %}
+    {% if num is None %}
+      <span class="text-muted">…</span>
+    {% elif num == page_obj.number %}
+      <span class="current">{{ num }}</span>
     {% else %}
-      <a href="?page={{ num }}" class="px-3 py-2 border dracula-border {{ color }} nav-link">{{ num }}</a>
+      <a href="?page={{ num }}" class="nav-link">{{ num }}</a>
     {% endif %}
   {% endfor %}
 
   {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border dracula-border gray-100 nav-link">{% translate 'Next' %}</a>
-    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border dracula-border rounded-r-md gray-100 nav-link">{% translate 'Last' %}</a>
+    <a href="?page={{ page_obj.next_page_number }}" class="nav-link">{% translate 'Next' %}</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="nav-link">{% translate 'Last' %}</a>
   {% endif %}
 </div>

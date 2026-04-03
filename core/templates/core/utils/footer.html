@@ -1,9 +1,8 @@
 {% load i18n static %}
 
-<footer class="text-white py-4">
+<footer>
   <div class="container mx-auto">
-    {# Moved to core/templates/core/utils #}
     {% include "core/utils/personal_links.html" %}
-    <small class="text-center block text-gray-500 mt-2">© {% now "Y" %} - {% translate 'Made with 💜 by Eduardo Enriquez' %}</small>
+    <small class="text-center block mt-4 text-muted">© {% now "Y" %} - {% translate 'Made with 💜 by Eduardo Enriquez' %}</small>
   </div>
 </footer>

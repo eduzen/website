@@ -21,7 +21,9 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="/favicon.ico"> {# Assuming favicon.ico is at the root #}
 
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <title>{% block title %}eduzen{% endblock %}</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link
@@ -39,10 +41,8 @@
   referrerpolicy="no-referrer"
 />
 <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.min.js"
-  integrity="sha512-Atu8sttM7mNNMon28+GHxLdz4Xo2APm1WVHwiLW9gW4bmHpHc/E2IbXrj98SmefTmbqbUTOztKl5PDPiu0LD/A=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer">
+  defer
+  src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js">
 </script>
 <script src="{% static 'core/js/htmx.min.1.9.4.js' %}" defer></script>
 {% htmx_script %}

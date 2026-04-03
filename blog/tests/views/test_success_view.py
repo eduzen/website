@@ -58,7 +58,8 @@ class TestSuccessView(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # Check for actual content in the success template
-        self.assertContains(response, "Thank you for your message")
+        self.assertContains(response, "Message Sent")
+        self.assertContains(response, "Thank you")
 
     def test_success_view_navigation_links(self):
         """Test success view has navigation links"""

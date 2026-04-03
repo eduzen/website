@@ -6,35 +6,38 @@
 {% partialdef consultancy-content %}
 {% load i18n static %}
 
-<h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
-  {% translate 'Consultancy Services' %}
-</h1>
+<div class="page-section">
+  <h1 class="section-title text-center reveal">
+    {% translate 'Consultancy Services' %}
+  </h1>
 
-<div class="text-white min-h-screen p-6">
-  <p class="text-xl mt-4 leading-relaxed text-justify">
+  <p class="text-lg mt-4 leading-relaxed text-justify text-muted reveal">
     {% translate "Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a sprinkle of fun and a dollop of expertise." %}
     {% translate "Let's code something delightful!" %}
     {% translate "With over 10 years in the industry 👴🏿, I offer useful insights and expertise for daily challenges." %}
     {% translate "Remote 💻 or in-person 🪑, I'm here to assist." %}
     {% translate "Interested in my professional journey?" %}
-    {% translate "Check out my" %}&nbsp<a target="_blank" href="{{ global_data.linkedin }}" class="text-pink-400 hover:underline nav-link">{% translate "LinkedIn profile" %}.</a>
+    {% translate "Check out my" %}&nbsp;<a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">{% translate "LinkedIn profile" %}.</a>
   </p>
+
+  <div class="divider my-8"><hr></div>
+
   <!-- Services -->
   <section class="mb-12">
-    <h2 class="text-yellow-400 mt-8 text-3xl font-bold text-center mb-6">{% translate "Services" %}</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- For Individuals -->
-      <div class="p-6 rounded-lg">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Rising Tech Stars: Individuals' %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
+    <h2 class="section-title text-center reveal">{% translate "Services" %}</h2>
+    <div class="identity-grid identity-grid-2">
+      <div class="identity-card reveal">
+        <div class="card-accent"></div>
+        <h3>{% translate 'For the Rising Tech Stars: Individuals' %}</h3>
+        <p>
           {% translate "Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer." %}
           {% translate "Stuck on a bug 🐛? I've got your back, literally!" %}
         </p>
       </div>
-      <!-- For Companies -->
-      <div class="p-6 rounded-lg">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Business: Companies' %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
+      <div class="identity-card reveal">
+        <div class="card-accent"></div>
+        <h3>{% translate 'For the Business: Companies' %}</h3>
+        <p>
           {% translate "Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!), fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️." %}
           {% translate "If it's tech, I'm your guy!" %}
         </p>
@@ -42,48 +45,59 @@
     </div>
   </section>
 
+  <div class="divider my-8"><hr></div>
+
   <!-- Experience and Skills -->
   <section class="mb-12">
-    <h2 class="text-yellow-400 text-3xl font-bold text-center mb-6">{% translate "Experience &amp; Skills" %}</h2>
-    <div class="flex flex-wrap justify-between">
-      <div class="w-full md:w-1/2 p-6">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate "Years of Mischief &amp; Mastery" %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
+    <h2 class="section-title text-center reveal">{% translate "Experience & Skills" %}</h2>
+    <div class="identity-grid identity-grid-2">
+      <div class="identity-card reveal">
+        <div class="card-accent"></div>
+        <h3>{% translate "Years of Mischief & Mastery" %}</h3>
+        <p>
           {% translate "Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!" %}
         </p>
-        <p class="mt-4 text-justify leading-relaxed">
+        <p class="mt-4">
           {% translate "Read more about my experience on linkedin " %}
-          <a target="_blank" href="{{ global_data.linkedin }}" class="text-pink-400 hover:underline nav-link">{% translate "here" %}.</a>
+          <a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">{% translate "here" %}.</a>
         </p>
       </div>
-      <div class="w-full md:w-1/2 p-6">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate 'Techno-Sorcery' %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
+      <div class="identity-card reveal">
+        <div class="card-accent"></div>
+        <h3>{% translate 'Techno-Sorcery' %}</h3>
+        <p>
           {% translate "From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️." %}
         </p>
-        <p class="mt-4 text-justify leading-relaxed">
+        <p class="mt-4">
           {% translate "Read more about me here: " %}
-          <a target="_blank" href="{% url 'about' %}" class="text-pink-400 hover:underline nav-link">{% translate 'about' %}.</a>
+          <a href="{% url 'about' %}"
+             hx-get="{% url 'about' %}"
+             hx-target="#content"
+             hx-push-url="true"
+             class="warm-link">{% translate 'about' %}.</a>
         </p>
       </div>
     </div>
   </section>
 
+  <div class="divider my-8"><hr></div>
+
   <!-- Contact -->
-  <section class="text-center mb-12">
-    <h2 class="text-yellow-400 text-3xl font-bold">{% translate 'Get in Touch' %}</h2>
-    <p class="text-xl mt-4 mb-4 text-justify leading-relaxed">
+  <section class="contact-section">
+    <span class="section-label reveal">{% translate "Get in Touch" %}</span>
+    <h2 class="section-title reveal">{% translate "Let's talk" %}</h2>
+    <p class="reveal">
       {% translate "Ready to embark on a tech adventure or brew up a business solution? Let's talk!" %}
     </p>
-    <a
-      href="{% url 'contact' %}"
-      hx-get="{% url 'contact' %}"
-      hx-target="#content"
-      hx-push-url="true"
-      class="text-xl text-pink-400 hover:underline nav-link">
-      {% translate 'Contact Me' %}
-    </a>
-
+    <div class="contact-links reveal">
+      <a href="{% url 'contact' %}"
+         hx-get="{% url 'contact' %}"
+         hx-target="#content"
+         hx-push-url="true"
+         class="contact-link">
+        {% translate 'Contact Me' %}
+      </a>
+    </div>
   </section>
 </div>
 {% endpartialdef consultancy-content %}

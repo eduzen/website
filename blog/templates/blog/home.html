@@ -4,36 +4,48 @@
 {% block content %}
 
 {% partialdef home-content %}
-{% load i18n %}
-<div class="text-center mt-24">
-  <a
-    class="text-green-400 pt-12 text-4xl text-center font-bold mb-4 hover:text-purple-400"
-    href="{% url 'about' %}"
-    hx-get="{% url 'about' %}"
-    hx-target="#content"
-    hx-push-url="true">
-    Eduardo Enriquez
-  </a>
-</div>
+{% load i18n static %}
 
-<p class="text-center text-xl font-medium pt-4 mb-4">
-  {% translate 'Software Engineer' %} &amp;
-  <a
-    class="hover:text-purple-400"
-    href="{% url 'consultancy' %}"
-    hx-get="{% url 'consultancy' %}"
-    hx-target="#content"
-    hx-push-url="true">
-    {% translate 'Consultancy' %}
-  </a>
-</p>
+<header class="hero">
+  <div class="hero-particles" aria-hidden="true">
+    <span class="hero-particle hero-particle--1"></span>
+    <span class="hero-particle hero-particle--2"></span>
+    <span class="hero-particle hero-particle--3"></span>
+  </div>
 
-<blockquote class="text-white text-xl font-semibold italic text-center text-slate-900 leading-loose mt-8">
-  {% translate 'Based in Amsterdam' %}, {% translate 'available' %}
-  <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-    <span class="relative text-white">{% translate 'everywhere!' %}</span>
+  <h1 class="hero-name reveal"><span id="typed-name"></span><span class="hero-cursor"></span></h1>
+  <p class="hero-tagline reveal">
+    {% translate "Philosophy graduate turned software engineer." %}
+  </p>
+  <img src="{% static 'core/img/hero_photo.jpg' %}"
+       alt="Eduardo Enriquez"
+       class="hero-photo reveal"
+       loading="eager"
+       width="140" height="140">
+  <p class="hero-intro reveal">
+    {% blocktranslate trimmed with email_link='<a class="warm-link" href="mailto:dev@eduzen.com.ar">dev@eduzen.com.ar</a>'|safe %}
+    For over a decade I've worked primarily with Python and JavaScript.
+    Today I lead teams, but I still get my hands dirty with code.
+    I enjoy thinking, teaching, and building things.
+    If you have a project to work on together, a question,
+    or just want to get in touch, you can reach me at {{ email_link }}.
+    {% endblocktranslate %}
+  </p>
+  <span class="hero-location reveal">
+    <span class="hero-location-step">
+      <s class="hero-location-item"><span role="img" aria-label="Argentina flag">🇦🇷</span> Buenos Aires</s>
+    </span>
+    <span class="hero-location-step">
+      <span class="hero-location-sep" aria-hidden="true">→</span>
+      <s class="hero-location-item"><span role="img" aria-label="Germany flag">🇩🇪</span> München</s>
+    </span>
+    <span class="hero-location-step">
+      <span class="hero-location-sep" aria-hidden="true">→</span>
+      <span class="hero-location-item"><span role="img" aria-label="Netherlands flag">🇳🇱</span> Amsterdam</span>
+    </span>
   </span>
-</blockquote>
+</header>
+
 {% endpartialdef home-content %}
 
 {% partial home-content %}

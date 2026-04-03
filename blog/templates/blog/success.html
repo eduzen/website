@@ -1,12 +1,24 @@
 {% load i18n %}
 
-<section class="text-center">
-  <h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
-    {% translate 'Contact' %}
-  </h1>
-  <h1 class="text-2xl text-yellow-400 pt-4">
-    {% translate 'Thank you for your message' %}
-    {% if name %}: {{ name }}!{% endif %}
-  </h1>
-  <p class="text-xl dracula-gray pt-4">{% translate 'We are going to reply you soon!' %}</p>
-</section>
+<div class="contact-page">
+  <div class="contact-result reveal">
+    <span class="contact-result__icon" aria-hidden="true">✓</span>
+    <h1 class="section-title">
+      {% translate 'Message Sent' %}
+    </h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+    <h2 class="contact-result__thanks">
+      {% translate 'Thank you' %}{% if name %}, {{ name }}{% endif %}!
+    </h2>
+    <p class="contact-result__text">
+      {% translate "Your message is on its way. I'll get back to you as soon as I can." %}
+    </p>
+    <a class="contact-result__link warm-link"
+       href="{% url 'home' %}"
+       hx-get="{% url 'home' %}"
+       hx-target="#content"
+       hx-push-url="true">
+      ← {% translate "Back to home" %}
+    </a>
+  </div>
+</div>

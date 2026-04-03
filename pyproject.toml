@@ -94,7 +94,42 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I"]
+select = [
+  "E",  # Pycodestyle Errors
+  "F",  # Pyflakes
+  "W",  # Pycodestyle Warnings
+  "I",  # Isort
+  "UP",  # Pyupgrade
+  "ANN", # Missing type annotations
+  "PLC0415", # Import outside top-level (no inline imports)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*.py" = ["ANN"]
+"blog/admin.py" = ["ANN"]
+"blog/forms.py" = ["ANN"]
+"blog/management/commands/*.py" = ["ANN"]
+"blog/tests/admin/admin_test.py" = ["ANN"]
+"blog/tests/commands/test_apply_styles.py" = ["ANN"]
+"blog/tests/forms_test.py" = ["ANN"]
+"blog/tests/services/test_captcha.py" = ["ANN"]
+"blog/tests/services/test_prettifier.py" = ["ANN"]
+"blog/tests/services/test_telegram.py" = ["ANN"]
+"blog/tests/views/test_about_view.py" = ["ANN"]
+"blog/tests/views/test_advance_search_view.py" = ["ANN"]
+"blog/tests/views/test_classes_view.py" = ["ANN"]
+"blog/tests/views/test_consultancy_view.py" = ["ANN"]
+"blog/tests/views/test_contact_view.py" = ["ANN"]
+"blog/tests/views/test_error_view.py" = ["ANN"]
+"blog/tests/views/test_home_view.py" = ["ANN"]
+"blog/tests/views/test_post_tags_list_view.py" = ["ANN"]
+"blog/tests/views/test_post_update_styles_view.py" = ["ANN"]
+"blog/tests/views/test_related_posts_view.py" = ["ANN"]
+"blog/tests/views/test_robots.py" = ["ANN"]
+"blog/tests/views/test_success_view.py" = ["ANN"]
+"core/tests/**/*.py" = ["ANN"]
+"proposals/*.py" = ["ANN"]
+"tests/**/*.py" = ["ANN"]
 
 [tool.coverage.run]
 branch = true
@@ -134,6 +169,7 @@ plugins = [
 ]
 exclude = [
   "migrations",
+  "proposals",
   "tests",
 ]
 

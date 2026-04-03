@@ -6,21 +6,77 @@
 {% partialdef contact-content %}
 {% load crispy_forms_tags i18n static tailwind_filters %}
 
-<h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
-  {% translate 'Contact' %}
-</h1>
+<div class="contact-page">
+  <div class="contact-header reveal">
+    <h1 class="section-title">{% translate 'Get in Touch' %}</h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+    <p class="contact-intro">
+      {% blocktranslate trimmed %}
+      Have a project idea, a question, or just want to say hello?
+      I'd love to hear from you. Fill out the form or reach me
+      through any of the channels below.
+      {% endblocktranslate %}
+    </p>
+  </div>
 
-<form
-  class="p-6 rounded shadow-md w-full md:w-3/4 lg:w-1/2 mx-auto text-white border rounded-md"
-  hx-post="{% url 'contact' %}"
-  hx-trigger="submit"
-  hx-swap="innerHTML"
-  hx-target="#content"
-  hx-indicator="#loadingIndicator"
-  hx-confirm="{% translate 'Are you sure?' %}">
-  {% csrf_token %}
-  {% crispy form %}
-</form>
+  <div class="contact-layout">
+    <aside class="contact-sidebar reveal">
+      <h2 class="contact-sidebar__title">{% translate "Let's connect" %}</h2>
+
+      <div class="contact-channels">
+        <a class="contact-channel" href="{{ global_data.email }}">
+          <span class="contact-channel__icon" aria-hidden="true">✉</span>
+          <span class="contact-channel__detail">
+            <span class="contact-channel__label">{% translate "Email" %}</span>
+            <span class="contact-channel__value">me@eduzen.com.ar</span>
+          </span>
+        </a>
+
+        <a class="contact-channel" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">
+          <span class="contact-channel__icon" aria-hidden="true">in</span>
+          <span class="contact-channel__detail">
+            <span class="contact-channel__label">LinkedIn</span>
+            <span class="contact-channel__value">eduzen</span>
+          </span>
+        </a>
+
+        <a class="contact-channel" href="{{ global_data.github }}" target="_blank" rel="noopener">
+          <span class="contact-channel__icon" aria-hidden="true">⌨</span>
+          <span class="contact-channel__detail">
+            <span class="contact-channel__label">GitHub</span>
+            <span class="contact-channel__value">eduzen</span>
+          </span>
+        </a>
+
+        <a class="contact-channel" href="{{ global_data.telegram }}" target="_blank" rel="noopener">
+          <span class="contact-channel__icon" aria-hidden="true">✈</span>
+          <span class="contact-channel__detail">
+            <span class="contact-channel__label">Telegram</span>
+            <span class="contact-channel__value">@eduzen</span>
+          </span>
+        </a>
+      </div>
+
+      <p class="contact-sidebar__note">
+        {% blocktranslate trimmed %}
+        Based in Amsterdam, but always happy to collaborate across time zones.
+        {% endblocktranslate %}
+      </p>
+    </aside>
+
+    <form
+      class="warm-form reveal"
+      hx-post="{% url 'contact' %}"
+      hx-swap="innerHTML"
+      hx-target="#content"
+      hx-indicator="#loadingIndicator"
+      data-confirm="true"
+      data-confirm-ok="{% translate 'Send' %}">
+      {% csrf_token %}
+      {% crispy form %}
+    </form>
+  </div>
+</div>
 {% endpartialdef contact-content %}
 
 {% partial contact-content %}

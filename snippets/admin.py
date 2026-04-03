@@ -30,5 +30,5 @@ class SnippetAdmin(admin.ModelAdmin):
     )
 
     @mark_safe
-    def pretty(self, obj):
+    def pretty(self, obj: Snippet) -> str:
         return obj.highlighted

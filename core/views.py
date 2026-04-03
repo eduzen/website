@@ -1,4 +1,6 @@
 import json
+import pathlib
+from typing import cast
 
 import logfire
 from django.conf import settings
@@ -12,6 +14,7 @@ from django.views.generic.base import RedirectView
 from blog.models import Post
 from blog.services.chatgpt import improve_blog_post
 from core.services.pretty import highlight_json
+from core.types import HtmxHttpRequest
 
 
 def handler404(request: HttpRequest, exception: Exception) -> HttpResponse:
@@ -24,10 +27,6 @@ def handler500(request: HttpRequest) -> HttpResponse:
     """Custom 500 handler."""
     logfire.exception("Internal server error at {path}", path=request.path)
     return render(request, "core/500.html", status=500)
-
-
-def language_dropdown(request: HttpRequest) -> HttpResponse:
-    return render(request, "core/language_dropdown.html")
 
 
 @login_required
@@ -66,6 +65,19 @@ class StaticView(RedirectView):
         self.url = f"https://static.eduzen.com.ar/{kwargs['path']}"
         logfire.warning("url redirected {url}", url=self.url)
         return super().get_redirect_url(*args, **kwargs)
+
+
+@require_GET
+def proposal_view(request: HttpRequest, filename: str) -> HttpResponse:
+    """Serve redesign proposal HTML files for local preview."""
+    proposals_dir = pathlib.Path(settings.BASE_DIR).parent / "proposals"
+    file_path = proposals_dir / filename
+    # Prevent directory traversal
+    if not file_path.resolve().is_relative_to(proposals_dir.resolve()):
+        return HttpResponse(status=403)
+    if not file_path.exists() or not file_path.suffix == ".html":
+        return HttpResponse(status=404)
+    return HttpResponse(file_path.read_text(), content_type="text/html")
 
 
 @require_GET
@@ -116,7 +128,7 @@ def version_view(request: HttpRequest) -> HttpResponse:
     """
 
     # If it's an HTMX request, return just the table
-    if request.htmx:  # type: ignore
+    if cast(HtmxHttpRequest, request).htmx:
         return HttpResponse(html_content)
 
     # Otherwise, return with the base template

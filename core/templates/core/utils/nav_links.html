@@ -7,7 +7,6 @@
    class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">
   {% translate "Blog" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'consultancy' %}"
    hx-get="{% url 'consultancy' %}"
@@ -16,16 +15,34 @@
    class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">
   {% translate "Consultancy" %}
 </a>
-<span class="text-gray-400">·</span>
 
-<a href="{% url 'classes' %}"
-   hx-get="{% url 'classes' %}"
-   hx-target="#content"
-   hx-push-url="true"
-   class="nav-link {% if 'classes' in request.path %}active-link{% endif %}">
-  {% translate "Classes" %}
-</a>
-<span class="text-gray-400">·</span>
+<div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+  <button @click="open = !open"
+          class="nav-link nav-dropdown__trigger {% if 'classes' in request.path or 'mentoring' in request.path %}active-link{% endif %}"
+          :aria-expanded="open ? 'true' : 'false'">
+    {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="{ 'nav-dropdown__chevron--open': open }" aria-hidden="true">&#9662;</span>
+  </button>
+  <div x-show="open" x-cloak x-transition.opacity.duration.150ms
+       @click.outside="open = false"
+       class="nav-dropdown__menu">
+    <a href="{% url 'mentoring' %}"
+       hx-get="{% url 'mentoring' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       @click="open = false"
+       class="nav-dropdown__item {% if 'mentoring' in request.path %}nav-dropdown__item--active{% endif %}">
+      {% translate "Mentoring" %}
+    </a>
+    <a href="{% url 'classes' %}"
+       hx-get="{% url 'classes' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       @click="open = false"
+       class="nav-dropdown__item {% if 'classes' in request.path %}nav-dropdown__item--active{% endif %}">
+      {% translate "Classes" %}
+    </a>
+  </div>
+</div>
 
 <a href="{% url 'about' %}"
    hx-get="{% url 'about' %}"
@@ -34,7 +51,6 @@
    class="nav-link {% if 'about' in request.path %}active-link{% endif %}">
   {% translate "About" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'contact' %}"
    hx-get="{% url 'contact' %}"
@@ -43,11 +59,9 @@
    class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">
   {% translate "Contact" %}
 </a>
-<span class="text-gray-400">·</span>
 
 {% if user.is_superuser %}
-  <a href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
-  <span class="text-gray-400">·</span>
+  <a href="{% url 'admin:index' %}" class="nav-link">{% translate "Admin" %}</a>
 {% endif %}
 
 {% include 'core/utils/language_dropdown_button.html' %}

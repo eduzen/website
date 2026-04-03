@@ -1,4 +1,8 @@
+from typing import cast
+
 from django.contrib import admin
+from django.db.models import QuerySet
+from django.http import HttpRequest, HttpResponse
 
 from .models import CacheExplorer, RequestProfile
 from .views import CacheExplorerView
@@ -13,19 +17,23 @@ class RequestProfileAdmin(admin.ModelAdmin):
 
 @admin.register(CacheExplorer)
 class CacheExplorerAdmin(admin.ModelAdmin):
-    def changelist_view(self, request, extra_context=None):
+    def changelist_view(self, request: HttpRequest, extra_context: dict[str, object] | None = None) -> HttpResponse:
+        del extra_context
         view = CacheExplorerView.as_view()
-        return view(request)
+        return cast(HttpResponse, view(request))
 
-    def has_add_permission(self, request):
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        del request
         return False  # Disable the "Add" button
 
-    def has_change_permission(self, request, obj=None):
+    def has_change_permission(self, request: HttpRequest, obj: CacheExplorer | None = None) -> bool:
+        del request, obj
         return False  # Disable the "Change" button
 
-    def has_delete_permission(self, request, obj=None):
+    def has_delete_permission(self, request: HttpRequest, obj: CacheExplorer | None = None) -> bool:
+        del request, obj
         return False  # Disable the "Delete" button
 
-    def get_queryset(self, request):
+    def get_queryset(self, request: HttpRequest) -> QuerySet[CacheExplorer]:
         """Prevent database queries by returning an empty queryset."""
         return super().get_queryset(request).none()

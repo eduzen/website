@@ -1,12 +1,27 @@
-<button
-  id="language-button"
-  hx-get="{% url 'language_dropdown' %}"
-  hx-trigger="click"
-  hx-swap="afterend"
-  hx-postprocess="js: function(elt){ elt.style.display = 'block'; }">
-  {% if "es" in LANGUAGE_CODE %}
-    <span class="fi fi-es"></span>
-  {% else %}
-    <span class="fi fi-gb"></span>
-  {% endif %}
-</button>
+{% load i18n %}
+<div class="relative inline-block" x-data="{ open: false }">
+  <button @click="open = !open" class="language-button">
+    {% if LANGUAGE_CODE == "es" %}
+      <span class="fi fi-es"></span>
+    {% else %}
+      <span class="fi fi-gb"></span>
+    {% endif %}
+  </button>
+  <div x-show="open" x-cloak x-transition.opacity.duration.150ms @click.outside="open = false"
+       data-testid="language-dropdown"
+       class="absolute right-0 z-20 mt-2 py-2 w-48 rounded shadow-lg"
+       style="background: var(--bg); border: 1px solid rgba(0,0,0,0.06);">
+    <a href="/en/"
+       @click.prevent="window.location.href = window.location.pathname.replace(/^\/(en|es)\//, '/en/')"
+       class="block px-4 py-2 text-sm capitalize nav-link">
+      <span class="fi fi-gb"></span>
+      {% translate "English" %}
+    </a>
+    <a href="/es/"
+       @click.prevent="window.location.href = window.location.pathname.replace(/^\/(en|es)\//, '/es/')"
+       class="block px-4 py-2 text-sm capitalize nav-link">
+      <span class="fi fi-es"></span>
+      {% translate "Spanish" %}
+    </a>
+  </div>
+</div>

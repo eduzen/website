@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-10 15:49+0200\n"
+"POT-Creation-Date: 2026-04-03 13:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +16,139 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: core/templates/core/language_dropdown.html:6
+
+#: core/templates/admin/custom_index.html:7
+msgid "External Links"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:11
+msgid "GoatCounter Analytics"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:14
+msgid "View website analytics and visitor statistics"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:20
+msgid "Recent actions"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:21
+msgid "My actions"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:25
+msgid "None available"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:30
+msgid "Added:"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:30
+msgid "Changed:"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:30
+msgid "Deleted:"
+msgstr ""
+
+#: core/templates/admin/custom_index.html:40
+msgid "Unknown content"
+msgstr ""
+
+#: core/templates/core/404.html:5
+msgid "Page Not Found"
+msgstr ""
+
+#: core/templates/core/404.html:10
+msgid "404 - Page Not Found"
+msgstr ""
+
+#: core/templates/core/404.html:11
+msgid "Oops! The page you are looking for does not exist."
+msgstr ""
+
+#: core/templates/core/404.html:12 core/templates/core/500.html:12
+msgid "Go back to Home"
+msgstr ""
+
+#: core/templates/core/500.html:5
+msgid "Server Error"
+msgstr ""
+
+#: core/templates/core/500.html:10
+msgid "500 - Server Error"
+msgstr ""
+
+#: core/templates/core/500.html:11
+msgid "Oops! Something went wrong on our end."
+msgstr ""
+
+#: core/templates/core/utils/base.html:43
+msgid "Send this message?"
+msgstr ""
+
+#: core/templates/core/utils/base.html:47
+msgid "Cancel"
+msgstr ""
+
+#: core/templates/core/utils/base.html:50
+msgid "Send"
+msgstr ""
+
+#: core/templates/core/utils/footer.html:6
+msgid "Made with 💜 by Eduardo Enriquez"
+msgstr ""
+
+#: core/templates/core/utils/head.html:9
+msgid "description"
+msgstr ""
+
+#: core/templates/core/utils/language_dropdown_button.html:16
 msgid "English"
 msgstr "Inglés"
 
-#: core/templates/core/language_dropdown.html:10
+#: core/templates/core/utils/language_dropdown_button.html:21
 msgid "Spanish"
 msgstr "Español"
+
+#: core/templates/core/utils/nav_links.html:8
+#: core/templates/core/utils/nav_links_mobile.html:9
+msgid "Blog"
+msgstr ""
+
+#: core/templates/core/utils/nav_links.html:16
+#: core/templates/core/utils/nav_links_mobile.html:18
+msgid "Consultancy"
+msgstr ""
+
+#: core/templates/core/utils/nav_links.html:24
+#: core/templates/core/utils/nav_links_mobile.html:25
+msgid "Teaching"
+msgstr "Enseñanza"
+
+#: core/templates/core/utils/nav_links.html:40
+#: core/templates/core/utils/nav_links_mobile.html:34
+msgid "Mentoring"
+msgstr "Mentoría"
+
+#: core/templates/core/utils/nav_links.html:48
+#: core/templates/core/utils/nav_links_mobile.html:42
+msgid "Classes"
+msgstr "Clases"
+
+#: core/templates/core/utils/nav_links.html:58
+#: core/templates/core/utils/nav_links_mobile.html:53
+msgid "About"
+msgstr ""
+
+#: core/templates/core/utils/nav_links.html:66
+#: core/templates/core/utils/nav_links_mobile.html:62
+msgid "Contact"
+msgstr ""
+
+#: core/templates/core/utils/nav_links.html:70
+#: core/templates/core/utils/nav_links_mobile.html:66
+msgid "Admin"
+msgstr ""

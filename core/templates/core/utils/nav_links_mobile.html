@@ -5,7 +5,7 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 {% if 'blog' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
+   class="block py-2 nav-link {% if 'blog' in request.path %}active-link font-medium{% endif %}">
   {% translate "Blog" %}
 </a>
 
@@ -14,25 +14,42 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 {% if 'consultancy' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
+   class="block py-2 nav-link {% if 'consultancy' in request.path %}active-link font-medium{% endif %}">
   {% translate "Consultancy" %}
 </a>
 
-<a href="{% url 'classes' %}"
-   hx-get="{% url 'classes' %}"
-   hx-target="#content"
-   hx-push-url="true"
-   @click="isMobileMenuOpen = false"
-   class="block py-2 {% if 'classes' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
-  {% translate "Classes" %}
-</a>
+<div class="nav-dropdown-mobile" x-data="{ subOpen: false }">
+  <button @click="subOpen = !subOpen"
+          class="block py-2 nav-link w-full text-left {% if 'classes' in request.path or 'mentoring' in request.path %}active-link font-medium{% endif %}"
+          :aria-expanded="subOpen">
+    {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="subOpen && 'nav-dropdown__chevron--open'" aria-hidden="true">&#9662;</span>
+  </button>
+  <div x-show="subOpen" class="nav-dropdown-mobile__submenu">
+    <a href="{% url 'mentoring' %}"
+       hx-get="{% url 'mentoring' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       @click="isMobileMenuOpen = false"
+       class="block py-1.5 pl-4 nav-link {% if 'mentoring' in request.path %}active-link font-medium{% endif %}">
+      {% translate "Mentoring" %}
+    </a>
+    <a href="{% url 'classes' %}"
+       hx-get="{% url 'classes' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       @click="isMobileMenuOpen = false"
+       class="block py-1.5 pl-4 nav-link {% if 'classes' in request.path %}active-link font-medium{% endif %}">
+      {% translate "Classes" %}
+    </a>
+  </div>
+</div>
 
 <a href="{% url 'about' %}"
    hx-get="{% url 'about' %}"
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 {% if 'about' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
+   class="block py-2 nav-link {% if 'about' in request.path %}active-link font-medium{% endif %}">
   {% translate "About" %}
 </a>
 
@@ -41,12 +58,12 @@
    hx-target="#content"
    hx-push-url="true"
    @click="isMobileMenuOpen = false"
-   class="block py-2 {% if 'contact' in request.path %}active-link text-purple-600 font-semibold{% else %}text-gray-700 hover:text-black{% endif %}">
+   class="block py-2 nav-link {% if 'contact' in request.path %}active-link font-medium{% endif %}">
   {% translate "Contact" %}
 </a>
 
 {% if user.is_superuser %}
-  <a href="{% url 'admin:index' %}" @click="isMobileMenuOpen = false" class="block py-2 text-gray-700 hover:text-black">{% translate "Admin" %}</a>
+  <a href="{% url 'admin:index' %}" @click="isMobileMenuOpen = false" class="block py-2 nav-link">{% translate "Admin" %}</a>
 {% endif %}
 
 {% include 'core/utils/language_dropdown_button.html' %}

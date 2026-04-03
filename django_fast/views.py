@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.admin import site
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.cache import caches
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -27,7 +28,7 @@ def check_cache_health(alias: str) -> str:
 class CacheExplorerView(View):
     template_name = "django_fast/cache_explorer.html"
 
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
         # Admin-specific context
         admin_context = site.each_context(request)
         admin_context.update(
@@ -59,7 +60,7 @@ class CacheExplorerView(View):
 class CacheDetailView(View):
     template_name = "django_fast/cache_detail.html"
 
-    def get(self, request, alias):
+    def get(self, request: HttpRequest, alias: str) -> HttpResponse:
         cache_service = get_cache_service(alias)
         admin_context = site.each_context(request)
         admin_context.update(
@@ -92,7 +93,7 @@ class CacheDetailView(View):
         )
         return render(request, self.template_name, admin_context)
 
-    def post(self, request, alias):
+    def post(self, request: HttpRequest, alias: str) -> HttpResponse:
         cache_service = get_cache_service(alias)
         action = request.POST.get("action")
 

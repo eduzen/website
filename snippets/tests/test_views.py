@@ -7,7 +7,7 @@ from snippets.serializers import SnippetSerializer
 
 
 @pytest.mark.django_db
-def test_snippet_highlight_view():
+def test_snippet_highlight_view() -> None:
     # Arrange
     # Create a snippet with some highlighted content
     snippet = Snippet.objects.create(
@@ -33,7 +33,7 @@ def test_snippet_highlight_view():
 
 
 @pytest.mark.django_db
-def test_snippet_serializer():
+def test_snippet_serializer() -> None:
     # Arrange
     snippet = Snippet.objects.create(
         title="Test snippet", code='print("Hello, World!")', linenos=True, language="python", style="friendly"
@@ -60,3 +60,18 @@ def test_snippet_serializer():
     assert data["linenos"] is True
     assert data["language"] == "python"
     assert data["style"] == "friendly"
+
+
+@pytest.mark.django_db
+def test_snippet_partial_save_updates_highlighted() -> None:
+    snippet = Snippet.objects.create(
+        title="Test snippet", code='print("Hello, World!")', linenos=False, language="python", style="friendly"
+    )
+
+    old_highlighted = snippet.highlighted
+    snippet.code = 'print("Updated")'
+    snippet.save(update_fields=["code"])
+    snippet.refresh_from_db()
+
+    assert snippet.highlighted != old_highlighted
+    assert "Updated" in snippet.highlighted

@@ -145,3 +145,7 @@ data/*
 secrets
 
 .playwright-mcp/
+.screenshots/
+.superpowers/
+
+.claude/settings.local.json

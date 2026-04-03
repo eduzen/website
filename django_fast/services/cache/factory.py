@@ -1,5 +1,6 @@
-# services/cache/factory.py
 import logging
+from collections.abc import Mapping
+from typing import Any
 
 import redis
 from django.conf import settings
@@ -26,10 +27,11 @@ def get_cache_service(alias: str) -> AbstractCacheService:
         # or possibly parse connection options from `cache_config['LOCATION']` or `cache_config['OPTIONS']`.
         try:
             url = settings.CACHES["default"]["LOCATION"]
-            options = cache_config.get("OPTIONS", {})  # type: ignore
-            password = options.get("PASSWORD", None)  # type: ignore
-            db = options.get("DB", 0)  # type: ignore
-            socket_timeout = options.get("SOCKET_TIMEOUT", None)  # type: ignore
+            raw_options: Any = cache_config.get("OPTIONS", {})
+            options = raw_options if isinstance(raw_options, Mapping) else {}
+            password = options.get("PASSWORD")
+            db = options.get("DB", 0)
+            socket_timeout = options.get("SOCKET_TIMEOUT")
 
             r_client = redis.Redis.from_url(
                 url=url,
@@ -46,19 +48,19 @@ def get_cache_service(alias: str) -> AbstractCacheService:
             logger.exception(f"Error creating Redis client for alias '{alias}': {e}")
             raise RuntimeError(f"Failed to initialize RedisCacheService for alias '{alias}': {e}") from e
 
-    elif "MemcachedCache" in backend:
+    if "MemcachedCache" in backend:
         logger.info(f"Creating MemcachedService for alias '{alias}'")
         return MemcachedService(alias)
 
-    elif "DatabaseCache" in backend:
+    if "DatabaseCache" in backend:
         logger.info(f"Creating DatabaseCacheService for alias '{alias}'")
         return DatabaseCacheService(alias)
 
-    elif "FileBasedCache" in backend:
+    if "FileBasedCache" in backend:
         logger.info(f"Creating FileBasedCacheService for alias '{alias}'")
         return FileBasedCacheService(alias)
 
-    elif "DummyCache" in backend:
+    if "DummyCache" in backend:
         logger.info(f"Creating DummyCacheService for alias '{alias}'")
         return DummyCacheService(alias)
 
