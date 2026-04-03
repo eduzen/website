@@ -24,7 +24,7 @@
           :aria-expanded="subOpen">
     {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="subOpen && 'nav-dropdown__chevron--open'" aria-hidden="true">&#9662;</span>
   </button>
-  <div x-show="subOpen" x-collapse class="nav-dropdown-mobile__submenu">
+  <div x-show="subOpen" class="nav-dropdown-mobile__submenu">
     <a href="{% url 'mentoring' %}"
        hx-get="{% url 'mentoring' %}"
        hx-target="#content"

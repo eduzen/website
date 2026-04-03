@@ -16,20 +16,14 @@
   {% translate "Consultancy" %}
 </a>
 
-<div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" @click.away="open = false">
+<div class="nav-dropdown" x-data="{ open: false }">
   <button @click="open = !open"
           class="nav-link nav-dropdown__trigger {% if 'classes' in request.path or 'mentoring' in request.path %}active-link{% endif %}"
-          aria-expanded="false"
-          :aria-expanded="open">
-    {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="open && 'nav-dropdown__chevron--open'" aria-hidden="true">&#9662;</span>
+          :aria-expanded="open ? 'true' : 'false'">
+    {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="{ 'nav-dropdown__chevron--open': open }" aria-hidden="true">&#9662;</span>
   </button>
   <div x-show="open" x-cloak
-       x-transition:enter="nav-dropdown__transition-enter"
-       x-transition:enter-start="nav-dropdown__transition-enter-start"
-       x-transition:enter-end="nav-dropdown__transition-enter-end"
-       x-transition:leave="nav-dropdown__transition-leave"
-       x-transition:leave-start="nav-dropdown__transition-leave-start"
-       x-transition:leave-end="nav-dropdown__transition-leave-end"
+       @click.away="open = false"
        class="nav-dropdown__menu">
     <a href="{% url 'mentoring' %}"
        hx-get="{% url 'mentoring' %}"

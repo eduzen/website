@@ -111,7 +111,7 @@ body {
   transform: translateX(-50%);
   min-width: 140px;
   padding: 0.5rem 0;
-  margin-top: 0.5rem;
+  margin-top: 0.35rem;
   background: var(--bg);
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 8px;
@@ -142,13 +142,7 @@ body {
   font-weight: 500;
 }
 
-/* Transition classes for Alpine.js */
-.nav-dropdown__transition-enter { transition: opacity 0.15s ease, transform 0.15s ease; }
-.nav-dropdown__transition-enter-start { opacity: 0; transform: translateX(-50%) translateY(-4px); }
-.nav-dropdown__transition-enter-end { opacity: 1; transform: translateX(-50%) translateY(0); }
-.nav-dropdown__transition-leave { transition: opacity 0.1s ease; }
-.nav-dropdown__transition-leave-start { opacity: 1; }
-.nav-dropdown__transition-leave-end { opacity: 0; }
+/* Dropdown menu transition (Alpine v2 inline transitions handle enter/leave) */
 
 /* Mobile nav dropdown */
 .nav-dropdown-mobile__submenu {
