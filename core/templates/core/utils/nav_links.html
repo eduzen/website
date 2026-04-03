@@ -16,7 +16,7 @@
   {% translate "Consultancy" %}
 </a>
 
-<div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+<div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" @click.away="open = false">
   <button @click="open = !open"
           class="nav-link nav-dropdown__trigger {% if 'classes' in request.path or 'mentoring' in request.path %}active-link{% endif %}"
           aria-expanded="false"
