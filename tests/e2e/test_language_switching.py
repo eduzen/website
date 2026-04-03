@@ -64,6 +64,7 @@ def test_language_switch_after_htmx_navigation(page: Page, live_server):
 
     page.locator("a[hx-get][href*='/about/']").first.click()
     page.wait_for_url(f"{live_server.url}/en/about/")
+    page.wait_for_load_state("networkidle")
 
     _switch_to_spanish(page)
     expect(page).to_have_url(f"{live_server.url}/es/about/")
