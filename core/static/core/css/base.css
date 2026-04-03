@@ -78,6 +78,87 @@ body {
   color: var(--accent-warm);
 }
 
+/* ---- Nav Dropdown (Teaching) ---- */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-dropdown__trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-dropdown__chevron {
+  font-size: 0.6em;
+  transition: transform var(--transition);
+  display: inline-block;
+}
+
+.nav-dropdown__chevron--open {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown__menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 140px;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  background: var(--bg);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  z-index: 30;
+}
+
+.nav-dropdown__item {
+  display: block;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-dropdown__item:hover {
+  color: var(--accent-warm);
+  background: var(--bg-warm);
+}
+
+.nav-dropdown__item--active {
+  color: var(--accent-warm);
+  font-weight: 500;
+}
+
+/* Transition classes for Alpine.js */
+.nav-dropdown__transition-enter { transition: opacity 0.15s ease, transform 0.15s ease; }
+.nav-dropdown__transition-enter-start { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+.nav-dropdown__transition-enter-end { opacity: 1; transform: translateX(-50%) translateY(0); }
+.nav-dropdown__transition-leave { transition: opacity 0.1s ease; }
+.nav-dropdown__transition-leave-start { opacity: 1; }
+.nav-dropdown__transition-leave-end { opacity: 0; }
+
+/* Mobile nav dropdown */
+.nav-dropdown-mobile__submenu {
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--accent-warm-light);
+  margin-left: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 /* Loading indicator — ID selector beats Tailwind class specificity */
 #loadingIndicator {
   background: var(--accent-warm);
@@ -1030,6 +1111,132 @@ body {
   color: var(--text-muted);
 }
 
+/* ---- Mentoring Page ---- */
+.mentoring-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.mentoring-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+/* Intro text */
+.mentoring-intro {
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+.mentoring-intro p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+
+/* Generic mentoring section */
+.mentoring-section {
+  margin-bottom: 3.5rem;
+}
+
+/* Cards grid — reuses .about-card for individual cards */
+.mentoring-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Steps (How it works) */
+.mentoring-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 640px;
+}
+
+.mentoring-step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.mentoring-step__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-warm);
+  color: #fff;
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.mentoring-step__content {
+  flex: 1;
+}
+
+.mentoring-step__title {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.mentoring-step__text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Audience cards (Who is this for) */
+.mentoring-audience {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.mentoring-audience-card {
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  background: rgba(253, 246, 240, 0.4);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.mentoring-audience-card:hover {
+  border-color: var(--accent-warm-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.mentoring-audience-card__icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.mentoring-audience-card__title {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.mentoring-audience-card__text {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
 /* ---- Legacy contact section (about page) ---- */
 .contact-section {
   text-align: center;
@@ -1572,6 +1779,19 @@ dialog.confirm-dialog::backdrop {
   .about-skills {
     justify-content: center;
   }
+
+  /* Mentoring responsive */
+  .mentoring-page {
+    padding: 3rem 1.5rem;
+  }
+
+  .mentoring-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .mentoring-audience {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-height: 800px) and (min-width: 769px) {
@@ -1701,6 +1921,14 @@ dialog.confirm-dialog::backdrop {
   }
 
   .classes-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .mentoring-page {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .mentoring-header {
     margin-bottom: 2.5rem;
   }
 

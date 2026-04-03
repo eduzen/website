@@ -145,6 +145,16 @@ class ClassesView(TemplateView):
         return [self.template_name]
 
 
+class MentoringView(TemplateView):
+    template_name = "blog/mentoring.html"
+
+    def get_template_names(self) -> list[str]:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
+            return ["blog/mentoring.html#mentoring-content"]
+        return [self.template_name]
+
+
 class PostListView(SafePaginationMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"

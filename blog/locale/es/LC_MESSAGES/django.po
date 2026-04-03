@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-03 12:59+0200\n"
+"POT-Creation-Date: 2026-04-03 13:15+0200\n"
 "PO-Revision-Date: 2023-08-25 11:25-0300\n"
 "Last-Translator: Eduardo Enriquez <eduardo.a.enriquez@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,110 +92,49 @@ msgstr "Filosofía"
 
 #: blog/templates/blog/about.html:33
 #, python-format
-msgid ""
-"Hi, my name is Eduardo. I'm from Buenos Aires, I'm %(age)s years old, and I "
-"currently live in Amsterdam — I moved to the Netherlands in 2020, so it's "
-"been about %(years_in_nl)s years now. I work as a Team Lead at FareHarbor, "
-"in a role that combines parts of an engineering manager and a tech lead. "
-"Besides that, I really enjoy teaching and helping people grow in the IT "
-"world."
-msgstr ""
-"Hola, mi nombre es Eduardo. Soy de Buenos Aires, tengo %(age)s años y vivo "
-"en Amsterdam — me mudé a los Países Bajos en 2020, así que ya van unos "
-"%(years_in_nl)s años. Actualmente trabajo como Team Lead en FareHarbor, en "
-"un rol que combina un poco de engineering manager y tech lead. Pero además "
-"de eso, me gusta enseñar y ayudar a otras personas a desarrollarse en el "
-"mundo IT."
+msgid "Hi, my name is Eduardo. I'm from Buenos Aires, I'm %(age)s years old, and I currently live in Amsterdam — I moved to the Netherlands in 2020, so it's been about %(years_in_nl)s years now. I work as a Team Lead at FareHarbor, in a role that combines parts of an engineering manager and a tech lead. Besides that, I really enjoy teaching and helping people grow in the IT world."
+msgstr "Hola, mi nombre es Eduardo. Soy de Buenos Aires, tengo %(age)s años y vivo en Amsterdam — me mudé a los Países Bajos en 2020, así que ya van unos %(years_in_nl)s años. Actualmente trabajo como Team Lead en FareHarbor, en un rol que combina un poco de engineering manager y tech lead. Pero además de eso, me gusta enseñar y ayudar a otras personas a desarrollarse en el mundo IT."
 
 #: blog/templates/blog/about.html:38
-msgid ""
-"My path into software wasn't the usual one. I didn't formally study computer "
-"science beyond what I learned in high school. That doesn't mean I didn't "
-"spend countless hours, days, and months learning on my own. In fact, "
-"studying philosophy and earning my degree in that field played an important "
-"role in shaping how I think and approach problems."
-msgstr ""
-"Mi historia no es la habitual. No estudié software de manera formal, más "
-"allá de lo que aprendí en la escuela secundaria. Eso no significa que no le "
-"haya dedicado horas, días y meses de estudio autodidacta. De hecho, creo que "
-"haber estudiado y graduarme en Filosofía fue clave para formarme "
-"intelectualmente y aprender a pensar mejor los problemas."
+msgid "My path into software wasn't the usual one. I didn't formally study computer science beyond what I learned in high school. That doesn't mean I didn't spend countless hours, days, and months learning on my own. In fact, studying philosophy and earning my degree in that field played an important role in shaping how I think and approach problems."
+msgstr "Mi historia no es la habitual. No estudié software de manera formal, más allá de lo que aprendí en la escuela secundaria. Eso no significa que no le haya dedicado horas, días y meses de estudio autodidacta. De hecho, creo que haber estudiado y graduarme en Filosofía fue clave para formarme intelectualmente y aprender a pensar mejor los problemas."
 
 #: blog/templates/blog/about.html:43
-msgid ""
-"I've been working continuously in the software industry since late 2010. "
-"Over the years I've worked across many roles, technologies, and "
-"environments, but Python 🐍 has been the technology that's stayed with me "
-"the longest."
-msgstr ""
-"Trabajo de manera continua en la industria del software desde fines de 2010. "
-"Pasé por muchos roles, tecnologías y contextos distintos, pero Python 🐍 fue "
-"la tecnología que más me acompañó en el camino."
+msgid "I've been working continuously in the software industry since late 2010. Over the years I've worked across many roles, technologies, and environments, but Python 🐍 has been the technology that's stayed with me the longest."
+msgstr "Trabajo de manera continua en la industria del software desde fines de 2010. Pasé por muchos roles, tecnologías y contextos distintos, pero Python 🐍 fue la tecnología que más me acompañó en el camino."
 
 #: blog/templates/blog/about.html:48
-msgid ""
-"I enjoy open source, teamwork, and solving interesting problems. I like "
-"reading, and I'm a naturally curious person. I think that's a good summary "
-"of who I am."
-msgstr ""
-"Me gusta el código abierto, el trabajo en equipo y resolver problemas "
-"interesantes. Me gusta leer y soy una persona curiosa. Creo que ese es un "
-"buen resumen de mí."
+msgid "I enjoy open source, teamwork, and solving interesting problems. I like reading, and I'm a naturally curious person. I think that's a good summary of who I am."
+msgstr "Me gusta el código abierto, el trabajo en equipo y resolver problemas interesantes. Me gusta leer y soy una persona curiosa. Creo que ese es un buen resumen de mí."
 
 #: blog/templates/blog/about.html:53
 #, python-format
-msgid ""
-"If you'd like to connect, feel free to <a class=\"warm-link\" "
-"href=\"%(email_url)s\">send me an email</a> and we can continue the "
-"conversation there."
-msgstr ""
-"Si tenés ganas de charlar, podés <a class=\"warm-link\" "
-"href=\"%(email_url)s\">mandarme un mail</a> y seguimos por ahí."
+msgid "If you'd like to connect, feel free to <a class=\"warm-link\" href=\"%(email_url)s\">send me an email</a> and we can continue the conversation there."
+msgstr "Si tenés ganas de charlar, podés <a class=\"warm-link\" href=\"%(email_url)s\">mandarme un mail</a> y seguimos por ahí."
 
 #: blog/templates/blog/about.html:85
 msgid "Beyond code"
 msgstr "Más allá del código"
 
 #: blog/templates/blog/about.html:91
-msgid ""
-"Some people find it weird that I have a bachelor's degree in philosophy from "
-"the University of Buenos Aires 🇦🇷. But I think that rational thinking is "
-"something that my profession and studies share."
-msgstr ""
-"Algunas personas encuentran extraño que tenga una licenciatura en filosofía "
-"de la Universidad de Buenos Aires 🇦🇷. Pero creo que el pensamiento racional "
-"es alguna de las cosas que comparten mi profesión y mis estudios."
+msgid "Some people find it weird that I have a bachelor's degree in philosophy from the University of Buenos Aires 🇦🇷. But I think that rational thinking is something that my profession and studies share."
+msgstr "Algunas personas encuentran extraño que tenga una licenciatura en filosofía de la Universidad de Buenos Aires 🇦🇷. Pero creo que el pensamiento racional es alguna de las cosas que comparten mi profesión y mis estudios."
 
 #: blog/templates/blog/about.html:92
-msgid ""
-"In general, philosophy has shaped my analytical thinking and fostered my "
-"curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and "
-"Foucault."
-msgstr ""
-"En general, la filosofía ha moldeado mi pensamiento analítico y fomentado mi "
-"curiosidad. Algunos de mis filósofos favoritos son Nietzsche, Descartes y "
-"Foucault."
+msgid "In general, philosophy has shaped my analytical thinking and fostered my curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and Foucault."
+msgstr "En general, la filosofía ha moldeado mi pensamiento analítico y fomentado mi curiosidad. Algunos de mis filósofos favoritos son Nietzsche, Descartes y Foucault."
 
 #: blog/templates/blog/about.html:97
 msgid "Teaching"
 msgstr "Enseñanza"
 
 #: blog/templates/blog/about.html:99
-msgid ""
-"Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my "
-"background in philosophy has helped me to be a better teacher."
-msgstr ""
-"Por último, pero no menos importante, soy un apasionado de la enseñanza "
-"👨🏽‍🏫. Creo que mi formación en filosofía me ha ayudado a ser un mejor "
-"profesor."
+msgid "Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my background in philosophy has helped me to be a better teacher."
+msgstr "Por último, pero no menos importante, soy un apasionado de la enseñanza 👨🏽‍🏫. Creo que mi formación en filosofía me ha ayudado a ser un mejor profesor."
 
 #: blog/templates/blog/about.html:100
-msgid ""
-"I've been teaching in the past, and I'm looking forward to doing it more "
-"often in the IT field."
-msgstr ""
-"He estado enseñando en el pasado y espero hacerlo más a menudo en el campo "
-"de la tecnología."
+msgid "I've been teaching in the past, and I'm looking forward to doing it more often in the IT field."
+msgstr "He estado enseñando en el pasado y espero hacerlo más a menudo en el campo de la tecnología."
 
 #: blog/templates/blog/about.html:105
 msgid "Interests"
@@ -203,25 +142,15 @@ msgstr "Intereses"
 
 #: blog/templates/blog/about.html:107
 #, python-format
-msgid ""
-"Besides computers, I like good music, books, philosophy, movies, series, and "
-"good food. I started trying some mechanical keyboards (right now using a Leo "
-"pold 75 %%)! But I have also a Keychron K12."
-msgstr ""
-"Además de las computadoras, me gusta la buena música, los libros, la "
-"filosofía, las películas, las series y la buena comida. Comencé a probar "
-"algunos teclados mecánicos (¡ahora uso un Leo pold 75 %%)! Pero también "
-"tengo un Keychron K12."
+msgid "Besides computers, I like good music, books, philosophy, movies, series, and good food. I started trying some mechanical keyboards (right now using a Leo pold 75 %%)! But I have also a Keychron K12."
+msgstr "Además de las computadoras, me gusta la buena música, los libros, la filosofía, las películas, las series y la buena comida. Comencé a probar algunos teclados mecánicos (¡ahora uso un Leo pold 75 %%)! Pero también tengo un Keychron K12."
 
 #: blog/templates/blog/about.html:108
-msgid ""
-"Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and "
-"many more..."
-msgstr ""
-"Escritores... muchos; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke "
-"y muchos más..."
+msgid "Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and many more..."
+msgstr "Escritores... muchos; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke y muchos más..."
 
 #: blog/templates/blog/about.html:122 blog/templates/blog/classes.html:139
+#: blog/templates/blog/mentoring.html:141
 msgid "Get in touch"
 msgstr "Contacto"
 
@@ -242,12 +171,8 @@ msgid "And more..."
 msgstr "Y más..."
 
 #: blog/templates/blog/classes.html:30
-msgid ""
-"Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. "
-"Learn more about me on my 'About' page: "
-msgstr ""
-"Hola! Gracias por tu interés 😊. Mi nombre es Eduardo y soy docente. Más "
-"sobre mi en mi página 'Acerca de mi':"
+msgid "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page: "
+msgstr "Hola! Gracias por tu interés 😊. Mi nombre es Eduardo y soy docente. Más sobre mi en mi página 'Acerca de mi':"
 
 #: blog/templates/blog/classes.html:35 blog/templates/blog/classes.html:130
 #: blog/templates/blog/consultancy.html:62 blog/templates/blog/error.html:27
@@ -255,68 +180,32 @@ msgid "here"
 msgstr "aquí"
 
 #: blog/templates/blog/classes.html:38
-msgid ""
-"My goal as a teacher is not just to impart knowledge, but to inspire and "
-"guide you in a way that you can lose me (and be independent) in your "
-"learning journey."
-msgstr ""
-"Mi objetivo como profesor no es solo impartir conocimiento, sino inspirar y "
-"guiarte de namera tal que puedas perderme (y ser independiente) en tu viaje "
-"de aprendizaje."
+msgid "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in a way that you can lose me (and be independent) in your learning journey."
+msgstr "Mi objetivo como profesor no es solo impartir conocimiento, sino inspirar y guiarte de namera tal que puedas perderme (y ser independiente) en tu viaje de aprendizaje."
 
 #: blog/templates/blog/classes.html:41
-msgid ""
-"We can learn about: Python, or about web frameworks like Django, Flask, or "
-"FastAPI. We can also explore other topics like: object-oriented programming, "
-"unit tests, clean code or the one that you need."
-msgstr ""
-"Podemos aprender sobre: Python, o sobre frameworks web como Django, Flask o "
-"FastAPI. También podemos explorar otros temas como: programación orientada a "
-"objetos, pruebas unitarias, código limpio o el que necesites."
+msgid "We can learn about: Python, or about web frameworks like Django, Flask, or FastAPI. We can also explore other topics like: object-oriented programming, unit tests, clean code or the one that you need."
+msgstr "Podemos aprender sobre: Python, o sobre frameworks web como Django, Flask o FastAPI. También podemos explorar otros temas como: programación orientada a objetos, pruebas unitarias, código limpio o el que necesites."
 
 #: blog/templates/blog/classes.html:44
-msgid ""
-"It's not easy to learn new things. It's hard also to find the motivation and "
-"the resources that are good for you. In these modern times, what we have is "
-"data 🗃️, data 🗃️ and data 🗃️, available everywhere."
-msgstr ""
-"No es fácil aprender cosas nuevas. También es difícil encontrar la "
-"motivación y los recursos que sean buenos para ti. En estos tiempos "
-"modernos, lo que tenemos es datos 🗃️, datos 🗃️ y más datos 🗃️, disponibles en "
-"todas partes."
+msgid "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, what we have is data 🗃️, data 🗃️ and data 🗃️, available everywhere."
+msgstr "No es fácil aprender cosas nuevas. También es difícil encontrar la motivación y los recursos que sean buenos para ti. En estos tiempos modernos, lo que tenemos es datos 🗃️, datos 🗃️ y más datos 🗃️, disponibles en todas partes."
 
 #: blog/templates/blog/classes.html:45
-msgid ""
-"However, discerning the quality of this data can be challenging. That's "
-"where a guide or companion comes in handy 😉."
-msgstr ""
-"Sin embargo, discernir la calidad de estos datos puede ser un desafío. Ahí "
-"es donde un guía o compañero resulta útil 😉."
+msgid "However, discerning the quality of this data can be challenging. That's where a guide or companion comes in handy 😉."
+msgstr "Sin embargo, discernir la calidad de estos datos puede ser un desafío. Ahí es donde un guía o compañero resulta útil 😉."
 
 #: blog/templates/blog/classes.html:46
-msgid ""
-"So I can help you to organize and curate the data and tell you what to use "
-"or not."
-msgstr ""
-"Así que puedo ayudarte a organizar y curar los datos y decirte qué usar o "
-"qué no."
+msgid "So I can help you to organize and curate the data and tell you what to use or not."
+msgstr "Así que puedo ayudarte a organizar y curar los datos y decirte qué usar o qué no."
 
 #: blog/templates/blog/classes.html:49
-msgid ""
-"If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 "
-"about your learning objectives. If you're based elsewhere in the world 🌍, "
-"not to worry!"
-msgstr ""
-"Si estás en Holanda 🇳🇱, vamos por un café ☕ y hablemos 💬 sobre tus planes "
-"y objectivos. Si estás en otro lugar del mundo 🌍, no te preocupes!"
+msgid "If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about your learning objectives. If you're based elsewhere in the world 🌍, not to worry!"
+msgstr "Si estás en Holanda 🇳🇱, vamos por un café ☕ y hablemos 💬 sobre tus planes y objectivos. Si estás en otro lugar del mundo 🌍, no te preocupes!"
 
 #: blog/templates/blog/classes.html:50
-msgid ""
-"We can set up a Zoom or Meet call to discuss how I can assist you in your "
-"coding adventure."
-msgstr ""
-"Podemos organizar una call por Zoom o Meet para discutir cómo puedo "
-"asistirte en tu aventura de programación."
+msgid "We can set up a Zoom or Meet call to discuss how I can assist you in your coding adventure."
+msgstr "Podemos organizar una call por Zoom o Meet para discutir cómo puedo asistirte en tu aventura de programación."
 
 #: blog/templates/blog/classes.html:56
 msgid "Online Resources to Learn Python:"
@@ -327,22 +216,12 @@ msgid "Impossible not to recommend ChatGPT: "
 msgstr "Imposible no recomendar ChatGPT: "
 
 #: blog/templates/blog/classes.html:59
-msgid ""
-"I think it's one of the most important resources from our modern times. It's "
-"a great companion that could answer almost everything that you need in this "
-"field."
-msgstr ""
-"Creo que es uno de los recursos más importantes de nuestros tiempos "
-"modernos. Es un gran compañero que podría responder casi todo lo que "
-"necesitas en este campo."
+msgid "I think it's one of the most important resources from our modern times. It's a great companion that could answer almost everything that you need in this field."
+msgstr "Creo que es uno de los recursos más importantes de nuestros tiempos modernos. Es un gran compañero que podría responder casi todo lo que necesitas en este campo."
 
 #: blog/templates/blog/classes.html:60
-msgid ""
-"Certainly it's not infallible, it has its caveats and you need to learn how "
-"to use it. But it's worthy.  I'm using it every day. "
-msgstr ""
-"Ciertamente no es infalible, tiene sus matices y necesitas aprender cómo "
-"usarlo. Pero vale la pena. Lo uso todos los días."
+msgid "Certainly it's not infallible, it has its caveats and you need to learn how to use it. But it's worthy.  I'm using it every day. "
+msgstr "Ciertamente no es infalible, tiene sus matices y necesitas aprender cómo usarlo. Pero vale la pena. Lo uso todos los días."
 
 #: blog/templates/blog/classes.html:63
 msgid "I also recommend the following resources:"
@@ -353,23 +232,18 @@ msgid "Python: official tutorial"
 msgstr "Python: tutorial oficial"
 
 #: blog/templates/blog/classes.html:72
-msgid ""
-"Django girls tutorial: broad tutorial including basic internet and python "
-"concepts"
-msgstr ""
-"Django girls tutorial: tutorial amplio que incluye conceptos básicos de "
-"internet y python"
+msgid "Django girls tutorial: broad tutorial including basic internet and python concepts"
+msgstr "Django girls tutorial: tutorial amplio que incluye conceptos básicos de internet y python"
 
 #: blog/templates/blog/classes.html:76
 msgid "Codecademy: free course for learning the basics of Python 3"
-msgstr ""
-"Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
+msgstr "Codecademy: curso gratuito para aprender los conceptos básicos de Python 3"
 
 #: blog/templates/blog/classes.html:83
 msgid "Some recommended books:"
 msgstr "Algunos libros recomendados:"
 
-#: blog/templates/blog/classes.html:86
+#: blog/templates/blog/classes.html:86 blog/templates/blog/mentoring.html:114
 msgid "Beginners"
 msgstr "Principiantes"
 
@@ -394,24 +268,16 @@ msgid "Consultancy Services"
 msgstr "Servicios de Consultoria"
 
 #: blog/templates/blog/consultancy.html:15
-msgid ""
-"Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a "
-"sprinkle of fun and a dollop of expertise."
-msgstr ""
-"Creando magia tecnológica 🧙🏼‍♀️ para individuos 🧍🏻‍♀️ y empresas 🏭, con un "
-"toque de diversión y una pizca de experiencia."
+msgid "Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a sprinkle of fun and a dollop of expertise."
+msgstr "Creando magia tecnológica 🧙🏼‍♀️ para individuos 🧍🏻‍♀️ y empresas 🏭, con un toque de diversión y una pizca de experiencia."
 
 #: blog/templates/blog/consultancy.html:16
 msgid "Let's code something delightful!"
 msgstr "Codeemos algo flashero!"
 
 #: blog/templates/blog/consultancy.html:17
-msgid ""
-"With over 10 years in the industry 👴🏿, I offer useful insights and "
-"expertise for daily challenges."
-msgstr ""
-"Con más de 10 años en la industria 👴🏿, ofrezco información útil y "
-"experiencia para los desafíos diarios."
+msgid "With over 10 years in the industry 👴🏿, I offer useful insights and expertise for daily challenges."
+msgstr "Con más de 10 años en la industria 👴🏿, ofrezco información útil y experiencia para los desafíos diarios."
 
 #: blog/templates/blog/consultancy.html:18
 msgid "Remote 💻 or in-person 🪑, I'm here to assist."
@@ -438,12 +304,8 @@ msgid "For the Rising Tech Stars: Individuals"
 msgstr "Para las estrellas tecnológicas en ascenso"
 
 #: blog/templates/blog/consultancy.html:33
-msgid ""
-"Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you "
-"blossom into an autonomous developer."
-msgstr ""
-"Capacitación personalizada 🏋🏼‍♂️, clases 👨🏽‍🏫 y tutoría 🤓 para ayudarte a "
-"convertirte en un desarrollador autónomo."
+msgid "Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer."
+msgstr "Capacitación personalizada 🏋🏼‍♂️, clases 👨🏽‍🏫 y tutoría 🤓 para ayudarte a convertirte en un desarrollador autónomo."
 
 #: blog/templates/blog/consultancy.html:34
 msgid "Stuck on a bug 🐛? I've got your back, literally!"
@@ -454,39 +316,24 @@ msgid "For the Business: Companies"
 msgstr "Para las empresas"
 
 #: blog/templates/blog/consultancy.html:41
-msgid ""
-"Crafting day-to-day solutions, providing stellar training (unittesting, "
-"robust code writing, you name it!), fixing Django/Python 🐍 performance "
-"issues, evaluating legacy code 🔖, or upgrading versions ⬆️."
-msgstr ""
-"Elaborando soluciones cotidianas, brindando capacitación estelar "
-"(unittesting, escritura de código robusto, ¡lo que necesites!), solucionando "
-"problemas de performanceen Django/Python 🐍, evaluando código legacy "
-"(heredado) 🔖, o actualizando versiones ⬆️."
+msgid "Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!), fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️."
+msgstr "Elaborando soluciones cotidianas, brindando capacitación estelar (unittesting, escritura de código robusto, ¡lo que necesites!), solucionando problemas de performanceen Django/Python 🐍, evaluando código legacy (heredado) 🔖, o actualizando versiones ⬆️."
 
 #: blog/templates/blog/consultancy.html:42
 msgid "If it's tech, I'm your guy!"
 msgstr "Si es tecnología, soy yo!"
 
 #: blog/templates/blog/consultancy.html:52
-#, fuzzy
-#| msgid "Experience &amp; Skills"
 msgid "Experience & Skills"
-msgstr "Experiencia &amp; Habilidades"
+msgstr "Experiencia & Habilidades"
 
 #: blog/templates/blog/consultancy.html:56
-#, fuzzy
-#| msgid "Years of Mischief &amp; Mastery"
 msgid "Years of Mischief & Mastery"
-msgstr "Años de Travesuras &amp; Maestría"
+msgstr "Años de Travesuras & Maestría"
 
 #: blog/templates/blog/consultancy.html:58
-msgid ""
-"Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks "
-"along the way. Dive into my tech journey!"
-msgstr ""
-"Magia de código 🧙🏼‍♂️, perspicacia empresarial 👨🏻‍💼 y quizás algunas "
-"bromas inofensivas en el camino. ¡Sumérgete en mi trayectoria tecnológica!"
+msgid "Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!"
+msgstr "Magia de código 🧙🏼‍♂️, perspicacia empresarial 👨🏻‍💼 y quizás algunas bromas inofensivas en el camino. ¡Sumérgete en mi trayectoria tecnológica!"
 
 #: blog/templates/blog/consultancy.html:61
 msgid "Read more about my experience on linkedin "
@@ -497,12 +344,8 @@ msgid "Techno-Sorcery"
 msgstr "Hechicería Tecnológica"
 
 #: blog/templates/blog/consultancy.html:69
-msgid ""
-"From Python 🐍 to Django, from debugging to spellbinding code – I've "
-"mastered the digital alchemy ⚗️."
-msgstr ""
-"Desde Python 🐍 a Django, desde depuración hasta código encantador: he "
-"dominado la alquimia digital ⚗️."
+msgid "From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️."
+msgstr "Desde Python 🐍 a Django, desde depuración hasta código encantador: he dominado la alquimia digital ⚗️."
 
 #: blog/templates/blog/consultancy.html:72
 msgid "Read more about me here: "
@@ -521,21 +364,15 @@ msgid "Let's talk"
 msgstr ""
 
 #: blog/templates/blog/consultancy.html:90
-msgid ""
-"Ready to embark on a tech adventure or brew up a business solution? Let's "
-"talk!"
-msgstr ""
-"¿Listo para embarcarte en una aventura tecnológica o elaborar una solución "
-"empresarial? ¡Hablemos!"
+msgid "Ready to embark on a tech adventure or brew up a business solution? Let's talk!"
+msgstr "¿Listo para embarcarte en una aventura tecnológica o elaborar una solución empresarial? ¡Hablemos!"
 
 #: blog/templates/blog/consultancy.html:98
 msgid "Contact Me"
 msgstr "Contactame"
 
 #: blog/templates/blog/contact.html:14
-msgid ""
-"Have a project idea, a question, or just want to say hello? I'd love to hear "
-"from you. Fill out the form or reach me through any of the channels below."
+msgid "Have a project idea, a question, or just want to say hello? I'd love to hear from you. Fill out the form or reach me through any of the channels below."
 msgstr ""
 
 #: blog/templates/blog/contact.html:24
@@ -582,17 +419,132 @@ msgstr "Licenciado en filosofía devenido ingeniero de software."
 
 #: blog/templates/blog/home.html:26
 #, python-format
-msgid ""
-"For over a decade I've worked primarily with Python and JavaScript. Today I "
-"lead teams, but I still get my hands dirty with code. I enjoy thinking, "
-"teaching, and building things. If you have a project to work on together, a "
-"question, or just want to get in touch, you can reach me at %(email_link)s."
-msgstr ""
-"Desde hace más de una década trabajo principalmente con Python y Javascript. "
-"Hoy lidero equipos, pero sigo metiendo manos en el código. Me gusta pensar, "
-"enseñar y construir cosas. Si tenés algún proyecto para trabajar en "
-"conjunto, o simplemente una pregunta o ponerte en contacto podés escribirme "
-"a %(email_link)s."
+msgid "For over a decade I've worked primarily with Python and JavaScript. Today I lead teams, but I still get my hands dirty with code. I enjoy thinking, teaching, and building things. If you have a project to work on together, a question, or just want to get in touch, you can reach me at %(email_link)s."
+msgstr "Desde hace más de una década trabajo principalmente con Python y Javascript. Hoy lidero equipos, pero sigo metiendo manos en el código. Me gusta pensar, enseñar y construir cosas. Si tenés algún proyecto para trabajar en conjunto, o simplemente una pregunta o ponerte en contacto podés escribirme a %(email_link)s."
+
+#: blog/templates/blog/mentoring.html:19
+msgid "Career Growth"
+msgstr "Crecimiento Profesional"
+
+#: blog/templates/blog/mentoring.html:20
+msgid "Goal Setting"
+msgstr "Definir Objetivos"
+
+#: blog/templates/blog/mentoring.html:21
+msgid "Your Pace"
+msgstr "Tu Ritmo"
+
+#: blog/templates/blog/mentoring.html:28
+msgid "Mentoring is not about giving you the answers. It's about helping you find them yourself, and building the confidence to keep finding them long after our sessions end."
+msgstr "Mentoría no es darte las respuestas. Es ayudarte a encontrarlas vos mismo, y construir la confianza para seguir encontrándolas mucho después de que terminen nuestras sesiones."
+
+#: blog/templates/blog/mentoring.html:31
+msgid "I studied philosophy before becoming a software engineer, and that shaped how I think about teaching. I believe in asking the right questions, understanding the 'why' behind things, and developing a way of thinking that goes beyond memorizing syntax."
+msgstr "Estudié filosofía antes de ser ingeniero de software, y eso formó mi manera de pensar sobre la enseñanza. Creo en hacer las preguntas correctas, entender el 'por qué' detrás de las cosas, y desarrollar una forma de pensar que va más allá de memorizar sintaxis."
+
+#: blog/templates/blog/mentoring.html:34
+msgid "Whether you're starting your first steps in programming, preparing for a career change, or looking to level up as a developer — I can be your guide. Not a guru, not a professor. A companion in your learning journey."
+msgstr "Ya sea que estés dando tus primeros pasos en programación, preparándote para un cambio de carrera, o buscando crecer como developer — puedo ser tu guía. No un gurú, no un profesor. Un compañero en tu camino de aprendizaje."
+
+#: blog/templates/blog/mentoring.html:40
+msgid "What we can work on"
+msgstr "En qué podemos trabajar"
+
+#: blog/templates/blog/mentoring.html:44
+msgid "Code Review"
+msgstr "Revisión de Código"
+
+#: blog/templates/blog/mentoring.html:46
+msgid "Bring your code and let's look at it together. I'll help you understand patterns, spot issues, and write cleaner, more maintainable software. We learn best from real code."
+msgstr "Traé tu código y mirémoslo juntos. Te voy a ayudar a entender patrones, detectar problemas y escribir software más limpio y mantenible. Se aprende mejor con código real."
+
+#: blog/templates/blog/mentoring.html:51
+msgid "Career Navigation"
+msgstr "Navegación de Carrera"
+
+#: blog/templates/blog/mentoring.html:53
+msgid "The tech industry can be overwhelming. Whether it's preparing for interviews, choosing the right path, or understanding what companies actually look for — I've been there and I can help."
+msgstr "La industria tech puede ser abrumadora. Ya sea prepararte para entrevistas, elegir el camino correcto o entender qué buscan realmente las empresas — estuve ahí y puedo ayudarte."
+
+#: blog/templates/blog/mentoring.html:58
+msgid "Pair Programming"
+msgstr "Pair Programming"
+
+#: blog/templates/blog/mentoring.html:60
+msgid "There's no better way to learn than building something together. We'll work on real problems side by side, and you'll pick up practices and habits that no tutorial can teach."
+msgstr "No hay mejor forma de aprender que construir algo juntos. Vamos a trabajar en problemas reales codo a codo, y vas a incorporar prácticas y hábitos que ningún tutorial puede enseñar."
+
+#: blog/templates/blog/mentoring.html:65
+msgid "Learning Path"
+msgstr "Ruta de Aprendizaje"
+
+#: blog/templates/blog/mentoring.html:67
+msgid "Feeling lost in the ocean of resources? I'll help you build a personalized roadmap based on where you are now and where you want to go. No generic advice — just what works for you."
+msgstr "¿Te sentís perdido en el océano de recursos? Te ayudo a construir una hoja de ruta personalizada basada en dónde estás ahora y a dónde querés llegar. Nada de consejos genéricos — solo lo que funciona para vos."
+
+#: blog/templates/blog/mentoring.html:75
+msgid "How it works"
+msgstr "Cómo funciona"
+
+#: blog/templates/blog/mentoring.html:80
+msgid "Intro call"
+msgstr "Llamada introductoria"
+
+#: blog/templates/blog/mentoring.html:81
+msgid "A free, informal chat where we get to know each other and talk about your goals. No commitment."
+msgstr "Una charla gratuita e informal donde nos conocemos y hablamos de tus objetivos. Sin compromiso."
+
+#: blog/templates/blog/mentoring.html:87
+msgid "Personalized plan"
+msgstr "Plan personalizado"
+
+#: blog/templates/blog/mentoring.html:88
+msgid "Based on our conversation, I'll put together a plan tailored to your level, interests, and available time."
+msgstr "Basándome en nuestra conversación, armo un plan adaptado a tu nivel, intereses y tiempo disponible."
+
+#: blog/templates/blog/mentoring.html:94
+msgid "Regular sessions"
+msgstr "Sesiones regulares"
+
+#: blog/templates/blog/mentoring.html:95
+msgid "Weekly or biweekly — whatever fits your rhythm. Remote via Zoom/Meet, or in person if you're in Amsterdam."
+msgstr "Semanales o quincenales — lo que se adapte a tu ritmo. Remoto por Zoom/Meet, o presencial si estás en Ámsterdam."
+
+#: blog/templates/blog/mentoring.html:101
+msgid "Async support"
+msgstr "Soporte asincrónico"
+
+#: blog/templates/blog/mentoring.html:102
+msgid "Questions between sessions? I'm available via chat. Sometimes a quick pointer saves hours of frustration."
+msgstr "¿Preguntas entre sesiones? Estoy disponible por chat. A veces una orientación rápida ahorra horas de frustración."
+
+#: blog/templates/blog/mentoring.html:110
+msgid "Who is this for"
+msgstr "Para quién es"
+
+#: blog/templates/blog/mentoring.html:115
+msgid "You're curious about programming and want to start on the right foot, with good habits from day one."
+msgstr "Tenés curiosidad por la programación y querés empezar con el pie derecho, con buenos hábitos desde el día uno."
+
+#: blog/templates/blog/mentoring.html:119
+msgid "Career Switchers"
+msgstr "Cambio de Carrera"
+
+#: blog/templates/blog/mentoring.html:120
+msgid "You're making the leap into tech from another field. I can help you navigate the transition with clarity."
+msgstr "Estás dando el salto a tech desde otro campo. Puedo ayudarte a navegar la transición con claridad."
+
+#: blog/templates/blog/mentoring.html:124
+msgid "Growing Developers"
+msgstr "Developers en Crecimiento"
+
+#: blog/templates/blog/mentoring.html:125
+msgid "You already code but want to get better — write cleaner code, understand architecture, prepare for senior roles."
+msgstr "Ya programás pero querés mejorar — escribir código más limpio, entender arquitectura, prepararte para roles senior."
+
+#: blog/templates/blog/mentoring.html:133
+msgid "Interested? Let's start with a conversation."
+msgstr "¿Te interesa? Empecemos con una conversación."
 
 #: blog/templates/blog/posts/detail.html:19
 msgid "Back to Post List"
@@ -663,12 +615,8 @@ msgstr "Volver al inicio"
 #~ msgstr "¡Hola Mundo! Mi nombre es Eduardo y soy un developer 💻."
 
 #, python-format
-#~ msgid ""
-#~ "I've been working ⛏️ with Python 🐍 for the last %(years)s years, most of "
-#~ "the time working as a backend developer with Django."
-#~ msgstr ""
-#~ "He estado trabajando ⛏️ con Python 🐍 durante los últimos %(years)s años, "
-#~ "mayormente como desarrollador backend con Django."
+#~ msgid "I've been working ⛏️ with Python 🐍 for the last %(years)s years, most of the time working as a backend developer with Django."
+#~ msgstr "He estado trabajando ⛏️ con Python 🐍 durante los últimos %(years)s años, mayormente como desarrollador backend con Django."
 
 #~ msgid "Currently living in"
 #~ msgstr "Actualmente vivo en"
@@ -689,31 +637,17 @@ msgstr "Volver al inicio"
 #~ msgstr "Soy Eduardo Enriquez, alias eduzen."
 
 #, python-format
-#~ msgid ""
-#~ "I've been working in the IT industry for quite a long time, %(years)s "
-#~ "years and counting, mostly as a backend developer 💻."
-#~ msgstr ""
-#~ "He estado trabajando en la industria IT durante bastante tiempo, "
-#~ "%(years)s años y contando, principalmente como desarrollador backend 💻."
+#~ msgid "I've been working in the IT industry for quite a long time, %(years)s years and counting, mostly as a backend developer 💻."
+#~ msgstr "He estado trabajando en la industria IT durante bastante tiempo, %(years)s años y contando, principalmente como desarrollador backend 💻."
 
 #~ msgid "But I also have some experience working as a team leader."
-#~ msgstr ""
-#~ "Pero también tengo algo de experiencia trabajando como líder técnico de "
-#~ "equipos."
+#~ msgstr "Pero también tengo algo de experiencia trabajando como líder técnico de equipos."
 
-#~ msgid ""
-#~ "Python 🐍, Django 🟩, and Flask are the main technologies 🧪 that I've "
-#~ "been working with."
-#~ msgstr ""
-#~ " Python 🐍, Django 🟩 y Flask 🧪 son las principales tecnologías con las "
-#~ "que trabajo."
+#~ msgid "Python 🐍, Django 🟩, and Flask are the main technologies 🧪 that I've been working with."
+#~ msgstr " Python 🐍, Django 🟩 y Flask 🧪 son las principales tecnologías con las que trabajo."
 
-#~ msgid ""
-#~ "Naturally, I have some experience 💡 with other things like Javascript, "
-#~ "Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿, and Linux 🐧."
-#~ msgstr ""
-#~ "Naturalmente, tengo algo de experiencia 💡 con otras cosas como "
-#~ "Javascript, Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿 y Linux 🐧."
+#~ msgid "Naturally, I have some experience 💡 with other things like Javascript, Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿, and Linux 🐧."
+#~ msgstr "Naturalmente, tengo algo de experiencia 💡 con otras cosas como Javascript, Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿 y Linux 🐧."
 
 #~ msgid "You can check my code at "
 #~ msgstr "Puedes revisar mi código en "
@@ -754,14 +688,8 @@ msgstr "Volver al inicio"
 #~ msgid "Are you sure?"
 #~ msgstr "Estas seguro?"
 
-#~ msgid ""
-#~ "I studied philosophy at the University of Buenos Aires, where I wrote my "
-#~ "thesis on Nietzsche, though computers had already been part of my life "
-#~ "since attending a programming-oriented high school."
-#~ msgstr ""
-#~ "Estudié filosofía en la Universidad de Buenos Aires, donde escribí mi "
-#~ "tesis sobre Nietzsche. Las computadoras ya venían siendo parte de mi vida "
-#~ "desde que fui a un secundario con orientación en programación."
+#~ msgid "I studied philosophy at the University of Buenos Aires, where I wrote my thesis on Nietzsche, though computers had already been part of my life since attending a programming-oriented high school."
+#~ msgstr "Estudié filosofía en la Universidad de Buenos Aires, donde escribí mi tesis sobre Nietzsche. Las computadoras ya venían siendo parte de mi vida desde que fui a un secundario con orientación en programación."
 
 #~ msgid "Thank you for your message"
 #~ msgstr "Gracias por tu mensaje"

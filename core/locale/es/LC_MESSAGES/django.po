@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-03 02:23+0200\n"
+"POT-Creation-Date: 2026-04-03 13:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,21 +124,31 @@ msgid "Consultancy"
 msgstr ""
 
 #: core/templates/core/utils/nav_links.html:24
-#: core/templates/core/utils/nav_links_mobile.html:27
-msgid "Classes"
-msgstr ""
+#: core/templates/core/utils/nav_links_mobile.html:25
+msgid "Teaching"
+msgstr "Enseñanza"
 
-#: core/templates/core/utils/nav_links.html:32
-#: core/templates/core/utils/nav_links_mobile.html:36
+#: core/templates/core/utils/nav_links.html:40
+#: core/templates/core/utils/nav_links_mobile.html:34
+msgid "Mentoring"
+msgstr "Mentoría"
+
+#: core/templates/core/utils/nav_links.html:48
+#: core/templates/core/utils/nav_links_mobile.html:42
+msgid "Classes"
+msgstr "Clases"
+
+#: core/templates/core/utils/nav_links.html:58
+#: core/templates/core/utils/nav_links_mobile.html:53
 msgid "About"
 msgstr ""
 
-#: core/templates/core/utils/nav_links.html:40
-#: core/templates/core/utils/nav_links_mobile.html:45
+#: core/templates/core/utils/nav_links.html:66
+#: core/templates/core/utils/nav_links_mobile.html:62
 msgid "Contact"
 msgstr ""
 
-#: core/templates/core/utils/nav_links.html:44
-#: core/templates/core/utils/nav_links_mobile.html:49
+#: core/templates/core/utils/nav_links.html:70
+#: core/templates/core/utils/nav_links_mobile.html:66
 msgid "Admin"
 msgstr ""
