@@ -25,15 +25,15 @@ class TestAboutView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "blog/about.html")
 
-    def test_about_view_years_of_experience(self):
-        """Test about view calculates years of experience correctly"""
+    def test_about_view_years_from_global_data(self):
+        """Test that years come from the global_data context processor"""
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        global_data = response.context["global_data"]
         current_year = timezone.now().year
-        expected_years = current_year - 2014  # Start year from views.py
-
-        self.assertEqual(response.context["years_of_experience"], expected_years)
+        self.assertEqual(global_data["years_in_python"], str(current_year - 2014))
+        self.assertEqual(global_data["years_of_experience"], str(current_year - 2011))
 
     def test_about_view_htmx_request(self):
         """Test about view with HTMX request"""
@@ -42,7 +42,7 @@ class TestAboutView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "About me")
+        self.assertContains(response, "Bio")
 
     def test_about_view_regular_request(self):
         """Test about view with regular HTTP request"""
@@ -59,7 +59,7 @@ class TestAboutView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "About me")
+        self.assertContains(response, "Bio")
 
     def test_about_view_cached_performance(self):
         """Test that cached views perform better on subsequent requests"""
@@ -97,3 +97,13 @@ class TestAboutView(TestCase):
 
         self.assertEqual(response_en.status_code, HTTPStatus.OK)
         self.assertEqual(response_es.status_code, HTTPStatus.OK)
+
+    def test_about_view_content_sections(self):
+        """Test that the redesigned about page has expected sections"""
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "Bio")
+        self.assertContains(response, "Bio")
+        self.assertContains(response, "Beyond code")
+        self.assertContains(response, "Python")

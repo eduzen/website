@@ -676,6 +676,360 @@ body {
   font-size: 0.9rem;
 }
 
+/* ---- About Page ---- */
+.about-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.about-intro {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 1.5rem auto 0;
+  line-height: 1.7;
+}
+
+/* Profile: two-column bio (left) + photo (right), mirroring home layout */
+.about-profile {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 3.5rem;
+}
+
+.about-photo-wrap {
+  position: relative;
+}
+
+.about-photo {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-photo-wrap:hover .about-photo {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.about-bio p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+
+/* Section headings */
+.about-section-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+
+/* Generic about section */
+.about-section {
+  margin-bottom: 3.5rem;
+}
+
+.about-text {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: 1.25rem;
+}
+
+/* Skill pills — three color variants: warm (tech), green (mindset), muted (personal) */
+.about-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.about-skill {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--accent-warm);
+  background: var(--bg-warm);
+  border: 1px solid rgba(194, 105, 45, 0.15);
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  transition: var(--transition);
+}
+
+.about-skill:hover {
+  background: var(--accent-warm);
+  color: #fff;
+  border-color: var(--accent-warm);
+}
+
+/* Green variant — mindset & soft skills */
+.about-skill--green {
+  color: var(--accent);
+  background: #f4f7f1;
+  border-color: rgba(92, 107, 79, 0.15);
+}
+
+.about-skill--green:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Muted variant — personal interests */
+.about-skill--muted {
+  color: #7a6e65;
+  background: var(--bg-alt);
+  border-color: rgba(122, 110, 101, 0.15);
+}
+
+.about-skill--muted:hover {
+  background: #7a6e65;
+  color: #fff;
+  border-color: #7a6e65;
+}
+
+/* "Beyond code" cards */
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.about-card {
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  background: rgba(253, 246, 240, 0.4);
+  transition: var(--transition);
+}
+
+.about-card:hover {
+  border-color: var(--accent-warm-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.about-card__icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.about-card__title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.about-card__text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Bottom CTA */
+.about-cta {
+  text-align: center;
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.about-cta__text {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.about-cta__links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.about-cta__link {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.about-cta__link:hover {
+  border-color: var(--accent-warm);
+  color: var(--accent-warm);
+}
+
+.about-cta__link--primary {
+  background: var(--accent-warm);
+  border-color: var(--accent-warm);
+  color: #fff;
+}
+
+.about-cta__link--primary:hover {
+  background: #a8572a;
+  border-color: #a8572a;
+  color: #fff;
+}
+
+/* ---- Classes Page ---- */
+.classes-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.classes-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+/* Teaching intro */
+.classes-intro {
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+.classes-intro p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+
+/* Resources section */
+.classes-resources {
+  margin-bottom: 3rem;
+}
+
+.classes-resources__intro {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+  max-width: 720px;
+}
+
+.classes-resource-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.classes-resource-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  background: rgba(253, 246, 240, 0.4);
+  text-decoration: none;
+  color: var(--text);
+  transition: var(--transition);
+}
+
+.classes-resource-card:hover {
+  border-color: var(--accent-warm-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.classes-resource-card__icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.classes-resource-card__title {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.classes-resource-card:hover .classes-resource-card__title {
+  color: var(--accent-warm);
+}
+
+/* Books section */
+.classes-books {
+  margin-bottom: 3rem;
+}
+
+.classes-book-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.classes-book-group {
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  background: rgba(253, 246, 240, 0.3);
+}
+
+.classes-book-group__title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.classes-book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.classes-book {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.classes-book:last-child {
+  border-bottom: none;
+}
+
+.classes-book__title {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
 /* ---- Legacy contact section (about page) ---- */
 .contact-section {
   text-align: center;
@@ -1177,6 +1531,47 @@ dialog.confirm-dialog::backdrop {
   .contact-page {
     padding: 3rem 1.5rem;
   }
+
+  /* About page responsive */
+  .about-page {
+    padding: 3rem 1.5rem;
+  }
+
+  .about-profile {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 2rem;
+  }
+
+  /* Photo above bio on mobile */
+  .about-photo-wrap {
+    order: -1;
+  }
+
+  .about-photo {
+    width: 180px;
+    height: 180px;
+  }
+
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .classes-page {
+    padding: 3rem 1.5rem;
+  }
+
+  .classes-resource-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .classes-book-lists {
+    grid-template-columns: 1fr;
+  }
+
+  .about-skills {
+    justify-content: center;
+  }
 }
 
 @media (max-height: 800px) and (min-width: 769px) {
@@ -1269,6 +1664,44 @@ dialog.confirm-dialog::backdrop {
 
   .contact-intro {
     font-size: 0.95rem;
+  }
+
+  .about-page {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .about-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .about-intro {
+    font-size: 1rem;
+  }
+
+  .about-photo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .about-section-title {
+    font-size: 1.3rem;
+  }
+
+  .about-cta__links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .about-cta__link {
+    text-align: center;
+  }
+
+  .classes-page {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .classes-header {
+    margin-bottom: 2.5rem;
   }
 
   .post-content pre {

@@ -6,108 +6,143 @@
 {% partialdef classes-content %}
 {% load i18n static %}
 
-<div class="page-section">
-  <h1 class="section-title text-center reveal">
-    {% translate 'Classes' %}
-  </h1>
+<div class="classes-page">
 
-  <div class="leading-relaxed text-muted">
-    <div class="reveal">
-      <p class="text-lg mt-2">
-        {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page: " %}
-        <a
-          class="warm-link"
-          hx-get="{% url 'about' %}"
-          hx-target="#content"
-          hx-push-url="true"
-          href="{% url 'about' %}">
-          {% translate 'here' %}
-        </a>
-      </p>
-      <p class="text-lg mt-2">
-        {% translate "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in a way that you can lose me (and be independent) in your learning journey." %}
-      </p>
-      <p class="text-lg mt-2">
-        {% translate "We can learn about: Python, or about web frameworks like Django, Flask, or FastAPI. We can also explore other topics like: object-oriented programming, unit tests, clean code or the one that you need." %}
-      </p>
-      <p class="text-lg mt-2">
-        {% translate "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, what we have is data 🗃️, data 🗃️ and data 🗃️, available everywhere." %}
-        {% translate "However, discerning the quality of this data can be challenging. That's where a guide or companion comes in handy 😉." %}
-        {% translate "So I can help you to organize and curate the data and tell you what to use or not." %}
-      </p>
-      <p class="mt-2 text-lg">
-        {% translate "Reach out to me " %}
-        <a
-          class="warm-link"
-          hx-get="{% url 'contact' %}"
-          hx-target="#content"
-          hx-push-url="true"
-          href="{% url 'contact' %}">
-          {% translate "here" %}
-        </a>
-        {% translate "or drop me an email at " %}<a target="_blank" href="mailto:me@eduzen.com.ar" class="warm-link">me@eduzen.com.ar</a>{% translate " and let's chat!" %}
-      </p>
-      <p class="text-lg mt-2">
-        {% translate "If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about your learning objectives. If you're based elsewhere in the world 🌍, not to worry!" %}
-        {% translate "We can set up a Zoom or Meet call to discuss how I can assist you in your coding adventure." %}
-      </p>
-    </div>
-
-    <div class="divider my-8"><hr></div>
-
-    <div class="reveal">
-      <h2 class="section-subtitle text-accent-warm pt-4">
-        {% translate "Online Resources to Learn Python:" %}
-      </h2>
-      <p class="text-lg pt-4 text-justify">
-        {% translate "Impossible not to recommend ChatGPT: " %}<a class="warm-link" target="_blank" href="https://chat.openai.com/">link</a>
-        {% translate "I think it's one of the most important resources from our modern times. It's a great companion that could answer almost everything that you need in this field." %}
-        {% translate "Certainly it's not infallible, it has its caveats and you need to learn how to use it. But it's worthy.  I'm using it every day. " %}
-      </p>
-      <p class="text-lg pt-4 text-justify">
-        {% translate "I also recommend the following resources:" %}
-      </p>
-      <ul class="pt-4 list-disc pl-5">
-        <li class="mt-2">
-          <a target="_blank" class="warm-link" href="http://docs.python.org.ar/tutorial/3/index.html">
-            {% translate "Python: official tutorial" %}
-          </a>
-        </li>
-        <li class="mt-2">
-          <a target="_blank" class="warm-link" href="https://tutorial.djangogirls.org/es/">
-            {% translate "Django girls tutorial: broad tutorial including basic internet and python concepts" %}
-          </a>
-        </li>
-        <li class="mt-2">
-          <a target="_blank" class="warm-link" href="https://www.codecademy.com/learn/learn-python-3">
-            {% translate "Codecademy: free course for learning the basics of Python 3" %}
-          </a>
-        </li>
-      </ul>
-
-      <h2 class="section-subtitle pt-8">
-        {% translate "Some recommended books:" %}
-      </h2>
-      <ul class="pt-4 list-outside list-disc pl-5">
-        <li class="pt-4">
-          <p>{% translate 'Beginners' %}</p>
-          <ol class="list-inside list-decimal pt-4">
-            <li>Grokking Algorithms <a class="warm-link" target="_blank" href="https://www.manning.com/books/grokking-algorithms">link</a></li>
-            <li>Automate the Boring Stuff with Python <a class="warm-link" target="_blank" href="https://automatetheboringstuff.com/">link</a></li>
-            <li>Python Distilled <a class="warm-link" target="_blank" href="http://www.dabeaz.com/python-distilled/">link</a></li>
-          </ol>
-        </li>
-        <li class="pt-4">
-          <p>{% translate 'Medium/Advance' %}</p>
-          <ol class="list-inside list-decimal pt-4">
-            <li>Fluent Python <a class="warm-link" target="_blank" href="https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/">link</a></li>
-            <li>Architecture Patterns with Python <a class="warm-link" target="_blank" href="https://www.oreilly.com/library/view/architecture-patterns-with/9781492052197/">link</a></li>
-            <li>System Design Interviews <a class="warm-link" target="_blank" href="https://www.goodreads.com/en/book/show/54109255">link</a></li>
-          </ol>
-        </li>
-      </ul>
+  <!-- Header -->
+  <div class="classes-header reveal">
+    <h1 class="section-title">{% translate "Classes" %}</h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+    <div class="about-skills">
+      <span class="about-skill">Python</span>
+      <span class="about-skill">Django</span>
+      <span class="about-skill">Flask</span>
+      <span class="about-skill">FastAPI</span>
+      <span class="about-skill about-skill--green">{% translate "Unit Tests" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Clean Code" %}</span>
+      <span class="about-skill about-skill--green">OOP</span>
+      <span class="about-skill about-skill--muted">{% translate "And more..." %}</span>
     </div>
   </div>
+
+  <!-- Teaching philosophy -->
+  <section class="classes-intro reveal">
+    <p>
+      {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page: " %}
+      <a class="warm-link"
+         hx-get="{% url 'about' %}"
+         hx-target="#content"
+         hx-push-url="true"
+         href="{% url 'about' %}">{% translate "here" %}</a>
+    </p>
+    <p>
+      {% translate "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in a way that you can lose me (and be independent) in your learning journey." %}
+    </p>
+    <p>
+      {% translate "We can learn about: Python, or about web frameworks like Django, Flask, or FastAPI. We can also explore other topics like: object-oriented programming, unit tests, clean code or the one that you need." %}
+    </p>
+    <p>
+      {% translate "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, what we have is data 🗃️, data 🗃️ and data 🗃️, available everywhere." %}
+      {% translate "However, discerning the quality of this data can be challenging. That's where a guide or companion comes in handy 😉." %}
+      {% translate "So I can help you to organize and curate the data and tell you what to use or not." %}
+    </p>
+    <p>
+      {% translate "If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about your learning objectives. If you're based elsewhere in the world 🌍, not to worry!" %}
+      {% translate "We can set up a Zoom or Meet call to discuss how I can assist you in your coding adventure." %}
+    </p>
+  </section>
+
+  <!-- Resources -->
+  <section class="classes-resources reveal">
+    <h2 class="about-section-title">{% translate "Online Resources to Learn Python:" %}</h2>
+    <p class="classes-resources__intro">
+      {% translate "Impossible not to recommend ChatGPT: " %}<a class="warm-link" target="_blank" href="https://chat.openai.com/">ChatGPT</a>.
+      {% translate "I think it's one of the most important resources from our modern times. It's a great companion that could answer almost everything that you need in this field." %}
+      {% translate "Certainly it's not infallible, it has its caveats and you need to learn how to use it. But it's worthy.  I'm using it every day. " %}
+    </p>
+    <p class="classes-resources__intro">
+      {% translate "I also recommend the following resources:" %}
+    </p>
+    <div class="classes-resource-cards">
+      <a class="classes-resource-card" target="_blank" rel="noopener" href="http://docs.python.org.ar/tutorial/3/index.html">
+        <span class="classes-resource-card__icon" aria-hidden="true">🐍</span>
+        <span class="classes-resource-card__title">{% translate "Python: official tutorial" %}</span>
+      </a>
+      <a class="classes-resource-card" target="_blank" rel="noopener" href="https://tutorial.djangogirls.org/es/">
+        <span class="classes-resource-card__icon" aria-hidden="true">🟩</span>
+        <span class="classes-resource-card__title">{% translate "Django girls tutorial: broad tutorial including basic internet and python concepts" %}</span>
+      </a>
+      <a class="classes-resource-card" target="_blank" rel="noopener" href="https://www.codecademy.com/learn/learn-python-3">
+        <span class="classes-resource-card__icon" aria-hidden="true">💻</span>
+        <span class="classes-resource-card__title">{% translate "Codecademy: free course for learning the basics of Python 3" %}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Books -->
+  <section class="classes-books reveal">
+    <h2 class="about-section-title">{% translate "Some recommended books:" %}</h2>
+    <div class="classes-book-lists">
+      <div class="classes-book-group">
+        <h3 class="classes-book-group__title">📗 {% translate "Beginners" %}</h3>
+        <ul class="classes-book-list">
+          <li class="classes-book">
+            <span class="classes-book__title">Grokking Algorithms</span>
+            <a class="warm-link" target="_blank" rel="noopener" href="https://www.manning.com/books/grokking-algorithms">↗</a>
+          </li>
+          <li class="classes-book">
+            <span class="classes-book__title">Automate the Boring Stuff with Python</span>
+            <a class="warm-link" target="_blank" rel="noopener" href="https://automatetheboringstuff.com/">↗</a>
+          </li>
+          <li class="classes-book">
+            <span class="classes-book__title">Python Distilled</span>
+            <a class="warm-link" target="_blank" rel="noopener" href="http://www.dabeaz.com/python-distilled/">↗</a>
+          </li>
+        </ul>
+      </div>
+      <div class="classes-book-group">
+        <h3 class="classes-book-group__title">📘 {% translate "Medium/Advance" %}</h3>
+        <ul class="classes-book-list">
+          <li class="classes-book">
+            <span class="classes-book__title">Fluent Python</span>
+            <a class="warm-link" target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/">↗</a>
+          </li>
+          <li class="classes-book">
+            <span class="classes-book__title">Architecture Patterns with Python</span>
+            <a class="warm-link" target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/architecture-patterns-with/9781492052197/">↗</a>
+          </li>
+          <li class="classes-book">
+            <span class="classes-book__title">System Design Interviews</span>
+            <a class="warm-link" target="_blank" rel="noopener" href="https://www.goodreads.com/en/book/show/54109255">↗</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="about-cta reveal">
+    <p class="about-cta__text">
+      {% translate "Reach out to me " %}
+      <a class="warm-link"
+         href="{% url 'contact' %}"
+         hx-get="{% url 'contact' %}"
+         hx-target="#content"
+         hx-push-url="true">{% translate "here" %}</a>
+      {% translate "or drop me an email at " %}<a class="warm-link" target="_blank" href="mailto:me@eduzen.com.ar">me@eduzen.com.ar</a>{% translate " and let's chat!" %}
+    </p>
+    <div class="about-cta__links">
+      <a class="about-cta__link about-cta__link--primary"
+         href="{% url 'contact' %}"
+         hx-get="{% url 'contact' %}"
+         hx-target="#content"
+         hx-push-url="true">
+        {% translate "Get in touch" %} →
+      </a>
+      <a class="about-cta__link" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="about-cta__link" href="{{ global_data.email }}">Email</a>
+    </div>
+  </div>
+
 </div>
 {% endpartialdef classes-content %}
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-31 23:45+0200\n"
+"POT-Creation-Date: 2026-04-03 02:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,6 +83,18 @@ msgstr ""
 
 #: core/templates/core/500.html:11
 msgid "Oops! Something went wrong on our end."
+msgstr ""
+
+#: core/templates/core/utils/base.html:43
+msgid "Send this message?"
+msgstr ""
+
+#: core/templates/core/utils/base.html:47
+msgid "Cancel"
+msgstr ""
+
+#: core/templates/core/utils/base.html:50
+msgid "Send"
 msgstr ""
 
 #: core/templates/core/utils/footer.html:6

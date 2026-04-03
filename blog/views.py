@@ -1,4 +1,3 @@
-import datetime as dt
 import logging
 from typing import Any, cast
 
@@ -90,6 +89,9 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
 
 
 class AboutView(TemplateView):
+    """About page. Dynamic values (years_in_python, years_of_experience)
+    come from the global_data context processor — no need to duplicate here."""
+
     template_name = "blog/about.html"
 
     def get_template_names(self) -> list[str]:
@@ -97,13 +99,6 @@ class AboutView(TemplateView):
         if request.htmx:
             return ["blog/about.html#about-content"]
         return [self.template_name]
-
-    def get_context_data(self, **kwargs: object) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        start_year = 2014
-        current_year = dt.datetime.now().year
-        context["years_of_experience"] = current_year - start_year
-        return context
 
 
 class SuccessView(TemplateView):

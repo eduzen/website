@@ -6,113 +6,127 @@
 {% partialdef about-content %}
 {% load i18n static %}
 
-<div class="page-section">
-  <h1 class="section-title text-center reveal">
-    {% translate "About me" %}
-  </h1>
+<div class="about-page">
 
-  <section class="pt-6 reveal">
-    <p class="text-lg leading-relaxed text-muted">
-      {% translate "Hello World! My name is Eduardo and I'm a developer 💻." %}
-      {% blocktranslate with years=years_in_python %}I've been working ⛏️ with Python 🐍 for the last {{ years }} years, most of the time working as a backend developer with Django.{% endblocktranslate %}
-      {% translate "Currently living in" %} <s>{% translate "Buenos Aires" %}</s>, <s>{% translate "München" %}</s>, {% translate "Amsterdam" %}, {% translate "while working from home." %} 🏠
-    </p>
+  <!-- Header -->
+  <div class="about-header reveal">
+    <h1 class="section-title">Bio</h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+    <div class="about-skills">
+      <span class="about-skill">Python</span>
+      <span class="about-skill">Django</span>
+      <span class="about-skill">Docker</span>
+      <span class="about-skill about-skill--green">{% translate "Problem Solver" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Teacher" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Curious" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Hands On" %}</span>
+      <span class="about-skill about-skill--muted">{% translate "Reader" %}</span>
+      <span class="about-skill about-skill--muted">{% translate "Philosophy" %}</span>
+      <span class="about-skill about-skill--muted">Open Source</span>
+    </div>
+  </div>
+
+  <!-- Profile: bio + photo (photo on the right, like home page) -->
+  <section class="about-profile reveal">
+    <div class="about-bio">
+      <p>
+        {% blocktranslate trimmed with age=global_data.age years_in_nl=global_data.years_in_nl %}
+        Hi, my name is Eduardo. I'm from Buenos Aires, I'm {{ age }} years old, and I currently live in Amsterdam — I moved to the Netherlands in 2020, so it's been about {{ years_in_nl }} years now. I work as a Team Lead at FareHarbor, in a role that combines parts of an engineering manager and a tech lead. Besides that, I really enjoy teaching and helping people grow in the IT world.
+        {% endblocktranslate %}
+      </p>
+      <p>
+        {% blocktranslate trimmed %}
+        My path into software wasn't the usual one. I didn't formally study computer science beyond what I learned in high school. That doesn't mean I didn't spend countless hours, days, and months learning on my own. In fact, studying philosophy and earning my degree in that field played an important role in shaping how I think and approach problems.
+        {% endblocktranslate %}
+      </p>
+      <p>
+        {% blocktranslate trimmed %}
+        I've been working continuously in the software industry since late 2010. Over the years I've worked across many roles, technologies, and environments, but Python 🐍 has been the technology that's stayed with me the longest.
+        {% endblocktranslate %}
+      </p>
+      <p>
+        {% blocktranslate trimmed %}
+        I enjoy open source, teamwork, and solving interesting problems. I like reading, and I'm a naturally curious person. I think that's a good summary of who I am.
+        {% endblocktranslate %}
+      </p>
+      <p>
+        {% blocktranslate trimmed with email_url=global_data.email %}
+        If you'd like to connect, feel free to <a class="warm-link" href="{{ email_url }}">send me an email</a> and we can continue the conversation there.
+        {% endblocktranslate %}
+      </p>
+    </div>
+
+    <div class="about-photo-wrap"
+      x-data="{
+        images: [
+          '{% static 'core/img/bio_pic_1.jpg' %}',
+          '{% static 'core/img/bio_pic_2.jpg' %}',
+          '{% static 'core/img/bio_pic_3.jpg' %}',
+          '{% static 'core/img/bio_pic_4.jpg' %}',
+          '{% static 'core/img/bio_pic_5.jpg' %}'
+        ],
+        currentIndex: 0,
+        intervalId: null,
+        init() { this.intervalId = setInterval(() => { this.currentIndex = (this.currentIndex + 1) % this.images.length; }, 3000); },
+        destroy() { if (this.intervalId) clearInterval(this.intervalId); }
+      }"
+      @mouseenter="if (intervalId) { clearInterval(intervalId); intervalId = null; }"
+      @mouseleave="intervalId = setInterval(() => { currentIndex = (currentIndex + 1) % images.length; }, 3000)">
+      <img class="about-photo"
+           x-bind:src="images[currentIndex]"
+           alt="Eduardo Enriquez"
+           loading="lazy"
+           width="280" height="280">
+    </div>
   </section>
 
-  <!-- Toggle Long Description -->
-  <div x-data="{ open: false }" class="mt-8">
-    <button x-on:click="open = !open" x-on:touchend.prevent="open = !open" class="warm-link font-medium">
-      {% translate "Click to read the long version..." %}
-    </button>
-
-    <div x-show="open" class="mt-6">
-      <div class="flex flex-wrap items-center">
-        <!-- Image Section -->
-        <div class="w-full md:w-1/4 p-4 flex justify-center">
-          <img
-            class='max-w-sm h-48 rounded-full transition-opacity duration-500'
-            x-data="{
-              images: [
-                '{% static 'core/img/bio_pic_1.jpg' %}',
-                '{% static 'core/img/bio_pic_2.jpg' %}',
-                '{% static 'core/img/bio_pic_3.jpg' %}',
-                '{% static 'core/img/bio_pic_4.jpg' %}',
-                '{% static 'core/img/bio_pic_5.jpg' %}'
-              ],
-              currentIndex: 0,
-              intervalId: null,
-              init() {
-                this.startSlideshow();
-              },
-              startSlideshow() {
-                this.intervalId = setInterval(() => {
-                  this.currentIndex = (this.currentIndex + 1) % this.images.length;
-                }, 3000);
-              },
-              stopSlideshow() {
-                if (this.intervalId) {
-                  clearInterval(this.intervalId);
-                  this.intervalId = null;
-                }
-              },
-              destroy() {
-                this.stopSlideshow();
-              }
-            }"
-            x-bind:src="images[currentIndex]"
-            @mouseenter="stopSlideshow()"
-            @mouseleave="startSlideshow()"
-            alt="Eduardo's profile pictures">
-        </div>
-        <div class="w-full md:w-3/4 p-4">
-          <h2 class="section-subtitle text-accent-warm">{% translate 'A bit more about me 😉, so here it goes:' %}</h2>
-          <p class="text-base text-justify leading-relaxed tracking-wide my-4">
-            {% translate "I'm Eduardo Enriquez, aka eduzen." %}
-            {% blocktranslate with years=years_of_experience %}I've been working in the IT industry for quite a long time, {{ years }} years and counting,mostly as a backend developer 💻.{% endblocktranslate %}
-            {% translate "But I also have some experience working as a team leader." %}
-            {% translate "Python 🐍, Django 🟩, and Flask are the main technologies 🧪 that I've been working with." %}
-            {% translate "Naturally, I have some experience 💡 with other things like Javascript, Docker 🐳, Redis 🟥, RabbitMQ 🐰, Celery 🌿, and Linux 🐧." %}
-          </p>
-          <p class="text-base text-justify leading-relaxed tracking-wide my-4">
-            {% translate "You can check my code at " %}<a target="_blank" class="warm-link" href="{{ global_data.github }}">{{ global_data.github }}</a>.
-            {% translate "There you can find some bots like the one that I have for Telegram," %}
-            <a target="_blank" class="warm-link" href="https://github.com/eduzen/bot">eduzen_bot</a> 🤖
-            {% translate "(you can talk to it following this link:" %}
-            <a target="_blank" class="warm-link" href="https://t.me/eduzen_bot"> bot </a>.
-            {% translate "Or you can find the source code of this website at" %}
-            <a target="_blank" class="warm-link" href="https://github.com/eduzen/website">https://github.com/eduzen/website</a>.
-          </p>
-        </div>
-        <div class="w-full">
-          <p class="text-base text-justify leading-relaxed tracking-wide my-4">
-            {% translate "Besides computers, I like good music, books, philosophy, movies, series, and good food. I started trying some mechanical keyboards (right now using a Leo pold 75 %)! But I have also a Keychron K12." %}
-          </p>
-          <p class="text-base text-justify leading-relaxed tracking-wide my-4">
-            {% translate "Some people find it weird that I have a bachelor's degree in philosophy from the University of Buenos Aires 🇦🇷. But I think that rational thinking is something that my profession and studies share." %}
-            {% translate "In general, philosophy has shaped my analytical thinking and fostered my curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and Foucault." %}
-            {% translate "Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and many more..." %}
-          </p>
-          <p class="text-base text-justify leading-relaxed tracking-wide my-4">
-            {% translate "Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my background in philosophy has helped me to be a better teacher." %}
-            {% translate "I've been teaching in the past, and I'm looking forward to doing it more often in the IT field." %}
-          </p>
-        </div>
-
-        <p class="text-base text-justify leading-relaxed tracking-wide my-4">
-          {% translate "If you want to contact me, you can do it through this " %}
-          <a
-            class="warm-link"
-            href="{% url 'contact' %}"
-            hx-get="{% url 'contact' %}"
-            hx-target="#content"
-            hx-push-url="true">
-            {% translate "form" %}
-          </a>
-          {% translate "or through my " %}<a target="_blank" class="warm-link" href="{{ global_data.linkedin }}">{% translate "LinkedIn." %}</a>
+  <!-- Beyond code -->
+  <section class="about-section reveal">
+    <h2 class="about-section-title">{% translate "Beyond code" %}</h2>
+    <div class="about-cards">
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">📚</span>
+        <h3 class="about-card__title">{% translate "Philosophy" %}</h3>
+        <p class="about-card__text">
+          {% translate "Some people find it weird that I have a bachelor's degree in philosophy from the University of Buenos Aires 🇦🇷. But I think that rational thinking is something that my profession and studies share." %}
+          {% translate "In general, philosophy has shaped my analytical thinking and fostered my curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and Foucault." %}
+        </p>
+      </div>
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">👨🏽‍🏫</span>
+        <h3 class="about-card__title">{% translate "Teaching" %}</h3>
+        <p class="about-card__text">
+          {% translate "Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my background in philosophy has helped me to be a better teacher." %}
+          {% translate "I've been teaching in the past, and I'm looking forward to doing it more often in the IT field." %}
+        </p>
+      </div>
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">✨</span>
+        <h3 class="about-card__title">{% translate "Interests" %}</h3>
+        <p class="about-card__text">
+          {% translate "Besides computers, I like good music, books, philosophy, movies, series, and good food. I started trying some mechanical keyboards (right now using a Leo pold 75 %)! But I have also a Keychron K12." %}
+          {% translate "Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and many more..." %}
         </p>
       </div>
     </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="about-cta reveal">
+    <div class="about-cta__links">
+      <a class="about-cta__link about-cta__link--primary"
+         href="{% url 'contact' %}"
+         hx-get="{% url 'contact' %}"
+         hx-target="#content"
+         hx-push-url="true">
+        {% translate "Get in touch" %} →
+      </a>
+      <a class="about-cta__link" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="about-cta__link" href="{{ global_data.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a class="about-cta__link" href="{{ global_data.telegram }}" target="_blank" rel="noopener">Telegram</a>
+    </div>
   </div>
+
 </div>
 {% endpartialdef about-content %}
 
