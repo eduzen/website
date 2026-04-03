@@ -96,8 +96,8 @@ def test_contact_form_successful_submit(page: Page, live_server, accept_dialogs)
 
     page.locator("input[type='submit']").click()
 
-    # Telegram API may fail in test env — check we left the contact form
-    expect(page.locator("#content")).to_contain_text(re.compile(r"Thank you|something went wrong"))
+    # Telegram is skipped in test env (placeholder token) — form always succeeds
+    expect(page.locator("#content")).to_contain_text("Thank you")
 
 
 def test_contact_form_successful_submit_spanish_captcha(page: Page, live_server, accept_dialogs):
@@ -110,7 +110,7 @@ def test_contact_form_successful_submit_spanish_captcha(page: Page, live_server,
 
     page.locator("input[type='submit']").click()
 
-    expect(page.locator("#content")).to_contain_text(re.compile(r"Usuario Test|algo|something went wrong"))
+    expect(page.locator("#content")).to_contain_text("Usuario Test")
 
 
 def test_contact_form_submit_button_warm_theme(page: Page, live_server):
