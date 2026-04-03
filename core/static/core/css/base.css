@@ -763,16 +763,6 @@ body {
   margin-bottom: 3.5rem;
 }
 
-.about-intro {
-  font-family: var(--serif);
-  font-size: 1.15rem;
-  font-style: italic;
-  color: var(--text-muted);
-  max-width: 520px;
-  margin: 1.5rem auto 0;
-  line-height: 1.7;
-}
-
 /* Profile: two-column bio (left) + photo (right), mirroring home layout */
 .about-profile {
   display: grid;
@@ -819,13 +809,6 @@ body {
 /* Generic about section */
 .about-section {
   margin-bottom: 3.5rem;
-}
-
-.about-text {
-  font-size: 1rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-top: 1.25rem;
 }
 
 /* Skill pills — three color variants: warm (tech), green (mindset), muted (personal) */
@@ -921,6 +904,15 @@ body {
   font-size: 0.92rem;
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+/* Centered card variant (for audience grids, etc.) */
+.about-card--centered {
+  text-align: center;
+}
+
+.about-card--centered .about-card__icon {
+  font-size: 1.8rem;
 }
 
 /* Bottom CTA */
@@ -1196,40 +1188,7 @@ body {
   gap: 1.5rem;
 }
 
-.mentoring-audience-card {
-  padding: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
-  background: rgba(253, 246, 240, 0.4);
-  text-align: center;
-  transition: var(--transition);
-}
-
-.mentoring-audience-card:hover {
-  border-color: var(--accent-warm-light);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-}
-
-.mentoring-audience-card__icon {
-  font-size: 1.8rem;
-  display: block;
-  margin-bottom: 0.75rem;
-}
-
-.mentoring-audience-card__title {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-.mentoring-audience-card__text {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
+/* Audience cards reuse .about-card.about-card--centered */
 
 /* ---- Legacy contact section (about page) ---- */
 .contact-section {
@@ -1886,10 +1845,6 @@ dialog.confirm-dialog::backdrop {
 
   .about-header {
     margin-bottom: 2.5rem;
-  }
-
-  .about-intro {
-    font-size: 1rem;
   }
 
   .about-photo {

@@ -104,6 +104,5 @@ class TestAboutView(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertContains(response, "Bio")
-        self.assertContains(response, "Bio")
         self.assertContains(response, "Beyond code")
         self.assertContains(response, "Python")

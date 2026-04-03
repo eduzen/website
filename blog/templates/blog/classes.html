@@ -128,7 +128,7 @@
          hx-get="{% url 'contact' %}"
          hx-target="#content"
          hx-push-url="true">{% translate "here" %}</a>
-      {% translate "or drop me an email at " %}<a class="warm-link" target="_blank" href="mailto:me@eduzen.com.ar">me@eduzen.com.ar</a>{% translate " and let's chat!" %}
+      {% translate "or drop me an email at " %}<a class="warm-link" target="_blank" href="{{ global_data.email }}">me@eduzen.com.ar</a>{% translate " and let's chat!" %}
     </p>
     <div class="about-cta__links">
       <a class="about-cta__link about-cta__link--primary"

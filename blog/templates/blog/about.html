@@ -71,7 +71,7 @@
         destroy() { if (this.intervalId) clearInterval(this.intervalId); }
       }"
       @mouseenter="if (intervalId) { clearInterval(intervalId); intervalId = null; }"
-      @mouseleave="intervalId = setInterval(() => { currentIndex = (currentIndex + 1) % images.length; }, 3000)">
+      @mouseleave="if (!intervalId) { intervalId = setInterval(() => { currentIndex = (currentIndex + 1) % images.length; }, 3000); }">
       <img class="about-photo"
            x-bind:src="images[currentIndex]"
            alt="Eduardo Enriquez"

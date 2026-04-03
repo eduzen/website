@@ -41,8 +41,8 @@ def global_data(request: HttpRequest) -> dict[str, dict[str, str]]:
 
     data = {
         **_STATIC_GLOBAL_DATA,
-        "years_in_python": str(today.year - START_PYTHON_YEAR),
-        "years_of_experience": str(today.year - START_DEVELOPMENT_YEAR),
+        "years_in_python": years_since(START_PYTHON_YEAR),
+        "years_of_experience": years_since(START_DEVELOPMENT_YEAR),
         "age": years_since(*BIRTH_YEAR_MONTH),
         "years_in_nl": years_since(*MOVED_TO_NL_YEAR_MONTH),
     }
