@@ -5,7 +5,7 @@ MOBILE_VIEWPORT = {"width": 375, "height": 667}
 
 # Language dropdown selectors (desktop nav)
 LANG_BTN = "div.hidden.md\\:flex .language-button"
-LANG_DROPDOWN = "div.hidden.md\\:flex [x-show='open']"
+LANG_DROPDOWN = "div.hidden.md\\:flex [data-testid='language-dropdown']"
 
 
 @pytest.fixture

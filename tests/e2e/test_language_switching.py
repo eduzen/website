@@ -78,7 +78,7 @@ def test_mobile_language_switching(page: Page, live_server):
     mobile_btn = page.locator(".language-button").nth(1)
     mobile_btn.click()
 
-    mobile_dropdown = mobile_btn.locator("..").locator("[x-show='open']")
+    mobile_dropdown = mobile_btn.locator("..").locator("[data-testid='language-dropdown']")
     mobile_dropdown.locator("a").nth(1).click()
 
     expect(page).to_have_url(f"{live_server.url}/es/contact/")
