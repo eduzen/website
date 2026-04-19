@@ -132,7 +132,7 @@ class TestPostUpdateStylesView(TestCase):
 
         self.client.force_login(self.superuser)
         url = reverse("post_update_styles", kwargs={"post_id": self.post.pk})
-        response = self.client.get(url, HTTP_HX_REQUEST="true")
+        response = self.client.get(url, headers={"hx-request": "true"})
 
         # Should redirect to admin regardless of HTMX
         self.assertEqual(response.status_code, HTTPStatus.FOUND)

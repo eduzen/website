@@ -64,7 +64,7 @@ class TestPostDetailView(TestCase):
     def test_post_detail_htmx_request(self) -> None:
         """Test post detail with HTMX request"""
         url = reverse("post_detail", kwargs={"slug": self.post.slug})
-        response = self.client.get(url, HTTP_HX_REQUEST="true")
+        response = self.client.get(url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only
@@ -158,6 +158,8 @@ class TestPostDetailView(TestCase):
 
     def test_post_detail_htmx_post_not_found(self) -> None:
         """Test post not found with HTMX"""
-        response = self.client.get(reverse("post_detail", kwargs={"slug": "nonexistent-slug"}), HTTP_HX_REQUEST="true")
+        response = self.client.get(
+            reverse("post_detail", kwargs={"slug": "nonexistent-slug"}), headers={"hx-request": "true"}
+        )
 
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)

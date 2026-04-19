@@ -27,7 +27,7 @@ class TestContactView(TestCase):
 
     def test_contact_view_htmx_request(self):
         """Test contact view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only
@@ -114,7 +114,7 @@ class TestContactView(TestCase):
             "captcha": "red",  # Answer to "What color is the red rabbit?"
         }
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         # May redirect to error page if telegram service fails
         self.assertIn(response.status_code, [HTTPStatus.OK, HTTPStatus.FOUND])
@@ -126,7 +126,7 @@ class TestContactView(TestCase):
         """Test invalid contact form submission via HTMX"""
         form_data = {}  # Empty form
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the contact template
@@ -246,7 +246,7 @@ class TestContactView(TestCase):
             "captcha": "red",
         }
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         # Should render success template for HTMX when Telegram succeeds
         self.assertEqual(response.status_code, HTTPStatus.OK)

@@ -18,6 +18,15 @@
   {% translate "Consultancy" %}
 </a>
 
+<a href="{% url 'work' %}"
+   hx-get="{% url 'work' %}"
+   hx-target="#content"
+   hx-push-url="true"
+   @click="isMobileMenuOpen = false"
+   class="block py-2 nav-link {% if 'work' in request.path %}active-link font-medium{% endif %}">
+  {% translate "Work" %}
+</a>
+
 <div class="nav-dropdown-mobile" x-data="{ subOpen: false }">
   <button @click="subOpen = !subOpen"
           class="block py-2 nav-link w-full text-left {% if 'classes' in request.path or 'mentoring' in request.path %}active-link font-medium{% endif %}"

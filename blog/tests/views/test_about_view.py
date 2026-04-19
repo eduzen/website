@@ -37,7 +37,7 @@ class TestAboutView(TestCase):
 
     def test_about_view_htmx_request(self):
         """Test about view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only

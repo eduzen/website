@@ -1,0 +1,80 @@
+{% extends 'core/utils/base.html' %}
+{% load partials %}
+
+{% block content %}
+
+{% partialdef work-content %}
+{% load i18n static %}
+
+<div class="work-page">
+
+  <!-- Header -->
+  <div class="work-header reveal">
+    <h1 class="section-title">{% translate "Work" %}</h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+    <p class="work-subtitle">
+      {% translate "A selection of projects I've built or contributed to." %}
+    </p>
+  </div>
+
+  <!-- Project mosaic -->
+  <section class="work-mosaic">
+    {% for project in projects %}
+    <a class="work-project reveal"
+       href="{{ project.url }}"
+       target="_blank"
+       rel="noopener">
+      {% if project.image %}
+      <div class="work-project__preview">
+        <img src="{% static project.image %}"
+             alt="{{ project.name }} preview"
+             class="work-project__img"
+             loading="lazy"
+             width="640" height="360">
+      </div>
+      {% endif %}
+      <div class="work-project__body">
+        <div class="work-project__header">
+          <h2 class="work-project__name">{{ project.name }}</h2>
+          <span class="work-project__arrow" aria-hidden="true">↗</span>
+        </div>
+        <p class="work-project__desc">{{ project.description }}</p>
+        <div class="work-project__tags">
+          {% for tag in project.tags %}
+          <span class="about-skill">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </section>
+
+  <!-- CTA -->
+  <div class="about-cta reveal">
+    <p class="about-cta__text">
+      {% translate "Have a project in mind? Let's build something together." %}
+    </p>
+    <div class="about-cta__links">
+      <a class="about-cta__link about-cta__link--primary"
+         href="{% url 'contact' %}"
+         hx-get="{% url 'contact' %}"
+         hx-target="#content"
+         hx-push-url="true">
+        {% translate "Get in touch" %} →
+      </a>
+      <a class="about-cta__link"
+         href="{% url 'consultancy' %}"
+         hx-get="{% url 'consultancy' %}"
+         hx-target="#content"
+         hx-push-url="true">
+        {% translate "Consultancy" %}
+      </a>
+    </div>
+  </div>
+
+</div>
+{% endpartialdef work-content %}
+
+{% partial work-content %}
+
+{% endblock content %}

@@ -84,7 +84,7 @@ class TestAdvanceSearchView(TestCase):
         """Test search form submission via HTMX"""
         form_data = {"q": "python django"}
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         # Should redirect to success page
         self.assertEqual(response.status_code, HTTPStatus.FOUND)

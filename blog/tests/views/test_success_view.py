@@ -23,7 +23,7 @@ class TestSuccessView(TestCase):
 
     def test_success_view_htmx_request(self):
         """Test success view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # Success view doesn't have separate HTMX template, uses same template

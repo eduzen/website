@@ -175,7 +175,6 @@ GS_DEFAULT_ACL = "publicRead"  # Make the files public
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CKEDITOR_JQUERY_URL = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
 CKEDITOR_UPLOAD_PATH = "/"

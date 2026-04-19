@@ -37,7 +37,7 @@ class TestPostListView(TestCase):
 
     def test_post_list_view_htmx_request(self) -> None:
         """Test post list view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render only the partial content
@@ -251,7 +251,7 @@ class TestPostListView(TestCase):
         # Create enough posts to trigger pagination
         PostFactory.create_batch(25, author=self.user, published_date=timezone.now())
 
-        response = self.client.get(self.url + "?page=2", HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url + "?page=2", headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render only the partial content

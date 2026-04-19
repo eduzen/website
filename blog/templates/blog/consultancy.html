@@ -6,99 +6,131 @@
 {% partialdef consultancy-content %}
 {% load i18n static %}
 
-<div class="page-section">
-  <h1 class="section-title text-center reveal">
-    {% translate 'Consultancy Services' %}
-  </h1>
+<div class="consultancy-page">
 
-  <p class="text-lg mt-4 leading-relaxed text-justify text-muted reveal">
-    {% translate "Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a sprinkle of fun and a dollop of expertise." %}
-    {% translate "Let's code something delightful!" %}
-    {% translate "With over 10 years in the industry 👴🏿, I offer useful insights and expertise for daily challenges." %}
-    {% translate "Remote 💻 or in-person 🪑, I'm here to assist." %}
-    {% translate "Interested in my professional journey?" %}
-    {% translate "Check out my" %}&nbsp;<a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">{% translate "LinkedIn profile" %}.</a>
-  </p>
+  <!-- Header -->
+  <div class="consultancy-header reveal">
+    <h1 class="section-title">{% translate "Consultancy" %}</h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+    <div class="about-skills">
+      <span class="about-skill">Python</span>
+      <span class="about-skill">Django</span>
+      <span class="about-skill">Docker</span>
+      <span class="about-skill about-skill--green">{% translate "Code Review" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Performance" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Training" %}</span>
+      <span class="about-skill about-skill--muted">{% translate "Remote" %}</span>
+      <span class="about-skill about-skill--muted">{% translate "On-site" %}</span>
+    </div>
+  </div>
 
-  <div class="divider my-8"><hr></div>
+  <!-- Intro -->
+  <section class="consultancy-intro reveal">
+    <p>
+      {% translate "With over 10 years in the industry, I offer hands-on expertise for individuals and businesses tackling daily technical challenges." %}
+      {% translate "Remote or in-person, I'm here to help you ship better software." %}
+    </p>
+    <p>
+      {% translate "Interested in my professional journey?" %}
+      {% translate "Check out my" %}&nbsp;<a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">{% translate "LinkedIn profile" %}</a>.
+    </p>
+  </section>
 
   <!-- Services -->
-  <section class="mb-12">
-    <h2 class="section-title text-center reveal">{% translate "Services" %}</h2>
-    <div class="identity-grid identity-grid-2">
-      <div class="identity-card reveal">
-        <div class="card-accent"></div>
-        <h3>{% translate 'For the Rising Tech Stars: Individuals' %}</h3>
-        <p>
-          {% translate "Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer." %}
-          {% translate "Stuck on a bug 🐛? I've got your back, literally!" %}
+  <section class="consultancy-section reveal">
+    <h2 class="about-section-title">{% translate "Services" %}</h2>
+    <div class="consultancy-cards">
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">🧑‍💻</span>
+        <h3 class="about-card__title">{% translate "For Individuals" %}</h3>
+        <p class="about-card__text">
+          {% translate "Personalized training, classes, and tutoring to help you grow into an autonomous developer." %}
+          {% translate "Stuck on a bug? I've got your back." %}
         </p>
       </div>
-      <div class="identity-card reveal">
-        <div class="card-accent"></div>
-        <h3>{% translate 'For the Business: Companies' %}</h3>
-        <p>
-          {% translate "Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!), fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️." %}
-          {% translate "If it's tech, I'm your guy!" %}
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider my-8"><hr></div>
-
-  <!-- Experience and Skills -->
-  <section class="mb-12">
-    <h2 class="section-title text-center reveal">{% translate "Experience & Skills" %}</h2>
-    <div class="identity-grid identity-grid-2">
-      <div class="identity-card reveal">
-        <div class="card-accent"></div>
-        <h3>{% translate "Years of Mischief & Mastery" %}</h3>
-        <p>
-          {% translate "Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!" %}
-        </p>
-        <p class="mt-4">
-          {% translate "Read more about my experience on linkedin " %}
-          <a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">{% translate "here" %}.</a>
-        </p>
-      </div>
-      <div class="identity-card reveal">
-        <div class="card-accent"></div>
-        <h3>{% translate 'Techno-Sorcery' %}</h3>
-        <p>
-          {% translate "From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️." %}
-        </p>
-        <p class="mt-4">
-          {% translate "Read more about me here: " %}
-          <a href="{% url 'about' %}"
-             hx-get="{% url 'about' %}"
-             hx-target="#content"
-             hx-push-url="true"
-             class="warm-link">{% translate 'about' %}.</a>
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">🏢</span>
+        <h3 class="about-card__title">{% translate "For Companies" %}</h3>
+        <p class="about-card__text">
+          {% translate "Day-to-day solutions, team training (unit testing, robust code), Django/Python performance fixes, legacy code evaluation, and version upgrades." %}
         </p>
       </div>
     </div>
   </section>
 
-  <div class="divider my-8"><hr></div>
+  <!-- How I can help -->
+  <section class="consultancy-section reveal">
+    <h2 class="about-section-title">{% translate "How I can help" %}</h2>
+    <div class="consultancy-cards consultancy-cards--wide">
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">🐍</span>
+        <h3 class="about-card__title">{% translate "Python & Django" %}</h3>
+        <p class="about-card__text">
+          {% translate "From debugging to architecture, I've worked with Python for over a decade. Django, Flask, FastAPI — I can help you choose the right tool and use it well." %}
+        </p>
+      </div>
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">⚡</span>
+        <h3 class="about-card__title">{% translate "Performance" %}</h3>
+        <p class="about-card__text">
+          {% translate "Slow queries, high response times, or scaling bottlenecks? I'll profile your application, identify the root causes, and implement concrete improvements." %}
+        </p>
+      </div>
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">🔍</span>
+        <h3 class="about-card__title">{% translate "Code Review" %}</h3>
+        <p class="about-card__text">
+          {% translate "A fresh pair of eyes on your codebase. I'll evaluate code quality, identify tech debt, and provide actionable recommendations for improvement." %}
+        </p>
+      </div>
+      <div class="about-card">
+        <span class="about-card__icon" aria-hidden="true">👥</span>
+        <h3 class="about-card__title">{% translate "Team Training" %}</h3>
+        <p class="about-card__text">
+          {% translate "Workshops and hands-on sessions on testing, clean code, Python best practices, and modern development workflows for your team." %}
+        </p>
+      </div>
+    </div>
+  </section>
 
-  <!-- Contact -->
-  <section class="contact-section">
-    <span class="section-label reveal">{% translate "Get in Touch" %}</span>
-    <h2 class="section-title reveal">{% translate "Let's talk" %}</h2>
-    <p class="reveal">
-      {% translate "Ready to embark on a tech adventure or brew up a business solution? Let's talk!" %}
+  <!-- Experience -->
+  <section class="consultancy-section reveal">
+    <h2 class="about-section-title">{% translate "Experience" %}</h2>
+    <div class="consultancy-intro">
+      <p>
+        {% translate "Over the years I've worked across many roles, technologies, and environments — from startups to established companies, from solo projects to large engineering teams." %}
+      </p>
+      <p>
+        {% translate "Read more about my experience on " %}
+        <a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">LinkedIn</a>
+        {% translate " or learn more " %}
+        <a href="{% url 'about' %}"
+           hx-get="{% url 'about' %}"
+           hx-target="#content"
+           hx-push-url="true"
+           class="warm-link">{% translate "about me" %}</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="about-cta reveal">
+    <p class="about-cta__text">
+      {% translate "Ready to tackle a technical challenge together? Let's talk." %}
     </p>
-    <div class="contact-links reveal">
-      <a href="{% url 'contact' %}"
+    <div class="about-cta__links">
+      <a class="about-cta__link about-cta__link--primary"
+         href="{% url 'contact' %}"
          hx-get="{% url 'contact' %}"
          hx-target="#content"
-         hx-push-url="true"
-         class="contact-link">
-        {% translate 'Contact Me' %}
+         hx-push-url="true">
+        {% translate "Get in touch" %} →
       </a>
+      <a class="about-cta__link" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="about-cta__link" href="{{ global_data.email }}">Email</a>
     </div>
-  </section>
+  </div>
+
 </div>
 {% endpartialdef consultancy-content %}
 

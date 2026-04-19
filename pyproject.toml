@@ -14,7 +14,7 @@ classifiers = [
 dependencies = [
   "beautifulsoup4",
   "crispy-tailwind",
-  "django",
+  "django>=6.0",
   "django-ckeditor",
   "django-cors-headers",
   "django-crispy-forms",

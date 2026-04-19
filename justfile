@@ -63,24 +63,24 @@ build *args: copy-env
     {{ DCO }} build {{ args }}
 
 [group('django')]
-check:
-    {{ MANAGE }} check
+check *args:
+    {{ MANAGE }} check {{ args }}
 
 [group('django')]
-check-deploy:
-    {{ MANAGE_PROD }} check --deploy
+check-deploy *args:
+    {{ MANAGE_PROD }} check --deploy {{ args }}
 
 [group('django')]
-migrate:
-    {{ MANAGE }} migrate
+migrate *args:
+    {{ MANAGE }} migrate {{ args }}
 
 [group('django')]
-makemigrations:
-    {{ MANAGE }} makemigrations
+makemigrations *args:
+    {{ MANAGE }} makemigrations {{ args }}
 
 [group('django')]
-showmigrations:
-    {{ MANAGE }} showmigrations
+showmigrations *args:
+    {{ MANAGE }} showmigrations {{ args }}
 
 [group('django')]
 createsuperuser username='admin':
@@ -88,12 +88,12 @@ createsuperuser username='admin':
         {{ MANAGE }} createsuperuser --username "$username" --email "$username@example.com" --noinput
 
 [group('django')]
-showurls:
-    {{ MANAGE }} show_urls
+showurls *args:
+    {{ MANAGE }} show_urls {{ args }}
 
 [group('django')]
-improve-posts:
-    {{ MANAGE }} improve_posts
+improve-posts *args:
+    {{ MANAGE }} improve_posts {{ args }}
 
 [group('i18n')]
 translations-extract locale='all' *args='': copy-env

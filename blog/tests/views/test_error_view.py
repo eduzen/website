@@ -21,7 +21,7 @@ class TestErrorView(TestCase):
 
     def test_404_error_view_htmx_request(self):
         """Test 404 error view with HTMX request"""
-        response = self.client.get("/non-existent-page/", HTTP_HX_REQUEST="true")
+        response = self.client.get("/non-existent-page/", headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 

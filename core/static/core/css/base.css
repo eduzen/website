@@ -108,7 +108,8 @@ body {
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  /* Keep centering separate from Alpine's transition-managed transform. */
+  translate: -50% 0;
   min-width: 140px;
   padding: 0.5rem 0;
   margin-top: 0.35rem;
@@ -538,50 +539,6 @@ body {
   font-size: 0.75rem;
   color: var(--text-muted);
   white-space: nowrap;
-}
-
-/* ---- Identity / What I Do Grid ---- */
-.identity-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  margin-top: 3rem;
-}
-
-.identity-card {
-  padding: 0;
-}
-
-.identity-card h3 {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.identity-card p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-}
-
-.identity-grid-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.card-accent {
-  width: 32px;
-  height: 2px;
-  margin-bottom: 1.5rem;
-}
-
-.identity-card:nth-child(odd) .card-accent {
-  background: var(--accent);
-}
-
-.identity-card:nth-child(even) .card-accent {
-  background: var(--accent-warm);
 }
 
 /* ---- Contact Page ---- */
@@ -1097,6 +1054,157 @@ body {
   color: var(--text-muted);
 }
 
+/* ---- Consultancy Page ---- */
+.consultancy-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.consultancy-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.consultancy-intro {
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+.consultancy-intro p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+
+.consultancy-section {
+  margin-bottom: 3.5rem;
+}
+
+.consultancy-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* ---- Work / Portfolio Page ---- */
+.work-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.work-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.work-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.work-mosaic {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.work-project {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  background: rgba(253, 246, 240, 0.4);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+.work-project:hover {
+  border-color: var(--accent-warm-light);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Screenshot preview */
+.work-project__preview {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-alt);
+}
+
+.work-project__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.4s ease;
+}
+
+.work-project:hover .work-project__img {
+  transform: scale(1.03);
+}
+
+/* Card body */
+.work-project__body {
+  padding: 1.5rem;
+}
+
+.work-project__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.work-project__name {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.work-project:hover .work-project__name {
+  color: var(--accent-warm);
+}
+
+.work-project__arrow {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+  transition: var(--transition);
+}
+
+.work-project:hover .work-project__arrow {
+  color: var(--accent-warm);
+  transform: translate(2px, -2px);
+}
+
+.work-project__desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.work-project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.work-project__tags .about-skill {
+  font-size: 0.72rem;
+  padding: 0.25rem 0.65rem;
+}
+
 /* ---- Mentoring Page ---- */
 .mentoring-page {
   max-width: var(--max-width);
@@ -1189,27 +1297,6 @@ body {
 }
 
 /* Audience cards reuse .about-card.about-card--centered */
-
-/* ---- Legacy contact section (about page) ---- */
-.contact-section {
-  text-align: center;
-  padding: 6rem 2rem;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.contact-section .section-title {
-  margin-bottom: 1rem;
-}
-
-.contact-section p {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  margin-bottom: 2.5rem;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .contact-links {
   display: flex;
@@ -1608,13 +1695,6 @@ dialog.confirm-dialog::backdrop {
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 1024px) {
-  .identity-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-  }
-}
-
 @media (max-width: 768px) {
   #main-navbar > div {
     padding-left: 1rem;
@@ -1627,12 +1707,6 @@ dialog.confirm-dialog::backdrop {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .identity-grid,
-  .identity-grid-2 {
-    grid-template-columns: 1fr;
-    gap: 2rem;
   }
 
   .essay-item {
@@ -1733,6 +1807,20 @@ dialog.confirm-dialog::backdrop {
     justify-content: center;
   }
 
+  /* Consultancy responsive */
+  .consultancy-page {
+    padding: 3rem 1.5rem;
+  }
+
+  .consultancy-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Work / Portfolio responsive */
+  .work-page {
+    padding: 3rem 1.5rem;
+  }
+
   /* Mentoring responsive */
   .mentoring-page {
     padding: 3rem 1.5rem;
@@ -1773,20 +1861,8 @@ dialog.confirm-dialog::backdrop {
 }
 
 @media (max-width: 640px) {
-  .page-section,
-  .contact-section {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
   .page-section {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-
-  .contact-section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding: 3rem 1.25rem;
   }
 
   .divider {
@@ -1870,6 +1946,22 @@ dialog.confirm-dialog::backdrop {
   }
 
   .classes-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .consultancy-page {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .consultancy-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .work-page {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .work-header {
     margin-bottom: 2.5rem;
   }
 

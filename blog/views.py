@@ -125,6 +125,58 @@ class HomeView(TemplateView):
         return [self.template_name]
 
 
+class WorkView(TemplateView):
+    template_name = "blog/work.html"
+
+    def get_template_names(self) -> list[str]:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
+            return ["blog/work.html#work-content"]
+        return [self.template_name]
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:  # noqa: ANN401
+        context = super().get_context_data(**kwargs)
+        context["projects"] = [
+            {
+                "name": "Maiteblog",
+                "url": "https://maiteblog.com",
+                "description": (
+                    "A personal baby tracker for the moments that matter. "
+                    "Log feeds, diapers, sleep, and more in one tap-friendly view."
+                ),
+                "tags": ["Django", "React", "Python"],
+                "image": "core/img/work/maiteblog.jpg",
+            },
+            {
+                "name": "GroomIt",
+                "url": "https://groomit.io",
+                "description": (
+                    "Turn sprint retrospectives into engaging sessions "
+                    "where agile teams reflect, learn, and grow together."
+                ),
+                "tags": ["FastAPI", "React", "Python"],
+                "image": "core/img/work/groomit.jpg",
+            },
+            {
+                "name": "Champi",
+                "url": "https://champi.dev",
+                "description": (
+                    "Restaurant management platform — access, teams, and operations organized by role and context."
+                ),
+                "tags": ["Django", "React", "Python"],
+                "image": "core/img/work/champi.jpg",
+            },
+            {
+                "name": "Althaia",
+                "url": "https://althaia.nl",
+                "description": "Website for a Dutch wellness brand. Currently under construction.",
+                "tags": ["Django", "HTMX", "Python"],
+                "image": "core/img/work/althaia.jpg",
+            },
+        ]
+        return context
+
+
 class ConsultancyView(TemplateView):
     template_name = "blog/consultancy.html"
 

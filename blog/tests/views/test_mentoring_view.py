@@ -23,7 +23,7 @@ class TestMentoringView(TestCase):
 
     def test_mentoring_view_htmx_request(self) -> None:
         """Test mentoring view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertNotContains(response, "<!DOCTYPE html>")
