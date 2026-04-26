@@ -9,6 +9,9 @@ I18N_IGNORE := "--ignore .venv --ignore .git --ignore node_modules --ignore webs
 MANAGE := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.dev web uv run manage.py"
 MANAGE_PROD := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.prod web uv run manage.py"
 
+up:
+  just run
+
 # Helper recipe
 copy-env:
     @if [ ! -f .env ]; then \

@@ -2,6 +2,7 @@ volumes:
   pgdata:
   shell_history:
   ipy_history:
+  uv-venv:
 
 services:
   web:
@@ -27,7 +28,7 @@ services:
           path: ./pyproject.toml
     volumes:
       - .:/code
-      - /code/.venv
+      - uv-venv:/code/.venv
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
       - ./secrets/eduzen.json:/root/keys/eduzen.json
@@ -74,7 +75,7 @@ services:
           path: ./pyproject.toml
     volumes:
       - .:/code
-      - /code/.venv
+      - uv-venv:/code/.venv
     depends_on:
       - db
       - redis
