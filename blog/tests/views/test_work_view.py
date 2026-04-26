@@ -23,9 +23,9 @@ class TestWorkView(TestCase):
     def test_work_view_contains_projects(self) -> None:
         response = self.client.get(self.url)
 
-        self.assertContains(response, "Maite Blog")
-        self.assertContains(response, "Groomit")
-        self.assertContains(response, "Champi.dev")
+        self.assertContains(response, "Maiteblog")
+        self.assertContains(response, "GroomIt")
+        self.assertContains(response, "Champi")
         self.assertContains(response, "Althaia")
 
     def test_work_view_htmx_request(self) -> None:

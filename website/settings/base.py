@@ -41,7 +41,6 @@ THIRD_PARTY_APPS = [
     "crispy_tailwind",
     "django_extensions",
     "django_htmx",
-    "template_partials",
     "easy_thumbnails",
     "image_cropping",
     "robots",
@@ -99,15 +98,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "website.wsgi.application"
 
 # Database
-DATABASES: dict = {
-    'default': config(
-        'DATABASE_URL',
-        default=f"sqlite:///{BASE_DIR}/db.sqlite3",
-        cast=db_url
-    )
-}
+DATABASES: dict = {"default": config("DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3", cast=db_url)}
 
-DATABASES['default'].setdefault("OPTIONS", {}).update({"pool": True})  # NOQA
+DATABASES["default"].setdefault("OPTIONS", {}).update({"pool": True})  # NOQA
 
 
 # Password validation
