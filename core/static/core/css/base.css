@@ -482,11 +482,15 @@ body {
   z-index: 1;
 }
 
-/* ---- Page Section ---- */
-.page-section {
+/* ---- Page Layout ---- */
+.page-layout {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 4rem 2rem;
+}
+
+.page-prose {
+  max-width: 70ch;
 }
 
 /* ---- Writing / Essay Grid ---- */
@@ -542,12 +546,6 @@ body {
 }
 
 /* ---- Contact Page ---- */
-.contact-page {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
 .contact-header {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -709,12 +707,6 @@ body {
 }
 
 /* ---- About Page ---- */
-.about-page {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
 .about-header {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -723,7 +715,7 @@ body {
 /* Profile: two-column bio (left) + photo (right), mirroring home layout */
 .about-profile {
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: minmax(0, 70ch) 220px;
   gap: 3rem;
   align-items: start;
   margin-bottom: 3.5rem;
@@ -925,12 +917,6 @@ body {
 }
 
 /* ---- Classes Page ---- */
-.classes-page {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
 .classes-header {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -938,8 +924,7 @@ body {
 
 /* Teaching intro */
 .classes-intro {
-  max-width: 720px;
-  margin: 0 auto 3rem;
+  margin-bottom: 3rem;
 }
 
 .classes-intro p {
@@ -1055,20 +1040,13 @@ body {
 }
 
 /* ---- Consultancy Page ---- */
-.consultancy-page {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
 .consultancy-header {
   text-align: center;
   margin-bottom: 3.5rem;
 }
 
 .consultancy-intro {
-  max-width: 720px;
-  margin: 0 auto 3rem;
+  margin-bottom: 3rem;
 }
 
 .consultancy-intro p {
@@ -1089,12 +1067,6 @@ body {
 }
 
 /* ---- Work / Portfolio Page ---- */
-.work-page {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
 .work-header {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -1206,12 +1178,6 @@ body {
 }
 
 /* ---- Mentoring Page ---- */
-.mentoring-page {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
 .mentoring-header {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -1219,8 +1185,7 @@ body {
 
 /* Intro text */
 .mentoring-intro {
-  max-width: 720px;
-  margin: 0 auto 3rem;
+  margin-bottom: 3rem;
 }
 
 .mentoring-intro p {
@@ -1762,15 +1727,11 @@ dialog.confirm-dialog::backdrop {
     order: 1;
   }
 
-  .contact-page {
+  .page-layout {
     padding: 3rem 1.5rem;
   }
 
   /* About page responsive */
-  .about-page {
-    padding: 3rem 1.5rem;
-  }
-
   .about-profile {
     grid-template-columns: 1fr;
     justify-items: center;
@@ -1791,10 +1752,6 @@ dialog.confirm-dialog::backdrop {
     grid-template-columns: 1fr;
   }
 
-  .classes-page {
-    padding: 3rem 1.5rem;
-  }
-
   .classes-resource-cards {
     grid-template-columns: 1fr;
   }
@@ -1808,24 +1765,13 @@ dialog.confirm-dialog::backdrop {
   }
 
   /* Consultancy responsive */
-  .consultancy-page {
-    padding: 3rem 1.5rem;
-  }
-
   .consultancy-cards {
     grid-template-columns: 1fr;
   }
 
   /* Work / Portfolio responsive */
-  .work-page {
-    padding: 3rem 1.5rem;
-  }
 
   /* Mentoring responsive */
-  .mentoring-page {
-    padding: 3rem 1.5rem;
-  }
-
   .mentoring-cards {
     grid-template-columns: 1fr;
   }
@@ -1861,8 +1807,8 @@ dialog.confirm-dialog::backdrop {
 }
 
 @media (max-width: 640px) {
-  .page-section {
-    padding: 3rem 1.25rem;
+  .page-layout {
+    padding: 2.5rem 1.25rem;
   }
 
   .divider {
@@ -1903,20 +1849,12 @@ dialog.confirm-dialog::backdrop {
     width: 100%;
   }
 
-  .contact-page {
-    padding: 2.5rem 1.25rem;
-  }
-
   .contact-header {
     margin-bottom: 2.5rem;
   }
 
   .contact-intro {
     font-size: 0.95rem;
-  }
-
-  .about-page {
-    padding: 2.5rem 1.25rem;
   }
 
   .about-header {
@@ -1941,32 +1879,16 @@ dialog.confirm-dialog::backdrop {
     text-align: center;
   }
 
-  .classes-page {
-    padding: 2.5rem 1.25rem;
-  }
-
   .classes-header {
     margin-bottom: 2.5rem;
-  }
-
-  .consultancy-page {
-    padding: 2.5rem 1.25rem;
   }
 
   .consultancy-header {
     margin-bottom: 2.5rem;
   }
 
-  .work-page {
-    padding: 2.5rem 1.25rem;
-  }
-
   .work-header {
     margin-bottom: 2.5rem;
-  }
-
-  .mentoring-page {
-    padding: 2.5rem 1.25rem;
   }
 
   .mentoring-header {

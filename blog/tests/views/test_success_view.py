@@ -26,8 +26,7 @@ class TestSuccessView(TestCase):
         response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        # Success view doesn't have separate HTMX template, uses same template
-        self.assertTemplateUsed(response, "blog/success.html")
+        self.assertTemplateUsed(response, "success-content")
 
     def test_success_view_regular_request(self):
         """Test success view with regular HTTP request"""
@@ -35,15 +34,15 @@ class TestSuccessView(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "blog/success.html")
-        # Success page is a simple template without full HTML structure
-        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertTemplateUsed(response, "core/utils/base.html")
+        self.assertContains(response, "<!DOCTYPE html>", count=1)
 
     def test_success_view_htmx_request_no_doctype(self):
         """Test success view HTMX request doesn't include full page structure"""
         response = self.client.get(self.url, headers={"HX-Request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/success.html")
+        self.assertTemplateUsed(response, "success-content")
         self.assertNotContains(response, "<!DOCTYPE html>")
 
     def test_success_view_post_request(self):

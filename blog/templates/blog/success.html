@@ -1,6 +1,11 @@
+{% extends 'core/utils/base.html' %}
+
+{% block content %}
+
+{% partialdef success-content %}
 {% load i18n %}
 
-<div class="contact-page">
+<div class="contact-page page-layout">
   <div class="contact-result reveal">
     <span class="contact-result__icon" aria-hidden="true">✓</span>
     <h1 class="section-title">
@@ -22,3 +27,8 @@
     </a>
   </div>
 </div>
+{% endpartialdef success-content %}
+
+{% partial success-content %}
+
+{% endblock content %}

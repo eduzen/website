@@ -104,15 +104,33 @@ class AboutView(TemplateView):
 class SuccessView(TemplateView):
     template_name = "blog/success.html"
 
+    def get_template_names(self) -> list[str]:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
+            return ["blog/success.html#success-content"]
+        return [self.template_name]
+
 
 class ErrorView(TemplateView):
     template_name = "blog/error.html"
+
+    def get_template_names(self) -> list[str]:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
+            return ["blog/error.html#error-content"]
+        return [self.template_name]
 
 
 class AdvanceSearch(FormView):
     template_name = "blog/search.html"
     form_class = AdvanceSearchForm
     success_url = "/success/"
+
+    def get_template_names(self) -> list[str]:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx:
+            return ["blog/search.html#search-content"]
+        return [self.template_name]
 
 
 class HomeView(TemplateView):
@@ -310,10 +328,10 @@ class ContactView(FormView):
             logger.exception("Contact problems")
             return redirect(self.error_url)
 
-        return render(self.request, "blog/success.html", context)
+        request = cast(HtmxHttpRequest, self.request)
+        template_name = "blog/success.html#success-content" if request.htmx else "blog/success.html"
+        return render(self.request, template_name, context)
 
     def form_invalid(self, form: ContactForm) -> HttpResponse:
-        # Use the same template for both HTMX and normal requests
-        # The template will handle the conditional rendering based on request.htmx
         context_data = self.get_context_data(form=form)
-        return render(self.request, self.template_name, context_data)
+        return self.render_to_response(context_data)

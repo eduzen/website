@@ -5,7 +5,7 @@
 {% partialdef about-content %}
 {% load i18n static %}
 
-<div class="about-page">
+<div class="about-page page-layout">
 
   <!-- Header -->
   <div class="about-header reveal">
@@ -27,7 +27,7 @@
 
   <!-- Profile: bio + photo (photo on the right, like home page) -->
   <section class="about-profile reveal">
-    <div class="about-bio">
+    <div class="about-bio page-prose">
       <p>
         {% blocktranslate trimmed with age=global_data.age years_in_nl=global_data.years_in_nl %}
         Hi, my name is Eduardo. I'm from Buenos Aires, I'm {{ age }} years old, and I currently live in Amsterdam — I moved to the Netherlands in 2020, so it's been about {{ years_in_nl }} years now. I work as a Team Lead at FareHarbor, in a role that combines parts of an engineering manager and a tech lead. Besides that, I really enjoy teaching and helping people grow in the IT world.

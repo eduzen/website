@@ -1,6 +1,11 @@
+{% extends 'core/utils/base.html' %}
+
+{% block content %}
+
+{% partialdef error-content %}
 {% load i18n %}
 
-<div class="contact-page">
+<div class="contact-page page-layout">
   <div class="contact-result reveal">
     <span class="contact-result__icon contact-result__icon--error" aria-hidden="true">!</span>
     {% if error %}
@@ -30,3 +35,8 @@
     {% endif %}
   </div>
 </div>
+{% endpartialdef error-content %}
+
+{% partial error-content %}
+
+{% endblock content %}

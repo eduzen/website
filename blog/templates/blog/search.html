@@ -2,7 +2,11 @@
 {% load i18n static %}
 
 {% block content %}
-<div class="page-section">
+
+{% partialdef search-content %}
+{% load i18n static %}
+
+<div class="page-layout">
   <h2 class="section-title reveal">{% translate 'Advance Search' %}</h2>
   <div class="flex flex-col md:flex-row">
     <div class="md:w-2/3 mb-6 md:mb-0">
@@ -17,4 +21,8 @@
     </div>
   </div>
 </div>
+{% endpartialdef search-content %}
+
+{% partial search-content %}
+
 {% endblock content %}
