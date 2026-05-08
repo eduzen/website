@@ -22,10 +22,10 @@ class Tag(models.Model):
 
 
 class PostQuerySet(models.QuerySet):
-    def published(self) -> "PostQuerySet":
+    def published(self) -> PostQuerySet:
         return self.filter(published_date__isnull=False).prefetch_related("tags")
 
-    def count_tags(self) -> "models.QuerySet":
+    def count_tags(self) -> models.QuerySet:
         return (
             self.filter(published_date__isnull=False)
             .values("tags__slug")

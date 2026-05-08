@@ -80,13 +80,9 @@ e2e = [
 addopts = "--ds=website.settings.test"
 asyncio_mode = "auto"
 
-[tool.isort]
-profile = "black"
-include_trailing_comma = true
-
 [tool.ruff]
 line-length = 120
-target-version = "py311"
+target-version = "py314"
 exclude = [
   "website/settings/base.py",
   "website/settings/test.py",
@@ -160,7 +156,7 @@ exclude_lines = [
 pretty_print=true
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.14"
 warn_return_any = false
 warn_unused_configs = true
 plugins = [

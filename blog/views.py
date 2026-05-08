@@ -52,7 +52,7 @@ class SafePaginationMixin(MultipleObjectMixin, View):
 
         try:
             page_number = int(page)
-        except (ValueError, TypeError):
+        except ValueError, TypeError:
             # Invalid page number, redirect to page 1
             query_params = self.request.GET.copy()
             query_params["page"] = "1"
