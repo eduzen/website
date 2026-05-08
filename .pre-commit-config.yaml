@@ -19,7 +19,7 @@ repos:
       - id: debug-statements
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1
+    rev: v1.46.1
     hooks:
       - id: typos
         exclude: ^(.*htmx\.min\..*\.js|core/static/core/vendor/.*)$
