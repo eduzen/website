@@ -257,3 +257,15 @@ class TestPostListView(TestCase):
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
         self.assertContains(response, "Blog")
+
+    def test_pagination_links_include_htmx_contract(self) -> None:
+        """Pagination links should preserve HTMX target and push-state behavior."""
+        PostFactory.create_batch(25, author=self.user, published_date=timezone.now())
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'href="?page=2"')
+        self.assertContains(response, 'hx-get="?page=2"')
+        self.assertContains(response, 'hx-target="#content"')
+        self.assertContains(response, 'hx-push-url="true"')

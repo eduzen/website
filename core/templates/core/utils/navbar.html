@@ -10,6 +10,7 @@
          hx-get="{% url 'home' %}"
          hx-target="#content"
          hx-push-url="true"
+         data-nav-sections="home"
          class="logo {% if request.resolver_match.url_name == 'home' %}active-link{% endif %}">
         eduzen
       </a>

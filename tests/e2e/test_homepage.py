@@ -1,3 +1,5 @@
+import re
+
 import pytest
 from playwright.sync_api import Page, expect
 
@@ -73,6 +75,69 @@ def test_htmx_navigation(page: Page, live_server):
 
         # Verify content area was updated
         expect(page.locator("#content")).to_be_visible()
+
+
+def test_nav_active_state_updates_with_htmx_and_history(page: Page, live_server):
+    page.goto(f"{live_server.url}/en/")
+
+    home_logo = page.locator("#main-navbar .logo")
+    about_link = page.locator("#main-navbar a[data-nav-sections~='about']").first
+    blog_link = page.locator("#main-navbar a[data-nav-sections~='blog']").first
+
+    expect(home_logo).to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(about_link).to_have_attribute("class", re.compile(r"\bnav-link\b"))
+
+    about_link.click()
+    page.wait_for_url(f"{live_server.url}/en/about/")
+    page.wait_for_load_state("networkidle")
+
+    expect(about_link).to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(home_logo).not_to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(blog_link).not_to_have_attribute("class", re.compile(r"\bactive-link\b"))
+
+    page.go_back()
+    page.wait_for_url(f"{live_server.url}/en/")
+    page.wait_for_load_state("networkidle")
+
+    expect(home_logo).to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(about_link).not_to_have_attribute("class", re.compile(r"\bactive-link\b"))
+
+
+def test_nav_keyboard_focus_styles(page: Page, live_server):
+    page.goto(f"{live_server.url}/en/")
+
+    about_link = page.locator("#main-navbar a[data-nav-sections~='about']").first
+    language_button = page.locator("div.hidden.md\\:flex .language-button").first
+
+    about_focus = about_link.evaluate(
+        """(element) => {
+            element.focus();
+            const styles = window.getComputedStyle(element);
+            return {
+                outlineStyle: styles.outlineStyle,
+                outlineWidth: styles.outlineWidth,
+                outlineColor: styles.outlineColor,
+            };
+        }"""
+    )
+    assert about_focus["outlineStyle"] != "none"
+    assert about_focus["outlineWidth"] != "0px"
+    assert "194, 105, 45" in about_focus["outlineColor"]
+
+    language_focus = language_button.evaluate(
+        """(element) => {
+            element.focus();
+            const styles = window.getComputedStyle(element);
+            return {
+                outlineStyle: styles.outlineStyle,
+                outlineWidth: styles.outlineWidth,
+                outlineColor: styles.outlineColor,
+            };
+        }"""
+    )
+    assert language_focus["outlineStyle"] != "none"
+    assert language_focus["outlineWidth"] != "0px"
+    assert "194, 105, 45" in language_focus["outlineColor"]
 
 
 def test_responsive_design(page: Page, live_server):

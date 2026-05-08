@@ -256,3 +256,12 @@ class TestContactView(TestCase):
         mock_send_telegram.assert_called_once_with(
             name="HTMX User", email="htmx@example.com", message="HTMX test message"
         )
+
+    def test_contact_form_htmx_contract_targets_content(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'hx-post="/en/contact/"')
+        self.assertContains(response, 'hx-target="#content"')
+        self.assertContains(response, 'hx-swap="innerHTML"')
+        self.assertContains(response, 'data-confirm="true"')

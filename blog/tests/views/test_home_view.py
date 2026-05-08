@@ -165,3 +165,23 @@ class TestHomeView(TestCase):
             self.assertNotContains(htmx_response, 'id="main-navbar"')
             # With django-template-partials, HTMX requests render only partial content
             self.assertNotContains(htmx_response, "<!DOCTYPE html>")
+
+    def test_navigation_uses_explicit_nav_sections(self):
+        """Desktop nav links should expose deterministic section matching metadata."""
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'data-nav-sections="home"')
+        self.assertContains(response, 'data-nav-sections="blog posts tags"')
+        self.assertContains(response, 'data-nav-sections="about"')
+        self.assertContains(response, 'data-nav-sections="contact"')
+
+    def test_language_dropdown_menu_semantics_present(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'data-testid="language-dropdown"')
+        self.assertContains(response, 'role="menu"')
+        self.assertContains(response, 'role="menuitem"')
+        self.assertContains(response, "@click.prevent=\"switchLanguage('en')\"")
+        self.assertContains(response, "@click.prevent=\"switchLanguage('es')\"")
