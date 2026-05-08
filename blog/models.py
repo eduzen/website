@@ -58,7 +58,7 @@ class Post(models.Model):
 
     @property
     def published(self) -> bool:
-        return True if self.published_date else False
+        return bool(self.published_date)
 
     def get_absolute_url(self) -> str:
         return reverse("post_detail", args=[self.slug])

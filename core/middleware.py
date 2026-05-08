@@ -49,7 +49,7 @@ def _is_cloudflare_addr(addr: str) -> bool:
 
 class CloudflareRealIPMiddleware:
     """
-    Reemplaza REMOTE_ADDR con CF‑Connecting‑IP **solo** si la petición
+    Reemplaza REMOTE_ADDR con CF-Connecting-IP **solo** si la petición
     proviene de un rango de Cloudflare. Además expone la IP en request.ip
     para usarla fácilmente en tus logs.
     """
@@ -71,6 +71,6 @@ class CloudflareRealIPMiddleware:
 
         # atributo de conveniencia
         # Set request.ip to CF-Connecting-IP when available, otherwise use REMOTE_ADDR
-        setattr(request, "ip", cf_ip if cf_ip else request.META.get("REMOTE_ADDR"))
+        request.ip = cf_ip if cf_ip else request.META.get("REMOTE_ADDR")
 
         return self.get_response(request)

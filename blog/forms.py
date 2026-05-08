@@ -13,6 +13,11 @@ from blog.services.captcha import verify_captcha
 log = logging.getLogger(__name__)
 
 
+class InvalidCaptchaValidationError(forms.ValidationError):
+    def __init__(self) -> None:
+        super().__init__("invalid captcha")
+
+
 class EmailForm(forms.Form):
     subject = forms.CharField(label="Nombre", max_length=100, required=True)
     from_email = forms.EmailField(max_length=150, label="E-mail", required=True)
@@ -69,5 +74,5 @@ class ContactForm(forms.Form):
         # Get the cleaned value (after built-in validation checks)
         captcha = self.cleaned_data.get("captcha", "")
         if not verify_captcha(captcha):
-            raise forms.ValidationError("invalid captcha")
+            raise InvalidCaptchaValidationError()
         return captcha

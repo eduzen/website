@@ -23,9 +23,11 @@ def test_filter_search_applies_ranked_search_for_value() -> None:
     filtered_queryset.annotate.return_value = annotated_queryset
     annotated_queryset.order_by.return_value = "ordered"
 
-    with patch("blog.filters.SearchQuery", return_value="search-query") as mock_search_query:
-        with patch("blog.filters.SearchRank", return_value="search-rank") as mock_search_rank:
-            result = filterset.filter_search(queryset, "q", "django")
+    with (
+        patch("blog.filters.SearchQuery", return_value="search-query") as mock_search_query,
+        patch("blog.filters.SearchRank", return_value="search-rank") as mock_search_rank,
+    ):
+        result = filterset.filter_search(queryset, "q", "django")
 
     assert result == "ordered"
     mock_search_query.assert_called_once_with("django")

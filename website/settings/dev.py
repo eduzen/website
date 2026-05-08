@@ -37,11 +37,11 @@ if DEBUG:
         "debug_toolbar",
         "django_browser_reload",
     ]
-    MIDDLEWARE = (
-        ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-        + MIDDLEWARE
-        + ["django_browser_reload.middleware.BrowserReloadMiddleware"]
-    )
+    MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        *MIDDLEWARE,
+        "django_browser_reload.middleware.BrowserReloadMiddleware",
+    ]
 
 CACHES = {
     "default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"},

@@ -39,7 +39,7 @@ def get_better_title(title: str) -> str:
         "Constraints:\n"
         "    - The word 'title' doesn't need to appear.\n"
         "    - I need only one suggested title.\n"
-        "    - The max length is 200, ideally shorter (50–80).\n"
+        "    - The max length is 200, ideally shorter (50-80).\n"
         "    - Please respect the language of the text.\n"
         "If it is Spanish, respond in Spanish. If English, respond in English.\n"
         f"Title: '{title}'"

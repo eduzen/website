@@ -97,10 +97,15 @@ select = [
   "UP",  # Pyupgrade
   "ANN", # Missing type annotations
   "PLC0415", # Import outside top-level (no inline imports)
+  "B",  # flake8-bugbear
+  "SIM", # flake8-simplify
+  "RUF", # Ruff-specific rules
+  "TRY", # tryceratops (exception handling quality)
+  "RET", # flake8-return (return consistency)
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"**/migrations/*.py" = ["ANN"]
+"**/migrations/*.py" = ["ANN", "RUF012"]
 "blog/admin.py" = ["ANN"]
 "blog/forms.py" = ["ANN"]
 "blog/management/commands/*.py" = ["ANN"]
@@ -125,6 +130,12 @@ select = [
 "core/tests/**/*.py" = ["ANN"]
 "proposals/*.py" = ["ANN"]
 "tests/**/*.py" = ["ANN"]
+"**/admin.py" = ["RUF012"]
+"**/tests/**/*.py" = ["TRY", "RET"]
+"**/filters.py" = ["RUF012"]
+"**/models.py" = ["RUF012"]
+"**/serializers.py" = ["RUF012"]
+"**/views.py" = ["RUF012"]
 
 [tool.coverage.run]
 branch = true

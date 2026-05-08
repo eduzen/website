@@ -17,6 +17,20 @@ from .cache_service import (
 logger = logging.getLogger(__name__)
 
 
+class RedisUnavailableError(ConnectionError):
+    def __init__(self, url: str) -> None:
+        super().__init__(f"Cannot connect to Redis server at '{url}'.")
+
+
+class CacheServiceInitializationError(RuntimeError):
+    def __init__(self, alias: str) -> None:
+        super().__init__(f"Failed to initialize RedisCacheService for alias '{alias}'.")
+
+
+def _raise_redis_unavailable(url: str) -> None:
+    raise RedisUnavailableError(url)
+
+
 def get_cache_service(alias: str) -> AbstractCacheService:
     """Return an instance of the appropriate cache service class based on settings."""
     cache_config = settings.CACHES[alias]
@@ -40,13 +54,13 @@ def get_cache_service(alias: str) -> AbstractCacheService:
                 socket_timeout=socket_timeout,
             )
             if not r_client.ping():
-                logger.error(f"Redis server at '{url}' is not responding to PING.")
-                raise ConnectionError(f"Cannot connect to Redis server at '{url}'.")
+                logger.error("Redis server at '%s' is not responding to PING.", url)
+                _raise_redis_unavailable(url)
 
             return RedisCacheService(alias, redis_connection=r_client)
-        except Exception as e:
-            logger.exception(f"Error creating Redis client for alias '{alias}': {e}")
-            raise RuntimeError(f"Failed to initialize RedisCacheService for alias '{alias}': {e}") from e
+        except Exception as err:
+            logger.exception("Error creating Redis client for alias '%s'", alias)
+            raise CacheServiceInitializationError(alias) from err
 
     if "MemcachedCache" in backend:
         logger.info(f"Creating MemcachedService for alias '{alias}'")

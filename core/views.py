@@ -40,8 +40,7 @@ def chatgpt_improve_post(request: HttpRequest, post_id: int) -> HttpResponse:
             response = json.dumps(post.suggestions, ensure_ascii=False, sort_keys=True, indent=2)
             formatted_response = highlight_json(response)
             return HttpResponse(formatted_response, content_type="text/html")
-        else:
-            return HttpResponse(status=204)
+        return HttpResponse(status=204)
     except Post.DoesNotExist:
         return HttpResponse(status=404)
     except Exception:
@@ -75,7 +74,7 @@ def proposal_view(request: HttpRequest, filename: str) -> HttpResponse:
     # Prevent directory traversal
     if not file_path.resolve().is_relative_to(proposals_dir.resolve()):
         return HttpResponse(status=403)
-    if not file_path.exists() or not file_path.suffix == ".html":
+    if not file_path.exists() or file_path.suffix != ".html":
         return HttpResponse(status=404)
     return HttpResponse(file_path.read_text(), content_type="text/html")
 
