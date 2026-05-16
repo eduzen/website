@@ -8,6 +8,16 @@ from django.core.cache import caches
 from django.core.cache.backends.base import BaseCache
 
 
+class RedisConnectionRequiredError(ValueError):
+    def __init__(self) -> None:
+        super().__init__("A valid Redis connection must be provided.")
+
+
+class RedisCacheClearError(RuntimeError):
+    def __init__(self) -> None:
+        super().__init__("Failed to clear Redis cache.")
+
+
 class AbstractCacheService(abc.ABC):
     """Interface for cache services, enforcing the methods all backends must implement."""
 
@@ -37,7 +47,7 @@ class RedisCacheService(AbstractCacheService):
     def __init__(self, alias: str, redis_connection: redis.Redis) -> None:
         super().__init__(alias)
         if not redis_connection:
-            raise ValueError("A valid Redis connection must be provided for RedisCacheService.")
+            raise RedisConnectionRequiredError()
         self.redis_connection = redis_connection
 
     def ping(self) -> bool:
@@ -55,8 +65,8 @@ class RedisCacheService(AbstractCacheService):
         """Flush the entire Redis cache."""
         try:
             self.redis_connection.flushdb()
-        except redis.RedisError as e:
-            raise RuntimeError(f"Failed to clear Redis cache: {e}")
+        except redis.RedisError as err:
+            raise RedisCacheClearError() from err
 
     def get_stats(self) -> dict[str, object]:
         stats: dict[str, object] = {}
@@ -116,10 +126,11 @@ class MemcachedService(AbstractCacheService):
         # But this is very library-specific.
         try:
             mem_stats = self.cache._cache.get_stats()  # type: ignore
-            # parse results
-            return {"raw_stats": mem_stats}
         except Exception:
             return {"message": "Stats not available for memcached or library not supported."}
+        else:
+            # parse results
+            return {"raw_stats": mem_stats}
 
 
 class DatabaseCacheService(AbstractCacheService):

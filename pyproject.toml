@@ -82,13 +82,9 @@ e2e = [
 addopts = "--ds=website.settings.test"
 asyncio_mode = "auto"
 
-[tool.isort]
-profile = "black"
-include_trailing_comma = true
-
 [tool.ruff]
 line-length = 120
-target-version = "py311"
+target-version = "py314"
 exclude = [
   "website/settings/base.py",
   "website/settings/test.py",
@@ -103,10 +99,15 @@ select = [
   "UP",  # Pyupgrade
   "ANN", # Missing type annotations
   "PLC0415", # Import outside top-level (no inline imports)
+  "B",  # flake8-bugbear
+  "SIM", # flake8-simplify
+  "RUF", # Ruff-specific rules
+  "TRY", # tryceratops (exception handling quality)
+  "RET", # flake8-return (return consistency)
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"**/migrations/*.py" = ["ANN"]
+"**/migrations/*.py" = ["ANN", "RUF012"]
 "blog/admin.py" = ["ANN"]
 "blog/forms.py" = ["ANN"]
 "blog/management/commands/*.py" = ["ANN"]
@@ -131,6 +132,12 @@ select = [
 "core/tests/**/*.py" = ["ANN"]
 "proposals/*.py" = ["ANN"]
 "tests/**/*.py" = ["ANN"]
+"**/admin.py" = ["RUF012"]
+"**/tests/**/*.py" = ["TRY", "RET"]
+"**/filters.py" = ["RUF012"]
+"**/models.py" = ["RUF012"]
+"**/serializers.py" = ["RUF012"]
+"**/views.py" = ["RUF012"]
 
 [tool.coverage.run]
 branch = true
@@ -162,7 +169,7 @@ exclude_lines = [
 pretty_print=true
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.14"
 warn_return_any = false
 warn_unused_configs = true
 plugins = [

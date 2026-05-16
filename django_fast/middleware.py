@@ -24,8 +24,8 @@ class ProfilerMiddleware(MiddlewareMixin):
         """
         del view_func, view_args, view_kwargs
         # Store per-request timing markers (dynamic attributes on HttpRequest).
-        setattr(request, "_profile_start_dt", timezone.now())  # real wall-clock start
-        setattr(request, "_profile_start_perf", time.perf_counter())  # high-res timer for duration
+        request._profile_start_dt = timezone.now()  # real wall-clock start
+        request._profile_start_perf = time.perf_counter()  # high-res timer for duration
 
     def process_response(self, request: HttpRequest, response: HttpResponse) -> HttpResponse:
         """

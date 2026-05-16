@@ -1,10 +1,12 @@
 {% load i18n static %}
 
+{% with current_view=request.resolver_match.url_name %}
 <a href="{% url 'blog' %}"
    hx-get="{% url 'blog' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">
+   data-nav-sections="blog posts tags"
+   class="nav-link {% if current_view == 'blog' or current_view == 'post_list' or current_view == 'post_detail' or current_view == 'blog_slug' or current_view == 'bytag' %}active-link{% endif %}">
   {% translate "Blog" %}
 </a>
 
@@ -12,7 +14,8 @@
    hx-get="{% url 'consultancy' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">
+   data-nav-sections="consultancy"
+   class="nav-link {% if current_view == 'consultancy' %}active-link{% endif %}">
   {% translate "Consultancy" %}
 </a>
 
@@ -20,13 +23,15 @@
    hx-get="{% url 'work' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'work' in request.path %}active-link{% endif %}">
+   data-nav-sections="work"
+   class="nav-link {% if current_view == 'work' %}active-link{% endif %}">
   {% translate "Work" %}
 </a>
 
 <div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
   <button @click="open = !open"
-          class="nav-link nav-dropdown__trigger {% if 'classes' in request.path or 'mentoring' in request.path %}active-link{% endif %}"
+          data-nav-sections="classes mentoring"
+          class="nav-link nav-dropdown__trigger {% if current_view == 'classes' or current_view == 'mentoring' %}active-link{% endif %}"
           :aria-expanded="open ? 'true' : 'false'">
     {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="{ 'nav-dropdown__chevron--open': open }" aria-hidden="true">&#9662;</span>
   </button>
@@ -37,16 +42,18 @@
        hx-get="{% url 'mentoring' %}"
        hx-target="#content"
        hx-push-url="true"
+       data-nav-sections="mentoring"
        @click="open = false"
-       class="nav-dropdown__item {% if 'mentoring' in request.path %}nav-dropdown__item--active{% endif %}">
+       class="nav-dropdown__item {% if current_view == 'mentoring' %}nav-dropdown__item--active{% endif %}">
       {% translate "Mentoring" %}
     </a>
     <a href="{% url 'classes' %}"
        hx-get="{% url 'classes' %}"
        hx-target="#content"
        hx-push-url="true"
+       data-nav-sections="classes"
        @click="open = false"
-       class="nav-dropdown__item {% if 'classes' in request.path %}nav-dropdown__item--active{% endif %}">
+       class="nav-dropdown__item {% if current_view == 'classes' %}nav-dropdown__item--active{% endif %}">
       {% translate "Classes" %}
     </a>
   </div>
@@ -56,7 +63,8 @@
    hx-get="{% url 'about' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'about' in request.path %}active-link{% endif %}">
+   data-nav-sections="about"
+   class="nav-link {% if current_view == 'about' %}active-link{% endif %}">
   {% translate "About" %}
 </a>
 
@@ -64,7 +72,8 @@
    hx-get="{% url 'contact' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">
+   data-nav-sections="contact"
+   class="nav-link {% if current_view == 'contact' %}active-link{% endif %}">
   {% translate "Contact" %}
 </a>
 
@@ -73,3 +82,4 @@
 {% endif %}
 
 {% include 'core/utils/language_dropdown_button.html' %}
+{% endwith %}

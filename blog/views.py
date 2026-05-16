@@ -23,6 +23,18 @@ from .services.telegram import send_contact_message
 logger = logging.getLogger(__name__)
 
 
+class HtmxPartialTemplateMixin:
+    htmx_template_name: str | None = None
+    request: HttpRequest
+    template_name: str
+
+    def get_template_names(self) -> list[str]:
+        request = cast(HtmxHttpRequest, self.request)
+        if request.htmx and self.htmx_template_name:
+            return [self.htmx_template_name]
+        return [self.template_name]
+
+
 class SafePaginationMixin(MultipleObjectMixin, View):
     """Mixin to handle pagination errors by redirecting to the last valid page."""
 
@@ -40,7 +52,7 @@ class SafePaginationMixin(MultipleObjectMixin, View):
 
         try:
             page_number = int(page)
-        except (ValueError, TypeError):
+        except ValueError, TypeError:
             # Invalid page number, redirect to page 1
             query_params = self.request.GET.copy()
             query_params["page"] = "1"
@@ -88,17 +100,12 @@ def post_update_styles(request: HttpRequest, post_id: int) -> HttpResponse:
     return redirect("admin:blog_post_change", post_id)
 
 
-class AboutView(TemplateView):
+class AboutView(HtmxPartialTemplateMixin, TemplateView):
     """About page. Dynamic values (years_in_python, years_of_experience)
     come from the global_data context processor — no need to duplicate here."""
 
     template_name = "blog/about.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/about.html#about-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/about.html#about-content"
 
 
 class SuccessView(TemplateView):
@@ -133,24 +140,14 @@ class AdvanceSearch(FormView):
         return [self.template_name]
 
 
-class HomeView(TemplateView):
+class HomeView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/home.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/home.html#home-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/home.html#home-content"
 
 
-class WorkView(TemplateView):
+class WorkView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/work.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/work.html#work-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/work.html#work-content"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:  # noqa: ANN401
         context = super().get_context_data(**kwargs)
@@ -195,64 +192,39 @@ class WorkView(TemplateView):
         return context
 
 
-class ConsultancyView(TemplateView):
+class ConsultancyView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/consultancy.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/consultancy.html#consultancy-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/consultancy.html#consultancy-content"
 
 
-class ClassesView(TemplateView):
+class ClassesView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/classes.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/classes.html#classes-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/classes.html#classes-content"
 
 
-class MentoringView(TemplateView):
+class MentoringView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/mentoring.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/mentoring.html#mentoring-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/mentoring.html#mentoring-content"
 
 
-class PostListView(SafePaginationMixin, FilterView):
+class PostListView(HtmxPartialTemplateMixin, SafePaginationMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
+    htmx_template_name = "blog/posts/list.html#posts-list-content"
     ordering = ["-published_date"]
     filterset_class = PostFilter
     paginate_by = 12
 
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/posts/list.html#posts-list-content"]
-        return [self.template_name]
 
-
-class PostTagsListView(SafePaginationMixin, FilterView):
+class PostTagsListView(HtmxPartialTemplateMixin, SafePaginationMixin, FilterView):
     queryset = Post.objects.published()
     context_object_name = "posts"
     template_name = "blog/posts/list.html"
+    htmx_template_name = "blog/posts/list.html#posts-list-content"
     ordering = ["-published_date"]
     filterset_class = PostFilter
     paginate_by = 12
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/posts/list.html#posts-list-content"]
-        return [self.template_name]
 
     def get_context_data(self, *, object_list: object | None = None, **kwargs: Any) -> dict[str, Any]:  # noqa: ANN401
         context = super().get_context_data(object_list=cast(Any, object_list), **kwargs)
@@ -263,28 +235,18 @@ class PostTagsListView(SafePaginationMixin, FilterView):
         return self.queryset.filter(tags__slug__iexact=self.kwargs.get("tag"))
 
 
-class PostDetailView(DetailView):
+class PostDetailView(HtmxPartialTemplateMixin, DetailView):
     queryset = Post.objects.select_related("author").prefetch_related("tags").published()
     context_object_name = "post"
     template_name = "blog/posts/detail.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/posts/detail.html#post-detail-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/posts/detail.html#post-detail-content"
 
 
-class RelatedPostsView(ListView):
+class RelatedPostsView(HtmxPartialTemplateMixin, ListView):
     template_name = "blog/posts/related_posts.html"
+    htmx_template_name = "blog/posts/related_posts.html#related-posts-content"
     context_object_name = "related_posts"
     paginate_by = 4
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/posts/related_posts.html#related-posts-content"]
-        return [self.template_name]
 
     def get_queryset(self) -> QuerySet[Post]:
         post_id = self.kwargs.get("post_id")
@@ -303,16 +265,11 @@ class RelatedPostsView(ListView):
         return context
 
 
-class ContactView(FormView):
+class ContactView(HtmxPartialTemplateMixin, FormView):
     template_name = "blog/contact.html"
+    htmx_template_name = "blog/contact.html#contact-content"
     form_class = ContactForm
     error_url = reverse_lazy("error")
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/contact.html#contact-content"]
-        return [self.template_name]
 
     def form_valid(self, form: ContactForm) -> HttpResponse:
         context = {

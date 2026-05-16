@@ -6,6 +6,11 @@ from django.views.generic.base import TemplateResponseMixin
 from .types import HtmxHttpRequest
 
 
+class MissingTemplateNameError(ImproperlyConfigured):
+    def __init__(self, view_name: str) -> None:
+        super().__init__(f"{view_name} requires `template_name`.")
+
+
 class HtmxGetMixin(TemplateResponseMixin):
     """
     Handle HTMX requests by swapping to partial templates.
@@ -25,4 +30,4 @@ class HtmxGetMixin(TemplateResponseMixin):
         if self.template_name:
             return [self.template_name]
 
-        raise ImproperlyConfigured(f"{self.__class__.__name__} requires `template_name`.")
+        raise MissingTemplateNameError(self.__class__.__name__)

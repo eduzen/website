@@ -7,4 +7,4 @@ if TYPE_CHECKING:
 
 
 class HtmxHttpRequest(HttpRequestBase):
-    htmx: "HtmxDetails"
+    htmx: HtmxDetails

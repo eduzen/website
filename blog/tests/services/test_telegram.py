@@ -5,8 +5,8 @@ from requests.exceptions import HTTPError
 
 from blog.services.telegram import send_message
 
-# Patch TELEGRAM_TOKEN to a "real" value so the guard doesn't skip sending
-REAL_TOKEN_PATCH = patch("blog.services.telegram.TELEGRAM_TOKEN", "real-bot-token")
+# Patch TELEGRAM_TOKEN to a valid-looking value so send_message doesn't skip sending
+REAL_TOKEN_PATCH = patch("blog.services.telegram.TELEGRAM_TOKEN", "12345:real-bot-token")
 
 
 class SendMessageTest(unittest.TestCase):
@@ -43,5 +43,5 @@ class SendMessageTest(unittest.TestCase):
         with patch("blog.services.telegram.TELEGRAM_TOKEN", "foo"):
             response = send_message("Hello!")
 
-        assert response["ok"] == "true"
+        assert response["ok"] is True
         assert "skipped" in response["description"]

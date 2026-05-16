@@ -59,15 +59,18 @@ def test_language_flag_shows_correct_icon(page: Page, live_server):
 
 
 def test_language_switch_after_htmx_navigation(page: Page, live_server):
-    """Test language switching works after HTMX navigation changes the URL."""
+    """Test language switching works after HTMX navigation and keeps URL state."""
     page.goto(f"{live_server.url}/en/")
 
     page.locator("a[hx-get][href*='/about/']").first.click()
     page.wait_for_url(f"{live_server.url}/en/about/")
     page.wait_for_load_state("networkidle")
 
+    page.evaluate("() => window.history.replaceState({}, '', `${window.location.pathname}?source=htmx#bio`)")
+    expect(page).to_have_url(f"{live_server.url}/en/about/?source=htmx#bio")
+
     _switch_to_spanish(page)
-    expect(page).to_have_url(f"{live_server.url}/es/about/")
+    expect(page).to_have_url(f"{live_server.url}/es/about/?source=htmx#bio")
 
 
 def test_mobile_language_switching(page: Page, live_server):
@@ -94,3 +97,28 @@ def test_dropdown_does_not_duplicate(page: Page, live_server):
     btn.click()
 
     expect(page.locator(LANG_DROPDOWN)).to_have_count(1)
+
+
+def test_language_switch_keeps_query_and_hash(page: Page, live_server):
+    page.goto(f"{live_server.url}/en/contact/?utm=nav#form")
+    _switch_to_spanish(page)
+    expect(page).to_have_url(f"{live_server.url}/es/contact/?utm=nav#form")
+
+
+def test_language_dropdown_keyboard_navigation(page: Page, live_server):
+    page.goto(f"{live_server.url}/en/")
+
+    button = page.locator(LANG_BTN)
+    button.focus()
+    expect(button).to_be_focused()
+
+    page.keyboard.press("Enter")
+    dropdown = page.locator(LANG_DROPDOWN)
+    expect(dropdown).to_be_visible()
+
+    spanish = dropdown.locator("a").nth(1)
+    spanish.focus()
+    expect(spanish).to_be_focused()
+    page.keyboard.press("Enter")
+
+    expect(page).to_have_url(f"{live_server.url}/es/")

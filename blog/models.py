@@ -22,10 +22,10 @@ class Tag(models.Model):
 
 
 class PostQuerySet(models.QuerySet):
-    def published(self) -> "PostQuerySet":
+    def published(self) -> PostQuerySet:
         return self.filter(published_date__isnull=False).prefetch_related("tags")
 
-    def count_tags(self) -> "models.QuerySet":
+    def count_tags(self) -> models.QuerySet:
         return (
             self.filter(published_date__isnull=False)
             .values("tags__slug")
@@ -58,7 +58,7 @@ class Post(models.Model):
 
     @property
     def published(self) -> bool:
-        return True if self.published_date else False
+        return bool(self.published_date)
 
     def get_absolute_url(self) -> str:
         return reverse("post_detail", args=[self.slug])

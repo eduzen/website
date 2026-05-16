@@ -19,7 +19,7 @@ repos:
       - id: debug-statements
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1
+    rev: v1.46.1
     hooks:
       - id: typos
         exclude: ^(.*htmx\.min\..*\.js|core/static/core/vendor/.*)$
@@ -42,16 +42,10 @@ repos:
     -   id: django-upgrade
         args: [--target-version, "6.0"]
 
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
-    hooks:
-      - id: pyupgrade
-        args: [--py313]
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: 'v0.15.12'
     hooks:
       - id: ruff-check
-        args: ["--fix", "--target-version", "py313"]
+        args: ["--fix", "--target-version", "py314"]
       - id: ruff-format
-        args: ["--target-version", "py313"]
+        args: ["--target-version", "py314"]

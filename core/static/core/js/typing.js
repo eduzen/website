@@ -6,6 +6,8 @@
   var TYPE_SPEED = 100;
   var DELETE_SPEED = 80;
 
+
+  var reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   function getNameEl() {
     var el = document.getElementById('typed-name');
     return el && el.isConnected ? el : null;
@@ -104,9 +106,24 @@
     });
   }
 
+
+  function shouldReduceMotion() {
+    return reducedMotionQuery.matches;
+  }
+
+  function showStaticName() {
+    var nameEl = getNameEl();
+    if (!nameEl) return;
+    setName(nameEl, 'Eduardo\nEnriquez');
+  }
+
   function startTyping() {
     stopTyping();
     if (!getNameEl()) return;
+    if (shouldReduceMotion()) {
+      showStaticName();
+      return;
+    }
     running = true;
     scheduleNext(runCycle, 800);
   }
@@ -128,4 +145,20 @@
   document.body.addEventListener('htmx:afterSwap', function() {
     startTyping();
   });
+
+  function handleMotionPreferenceChange() {
+    if (shouldReduceMotion()) {
+      stopTyping();
+      showStaticName();
+      return;
+    }
+
+    startTyping();
+  }
+
+  if (typeof reducedMotionQuery.addEventListener === 'function') {
+    reducedMotionQuery.addEventListener('change', handleMotionPreferenceChange);
+  } else if (typeof reducedMotionQuery.addListener === 'function') {
+    reducedMotionQuery.addListener(handleMotionPreferenceChange);
+  }
 })();

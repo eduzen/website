@@ -19,7 +19,7 @@ def check_cache_health(alias: str) -> str:
         value = cache.get("redis_health_check")
         status = "🟢 Live" if value == "ok" else "🔴 Unavailable"
     except Exception as e:
-        status = f"🔴 Error: {str(e)}"
+        status = f"🔴 Error: {e!s}"
 
     return status
 
@@ -44,7 +44,7 @@ class CacheExplorerView(View):
         # Custom context for your view
         cache_settings = settings.CACHES
         status_dict = {
-            alias: "🟢 Live" if get_cache_service(alias).ping() else "🔴 Unavailable" for alias in cache_settings.keys()
+            alias: "🟢 Live" if get_cache_service(alias).ping() else "🔴 Unavailable" for alias in cache_settings
         }
 
         admin_context.update(

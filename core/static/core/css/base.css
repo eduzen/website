@@ -78,6 +78,42 @@ body {
   color: var(--accent-warm);
 }
 
+.language-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: transparent;
+  color: var(--text-muted);
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.language-button:hover {
+  color: var(--accent-warm);
+  border-color: var(--accent-warm-light);
+  background: var(--bg-warm);
+}
+
+.language-button .fi {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.logo:focus-visible,
+.nav-link:focus-visible,
+.nav-dropdown__trigger:focus-visible,
+.nav-dropdown__item:focus-visible,
+.contact-link:focus-visible,
+.language-button:focus-visible,
+#main-navbar button.md\:hidden:focus-visible {
+  outline: 2px solid var(--accent-warm);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 /* ---- Nav Dropdown (Teaching) ---- */
 .nav-dropdown {
   position: relative;

@@ -22,6 +22,16 @@ def _content_width(page: Page, selector: str) -> float:
     )
 
 
+def test_contact_form_htmx_contract(page: Page, live_server):
+    page.goto(f"{live_server.url}/en/contact/")
+
+    form = page.locator("form.warm-form")
+    expect(form).to_be_visible()
+    expect(form).to_have_attribute("hx-post", "/en/contact/")
+    expect(form).to_have_attribute("hx-target", "#content")
+    expect(form).to_have_attribute("hx-swap", "innerHTML")
+
+
 def test_contact_form_labels_visible(page: Page, live_server):
     page.goto(f"{live_server.url}/en/contact/")
 

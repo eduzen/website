@@ -1,18 +1,38 @@
 from http import HTTPStatus
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 import pytest
 from django.contrib.auth.models import User
-from django.test import Client, TestCase
+from django.test import Client, RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
 from blog.tests.factories import PostFactory
+from core import views
 
 
 @pytest.mark.parametrize("url", ("media/test.jpg", "media"))
 def test_media_view_not_found(client, url):
     response = client.get(url)
     assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_media_view_redirects_to_external_host(client):
+    response = client.get("/media/test.jpg")
+
+    assert response.status_code == HTTPStatus.MOVED_PERMANENTLY
+    assert response["Location"] == "https://media.eduzen.com.ar/test.jpg"
+
+
+def test_static_view_redirect_url_building():
+    view = views.StaticView()
+    view.request = RequestFactory().get("/")
+
+    redirect_url = view.get_redirect_url(path="assets/app.js")
+
+    assert redirect_url == "https://static.eduzen.com.ar/assets/app.js"
 
 
 class FaviconTests(TestCase):
@@ -99,3 +119,73 @@ class CoreViewTests(TestCase):
         self.assertTemplateUsed(response, "core/404.html")
         self.assertContains(response, "404 - Page Not Found", status_code=404)
         self.assertContains(response, "Go back to Home", status_code=404)
+
+    def test_version_view_json_response(self):
+        response = self.client.get("/version/?format=json")
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response["Content-Type"], "application/json")
+        payload = response.json()
+        self.assertIn("version", payload)
+        self.assertIn("build_date", payload)
+
+    def test_version_view_html_response(self):
+        response = self.client.get("/version/")
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "core/version.html")
+        self.assertContains(response, "<table", html=False)
+        self.assertContains(response, "Version")
+        self.assertContains(response, "Build Date")
+
+    def test_version_view_htmx_response(self):
+        response = self.client.get("/version/", headers={"HX-Request": "true"})
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "<table", html=False)
+        self.assertNotContains(response, "<!DOCTYPE html>")
+
+    def test_proposal_view_returns_html_file(self):
+        with TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            base_dir = temp_root / "website"
+            base_dir.mkdir(parents=True)
+            proposals_dir = temp_root / "proposals"
+            proposals_dir.mkdir(parents=True)
+            proposal_file = proposals_dir / "sample.html"
+            proposal_file.write_text("<h1>Sample Proposal</h1>")
+
+            with override_settings(BASE_DIR=base_dir):
+                response = self.client.get("/proposals/sample.html")
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "Sample Proposal")
+        self.assertEqual(response["Content-Type"], "text/html")
+
+    def test_proposal_view_blocks_directory_traversal(self):
+        with TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            base_dir = temp_root / "website"
+            base_dir.mkdir(parents=True)
+            proposals_dir = temp_root / "proposals"
+            proposals_dir.mkdir(parents=True)
+
+            with override_settings(BASE_DIR=base_dir):
+                response = self.client.get("/proposals/../secret.html")
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_proposal_view_returns_not_found_for_non_html(self):
+        with TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            base_dir = temp_root / "website"
+            base_dir.mkdir(parents=True)
+            proposals_dir = temp_root / "proposals"
+            proposals_dir.mkdir(parents=True)
+            non_html_file = proposals_dir / "sample.txt"
+            non_html_file.write_text("plain text")
+
+            with override_settings(BASE_DIR=base_dir):
+                response = self.client.get("/proposals/sample.txt")
+
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)

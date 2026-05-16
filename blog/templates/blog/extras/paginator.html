@@ -2,8 +2,8 @@
 
 <div class="pagination">
   {% if page_obj.has_previous %}
-    <a href="?page=1" class="nav-link">{% translate 'First' %}</a>
-    <a href="?page={{ page_obj.previous_page_number }}" class="nav-link">{% translate 'Previous' %}</a>
+    <a href="?page=1" hx-get="?page=1" hx-target="#content" hx-push-url="true" class="nav-link">{% translate 'First' %}</a>
+    <a href="?page={{ page_obj.previous_page_number }}" hx-get="?page={{ page_obj.previous_page_number }}" hx-target="#content" hx-push-url="true" class="nav-link">{% translate 'Previous' %}</a>
   {% endif %}
 
   {% windowed_page_range page_obj.paginator page_obj.number as page_items %}
@@ -13,12 +13,12 @@
     {% elif num == page_obj.number %}
       <span class="current">{{ num }}</span>
     {% else %}
-      <a href="?page={{ num }}" class="nav-link">{{ num }}</a>
+      <a href="?page={{ num }}" hx-get="?page={{ num }}" hx-target="#content" hx-push-url="true" class="nav-link">{{ num }}</a>
     {% endif %}
   {% endfor %}
 
   {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="nav-link">{% translate 'Next' %}</a>
-    <a href="?page={{ page_obj.paginator.num_pages }}" class="nav-link">{% translate 'Last' %}</a>
+    <a href="?page={{ page_obj.next_page_number }}" hx-get="?page={{ page_obj.next_page_number }}" hx-target="#content" hx-push-url="true" class="nav-link">{% translate 'Next' %}</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" hx-get="?page={{ page_obj.paginator.num_pages }}" hx-target="#content" hx-push-url="true" class="nav-link">{% translate 'Last' %}</a>
   {% endif %}
 </div>
