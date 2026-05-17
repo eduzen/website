@@ -1,13 +1,13 @@
 DCO := "docker compose"
 RUNDJANGO := "docker compose run --rm web"
 EXEC := "docker compose web exec uv"
-UV := "docker compose run --rm web uv run"
+UV := "docker compose run --rm web uv run --no-sync"
 I18N_IGNORE := "--ignore .venv --ignore .git --ignore node_modules --ignore website/website"
 
 # Always run Django management commands against dev settings in local 'just'
 
-MANAGE := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.dev web uv run manage.py"
-MANAGE_PROD := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.prod web uv run manage.py"
+MANAGE := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.dev web uv run --no-sync manage.py"
+MANAGE_PROD := "docker compose run --rm -e DJANGO_SETTINGS_MODULE=website.settings.prod web uv run --no-sync manage.py"
 
 up:
   just run
@@ -136,17 +136,17 @@ test *args:
 
 [group('testing')]
 coverage:
-    {{ DCO }} run --rm web uv run coverage run -m pytest --ignore=tests/e2e
-    {{ DCO }} run --rm web uv run coverage report
+    {{ DCO }} run --rm web uv run --no-sync coverage run -m pytest --ignore=tests/e2e
+    {{ DCO }} run --rm web uv run --no-sync coverage report
 
 # E2E tests using dedicated e2e Docker service
 [group('testing')]
 e2e *args="tests/e2e":
-    {{ DCO }} --profile e2e run --rm e2e uv run pytest {{ args }}
+    {{ DCO }} --profile e2e run --rm e2e uv run --no-sync pytest {{ args }}
 
 [group('testing')]
 e2e-headed *args="":
-    {{ DCO }} --profile e2e run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix e2e uv run pytest {{ args }} --headed
+    {{ DCO }} --profile e2e run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix e2e uv run --no-sync pytest {{ args }} --headed
 
 [group('testing')]
 e2e-build:

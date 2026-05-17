@@ -2,7 +2,6 @@ volumes:
   pgdata:
   shell_history:
   ipy_history:
-  uv-venv:
 
 services:
   web:
@@ -23,12 +22,13 @@ services:
           # different platform in the container
           ignore:
             - .venv/
-        # Rebuild the image on changes to the `pyproject.toml`
+        # Rebuild the image on dependency metadata changes
         - action: rebuild
           path: ./pyproject.toml
+        - action: rebuild
+          path: ./uv.lock
     volumes:
       - .:/code
-      - uv-venv:/code/.venv
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
       - ./secrets/eduzen.json:/root/keys/eduzen.json
@@ -73,9 +73,10 @@ services:
             - .venv/
         - action: rebuild
           path: ./pyproject.toml
+        - action: rebuild
+          path: ./uv.lock
     volumes:
       - .:/code
-      - uv-venv:/code/.venv
     depends_on:
       - db
       - redis

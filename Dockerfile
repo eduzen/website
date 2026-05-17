@@ -4,8 +4,8 @@ ARG RELEASE=0.0.0+dev
 ARG BUILD_DATE=unknown
 ENV RELEASE=$RELEASE
 ENV BUILD_DATE=$BUILD_DATE
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
-ENV PATH="/code/.venv/bin:$PATH"
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PROJECT_ENVIRONMENT=/opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 # PYTHONUNBUFFERED non empty value force the stdout and stderr streams to be unbuffered.
 ENV PYTHONUNBUFFERED=1
 # PYTHONDONTWRITEBYTECODE prevents python creating .pyc files
@@ -67,7 +67,7 @@ RUN printf '%s\n' 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashr
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --all-extras --group dev
 
-CMD ["uv", "run", "manage.py", "runserver", "0.0.0.0:80"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
 
 # E2E TESTING
 FROM development AS e2e
@@ -94,4 +94,4 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Install playwright browsers with dependencies
 RUN uv run playwright install --with-deps
 
-CMD ["uv", "run", "pytest", "/code/tests/e2e"]
+CMD ["python", "-m", "pytest", "/code/tests/e2e"]
