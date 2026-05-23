@@ -41,8 +41,7 @@ dependencies = [
   "sentry-sdk[django]",
   "requests",
   "whitenoise[brotli]",
-  "logfire[django,psycopg,sqlite3,redis,requests]>=3.3.0",
-  "pydantic-ai-slim[logfire,openai]>=0.0.24",
+  "pydantic-ai-slim[openai]>=0.0.24",
   "django-dbbackup>=5.0.0",
 ]
 

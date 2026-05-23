@@ -320,7 +320,7 @@ Key environment variables (see `.env.sample`):
 - **Static Files**: Whitenoise with Brotli compression
 - **Database**: PostgreSQL with connection pooling
 - **Caching**: Redis for session/cache backend
-- **Monitoring**: Logfire integration for observability
+- **Monitoring**: Sentry for error tracking and performance monitoring
 - **CDN**: Static file serving optimized for production
 
 - Use always justfile recipes

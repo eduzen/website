@@ -1,13 +1,15 @@
 # blog/services/chatgpt.py
+import logging
 from typing import Any, cast
 
-import logfire
 from django.conf import settings
 from pydantic import BaseModel
 from pydantic_ai import Agent
 from pydantic_ai.models import KnownModelName
 
 from blog.models import Post
+
+logger = logging.getLogger(__name__)
 
 
 class TitleSummaryModel(BaseModel):
@@ -45,13 +47,13 @@ def get_better_title(title: str) -> str:
         f"Title: '{title}'"
     )
 
-    logfire.debug(f"Asking pydantic-ai for an improved title:\n{prompt}")
+    logger.debug("Asking pydantic-ai for an improved title:\n%s", prompt)
     try:
         response = current_agent.run_sync(prompt)
         improved_title = response.output.title
-        logfire.debug(f"Improved title: {improved_title}")
-    except Exception as e:
-        logfire.error(f"Error getting improved title: {e}")
+        logger.debug("Improved title: %s", improved_title)
+    except Exception:
+        logger.exception("Error getting improved title")
         raise
     return improved_title
 
@@ -73,10 +75,10 @@ def get_better_summary(text: str) -> str:
         f"Content: '{text}'"
     )
 
-    logfire.debug(f"Asking pydantic-ai for an improved summary:\n{prompt}")
+    logger.debug("Asking pydantic-ai for an improved summary:\n%s", prompt)
     response = current_agent.run_sync(prompt)
     improved_summary = response.output.summary
-    logfire.debug(f"Improved summary: {improved_summary}")
+    logger.debug("Improved summary: %s", improved_summary)
     return improved_summary
 
 
@@ -99,13 +101,13 @@ def blog_post_suggestion(post: Post) -> dict[str, str]:
         f"Content: '{post.text}'"
     )
 
-    logfire.debug(f"Asking pydantic-ai for an improved title and summary:\n{prompt}")
+    logger.debug("Asking pydantic-ai for an improved title and summary:\n%s", prompt)
     try:
         response = current_agent.run_sync(prompt)
         suggestions = {"title": response.output.title, "summary": response.output.summary}
-        logfire.debug(f"Improved suggestions: {suggestions}")
-    except Exception as e:
-        logfire.error(f"Error getting improved title and summary: {e}")
+        logger.debug("Improved suggestions: %s", suggestions)
+    except Exception:
+        logger.exception("Error getting improved title and summary")
         raise
     return suggestions
 
@@ -118,6 +120,6 @@ def improve_blog_post(post: Post) -> None:
     try:
         suggestions = blog_post_suggestion(post)
         Post.objects.filter(id=post.id).update(suggestions=suggestions)
-    except Exception as e:
-        logfire.error(f"Error improving post title for {post}: {e}")
+    except Exception:
+        logger.exception("Error improving post title for %s", post)
         raise

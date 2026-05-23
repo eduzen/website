@@ -1,8 +1,8 @@
 import json
+import logging
 import pathlib
 from typing import cast
 
-import logfire
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse, JsonResponse
@@ -16,16 +16,18 @@ from blog.services.chatgpt import improve_blog_post
 from core.services.pretty import highlight_json
 from core.types import HtmxHttpRequest
 
+logger = logging.getLogger(__name__)
+
 
 def handler404(request: HttpRequest, exception: Exception) -> HttpResponse:
     """Custom 404 handler."""
-    logfire.warning("Page not found {path}", path=request.path)
+    logger.warning("Page not found %s", request.path)
     return render(request, "core/404.html", status=404)
 
 
 def handler500(request: HttpRequest) -> HttpResponse:
     """Custom 500 handler."""
-    logfire.exception("Internal server error at {path}", path=request.path)
+    logger.exception("Internal server error at %s", request.path)
     return render(request, "core/500.html", status=500)
 
 
@@ -44,7 +46,7 @@ def chatgpt_improve_post(request: HttpRequest, post_id: int) -> HttpResponse:
     except Post.DoesNotExist:
         return HttpResponse(status=404)
     except Exception:
-        logfire.exception("Error improving post")
+        logger.exception("Error improving post")
         return HttpResponse("An internal error occurred.", status=500, content_type="text/html")
 
 
@@ -53,7 +55,7 @@ class MediaView(RedirectView):
 
     def get_redirect_url(self, *args: list[str | None], **kwargs: dict[str, str]) -> str | None:
         self.url = f"https://media.eduzen.com.ar/{kwargs['path']}"
-        logfire.warning("url redirected {url}", url=self.url)
+        logger.warning("url redirected %s", self.url)
         return super().get_redirect_url(*args, **kwargs)
 
 
@@ -62,7 +64,7 @@ class StaticView(RedirectView):
 
     def get_redirect_url(self, *args: list[str | None], **kwargs: dict) -> str | None:
         self.url = f"https://static.eduzen.com.ar/{kwargs['path']}"
-        logfire.warning("url redirected {url}", url=self.url)
+        logger.warning("url redirected %s", self.url)
         return super().get_redirect_url(*args, **kwargs)
 
 
