@@ -54,18 +54,13 @@ dev = [
   "pytest-django",
   "pytest-mock",
   "pytest-sugar",
-  "pytest-xdist",
-  "pytest-recording",
   "types-redis",
   "types-requests",
   "django-stubs[compatible-mypy]",
   "django-filter-stubs",
   "types-beautifulsoup4",
-  "types-Pygments",
   "types-factory-boy",
   "ty>=0.0.1a11",
-  "playwright>=1.58.0",
-  "pytest-playwright>=0.7.2",
 ]
 e2e = [
   "playwright",
