@@ -12,7 +12,6 @@ def test_removed_observability_provider_is_not_configured() -> None:
         "website/settings/prod.py",
         "blog/services/chatgpt.py",
         "core/views.py",
-        "django_fast/services/cache/cache_service.py",
         "CLAUDE.md",
     ]
 

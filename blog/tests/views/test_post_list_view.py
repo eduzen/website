@@ -156,7 +156,7 @@ class TestPostListView(TestCase):
 
     def test_post_list_prefetch_tags(self) -> None:
         """Test that tags are prefetched to avoid N+1 queries"""
-        with self.assertNumQueries(4):  # Account for user, posts, tags, and request profile queries
+        with self.assertNumQueries(3):  # Account for user, posts, and tags queries
             response = self.client.get(self.url)
             posts = response.context["posts"]
             # Access tags to trigger potential queries
@@ -179,7 +179,7 @@ class TestPostListView(TestCase):
         # Create many posts
         PostFactory.create_batch(100, author=self.user, published_date=timezone.now())
 
-        with self.assertNumQueries(4):  # Account for count, posts, tags, and request profile queries
+        with self.assertNumQueries(3):  # Account for count, posts, and tags queries
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)

@@ -98,8 +98,7 @@ class TestPostDetailView(TestCase):
         # SELECT, so we now need 3 queries instead of 4:
         #   1. SELECT blog_post JOIN auth_user (post + author in one go)
         #   2. SELECT blog_tag … (prefetch_related tags)
-        #   3. INSERT django_fast_requestprofile (ProfilerMiddleware)
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(2):
             response = self.client.get(url)
             post = response.context["post"]
             list(post.tags.all())  # Access tags (served from prefetch cache)
@@ -150,8 +149,8 @@ class TestPostDetailView(TestCase):
         assert post is not None
 
         # Fix #2: select_related("author") collapses post + user into one JOIN query.
-        # Total: 3 queries (post+author JOIN, prefetch tags, profiler INSERT).
-        with self.assertNumQueries(3):
+        # Total: 2 queries (post+author JOIN, prefetch tags).
+        with self.assertNumQueries(2):
             response = self.client.get(reverse("post_detail", kwargs={"slug": post.slug}))
             post_obj = response.context["post"]
             list(post_obj.tags.all())  # Access tags (served from prefetch cache)

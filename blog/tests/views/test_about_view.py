@@ -66,7 +66,7 @@ class TestAboutView(TestCase):
         PostFactory.create(author=self.user, published_date=timezone.now())
 
         # First request - cache miss
-        with self.assertNumQueries(1):  # Only request profile query for cached view
+        with self.assertNumQueries(0):  # No DB queries for simple template view
             response1 = self.client.get(self.url)
 
         self.assertEqual(response1.status_code, HTTPStatus.OK)

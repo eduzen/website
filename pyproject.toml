@@ -140,7 +140,7 @@ select = [
 
 [tool.coverage.run]
 branch = true
-source = ["blog", "core", "snippets"]
+source = ["blog", "core"]
 omit = [
   "website/__init__.py",
   "website/settings/*",

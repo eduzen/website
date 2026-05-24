@@ -49,9 +49,7 @@ THIRD_PARTY_APPS = [
 ]
 
 APPS = [
-    "django_fast",
     "blog",
-    "snippets",
     "core",
 ]
 
@@ -72,7 +70,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.CloudflareRealIPMiddleware",
-    "django_fast.middleware.ProfilerMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"
