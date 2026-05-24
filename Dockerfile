@@ -26,14 +26,8 @@ RUN apt-get update && \
     ca-certificates \
     gnupg \
     libpq-dev \
-    iputils-ping \
-    httpie && \
-    install -d /usr/share/keyrings && \
-    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgres.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/postgres.gpg] http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    apt-get update && \
-    apt-get install --no-install-recommends -y postgresql-client-17 && \
-    rm -rf /var/lib/apt/lists/*
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /code
 
