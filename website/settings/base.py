@@ -33,10 +33,8 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "rest_framework",
     "ckeditor",
     "ckeditor_uploader",
-    "corsheaders",
     "crispy_forms",
     "crispy_tailwind",
     "django_extensions",
@@ -62,7 +60,6 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -182,19 +179,6 @@ LOG_LEVEL = config("LOG_LEVEL", default="INFO")
 
 LOGIN_REDIRECT_URL = "/"
 APPEND_SLASH = True
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 8,
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-    ),
-}
 
 # Django Image Cropping: https://github.com/jonasundderwolf/django-image-cropping
 THUMBNAIL_PROCESSORS = ("image_cropping.thumbnail_processors.crop_corners",) + thumbnail_settings.THUMBNAIL_PROCESSORS

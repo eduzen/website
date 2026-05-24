@@ -22,11 +22,6 @@ CSRF_TRUSTED_ORIGINS = config(
     cast=Csv(),
 )
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://\w+\.eduzen\.ar$",
-    r"^https://localhost$",
-]
-
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
