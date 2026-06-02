@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
 
-from core.middleware import CloudflareRealIPMiddleware, _is_cloudflare_addr
+from core.middleware import CloudflareRealIPMiddleware, CurrentViewMiddleware, _is_cloudflare_addr
 
 
 class TestCloudflareMiddleware(TestCase):
@@ -67,3 +67,37 @@ class TestCloudflareMiddleware(TestCase):
         assert _is_cloudflare_addr("173.245.48.10") is True
         assert _is_cloudflare_addr("198.51.100.10") is False
         assert _is_cloudflare_addr("not-an-ip") is False
+
+
+class TestCurrentViewMiddleware(TestCase):
+    def setUp(self) -> None:
+        self.get_response = mock.MagicMock(return_value=HttpResponse("ok"))
+        self.middleware = CurrentViewMiddleware(self.get_response)
+        super().setUp()
+
+    def test_sets_header_for_named_url(self) -> None:
+        request = RequestFactory().get("/")
+        resolver = mock.MagicMock()
+        resolver.url_name = "home"
+        request.resolver_match = resolver
+
+        response = self.middleware(request)
+
+        assert response["X-Current-View"] == "home"
+
+    def test_does_not_crash_without_resolver_match(self) -> None:
+        request = RequestFactory().get("/")
+
+        response = self.middleware(request)
+
+        assert "X-Current-View" not in response
+
+    def test_skips_header_when_url_name_is_falsy(self) -> None:
+        request = RequestFactory().get("/")
+        resolver = mock.MagicMock()
+        resolver.url_name = ""
+        request.resolver_match = resolver
+
+        response = self.middleware(request)
+
+        assert "X-Current-View" not in response

@@ -525,8 +525,14 @@ body {
   padding: 4rem 2rem;
 }
 
+/* Tighten the gap below the fixed navbar on inner pages */
+#content > .page-layout:first-child {
+  padding-top: 2rem;
+}
+
 .page-prose {
   max-width: 70ch;
+  margin: 0 auto;
 }
 
 /* ---- Writing / Essay Grid ---- */
@@ -1249,6 +1255,7 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   max-width: 640px;
+  margin: 0 auto;
 }
 
 .mentoring-step {
@@ -1415,13 +1422,57 @@ footer a:hover {
 }
 
 /* ---- Post Content (CKEditor output) ---- */
+
+/* Syntax highlighting: let <pre> own the dark container, <code> just colors */
+.post-content pre code.hljs {
+  display: block;
+  background: transparent;
+  padding: 0;
+}
+
+/* Copy button inside code blocks */
+.copy-code-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition), color var(--transition),
+    background var(--transition), border-color var(--transition);
+}
+
+.post-content pre:hover .copy-code-btn,
+.copy-code-btn:focus-visible {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  color: var(--accent-warm);
+  border-color: var(--accent-warm-light);
+  background: var(--bg-warm);
+}
+
+.copy-code-btn.copied {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: #f4f7f1;
+}
+
 .post-content {
   font-family: var(--sans);
   font-size: 1rem;
   line-height: 1.8;
   color: var(--text);
-  max-width: 70ch;
-  margin: 0 auto;
   overflow-wrap: break-word;
 }
 
@@ -1463,6 +1514,7 @@ footer a:hover {
 }
 
 .post-content pre {
+  position: relative;
   background: var(--text);
   color: var(--bg-alt);
   padding: 1.5rem;
@@ -1767,6 +1819,10 @@ dialog.confirm-dialog::backdrop {
     padding: 3rem 1.5rem;
   }
 
+  #content > .page-layout:first-child {
+    padding-top: 1.5rem;
+  }
+
   /* About page responsive */
   .about-profile {
     grid-template-columns: 1fr;
@@ -1845,6 +1901,10 @@ dialog.confirm-dialog::backdrop {
 @media (max-width: 640px) {
   .page-layout {
     padding: 2.5rem 1.25rem;
+  }
+
+  #content > .page-layout:first-child {
+    padding-top: 1.25rem;
   }
 
   .divider {

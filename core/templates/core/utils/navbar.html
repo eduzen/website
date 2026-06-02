@@ -1,6 +1,7 @@
 {% load i18n static %}
 
 <nav id="main-navbar"
+     data-current-view="{{ request.resolver_match.url_name }}"
      x-data="{ isMobileMenuOpen: false }"
      @click.outside="isMobileMenuOpen = false"
      class="fixed z-10 top-0 w-full">
@@ -11,7 +12,7 @@
          hx-target="#content"
          hx-push-url="true"
          data-nav-sections="home"
-         class="logo {% if request.resolver_match.url_name == 'home' %}active-link{% endif %}">
+         class="logo">
         eduzen
       </a>
     </div>

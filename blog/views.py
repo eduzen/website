@@ -12,7 +12,7 @@ from django.views.generic.base import View
 from django.views.generic.list import MultipleObjectMixin
 from django_filters.views import FilterView
 
-from core.types import HtmxHttpRequest
+from core.htmx import is_htmx_fragment_request
 
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
@@ -29,8 +29,7 @@ class HtmxPartialTemplateMixin:
     template_name: str
 
     def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx and self.htmx_template_name:
+        if is_htmx_fragment_request(self.request) and self.htmx_template_name:
             return [self.htmx_template_name]
         return [self.template_name]
 
@@ -108,36 +107,21 @@ class AboutView(HtmxPartialTemplateMixin, TemplateView):
     htmx_template_name = "blog/about.html#about-content"
 
 
-class SuccessView(TemplateView):
+class SuccessView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/success.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/success.html#success-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/success.html#success-content"
 
 
-class ErrorView(TemplateView):
+class ErrorView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/error.html"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/error.html#error-content"]
-        return [self.template_name]
+    htmx_template_name = "blog/error.html#error-content"
 
 
-class AdvanceSearch(FormView):
+class AdvanceSearch(HtmxPartialTemplateMixin, FormView):
     template_name = "blog/search.html"
+    htmx_template_name = "blog/search.html#search-content"
     form_class = AdvanceSearchForm
     success_url = "/success/"
-
-    def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-        if request.htmx:
-            return ["blog/search.html#search-content"]
-        return [self.template_name]
 
 
 class HomeView(HtmxPartialTemplateMixin, TemplateView):
@@ -285,8 +269,9 @@ class ContactView(HtmxPartialTemplateMixin, FormView):
             logger.exception("Contact problems")
             return redirect(self.error_url)
 
-        request = cast(HtmxHttpRequest, self.request)
-        template_name = "blog/success.html#success-content" if request.htmx else "blog/success.html"
+        template_name = (
+            "blog/success.html#success-content" if is_htmx_fragment_request(self.request) else "blog/success.html"
+        )
         return render(self.request, template_name, context)
 
     def form_invalid(self, form: ContactForm) -> HttpResponse:

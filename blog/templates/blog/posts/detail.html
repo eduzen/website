@@ -19,22 +19,24 @@
     </a>
   </div>
 
-  <!-- Post Detail -->
-  {% if post.published_date %}
-    <div class="mb-2 text-muted text-sm">
-      <time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
-      &middot;
-      <span>{% translate 'Author' %}: {{ post.author.first_name }} {{ post.author.last_name }}</span>
+  <article>
+    <!-- Post Detail -->
+    {% if post.published_date %}
+      <div class="mb-2 text-muted text-sm">
+        <time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
+        &middot;
+        <span>{% translate 'Author' %}: {{ post.author.first_name }} {{ post.author.last_name }}</span>
+      </div>
+    {% endif %}
+
+    <h1 class="section-title" style="margin-bottom: 2.5rem;">{{ post.title }}</h1>
+
+    <div class="post-content">
+      {% autoescape off %}
+        {{ post.text }}
+      {% endautoescape %}
     </div>
-  {% endif %}
-
-  <h1 class="section-title" style="margin-bottom: 2.5rem;">{{ post.title }}</h1>
-
-  <div class="post-content">
-    {% autoescape off %}
-      {{ post.text }}
-    {% endautoescape %}
-  </div>
+  </article>
 
   <!-- Related Posts -->
   <div class="divider my-8"><hr></div>
@@ -44,7 +46,9 @@
 
 </div>
 
-<script src="{% static 'blog/js/codeHighlight.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="{% static 'blog/js/copyCode.js' %}"></script>
 {% endpartialdef post-detail-content %}
 
 {% partial post-detail-content %}

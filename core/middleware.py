@@ -74,3 +74,15 @@ class CloudflareRealIPMiddleware:
         request.ip = cf_ip if cf_ip else request.META.get("REMOTE_ADDR")
 
         return self.get_response(request)
+
+
+class CurrentViewMiddleware:
+    def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
+        self.get_response = get_response
+
+    def __call__(self, request: HttpRequest) -> HttpResponse:
+        response = self.get_response(request)
+        resolver = getattr(request, "resolver_match", None)
+        if resolver and resolver.url_name:
+            response["X-Current-View"] = resolver.url_name
+        return response

@@ -1,4 +1,3 @@
-# blog/services/chatgpt.py
 import logging
 from typing import Any, cast
 
@@ -17,16 +16,8 @@ class TitleSummaryModel(BaseModel):
     summary: str
 
 
-model = cast(KnownModelName, settings.PYDANTIC_AI_MODEL)
-agent: Agent[Any, TitleSummaryModel] | None = None
-
-
-def _get_agent() -> Agent[Any, TitleSummaryModel]:
-    """Initializes and returns the Pydantic AI Agent."""
-    global agent
-    if agent is None:
-        agent = Agent(model, output_type=TitleSummaryModel)
-    return agent
+_model = cast(KnownModelName, settings.PYDANTIC_AI_MODEL)
+_agent: Agent[Any, TitleSummaryModel] = Agent(_model, output_type=TitleSummaryModel)
 
 
 def get_better_title(title: str) -> str:
@@ -34,22 +25,21 @@ def get_better_title(title: str) -> str:
     Returns a single improved title for the given blog post title
     using pydantic-ai + OpenAI (GPT-4 or whichever you've set).
     """
-    current_agent = _get_agent()
     prompt = (
         "Given the language and context of the following title, provide a captivating and "
-        "improved title that will intrigue readers. Not too serious. "
+        "improved title that will intrigue readers. Not too serious.\n"
         "Constraints:\n"
-        "    - The word 'title' doesn't need to appear.\n"
-        "    - I need only one suggested title.\n"
-        "    - The max length is 200, ideally shorter (50-80).\n"
-        "    - Please respect the language of the text.\n"
+        "1) The word 'title' doesn't need to appear.\n"
+        "2) I need only one suggested title.\n"
+        "3) The max length is 200, ideally shorter (50-80).\n"
+        "4) Please respect the language of the text.\n"
         "If it is Spanish, respond in Spanish. If English, respond in English.\n"
         f"Title: '{title}'"
     )
 
     logger.debug("Asking pydantic-ai for an improved title:\n%s", prompt)
     try:
-        response = current_agent.run_sync(prompt)
+        response = _agent.run_sync(prompt)
         improved_title = response.output.title
         logger.debug("Improved title: %s", improved_title)
     except Exception:
@@ -63,7 +53,6 @@ def get_better_summary(text: str) -> str:
     Returns a single improved summary for the given blog post content
     using pydantic-ai + OpenAI.
     """
-    current_agent = _get_agent()
     prompt = (
         "Given the language and context of the following blog post content, "
         "provide a concise and intriguing summary that captures its essence.\n"
@@ -76,9 +65,13 @@ def get_better_summary(text: str) -> str:
     )
 
     logger.debug("Asking pydantic-ai for an improved summary:\n%s", prompt)
-    response = current_agent.run_sync(prompt)
-    improved_summary = response.output.summary
-    logger.debug("Improved summary: %s", improved_summary)
+    try:
+        response = _agent.run_sync(prompt)
+        improved_summary = response.output.summary
+        logger.debug("Improved summary: %s", improved_summary)
+    except Exception:
+        logger.exception("Error getting improved summary")
+        raise
     return improved_summary
 
 
@@ -87,7 +80,6 @@ def blog_post_suggestion(post: Post) -> dict[str, str]:
     Generates a new title and summary for the given Post model instance
     and returns them as a dictionary.
     """
-    current_agent = _get_agent()
     prompt = (
         "Given the language and context of the following blog post, provide both:\n"
         "1) a captivating improved title, not too serious\n"
@@ -103,7 +95,7 @@ def blog_post_suggestion(post: Post) -> dict[str, str]:
 
     logger.debug("Asking pydantic-ai for an improved title and summary:\n%s", prompt)
     try:
-        response = current_agent.run_sync(prompt)
+        response = _agent.run_sync(prompt)
         suggestions = {"title": response.output.title, "summary": response.output.summary}
         logger.debug("Improved suggestions: %s", suggestions)
     except Exception:

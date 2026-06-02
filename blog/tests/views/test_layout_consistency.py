@@ -32,8 +32,19 @@ class TestLayoutConsistency(TestCase):
         self.assertContains(regular_response, "page-layout", count=1)
         self.assertContains(htmx_response, "page-layout", count=1)
 
-    def test_primary_pages_keep_same_layout_for_htmx_and_regular_requests(self) -> None:
-        urls = [
+    def assert_history_restore_gets_full_page(self, url: str) -> None:
+        response = self.client.get(
+            url,
+            headers={"HX-Request": "true", "HX-History-Restore-Request": "true"},
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "<!DOCTYPE html>", count=1)
+        self.assertContains(response, 'id="main-navbar"', count=1)
+        self.assertContains(response, 'id="content"', count=1)
+
+    def primary_page_urls(self) -> list[str]:
+        return [
             reverse("about"),
             reverse("classes"),
             reverse("consultancy"),
@@ -47,6 +58,12 @@ class TestLayoutConsistency(TestCase):
             reverse("work"),
         ]
 
-        for url in urls:
+    def test_primary_pages_keep_same_layout_for_htmx_and_regular_requests(self) -> None:
+        for url in self.primary_page_urls():
             with self.subTest(url=url):
                 self.assert_same_content_layout(url)
+
+    def test_primary_pages_render_full_document_for_htmx_history_restore_requests(self) -> None:
+        for url in self.primary_page_urls():
+            with self.subTest(url=url):
+                self.assert_history_restore_gets_full_page(url)

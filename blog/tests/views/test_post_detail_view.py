@@ -62,12 +62,11 @@ class TestPostDetailView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_post_detail_htmx_request(self) -> None:
-        """Test post detail with HTMX request"""
+        """Test post detail with HTMX request renders partial content"""
         url = reverse("post_detail", kwargs={"slug": self.post.slug})
         response = self.client.get(url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        # With django-template-partials, HTMX requests render the partial content only
         self.assertNotContains(response, "<!DOCTYPE html>")
         self.assertContains(response, self.post.title)
 
@@ -79,16 +78,6 @@ class TestPostDetailView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "blog/posts/detail.html")
         self.assertContains(response, "<!DOCTYPE html>", count=1)
-
-    def test_post_detail_htmx_request_no_doctype(self) -> None:
-        """Test post detail HTMX request doesn't include full page structure"""
-        url = reverse("post_detail", kwargs={"slug": self.post.slug})
-        response = self.client.get(url, headers={"HX-Request": "true"})
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        # With django-template-partials, HTMX requests render only the partial content
-        self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, self.post.title)
 
     def test_post_detail_prefetch_tags(self) -> None:
         """Test that tags are prefetched and author is joined in a single query."""
@@ -124,12 +113,6 @@ class TestPostDetailView(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.context["post"], post)
-
-    def test_post_detail_empty_slug(self) -> None:
-        """Test post detail with empty slug should not match URL pattern"""
-        # This should not match the URL pattern at all
-        # Django URL routing should handle this case
-        pass  # This is handled by URL patterns, not the view
 
     def test_post_with_many_tags(self) -> None:
         """Test post detail with many tags"""

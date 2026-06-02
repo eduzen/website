@@ -33,8 +33,8 @@ def mock_agent_run_sync() -> Iterator[MagicMock]:
     mock_agent = MagicMock()
     mock_agent.run_sync.return_value = mock_agent_response
 
-    # Patch _get_agent to return our mock agent
-    with patch("blog.services.chatgpt._get_agent", return_value=mock_agent):
+    # Patch _agent to use our mock agent
+    with patch("blog.services.chatgpt._agent", mock_agent):
         yield mock_agent  # Yield the mock agent itself for assertions
 
 

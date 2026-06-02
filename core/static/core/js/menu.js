@@ -1,58 +1,74 @@
 document.addEventListener("DOMContentLoaded", function() {
-  function getCurrentSection(pathname) {
-    var path = pathname.replace(/^\/+|\/+$/g, "");
-    if (!path) return "home";
+  function normalizePathname(path) {
+    if (!path) return "";
 
-    var segments = path.split("/");
-    if (segments[0] === "en" || segments[0] === "es") {
-      segments.shift();
+    try {
+      return new URL(path, window.location.origin).pathname;
+    } catch (err) {
+      console.debug("Unable to normalize navigation path", err);
+      return path;
     }
-
-    return segments[0] || "home";
   }
 
-  function isNavItemActive(item, currentPath, currentSection) {
-    var sections = (item.dataset.navSections || "")
-      .split(/\s+/)
-      .map(function(section) { return section.trim(); })
-      .filter(Boolean);
-
-    if (sections.length > 0) {
-      return sections.includes(currentSection);
-    }
-
-    if (item.tagName !== "A") return false;
-
-    var href = item.getAttribute("href");
-    if (!href || href.startsWith("#") || href.startsWith("?")) return false;
-
-    var hrefPath = new URL(href, window.location.origin).pathname.replace(/\/+$/, "") || "/";
-    return currentPath === hrefPath || (hrefPath !== "/" && currentPath.startsWith(hrefPath + "/"));
+  function storageKey(pathname) {
+    return "view:" + normalizePathname(pathname);
   }
 
-  function updateActiveNavigation() {
+  function setStoredView(pathname, currentView) {
+    if (!pathname || !currentView) return;
+
+    try {
+      sessionStorage.setItem(storageKey(pathname), currentView);
+    } catch (err) {
+      console.debug("Unable to store current navigation view", err);
+    }
+  }
+
+  function getStoredView(pathname) {
+    try {
+      return sessionStorage.getItem(storageKey(pathname));
+    } catch (err) {
+      console.debug("Unable to read current navigation view", err);
+      return null;
+    }
+  }
+
+  function updateActiveNavigation(currentView, pathname) {
     var nav = document.getElementById("main-navbar");
     if (!nav) return;
 
-    var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-    var currentSection = getCurrentSection(window.location.pathname);
-    var navItems = nav.querySelectorAll(".logo, .nav-link, .nav-dropdown__trigger");
+    if (!currentView) {
+      currentView = nav.dataset.currentView || "";
+    }
+    nav.dataset.currentView = currentView;
+    setStoredView(pathname || window.location.pathname, currentView);
 
-    navItems.forEach(function(item) {
-      item.classList.remove("active-link");
-      if (isNavItemActive(item, currentPath, currentSection)) {
-        item.classList.add("active-link");
-      }
+    nav.querySelectorAll(".active-link").forEach(function(el) {
+      el.classList.remove("active-link");
+    });
+    nav.querySelectorAll(".nav-dropdown__item--active").forEach(function(el) {
+      el.classList.remove("nav-dropdown__item--active");
     });
 
-    var dropdownItems = nav.querySelectorAll(".nav-dropdown__item[data-nav-sections]");
-    dropdownItems.forEach(function(item) {
-      item.classList.remove("nav-dropdown__item--active");
-      if (isNavItemActive(item, currentPath, currentSection)) {
-        item.classList.add("nav-dropdown__item--active");
+    var selectors = [
+      ".logo[data-nav-sections]",
+      ".nav-link[data-nav-sections]",
+      ".nav-dropdown__trigger[data-nav-sections]",
+      ".nav-dropdown__item[data-nav-sections]"
+    ].join(", ");
+
+    nav.querySelectorAll(selectors).forEach(function(item) {
+      var sections = (item.dataset.navSections || "").split(/\s+/).filter(Boolean);
+      if (sections.includes(currentView)) {
+        if (item.classList.contains("nav-dropdown__item")) {
+          item.classList.add("nav-dropdown__item--active");
+        } else {
+          item.classList.add("active-link");
+        }
       }
     });
   }
+
   function handleHTMXEvents() {
     var indicator = document.getElementById("loadingIndicator");
 
@@ -84,21 +100,26 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 
-    document.body.addEventListener("htmx:afterSettle", function() {
-      if (window.location.pathname !== lastPath) {
-        lastPath = window.location.pathname;
-      }
-      updateActiveNavigation();
+    document.body.addEventListener("htmx:afterSettle", function(evt) {
+      var xhr = evt.detail.xhr;
+      var view = xhr && xhr.getResponseHeader ? xhr.getResponseHeader("X-Current-View") : null;
+      updateActiveNavigation(view);
+    });
+
+    document.body.addEventListener("htmx:pushedIntoHistory", function(evt) {
+      updateActiveNavigation(null, evt.detail.path);
+    });
+
+    document.body.addEventListener("htmx:replacedInHistory", function(evt) {
+      updateActiveNavigation(null, evt.detail.path);
     });
   }
-
-  var lastPath = window.location.pathname;
 
   handleHTMXEvents();
   updateActiveNavigation();
 
   window.addEventListener("popstate", function() {
-    lastPath = window.location.pathname;
-    updateActiveNavigation();
+    var view = getStoredView(window.location.pathname);
+    updateActiveNavigation(view);
   });
 });

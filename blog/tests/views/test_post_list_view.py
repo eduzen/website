@@ -52,21 +52,6 @@ class TestPostListView(TestCase):
         self.assertTemplateUsed(response, "blog/posts/list.html")
         self.assertContains(response, "<!DOCTYPE html>", count=1)
 
-    def test_post_list_view_normal_template(self) -> None:
-        """Test post list view uses normal template for regular requests"""
-        response = self.client.get(self.url)
-        self.assertTemplateUsed(response, "blog/posts/list.html")
-        self.assertNotContains(response, "htmx-requested-partial-specific-content")
-
-    def test_post_list_view_htmx_request_no_doctype(self) -> None:
-        """Test post list HTMX request doesn't include full page structure"""
-        response = self.client.get(self.url, headers={"HX-Request": "true"})
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        # With django-template-partials, HTMX requests render only the partial content
-        self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Blog")
-
     def test_empty_post_list(self) -> None:
         """Test post list with no posts"""
         # Delete all posts

@@ -67,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.CloudflareRealIPMiddleware",
+    "core.middleware.CurrentViewMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"

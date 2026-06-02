@@ -1,7 +1,6 @@
 import json
 import logging
 import pathlib
-from typing import cast
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -13,8 +12,8 @@ from django.views.generic.base import RedirectView
 
 from blog.models import Post
 from blog.services.chatgpt import improve_blog_post
+from core.htmx import is_htmx_fragment_request
 from core.services.pretty import highlight_json
-from core.types import HtmxHttpRequest
 
 logger = logging.getLogger(__name__)
 
@@ -35,25 +34,28 @@ def handler500(request: HttpRequest) -> HttpResponse:
 def chatgpt_improve_post(request: HttpRequest, post_id: int) -> HttpResponse:
     try:
         post = Post.objects.get(pk=post_id)
-        improve_blog_post(post)
-        post.refresh_from_db()
-
-        if post.suggestions:
-            response = json.dumps(post.suggestions, ensure_ascii=False, sort_keys=True, indent=2)
-            formatted_response = highlight_json(response)
-            return HttpResponse(formatted_response, content_type="text/html")
-        return HttpResponse(status=204)
     except Post.DoesNotExist:
         return HttpResponse(status=404)
+
+    try:
+        improve_blog_post(post)
     except Exception:
         logger.exception("Error improving post")
         return HttpResponse("An internal error occurred.", status=500, content_type="text/html")
+
+    post.refresh_from_db()
+    if not post.suggestions:
+        return HttpResponse(status=204)
+
+    response = json.dumps(post.suggestions, ensure_ascii=False, sort_keys=True, indent=2)
+    formatted_response = highlight_json(response)
+    return HttpResponse(formatted_response, content_type="text/html")
 
 
 class MediaView(RedirectView):
     permanent = True
 
-    def get_redirect_url(self, *args: list[str | None], **kwargs: dict[str, str]) -> str | None:
+    def get_redirect_url(self, *args: object, **kwargs: object) -> str | None:
         self.url = f"https://media.eduzen.com.ar/{kwargs['path']}"
         logger.warning("url redirected %s", self.url)
         return super().get_redirect_url(*args, **kwargs)
@@ -62,7 +64,7 @@ class MediaView(RedirectView):
 class StaticView(RedirectView):
     permanent = True
 
-    def get_redirect_url(self, *args: list[str | None], **kwargs: dict) -> str | None:
+    def get_redirect_url(self, *args: object, **kwargs: object) -> str | None:
         self.url = f"https://static.eduzen.com.ar/{kwargs['path']}"
         logger.warning("url redirected %s", self.url)
         return super().get_redirect_url(*args, **kwargs)
@@ -84,14 +86,8 @@ def proposal_view(request: HttpRequest, filename: str) -> HttpResponse:
 @require_GET
 @cache_control(max_age=60 * 60 * 24 * 365, immutable=True, public=True)  # one year
 def favicon_view(request: HttpRequest) -> HttpResponse:
-    return HttpResponse(
-        (
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'
-            + '<text y=".9em" font-size="90">🤓</text>'
-            + "</svg>"
-        ),
-        content_type="image/svg+xml",
-    )
+    svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🤓</text></svg>'
+    return HttpResponse(svg, content_type="image/svg+xml")
 
 
 @require_GET
@@ -129,7 +125,7 @@ def version_view(request: HttpRequest) -> HttpResponse:
     """
 
     # If it's an HTMX request, return just the table
-    if cast(HtmxHttpRequest, request).htmx:
+    if is_htmx_fragment_request(request):
         return HttpResponse(html_content)
 
     # Otherwise, return with the base template

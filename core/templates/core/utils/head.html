@@ -38,7 +38,14 @@
   defer
   src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js">
 </script>
-<script src="{% static 'core/js/htmx.min.1.9.4.js' %}" defer></script>
+<meta name="htmx-config" content='{"historyCacheSize": 0, "historyRestoreAsHxRequest": false, "refreshOnHistoryMiss": true}'>
+<script>
+  try {
+    sessionStorage.removeItem("htmx-history-cache");
+  } catch (err) {
+    console.debug("Unable to clear HTMX history cache", err);
+  }
+</script>
 {% htmx_script %}
 
 <link href="{% static 'core/css/base.css' %}" rel="stylesheet">

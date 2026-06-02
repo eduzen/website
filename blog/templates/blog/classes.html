@@ -24,14 +24,13 @@
   </div>
 
   <!-- Teaching philosophy -->
-  <section class="classes-intro page-prose reveal">
+  <section class="classes-intro reveal">
     <p>
-      {% translate "Hello! Thank you for your interest 😊. My name is Eduardo and I'm a teacher. Learn more about me on my 'About' page: " %}
-      <a class="warm-link"
+      {% translate "Hello! Thank you for your interest 😊. I'm Eduardo — you can " %}<a class="warm-link"
          hx-get="{% url 'about' %}"
          hx-target="#content"
          hx-push-url="true"
-         href="{% url 'about' %}">{% translate "here" %}</a>
+         href="{% url 'about' %}">{% translate "learn more about my background and experience." %}</a>
     </p>
     <p>
       {% translate "My goal as a teacher is not just to impart knowledge, but to inspire and guide you in a way that you can lose me (and be independent) in your learning journey." %}

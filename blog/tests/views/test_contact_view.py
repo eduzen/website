@@ -51,6 +51,18 @@ class TestContactView(TestCase):
         self.assertNotContains(response, "<!DOCTYPE html>")
         self.assertContains(response, "Get in Touch")
 
+    def test_contact_view_htmx_history_restore_gets_full_page(self):
+        response = self.client.get(
+            self.url,
+            headers={"HX-Request": "true", "HX-History-Restore-Request": "true"},
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "<!DOCTYPE html>", count=1)
+        self.assertContains(response, 'id="main-navbar"', count=1)
+        self.assertContains(response, 'id="content"', count=1)
+        self.assertContains(response, "Get in Touch")
+
     @patch("blog.views.send_contact_message")
     def test_contact_form_valid_submission(self, mock_send_telegram):
         """Test valid contact form submission"""

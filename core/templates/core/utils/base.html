@@ -11,7 +11,7 @@
     {% endblock head %}
   </head>
 
-  <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' class="flex flex-col min-h-screen">
+  <body hx-history="false" hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' class="flex flex-col min-h-screen">
     <div class="page-waves" aria-hidden="true">
       <svg class="page-waves__layer page-waves__layer--1" viewBox="0 0 2400 200" preserveAspectRatio="none">
         <path d="M0,100 C150,60 300,140 450,100 C600,60 750,140 900,100 C1050,70 1150,120 1200,100 C1350,60 1500,140 1650,100 C1800,60 1950,140 2100,100 C2250,70 2350,120 2400,100 L2400,200 L0,200 Z"/>
