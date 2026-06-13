@@ -11,103 +11,30 @@
   <div class="consultancy-header reveal">
     <h1 class="section-title">{% translate "Consultancy" %}</h1>
     <div class="contact-accent" aria-hidden="true"></div>
-    <div class="about-skills">
-      <span class="about-skill">Python</span>
-      <span class="about-skill">Django</span>
-      <span class="about-skill">Docker</span>
-      <span class="about-skill about-skill--green">{% translate "Code Review" %}</span>
-      <span class="about-skill about-skill--green">{% translate "Performance" %}</span>
-      <span class="about-skill about-skill--green">{% translate "Training" %}</span>
-      <span class="about-skill about-skill--muted">{% translate "Remote" %}</span>
-      <span class="about-skill about-skill--muted">{% translate "On-site" %}</span>
-    </div>
   </div>
 
   <!-- Intro -->
   <section class="consultancy-intro reveal">
     <p>
-      {% translate "With over 10 years in the industry, I offer hands-on expertise for individuals and businesses tackling daily technical challenges." %}
-      {% translate "Remote or in-person, I'm here to help you ship better software." %}
+      {% blocktranslate trimmed with years=global_data.years_of_experience %}
+        With over {{ years }} years of experience in software development, I help teams and professionals build reliable, maintainable systems that solve real problems.
+      {% endblocktranslate %}
+      {% blocktranslate trimmed %}
+        I believe in clean code, solid architecture, and pragmatic decisions: the right solution for the context, not the most elaborate one.
+      {% endblocktranslate %}
     </p>
     <p>
-      {% translate "Interested in my professional journey?" %}
-      {% translate "Check out my" %}&nbsp;<a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">{% translate "LinkedIn profile" %}</a>.
+      {% translate "Available for remote and on-site collaborations." %}
+      {% translate "You can learn more about my background on" %}&nbsp;<a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">LinkedIn</a>.
     </p>
   </section>
 
   <!-- Services -->
   <section class="consultancy-section reveal">
     <h2 class="about-section-title">{% translate "Services" %}</h2>
-    <div class="consultancy-cards">
-      <div class="about-card">
-        <span class="about-card__icon" aria-hidden="true">🧑‍💻</span>
-        <h3 class="about-card__title">{% translate "For Individuals" %}</h3>
-        <p class="about-card__text">
-          {% translate "Personalized training, classes, and tutoring to help you grow into an autonomous developer." %}
-          {% translate "Stuck on a bug? I've got your back." %}
-        </p>
-      </div>
-      <div class="about-card">
-        <span class="about-card__icon" aria-hidden="true">🏢</span>
-        <h3 class="about-card__title">{% translate "For Companies" %}</h3>
-        <p class="about-card__text">
-          {% translate "Day-to-day solutions, team training (unit testing, robust code), Django/Python performance fixes, legacy code evaluation, and version upgrades." %}
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- How I can help -->
-  <section class="consultancy-section reveal">
-    <h2 class="about-section-title">{% translate "How I can help" %}</h2>
-    <div class="consultancy-cards consultancy-cards--wide">
-      <div class="about-card">
-        <span class="about-card__icon" aria-hidden="true">🐍</span>
-        <h3 class="about-card__title">{% translate "Python & Django" %}</h3>
-        <p class="about-card__text">
-          {% translate "From debugging to architecture, I've worked with Python for over a decade. Django, Flask, FastAPI — I can help you choose the right tool and use it well." %}
-        </p>
-      </div>
-      <div class="about-card">
-        <span class="about-card__icon" aria-hidden="true">⚡</span>
-        <h3 class="about-card__title">{% translate "Performance" %}</h3>
-        <p class="about-card__text">
-          {% translate "Slow queries, high response times, or scaling bottlenecks? I'll profile your application, identify the root causes, and implement concrete improvements." %}
-        </p>
-      </div>
-      <div class="about-card">
-        <span class="about-card__icon" aria-hidden="true">🔍</span>
-        <h3 class="about-card__title">{% translate "Code Review" %}</h3>
-        <p class="about-card__text">
-          {% translate "A fresh pair of eyes on your codebase. I'll evaluate code quality, identify tech debt, and provide actionable recommendations for improvement." %}
-        </p>
-      </div>
-      <div class="about-card">
-        <span class="about-card__icon" aria-hidden="true">👥</span>
-        <h3 class="about-card__title">{% translate "Team Training" %}</h3>
-        <p class="about-card__text">
-          {% translate "Workshops and hands-on sessions on testing, clean code, Python best practices, and modern development workflows for your team." %}
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section class="consultancy-section reveal">
-    <h2 class="about-section-title">{% translate "Experience" %}</h2>
     <div class="consultancy-intro">
       <p>
-        {% translate "Over the years I've worked across many roles, technologies, and environments — from startups to established companies, from solo projects to large engineering teams." %}
-      </p>
-      <p>
-        {% translate "Read more about my experience on " %}
-        <a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">LinkedIn</a>
-        {% translate " or learn more " %}
-        <a href="{% url 'about' %}"
-           hx-get="{% url 'about' %}"
-           hx-target="#content"
-           hx-push-url="true"
-           class="warm-link">{% translate "about me" %}</a>.
+        {% translate "I work with professionals and teams on Python and Django systems: code reviews, architecture decisions, performance improvements, technical debt management, and hands-on training." %}
       </p>
     </div>
   </section>

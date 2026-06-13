@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-03 13:15+0200\n"
+"POT-Creation-Date: 2026-06-13 23:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,136 +19,142 @@ msgstr ""
 
 #: core/templates/admin/custom_index.html:7
 msgid "External Links"
-msgstr ""
+msgstr "Enlaces externos"
 
 #: core/templates/admin/custom_index.html:11
 msgid "GoatCounter Analytics"
-msgstr ""
+msgstr "Analíticas de GoatCounter"
 
 #: core/templates/admin/custom_index.html:14
 msgid "View website analytics and visitor statistics"
-msgstr ""
+msgstr "Ver analíticas y estadísticas de visitantes del sitio"
 
 #: core/templates/admin/custom_index.html:20
 msgid "Recent actions"
-msgstr ""
+msgstr "Acciones recientes"
 
 #: core/templates/admin/custom_index.html:21
 msgid "My actions"
-msgstr ""
+msgstr "Mis acciones"
 
 #: core/templates/admin/custom_index.html:25
 msgid "None available"
-msgstr ""
+msgstr "Ninguna disponible"
 
 #: core/templates/admin/custom_index.html:30
 msgid "Added:"
-msgstr ""
+msgstr "Añadido:"
 
 #: core/templates/admin/custom_index.html:30
 msgid "Changed:"
-msgstr ""
+msgstr "Modificado:"
 
 #: core/templates/admin/custom_index.html:30
 msgid "Deleted:"
-msgstr ""
+msgstr "Eliminado:"
 
 #: core/templates/admin/custom_index.html:40
 msgid "Unknown content"
-msgstr ""
+msgstr "Contenido desconocido"
 
 #: core/templates/core/404.html:5
 msgid "Page Not Found"
-msgstr ""
+msgstr "Página no encontrada"
 
 #: core/templates/core/404.html:10
 msgid "404 - Page Not Found"
-msgstr ""
+msgstr "404 - Página no encontrada"
 
 #: core/templates/core/404.html:11
 msgid "Oops! The page you are looking for does not exist."
-msgstr ""
+msgstr "¡Ups! La página que estás buscando no existe."
 
 #: core/templates/core/404.html:12 core/templates/core/500.html:12
 msgid "Go back to Home"
-msgstr ""
+msgstr "Volver al inicio"
 
 #: core/templates/core/500.html:5
 msgid "Server Error"
-msgstr ""
+msgstr "Error del servidor"
 
 #: core/templates/core/500.html:10
 msgid "500 - Server Error"
-msgstr ""
+msgstr "500 - Error del servidor"
 
 #: core/templates/core/500.html:11
 msgid "Oops! Something went wrong on our end."
-msgstr ""
+msgstr "¡Ups! Algo salió mal de nuestro lado."
 
-#: core/templates/core/utils/base.html:43
+#: core/templates/core/utils/base.html:42
 msgid "Send this message?"
-msgstr ""
+msgstr "¿Enviar este mensaje?"
 
-#: core/templates/core/utils/base.html:47
+#: core/templates/core/utils/base.html:46
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
-#: core/templates/core/utils/base.html:50
+#: core/templates/core/utils/base.html:49
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 #: core/templates/core/utils/footer.html:6
 msgid "Made with 💜 by Eduardo Enriquez"
-msgstr ""
+msgstr "Hecho con 💜 por Eduardo Enriquez"
 
 #: core/templates/core/utils/head.html:9
 msgid "description"
 msgstr ""
+"Sitio web de Eduardo Enriquez: ingeniero de software, docente y consultor."
 
-#: core/templates/core/utils/language_dropdown_button.html:16
+#: core/templates/core/utils/language_dropdown_button.html:40
 msgid "English"
 msgstr "Inglés"
 
-#: core/templates/core/utils/language_dropdown_button.html:21
+#: core/templates/core/utils/language_dropdown_button.html:47
 msgid "Spanish"
 msgstr "Español"
 
-#: core/templates/core/utils/nav_links.html:8
-#: core/templates/core/utils/nav_links_mobile.html:9
+#: core/templates/core/utils/nav_links.html:9
+#: core/templates/core/utils/nav_links_mobile.html:10
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
-#: core/templates/core/utils/nav_links.html:16
-#: core/templates/core/utils/nav_links_mobile.html:18
+#: core/templates/core/utils/nav_links.html:18
+#: core/templates/core/utils/nav_links_mobile.html:20
 msgid "Consultancy"
-msgstr ""
+msgstr "Consultoría"
 
-#: core/templates/core/utils/nav_links.html:24
-#: core/templates/core/utils/nav_links_mobile.html:25
+#: core/templates/core/utils/nav_links.html:27
+#: core/templates/core/utils/nav_links_mobile.html:30
+msgid "Work"
+msgstr "Trabajo"
+
+#: core/templates/core/utils/nav_links.html:35
+#: core/templates/core/utils/nav_links_mobile.html:38
 msgid "Teaching"
 msgstr "Enseñanza"
 
-#: core/templates/core/utils/nav_links.html:40
-#: core/templates/core/utils/nav_links_mobile.html:34
+#: core/templates/core/utils/nav_links.html:47
+#: core/templates/core/utils/nav_links_mobile.html:48
 msgid "Mentoring"
 msgstr "Mentoría"
 
-#: core/templates/core/utils/nav_links.html:48
-#: core/templates/core/utils/nav_links_mobile.html:42
+#: core/templates/core/utils/nav_links.html:56
+#: core/templates/core/utils/nav_links_mobile.html:57
 msgid "Classes"
 msgstr "Clases"
 
-#: core/templates/core/utils/nav_links.html:58
-#: core/templates/core/utils/nav_links_mobile.html:53
+#: core/templates/core/utils/nav_links.html:67
+#: core/templates/core/utils/nav_links_mobile.html:69
 msgid "About"
-msgstr ""
+msgstr "Acerca"
 
-#: core/templates/core/utils/nav_links.html:66
-#: core/templates/core/utils/nav_links_mobile.html:62
+#: core/templates/core/utils/nav_links.html:76
+#: core/templates/core/utils/nav_links_mobile.html:79
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
-#: core/templates/core/utils/nav_links.html:70
-#: core/templates/core/utils/nav_links_mobile.html:66
+#: core/templates/core/utils/nav_links.html:80
+#: core/templates/core/utils/nav_links_mobile.html:83
 msgid "Admin"
-msgstr ""
+msgstr "Admin"

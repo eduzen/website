@@ -42,6 +42,9 @@ services:
       - RELEASE=$(git describe --tags --always --dirty)
     env_file:
       - .env
+    command: >
+      sh -c "python manage.py compilemessages --settings=website.settings.dev &&
+             python manage.py runserver 0.0.0.0:80"
 
   db:
     image: postgres:17-alpine
