@@ -1,3 +1,4 @@
+import functools
 import logging
 from typing import Any, cast
 
@@ -16,8 +17,28 @@ class TitleSummaryModel(BaseModel):
     summary: str
 
 
-_model = cast(KnownModelName, settings.PYDANTIC_AI_MODEL)
-_agent: Agent[Any, TitleSummaryModel] = Agent(_model, output_type=TitleSummaryModel)
+class OpenAINotConfiguredError(RuntimeError):
+    """Raised when OpenAI API key is not configured."""
+
+    def __init__(self) -> None:
+        super().__init__("OPENAI_API_KEY is not configured. Set it to enable AI post improvements.")
+
+
+@functools.cache
+def _build_agent() -> Agent[Any, TitleSummaryModel]:
+    model = cast(KnownModelName, settings.PYDANTIC_AI_MODEL)
+    return Agent(model, output_type=TitleSummaryModel)
+
+
+def _get_agent() -> Agent[Any, TitleSummaryModel]:
+    if not settings.OPENAI_API_KEY:
+        raise OpenAINotConfiguredError()
+    return _build_agent()
+
+
+def _run_prompt(prompt: str) -> TitleSummaryModel:
+    logger.debug("Asking pydantic-ai:\n%s", prompt)
+    return _get_agent().run_sync(prompt).output
 
 
 def get_better_title(title: str) -> str:
@@ -36,16 +57,7 @@ def get_better_title(title: str) -> str:
         "If it is Spanish, respond in Spanish. If English, respond in English.\n"
         f"Title: '{title}'"
     )
-
-    logger.debug("Asking pydantic-ai for an improved title:\n%s", prompt)
-    try:
-        response = _agent.run_sync(prompt)
-        improved_title = response.output.title
-        logger.debug("Improved title: %s", improved_title)
-    except Exception:
-        logger.exception("Error getting improved title")
-        raise
-    return improved_title
+    return _run_prompt(prompt).title
 
 
 def get_better_summary(text: str) -> str:
@@ -63,16 +75,7 @@ def get_better_summary(text: str) -> str:
         "4) Only one summary is needed.\n"
         f"Content: '{text}'"
     )
-
-    logger.debug("Asking pydantic-ai for an improved summary:\n%s", prompt)
-    try:
-        response = _agent.run_sync(prompt)
-        improved_summary = response.output.summary
-        logger.debug("Improved summary: %s", improved_summary)
-    except Exception:
-        logger.exception("Error getting improved summary")
-        raise
-    return improved_summary
+    return _run_prompt(prompt).summary
 
 
 def blog_post_suggestion(post: Post) -> dict[str, str]:
@@ -92,16 +95,8 @@ def blog_post_suggestion(post: Post) -> dict[str, str]:
         f"Current title: '{post.title}'\n"
         f"Content: '{post.text}'"
     )
-
-    logger.debug("Asking pydantic-ai for an improved title and summary:\n%s", prompt)
-    try:
-        response = _agent.run_sync(prompt)
-        suggestions = {"title": response.output.title, "summary": response.output.summary}
-        logger.debug("Improved suggestions: %s", suggestions)
-    except Exception:
-        logger.exception("Error getting improved title and summary")
-        raise
-    return suggestions
+    output = _run_prompt(prompt)
+    return {"title": output.title, "summary": output.summary}
 
 
 def improve_blog_post(post: Post) -> None:
@@ -113,5 +108,5 @@ def improve_blog_post(post: Post) -> None:
         suggestions = blog_post_suggestion(post)
         Post.objects.filter(id=post.id).update(suggestions=suggestions)
     except Exception:
-        logger.exception("Error improving post title for %s", post)
+        logger.exception("Error improving post %s", post)
         raise
