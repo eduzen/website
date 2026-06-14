@@ -150,3 +150,5 @@ screenshots/
 .superpowers/
 
 .claude/settings.local.json
+lsp.json
+@lsp.json

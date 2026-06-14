@@ -958,6 +958,22 @@ body {
   color: #fff;
 }
 
+.about-cta__link .icon-linkedin {
+  color: #0a66c2;
+}
+
+.about-cta__link:hover .icon-linkedin {
+  color: #448ad6;
+}
+
+.about-cta__link .icon-email {
+  color: #c75b39;
+}
+
+.about-cta__link:hover .icon-email {
+  color: #d97a5a;
+}
+
 /* ---- Classes Page ---- */
 .classes-header {
   text-align: center;

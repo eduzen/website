@@ -29,33 +29,8 @@
     </p>
   </section>
 
-  <!-- Services -->
-  <section class="consultancy-section reveal">
-    <h2 class="about-section-title">{% translate "Services" %}</h2>
-    <div class="consultancy-intro">
-      <p>
-        {% translate "I work with professionals and teams on Python and Django systems: code reviews, architecture decisions, performance improvements, technical debt management, and hands-on training." %}
-      </p>
-    </div>
-  </section>
-
   <!-- CTA -->
-  <div class="about-cta reveal">
-    <p class="about-cta__text">
-      {% translate "Ready to tackle a technical challenge together? Let's talk." %}
-    </p>
-    <div class="about-cta__links">
-      <a class="about-cta__link about-cta__link--primary"
-         href="{% url 'contact' %}"
-         hx-get="{% url 'contact' %}"
-         hx-target="#content"
-         hx-push-url="true">
-        {% translate "Get in touch" %} →
-      </a>
-      <a class="about-cta__link" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="about-cta__link" href="{{ global_data.email }}">Email</a>
-    </div>
-  </div>
+  {% include "blog/partials/cta.html" %}
 
 </div>
 {% endpartialdef consultancy-content %}
