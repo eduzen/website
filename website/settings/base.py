@@ -67,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.CloudflareRealIPMiddleware",
+    "core.middleware.StatsigAnalyticsMiddleware",
     "core.middleware.CurrentViewMiddleware",
 ]
 
@@ -202,3 +203,7 @@ IGNORABLE_404_URLS = [
 BUILD_DATE = config("BUILD_DATE", default="unknown")
 RELEASE = config("RELEASE", default="unknown")
 SENTRY_DSN = config("SENTRY_DSN", default="")
+
+STATSIG_SERVER_SECRET = config("STATSIG_SERVER_SECRET", default="")
+STATSIG_ENVIRONMENT = config("STATSIG_ENVIRONMENT", default="development")
+STATSIG_ENABLED = config("STATSIG_ENABLED", default=False, cast=bool)

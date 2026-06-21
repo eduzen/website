@@ -1,4 +1,4 @@
-FROM python:3.14-slim-trixie AS production
+FROM python:3.14-slim-trixie AS python-deps
 
 ARG RELEASE=0.0.0+dev
 ARG BUILD_DATE=unknown
@@ -43,7 +43,24 @@ COPY pyproject.toml uv.lock /code/
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
+# Build Tailwind once during the image build. Bun is only used in this stage.
+FROM python-deps AS frontend-builder
+
+COPY --from=oven/bun:1 /usr/local/bin/bun /usr/local/bin/bun
+COPY frontend/package.json frontend/bun.lock /code/frontend/
+
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    cd frontend && bun install --frozen-lockfile
+
 COPY . /code
+
+RUN cd frontend && bun run build:css
+
+# PRODUCTION
+FROM python-deps AS production
+
+COPY . /code
+COPY --from=frontend-builder /code/core/static/core/css/tailwind.css /code/core/static/core/css/tailwind.css
 
 RUN python manage.py collectstatic --no-input --settings=website.settings.prod && \
     python manage.py compilemessages --settings=website.settings.prod

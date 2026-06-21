@@ -616,8 +616,6 @@ body {
   grid-template-columns: 1fr 1.4fr;
   gap: 4rem;
   align-items: start;
-  max-width: 900px;
-  margin: 0 auto;
 }
 
 /* ---- Contact Sidebar ---- */

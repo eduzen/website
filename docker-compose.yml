@@ -59,6 +59,13 @@ services:
     expose:
       - "6379"
 
+  frontend:
+    image: oven/bun:1
+    working_dir: /code/frontend
+    volumes:
+      - .:/code
+    command: sh -c "bun install --frozen-lockfile && bun run watch:css"
+
   e2e:
     build:
       context: .

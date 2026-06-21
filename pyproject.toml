@@ -40,6 +40,7 @@ dependencies = [
   "whitenoise[brotli]",
   "pydantic-ai-slim[openai]>=0.0.24",
   "django-dbbackup>=5.0.0",
+  "statsig-python-core>=0.19.5",
 ]
 
 [dependency-groups]

@@ -13,6 +13,7 @@ from django.views.generic.list import MultipleObjectMixin
 from django_filters.views import FilterView
 
 from core.htmx import is_htmx_fragment_request
+from core.services.statsig import log_event
 
 from .filters import PostFilter
 from .forms import AdvanceSearchForm, ContactForm
@@ -265,6 +266,11 @@ class ContactView(HtmxPartialTemplateMixin, FormView):
         try:
             response = send_contact_message(**context)
             logger.info(response)
+            log_event(
+                self.request,
+                "contact_form_submitted",
+                metadata={"htmx": str(is_htmx_fragment_request(self.request)).lower()},
+            )
         except Exception:
             logger.exception("Contact problems")
             return redirect(self.error_url)

@@ -1,19 +1,12 @@
 import ipaddress
 import logging
 from collections.abc import Callable
-
-# Add type annotations for custom request attribute
-from typing import TYPE_CHECKING, Final, TypeVar
+from typing import Any, Final, cast
 
 from django.http import HttpRequest, HttpResponse
 
-if TYPE_CHECKING:
-    # Create a type variable for request types
-    RequestT = TypeVar("RequestT", bound=HttpRequest)
-
-    class CustomHttpRequest(HttpRequest):
-        ip: str | None
-
+from core.htmx import is_htmx_fragment_request, is_htmx_history_restore_request
+from core.services.statsig import detect_device_type, log_event
 
 # Rangos oficiales Cloudflare — mayo 2025
 CF_RANGES: Final[tuple[str, ...]] = (
@@ -69,9 +62,8 @@ class CloudflareRealIPMiddleware:
                 request.META["REMOTE_ADDR"] = cf_ip
                 logger.debug("REMOTE_ADDR sustituido por CF-Connecting-IP %s", cf_ip)
 
-        # atributo de conveniencia
-        # Set request.ip to CF-Connecting-IP when available, otherwise use REMOTE_ADDR
-        request.ip = cf_ip if cf_ip else request.META.get("REMOTE_ADDR")
+        request_with_ip = cast(Any, request)
+        request_with_ip.ip = cf_ip or request.META.get("REMOTE_ADDR")
 
         return self.get_response(request)
 
@@ -86,3 +78,54 @@ class CurrentViewMiddleware:
         if resolver and resolver.url_name:
             response["X-Current-View"] = resolver.url_name
         return response
+
+
+class StatsigAnalyticsMiddleware:
+    _SKIP_PATH_PREFIXES: Final[tuple[str, ...]] = ("/static/", "/media/")
+
+    def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
+        self.get_response = get_response
+
+    def __call__(self, request: HttpRequest) -> HttpResponse:
+        response = self.get_response(request)
+        self._track_request(request, response)
+        return response
+
+    def _track_request(self, request: HttpRequest, response: HttpResponse) -> None:
+        if request.method != "GET" or response.status_code != 200:
+            return
+
+        if is_htmx_history_restore_request(request):
+            return
+
+        if request.path.startswith(self._SKIP_PATH_PREFIXES):
+            return
+
+        resolver = getattr(request, "resolver_match", None)
+        if resolver is None or not resolver.url_name:
+            return
+
+        user_agent = request.headers.get("user-agent", "")
+        metadata = {
+            "url_name": resolver.url_name,
+            "view_name": resolver.view_name or "",
+            "path": request.path,
+            "htmx": str(is_htmx_fragment_request(request)).lower(),
+            "device_type": detect_device_type(user_agent),
+            "locale": getattr(request, "LANGUAGE_CODE", "") or "",
+            **{key: str(value) for key, value in resolver.kwargs.items()},
+        }
+
+        log_event(request, "page_view", metadata=metadata)
+
+        user = getattr(request, "user", None)
+        if request.path.startswith("/admin/") and getattr(user, "is_staff", False):
+            log_event(
+                request,
+                "admin_page_view",
+                metadata={
+                    "path": request.path,
+                    "view_name": resolver.view_name or "",
+                    "url_name": resolver.url_name,
+                },
+            )

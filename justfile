@@ -52,7 +52,7 @@ reset:
 
 [group('development')]
 logs:
-    {{ DCO }} logs -f web
+    {{ DCO }} logs -f web frontend
 
 [group('development')]
 shell: copy-env
@@ -151,6 +151,14 @@ e2e-headed *args="":
 [group('testing')]
 e2e-build:
     {{ DCO }} --profile e2e build e2e
+
+[group('frontend')]
+css-build:
+    {{ DCO }} run --rm frontend bun run build:css
+
+[group('frontend')]
+css-watch:
+    {{ DCO }} up frontend
 
 [group('code-quality')]
 fmt:

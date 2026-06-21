@@ -49,27 +49,8 @@
   </section>
 
   <!-- CTA -->
-  <div class="about-cta reveal">
-    <p class="about-cta__text">
-      {% translate "Have a project in mind? Let's build something together." %}
-    </p>
-    <div class="about-cta__links">
-      <a class="about-cta__link about-cta__link--primary"
-         href="{% url 'contact' %}"
-         hx-get="{% url 'contact' %}"
-         hx-target="#content"
-         hx-push-url="true">
-        {% translate "Get in touch" %} →
-      </a>
-      <a class="about-cta__link"
-         href="{% url 'consultancy' %}"
-         hx-get="{% url 'consultancy' %}"
-         hx-target="#content"
-         hx-push-url="true">
-        {% translate "Consultancy" %}
-      </a>
-    </div>
-  </div>
+  {% translate "Have a project in mind? Let's build something together." as cta_text %}
+  {% include "blog/partials/cta.html" with cta_text=cta_text %}
 
 </div>
 {% endpartialdef work-content %}

@@ -1815,6 +1815,26 @@ wheels = [
 ]
 
 [[package]]
+name = "statsig-python-core"
+version = "0.19.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b1/52/597d886a7a40a9dea8160330fff3b32aea615e848a400525208606025331/statsig_python_core-0.19.5.tar.gz", hash = "sha256:445f23059539ac6bc92210a13c4feb1a91f39b8d77395602c64ff2552d58cd6c", size = 1879861, upload-time = "2026-06-10T00:18:11.14Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ff/1e/b8bd20653d44bb9492e5c0b73aa5ad93dcdcc8e879717235af78910702df/statsig_python_core-0.19.5-cp310-abi3-macosx_10_12_x86_64.whl", hash = "sha256:5a2bf2337561727ebd930ec57f696283ba0ba079d81fa56baa3a00ad5a42d57e", size = 3346869, upload-time = "2026-06-10T00:18:02.262Z" },
+    { url = "https://files.pythonhosted.org/packages/bc/44/c10bc27148b940706649ead1f902c0fe4cda01e42b4edf663d99765aba37/statsig_python_core-0.19.5-cp310-abi3-macosx_11_0_arm64.whl", hash = "sha256:8a17548b0b0ae5edd0866ff147ada0d3ac0e083282641f85f7f2fe8ea6d4caef", size = 3272204, upload-time = "2026-06-10T00:18:03.851Z" },
+    { url = "https://files.pythonhosted.org/packages/d2/95/5c27037d682823764306b308bb52f107d2c2b300c2eb4d87a21470d3673c/statsig_python_core-0.19.5-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c0e2b520969e05254dcf124e5022d51e4c8c873568961c2ed51f4a6193330b33", size = 3558078, upload-time = "2026-06-10T00:18:06.848Z" },
+    { url = "https://files.pythonhosted.org/packages/dd/7e/9b1d262e71c31e9aa7ec68fc762a2a141a359359481f0fa973a192936b20/statsig_python_core-0.19.5-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9dc7ded17982e3fface002338cfd9c75ff033a7d29e2821a2e10a12931c3b13b", size = 3583454, upload-time = "2026-06-10T00:18:05.282Z" },
+    { url = "https://files.pythonhosted.org/packages/41/9c/5c5282ab47375a17d60d5c67924cfc1e46796805d327d4e93962d52ced9d/statsig_python_core-0.19.5-cp310-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:70a940fdee672150e6a47d2819a2b9346a9933a5944262b7743aac1d12e7d087", size = 3749133, upload-time = "2026-06-10T00:18:09.832Z" },
+    { url = "https://files.pythonhosted.org/packages/0a/67/c73a6803fc837de6b0f9d7145e3d8db2be65d446777e1eda67d8d9d029f1/statsig_python_core-0.19.5-cp310-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:71ddc17aa0a30c338b2e5f363bdd3c880fe01f9748ed60166b7b5ffbf5451bd7", size = 3794650, upload-time = "2026-06-10T00:18:08.389Z" },
+    { url = "https://files.pythonhosted.org/packages/64/80/e9127ad69d4c509c4a429b89971c0349ae46ddcc474fde6b703c369a9350/statsig_python_core-0.19.5-cp310-abi3-win32.whl", hash = "sha256:613da53369b307aa2c88948531f84636c0b5313c6faf0b092f013b531a824303", size = 3151093, upload-time = "2026-06-10T00:18:00.711Z" },
+    { url = "https://files.pythonhosted.org/packages/6a/97/9748c1a0ba554ba8179a6194b4ae27204eb23113c7724b365dc0890ac33d/statsig_python_core-0.19.5-cp310-abi3-win_amd64.whl", hash = "sha256:ab413204f0cbf98345c42b4e3842a24360653d9e4ac7c115a528f1640d7ec64f", size = 3555520, upload-time = "2026-06-10T00:17:58.777Z" },
+]
+
+[[package]]
 name = "termcolor"
 version = "3.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2122,6 +2142,7 @@ dependencies = [
     { name = "redis" },
     { name = "requests" },
     { name = "sentry-sdk", extra = ["django"] },
+    { name = "statsig-python-core" },
     { name = "whitenoise", extra = ["brotli"] },
 ]
 
@@ -2179,6 +2200,7 @@ requires-dist = [
     { name = "redis" },
     { name = "requests" },
     { name = "sentry-sdk", extras = ["django"] },
+    { name = "statsig-python-core", specifier = ">=0.19.5" },
     { name = "whitenoise", extras = ["brotli"] },
 ]
 
