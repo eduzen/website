@@ -25,7 +25,7 @@ repos:
         exclude: ^.*htmx\.min\..*\.js$
 
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.25
+    rev: '0.26'
     hooks:
       - id: validate-pyproject
         name: validate-pyproject
@@ -37,7 +37,7 @@ repos:
         args: [--target-version, "5.1"]
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.30.0"
+    rev: "1.32.0"
     hooks:
     -   id: django-upgrade
 
@@ -48,7 +48,7 @@ repos:
         args: [--py313]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.15.8'
+    rev: 'v0.16.6'
     hooks:
       - id: ruff-check
         args: ["--fix", "--target-version", "py313"]
