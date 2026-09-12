@@ -1,90 +1,125 @@
 document.addEventListener("DOMContentLoaded", function() {
-  function handleDropdownBehavior() {
-    document.addEventListener("click", function(event) {
-      const dropdown = document.getElementById("language-dropdown");
-      const button = document.getElementById("language-button");
+  function normalizePathname(path) {
+    if (!path) return "";
 
-      // Hide language dropdown if clicked outside
-      if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target) && !dropdown.classList.contains("hidden")) {
-        dropdown.classList.add("hidden");
-      }
-    });
+    try {
+      return new URL(path, window.location.origin).pathname;
+    } catch (err) {
+      console.debug("Unable to normalize navigation path", err);
+      return path;
+    }
   }
 
-  function updateActiveNavigation() {
-    const currentPath = window.location.pathname;
+  function storageKey(pathname) {
+    return "view:" + normalizePathname(pathname);
+  }
 
-    // Remove active-link class from all nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.remove('active-link');
+  function setStoredView(pathname, currentView) {
+    if (!pathname || !currentView) return;
 
-      // Get the href attribute
-      const href = link.getAttribute('href') || '';
+    try {
+      sessionStorage.setItem(storageKey(pathname), currentView);
+    } catch (err) {
+      console.debug("Unable to store current navigation view", err);
+    }
+  }
 
-      // Check if current path matches the link
-      if (href === currentPath) {
-        // Exact match
-        link.classList.add('active-link');
-      } else if (href !== '/' && href !== '' && href.endsWith('/') && currentPath.startsWith(href)) {
-        // For section pages, match if current path starts with the href
-        link.classList.add('active-link');
+  function getStoredView(pathname) {
+    try {
+      return sessionStorage.getItem(storageKey(pathname));
+    } catch (err) {
+      console.debug("Unable to read current navigation view", err);
+      return null;
+    }
+  }
+
+  function updateActiveNavigation(currentView, pathname) {
+    var nav = document.getElementById("main-navbar");
+    if (!nav) return;
+
+    if (!currentView) {
+      currentView = nav.dataset.currentView || "";
+    }
+    nav.dataset.currentView = currentView;
+    setStoredView(pathname || window.location.pathname, currentView);
+
+    nav.querySelectorAll(".active-link").forEach(function(el) {
+      el.classList.remove("active-link");
+    });
+    nav.querySelectorAll(".nav-dropdown__item--active").forEach(function(el) {
+      el.classList.remove("nav-dropdown__item--active");
+    });
+
+    var selectors = [
+      ".logo[data-nav-sections]",
+      ".nav-link[data-nav-sections]",
+      ".nav-dropdown__trigger[data-nav-sections]",
+      ".nav-dropdown__item[data-nav-sections]"
+    ].join(", ");
+
+    nav.querySelectorAll(selectors).forEach(function(item) {
+      var sections = (item.dataset.navSections || "").split(/\s+/).filter(Boolean);
+      if (sections.includes(currentView)) {
+        if (item.classList.contains("nav-dropdown__item")) {
+          item.classList.add("nav-dropdown__item--active");
+        } else {
+          item.classList.add("active-link");
+        }
       }
     });
   }
 
   function handleHTMXEvents() {
-    // Show loading indicator on HTMX requests
-    document.body.addEventListener('htmx:beforeRequest', function(evt) {
-      const indicator = document.getElementById('loadingIndicator');
+    var indicator = document.getElementById("loadingIndicator");
+
+    document.body.addEventListener("htmx:beforeRequest", function() {
       if (indicator) {
-        indicator.classList.remove('scale-x-0');
-        indicator.classList.add('scale-x-100');
+        indicator.classList.remove("scale-x-0");
+        indicator.classList.add("scale-x-100");
       }
     });
 
-    // Hide loading indicator when request completes
-    document.body.addEventListener('htmx:afterRequest', function(evt) {
-      const indicator = document.getElementById('loadingIndicator');
+    document.body.addEventListener("htmx:afterRequest", function() {
       if (indicator) {
-        setTimeout(() => {
-          indicator.classList.remove('scale-x-100');
-          indicator.classList.add('scale-x-0');
+        setTimeout(function() {
+          indicator.classList.remove("scale-x-100");
+          indicator.classList.add("scale-x-0");
         }, 200);
       }
     });
 
-    // Handle HTMX errors
-    document.body.addEventListener('htmx:responseError', function(evt) {
-      console.error('HTMX Request failed:', evt.detail);
-      const indicator = document.getElementById('loadingIndicator');
+    document.body.addEventListener("htmx:responseError", function(evt) {
+      console.error("HTMX Request failed:", evt.detail);
       if (indicator) {
-        indicator.classList.remove('scale-x-100', 'bg-blue-500');
-        indicator.classList.add('scale-x-0', 'bg-red-500');
-        setTimeout(() => {
-          indicator.classList.remove('bg-red-500');
-          indicator.classList.add('bg-blue-500');
+        indicator.classList.remove("scale-x-100");
+        indicator.classList.add("scale-x-0");
+        indicator.style.background = "var(--error)";
+        setTimeout(function() {
+          indicator.style.background = "";
         }, 2000);
       }
     });
 
-    // Update active navigation state after HTMX navigation
-    document.body.addEventListener('htmx:afterSettle', function(evt) {
-      // Small delay to ensure URL has been updated by hx-push-url
-      setTimeout(() => {
-        updateActiveNavigation();
-      }, 10);
+    document.body.addEventListener("htmx:afterSettle", function(evt) {
+      var xhr = evt.detail.xhr;
+      var view = xhr && xhr.getResponseHeader ? xhr.getResponseHeader("X-Current-View") : null;
+      updateActiveNavigation(view);
+    });
+
+    document.body.addEventListener("htmx:pushedIntoHistory", function(evt) {
+      updateActiveNavigation(null, evt.detail.path);
+    });
+
+    document.body.addEventListener("htmx:replacedInHistory", function(evt) {
+      updateActiveNavigation(null, evt.detail.path);
     });
   }
 
-  // Initialize functions
-  handleDropdownBehavior();
   handleHTMXEvents();
-
-  // Update active state on initial page load
   updateActiveNavigation();
 
-  // Also listen for URL changes (for hx-push-url)
-  window.addEventListener('popstate', function() {
-    updateActiveNavigation();
+  window.addEventListener("popstate", function() {
+    var view = getStoredView(window.location.pathname);
+    updateActiveNavigation(view);
   });
 });

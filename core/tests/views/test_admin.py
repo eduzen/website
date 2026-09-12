@@ -15,7 +15,6 @@ def test_root_admin(admin_client):
         "robots",
         "sessions",
         "sites",
-        "snippets",
         "auth",
     ),
 )

@@ -108,8 +108,6 @@ website/
 ├── core/                 # Core utilities and base templates
 │   ├── templates/core/   # Base templates, navigation, utils
 │   └── static/core/      # CSS, JS, images
-├── snippets/             # Code snippets feature
-├── django_fast/          # Performance optimization app
 ├── justfile              # Command runner (preferred over Makefile)
 └── Makefile             # Legacy (use justfile instead)
 ```
@@ -302,7 +300,7 @@ Key environment variables (see `.env.sample`):
 ## Architecture Notes
 
 ### Core Architecture
-- **Django Apps**: `blog` (main content), `core` (utilities), `snippets` (code snippets), `django_fast` (performance)
+- **Django Apps**: `blog` (main content), `core` (utilities)
 - **Templates**: Use django-template-partials with `{% partialdef %}` for dual rendering
 - **Navigation**: All links use HTMX with fallback href for accessibility
 - **Loading States**: Global HTMX event handlers manage loading indicators
@@ -313,14 +311,13 @@ Key environment variables (see `.env.sample`):
 - **Service Layer**: Business logic in `*/services/` modules (ChatGPT, Telegram, etc.)
 - **Factory Pattern**: Test data generation with factory-boy
 - **Type Safety**: Full type hints with mypy and django-stubs
-- **Caching**: Custom caching service in `django_fast` app
 - **Internationalization**: Django i18n with English/Spanish support
 
 ### Performance Optimizations
 - **Static Files**: Whitenoise with Brotli compression
 - **Database**: PostgreSQL with connection pooling
 - **Caching**: Redis for session/cache backend
-- **Monitoring**: Logfire integration for observability
+- **Monitoring**: Sentry for error tracking and performance monitoring
 - **CDN**: Static file serving optimized for production
 
 - Use always justfile recipes

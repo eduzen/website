@@ -77,13 +77,13 @@ class TestPostUpdateStylesView(TestCase):
     @patch("blog.views.apply_styles")
     def test_post_update_styles_handles_service_error(self, mock_apply_styles):
         """Test handling of styling service errors"""
-        mock_apply_styles.side_effect = Exception("API Error")
+        mock_apply_styles.side_effect = RuntimeError("API Error")
 
         self.client.force_login(self.superuser)
         url = reverse("post_update_styles", kwargs={"post_id": self.post.pk})
 
         # Should raise exception (not handled gracefully in view)
-        with self.assertRaises(Exception):
+        with self.assertRaises(RuntimeError):
             self.client.get(url)
 
     def test_post_update_styles_nonexistent_post(self):
@@ -111,15 +111,13 @@ class TestPostUpdateStylesView(TestCase):
     def test_post_update_styles_preserves_original_on_failure(self, mock_apply_styles):
         """Test that original content is preserved when styling fails"""
         original_text = self.post.text
-        mock_apply_styles.side_effect = Exception("Styling failed")
+        mock_apply_styles.side_effect = RuntimeError("Styling failed")
 
         self.client.force_login(self.superuser)
         url = reverse("post_update_styles", kwargs={"post_id": self.post.pk})
 
-        try:
+        with self.assertRaises(RuntimeError):
             self.client.get(url)
-        except Exception:
-            pass  # Error is expected
 
         # Post content should remain unchanged
         self.post.refresh_from_db()
@@ -132,7 +130,7 @@ class TestPostUpdateStylesView(TestCase):
 
         self.client.force_login(self.superuser)
         url = reverse("post_update_styles", kwargs={"post_id": self.post.pk})
-        response = self.client.get(url, HTTP_HX_REQUEST="true")
+        response = self.client.get(url, headers={"hx-request": "true"})
 
         # Should redirect to admin regardless of HTMX
         self.assertEqual(response.status_code, HTTPStatus.FOUND)

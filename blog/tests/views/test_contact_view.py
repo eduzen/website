@@ -27,12 +27,12 @@ class TestContactView(TestCase):
 
     def test_contact_view_htmx_request(self):
         """Test contact view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Contact")
+        self.assertContains(response, "Get in Touch")
 
     def test_contact_view_regular_request(self):
         """Test contact view with regular HTTP request"""
@@ -49,7 +49,19 @@ class TestContactView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Contact")
+        self.assertContains(response, "Get in Touch")
+
+    def test_contact_view_htmx_history_restore_gets_full_page(self):
+        response = self.client.get(
+            self.url,
+            headers={"HX-Request": "true", "HX-History-Restore-Request": "true"},
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "<!DOCTYPE html>", count=1)
+        self.assertContains(response, 'id="main-navbar"', count=1)
+        self.assertContains(response, 'id="content"', count=1)
+        self.assertContains(response, "Get in Touch")
 
     @patch("blog.views.send_contact_message")
     def test_contact_form_valid_submission(self, mock_send_telegram):
@@ -114,23 +126,27 @@ class TestContactView(TestCase):
             "captcha": "red",  # Answer to "What color is the red rabbit?"
         }
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         # May redirect to error page if telegram service fails
         self.assertIn(response.status_code, [HTTPStatus.OK, HTTPStatus.FOUND])
         if response.status_code == HTTPStatus.OK:
-            self.assertTemplateUsed(response, "blog/success.html")
+            self.assertTemplateUsed(response, "success-content")
+            self.assertNotContains(response, "<!DOCTYPE html>")
+            self.assertContains(response, "page-layout", count=1)
 
     @patch("blog.views.send_contact_message")
     def test_contact_form_htmx_invalid_submission(self, mock_send_telegram):
         """Test invalid contact form submission via HTMX"""
         form_data = {}  # Empty form
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the contact template
-        self.assertTemplateUsed(response, "blog/contact.html")
+        self.assertTemplateUsed(response, "contact-content")
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "page-layout", count=1)
         self.assertContains(response, "This field is required")
         mock_send_telegram.assert_not_called()
 
@@ -234,6 +250,25 @@ class TestContactView(TestCase):
         )
 
     @patch("blog.views.send_contact_message")
+    def test_contact_form_htmx_telegram_failure_keeps_partial_layout(self, mock_send_telegram):
+        """Test HTMX failure responses do not swap a full document into #content."""
+        mock_send_telegram.side_effect = Exception("Telegram API error")
+
+        form_data = {
+            "name": "HTMX User",
+            "email": "htmx@example.com",
+            "message": "HTMX test message",
+            "captcha": "red",
+        }
+
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"}, follow=True)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "error-content")
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "page-layout", count=1)
+
+    @patch("blog.views.send_contact_message")
     def test_contact_form_htmx_successful_telegram(self, mock_send_telegram):
         """Test contact form HTMX submission with successful Telegram message"""
         # Mock successful Telegram API response
@@ -246,13 +281,24 @@ class TestContactView(TestCase):
             "captcha": "red",
         }
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         # Should render success template for HTMX when Telegram succeeds
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "blog/success.html")
+        self.assertTemplateUsed(response, "success-content")
+        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertContains(response, "page-layout", count=1)
 
         # Verify Telegram service was called
         mock_send_telegram.assert_called_once_with(
             name="HTMX User", email="htmx@example.com", message="HTMX test message"
         )
+
+    def test_contact_form_htmx_contract_targets_content(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'hx-post="/en/contact/"')
+        self.assertContains(response, 'hx-target="#content"')
+        self.assertContains(response, 'hx-swap="innerHTML"')
+        self.assertContains(response, 'data-confirm="true"')

@@ -1,5 +1,7 @@
 from .base import *  # noqa
 
+STATSIG_ENABLED = False
+
 DEBUG = False
 TEMPLATE_DEBUG = False
 DEBUG_LOGGING = False

@@ -1,0 +1,60 @@
+{% extends 'core/utils/base.html' %}
+
+{% block content %}
+
+{% partialdef work-content %}
+{% load i18n static %}
+
+<div class="work-page page-layout">
+
+  <!-- Header -->
+  <div class="work-header reveal">
+    <h1 class="section-title">{% translate "Work" %}</h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+    <p class="work-subtitle">
+      {% translate "A selection of projects I've built or contributed to." %}
+    </p>
+  </div>
+
+  <!-- Project mosaic -->
+  <section class="work-mosaic">
+    {% for project in projects %}
+    <a class="card work-project reveal"
+       href="{{ project.url }}"
+       target="_blank"
+       rel="noopener">
+      {% if project.image %}
+      <div class="work-project__preview">
+        <img src="{% static project.image %}"
+             alt="{{ project.name }} preview"
+             class="work-project__img"
+             loading="lazy"
+             width="640" height="360">
+      </div>
+      {% endif %}
+      <div class="work-project__body">
+        <div class="work-project__header">
+          <h2 class="card-title work-project__name">{{ project.name }}</h2>
+          <span class="work-project__arrow" aria-hidden="true">↗</span>
+        </div>
+        <p class="card-description work-project__desc">{{ project.description }}</p>
+        <div class="work-project__tags">
+          {% for tag in project.tags %}
+          <span class="about-skill">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </section>
+
+  <!-- CTA -->
+  {% translate "Have a project in mind? Let's build something together." as cta_text %}
+  {% include "blog/partials/cta.html" with cta_text=cta_text %}
+
+</div>
+{% endpartialdef work-content %}
+
+{% partial work-content %}
+
+{% endblock content %}

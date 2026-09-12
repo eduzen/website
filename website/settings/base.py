@@ -33,15 +33,12 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "rest_framework",
     "ckeditor",
     "ckeditor_uploader",
-    "corsheaders",
     "crispy_forms",
     "crispy_tailwind",
     "django_extensions",
     "django_htmx",
-    "template_partials",
     "easy_thumbnails",
     "image_cropping",
     "robots",
@@ -50,9 +47,7 @@ THIRD_PARTY_APPS = [
 ]
 
 APPS = [
-    "django_fast",
     "blog",
-    "snippets",
     "core",
 ]
 
@@ -62,10 +57,9 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -73,7 +67,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.CloudflareRealIPMiddleware",
-    "django_fast.middleware.ProfilerMiddleware",
+    "core.middleware.StatsigAnalyticsMiddleware",
+    "core.middleware.CurrentViewMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"
@@ -99,15 +94,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "website.wsgi.application"
 
 # Database
-DATABASES: dict = {
-    'default': config(
-        'DATABASE_URL',
-        default=f"sqlite:///{BASE_DIR}/db.sqlite3",
-        cast=db_url
-    )
-}
+DATABASES: dict = {"default": config("DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3", cast=db_url)}
 
-DATABASES['default'].setdefault("OPTIONS", {}).update({"pool": True})  # NOQA
+DATABASES["default"].setdefault("OPTIONS", {}).update({"pool": True})  # NOQA
 
 
 # Password validation
@@ -175,7 +164,6 @@ GS_DEFAULT_ACL = "publicRead"  # Make the files public
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CKEDITOR_JQUERY_URL = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
 CKEDITOR_UPLOAD_PATH = "/"
@@ -193,19 +181,6 @@ LOG_LEVEL = config("LOG_LEVEL", default="INFO")
 
 LOGIN_REDIRECT_URL = "/"
 APPEND_SLASH = True
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 8,
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-    ),
-}
 
 # Django Image Cropping: https://github.com/jonasundderwolf/django-image-cropping
 THUMBNAIL_PROCESSORS = ("image_cropping.thumbnail_processors.crop_corners",) + thumbnail_settings.THUMBNAIL_PROCESSORS
@@ -228,3 +203,7 @@ IGNORABLE_404_URLS = [
 BUILD_DATE = config("BUILD_DATE", default="unknown")
 RELEASE = config("RELEASE", default="unknown")
 SENTRY_DSN = config("SENTRY_DSN", default="")
+
+STATSIG_SERVER_SECRET = config("STATSIG_SERVER_SECRET", default="")
+STATSIG_ENVIRONMENT = config("STATSIG_ENVIRONMENT", default="development")
+STATSIG_ENABLED = config("STATSIG_ENABLED", default=False, cast=bool)

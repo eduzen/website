@@ -44,13 +44,15 @@ class TestRelatedPostsView(TestCase):
         assert response.status_code == HTTPStatus.OK
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
-        # Should contain related posts pagination structure
-        self.assertContains(response, "flex flex-wrap justify-between items-center")
+        # The fragment keeps cards in a responsive grid with a separate pager.
+        self.assertContains(response, "related-posts__grid")
+        self.assertNotContains(response, "text-lg font-semibold section-subtitle")
 
     def test_related_posts(self):
         # post1 and post2 share the tag 'test_tag1'
         response = self.client.get(self.url1)
         self.assertContains(response, self.post2.title)
+        self.assertContains(response, "related-card__title")
         self.assertNotContains(response, self.post1.title)
         self.assertNotContains(response, self.post3.title)
 

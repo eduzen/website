@@ -1,90 +1,48 @@
 {% extends 'core/utils/base.html' %}
-{% load partials %}
 
 {% block content %}
 
 {% partialdef consultancy-content %}
 {% load i18n static %}
 
-<h1 class="text-green-400 pt-12 text-4xl text-center font-bold mb-4">
-  {% translate 'Consultancy Services' %}
-</h1>
+<div class="consultancy-page page-layout">
 
-<div class="text-white min-h-screen p-6">
-  <p class="text-xl mt-4 leading-relaxed text-justify">
-    {% translate "Crafting tech magic 🧙🏼‍♀️ for individuals 🧍🏻‍♀️ and businesses 🏭, with a sprinkle of fun and a dollop of expertise." %}
-    {% translate "Let's code something delightful!" %}
-    {% translate "With over 10 years in the industry 👴🏿, I offer useful insights and expertise for daily challenges." %}
-    {% translate "Remote 💻 or in-person 🪑, I'm here to assist." %}
-    {% translate "Interested in my professional journey?" %}
-    {% translate "Check out my" %}&nbsp<a target="_blank" href="{{ global_data.linkedin }}" class="text-pink-400 hover:underline nav-link">{% translate "LinkedIn profile" %}.</a>
-  </p>
-  <!-- Services -->
-  <section class="mb-12">
-    <h2 class="text-yellow-400 mt-8 text-3xl font-bold text-center mb-6">{% translate "Services" %}</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- For Individuals -->
-      <div class="p-6 rounded-lg">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Rising Tech Stars: Individuals' %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
-          {% translate "Personalized training 🏋🏼‍♂️, classes 👨🏽‍🏫, and tutoring 🤓 to help you blossom into an autonomous developer." %}
-          {% translate "Stuck on a bug 🐛? I've got your back, literally!" %}
-        </p>
-      </div>
-      <!-- For Companies -->
-      <div class="p-6 rounded-lg">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate 'For the Business: Companies' %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
-          {% translate "Crafting day-to-day solutions, providing stellar training (unittesting, robust code writing, you name it!), fixing Django/Python 🐍 performance issues, evaluating legacy code 🔖, or upgrading versions ⬆️." %}
-          {% translate "If it's tech, I'm your guy!" %}
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- Header -->
+  <div class="consultancy-header reveal">
+    <h1 class="section-title">{% translate "Consultancy" %}</h1>
+    <div class="contact-accent" aria-hidden="true"></div>
+  </div>
 
-  <!-- Experience and Skills -->
-  <section class="mb-12">
-    <h2 class="text-yellow-400 text-3xl font-bold text-center mb-6">{% translate "Experience &amp; Skills" %}</h2>
-    <div class="flex flex-wrap justify-between">
-      <div class="w-full md:w-1/2 p-6">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate "Years of Mischief &amp; Mastery" %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
-          {% translate "Code wizardry 🧙🏼‍♂️, business acumen 👨🏻‍💼, and maybe a few harmless pranks along the way. Dive into my tech journey!" %}
-        </p>
-        <p class="mt-4 text-justify leading-relaxed">
-          {% translate "Read more about my experience on linkedin " %}
-          <a target="_blank" href="{{ global_data.linkedin }}" class="text-pink-400 hover:underline nav-link">{% translate "here" %}.</a>
-        </p>
-      </div>
-      <div class="w-full md:w-1/2 p-6">
-        <h3 class="text-orange-400 text-2xl font-bold">{% translate 'Techno-Sorcery' %}</h3>
-        <p class="mt-4 text-justify leading-relaxed">
-          {% translate "From Python 🐍 to Django, from debugging to spellbinding code – I've mastered the digital alchemy ⚗️." %}
-        </p>
-        <p class="mt-4 text-justify leading-relaxed">
-          {% translate "Read more about me here: " %}
-          <a target="_blank" href="{% url 'about' %}" class="text-pink-400 hover:underline nav-link">{% translate 'about' %}.</a>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="text-center mb-12">
-    <h2 class="text-yellow-400 text-3xl font-bold">{% translate 'Get in Touch' %}</h2>
-    <p class="text-xl mt-4 mb-4 text-justify leading-relaxed">
-      {% translate "Ready to embark on a tech adventure or brew up a business solution? Let's talk!" %}
+  <!-- Intro -->
+  <section class="consultancy-intro page-intro page-prose reveal">
+    <p>
+      {% blocktranslate trimmed with years=global_data.years_of_experience %}
+        With over {{ years }} years of experience in software development, I help teams and professionals build reliable, maintainable systems that solve real problems.
+      {% endblocktranslate %}
+      {% blocktranslate trimmed %}
+        I believe in clean code, solid architecture, and pragmatic decisions: the right solution for the context, not the most elaborate one.
+      {% endblocktranslate %}
     </p>
-    <a
+    <p>
+      {% translate "Available for remote and on-site collaborations." %}
+      {% translate "You can learn more about my background on" %}&nbsp;<a target="_blank" href="{{ global_data.linkedin }}" class="warm-link">LinkedIn</a>.
+    </p>
+  </section>
+
+  <section class="flex flex-col md:flex-row items-center justify-center">
+    <a class="about-cta__link about-cta__link--primary"
       href="{% url 'contact' %}"
       hx-get="{% url 'contact' %}"
       hx-target="#content"
-      hx-push-url="true"
-      class="text-xl text-pink-400 hover:underline nav-link">
-      {% translate 'Contact Me' %}
+      hx-push-url="true">
+      {% if primary_text %}
+        {{ primary_text }}
+      {% else %}
+        {% translate "Get in touch" %}
+      {% endif %} →
     </a>
-
   </section>
+
 </div>
 {% endpartialdef consultancy-content %}
 

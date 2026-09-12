@@ -1,57 +1,48 @@
 {% extends 'core/utils/base.html' %}
-{% load partials %}
 
 {% block content %}
 
 {% partialdef post-detail-content %}
 {% load i18n static %}
 
-<div class="flex flex-wrap justify-center subpixel-antialiased p-4 tracking-wide">
+<div class="page-layout">
 
-  <!-- Back Link -->
-  <div class="w-full text-left mb-4">
-    <a
-      hx-get="{% url 'post_list' %}"
-      hx-push-url="{% url 'post_list' %}"
-      hx-target="#content"
-      href="{% url 'post_list' %}"
-      class="text-blue-500 hover:text-blue-700">
-      ← {% translate 'Back to Post List' %}
-    </a>
-  </div>
+  <article class="page-prose">
+    <div class="post-back-link">
+      <a
+        hx-get="{% url 'post_list' %}"
+        hx-push-url="{% url 'post_list' %}"
+        hx-target="#content"
+        href="{% url 'post_list' %}"
+        class="warm-link">
+        ← {% translate 'Back to Post List' %}
+      </a>
+    </div>
 
-  <!-- Main Post Content -->
-  <div class="w-full ">
-
-    <!-- Post Detail -->
     {% if post.published_date %}
-      <small class="text-sm ">
-        <time class="text-gray-400" datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
-        |
-        <span class="text-gray-400">
-          {% translate 'Author' %}: {{ post.author.first_name }} {{ post.author.last_name }}
-        </span>
-      </small>
+      <div class="post-meta">
+        <time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
+        &middot;
+        <span>{% translate 'Author' %}: {{ post.author.first_name }} {{ post.author.last_name }}</span>
+      </div>
     {% endif %}
 
-    <h3 class="text-3xl font-bold text-purple-400 pb-4">{{ post.title }}</h3>
+    <h1 class="section-title post-title">{{ post.title }}</h1>
 
-    {% autoescape off %}
-      {{ post.text }}
-    {% endautoescape %}
+    <div class="post-content">
+      {% autoescape off %}
+        {{ post.text }}
+      {% endautoescape %}
+    </div>
+  </article>
 
-  </div>
-
-  <!-- Related Posts -->
-  <div class="h-0.5 bg-pink-500 my-4 w-full"></div>
-  <h2 class="pb-4">Related Posts</h2>
-  <div id="related-post-container" hx-get="{% url 'related_posts' post_id=post.id %}" hx-trigger="load">
-    <!-- Content will be loaded here when the page loads -->
-  </div>
+  <div id="related-post-container" hx-get="{% url 'related_posts' post_id=post.id %}" hx-trigger="load"></div>
 
 </div>
 
-<script src="{% static 'blog/js/codeHighlight.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="{% static 'blog/js/copyCode.js' %}"></script>
 {% endpartialdef post-detail-content %}
 
 {% partial post-detail-content %}

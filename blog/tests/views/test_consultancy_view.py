@@ -23,12 +23,12 @@ class TestConsultancyView(TestCase):
 
     def test_consultancy_view_htmx_request(self):
         """Test consultancy view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Consultancy Services")
+        self.assertContains(response, "Consultancy")
 
     def test_consultancy_view_regular_request(self):
         """Test consultancy view with regular HTTP request"""
@@ -45,7 +45,7 @@ class TestConsultancyView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Consultancy Services")
+        self.assertContains(response, "Consultancy")
 
     def test_consultancy_view_post_request(self):
         """Test POST request to consultancy view (should handle gracefully)"""

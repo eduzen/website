@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Apps: `blog/`, `core/`, `snippets/`, `django_fast/` (each has `models`, `views`, `urls`, `templates`, `static`).
+- Apps: `blog/`, `core/` (each has `models`, `views`, `urls`, `templates`, `static`).
 - Project config: `website/` (ASGI/WSGI, `settings/{base,dev,prod,test}.py`).
 - Tests: `*/tests/` inside each app; files named `test_*.py`.
 - Ops & tooling: `Dockerfile`, `docker-compose*.yml`, `scripts/`, `Makefile`, `justfile`.
@@ -23,7 +23,7 @@
 
 ## Testing Guidelines
 - Framework: `pytest` with `pytest-django`; tests use `website.settings.test` (configured in `pyproject.toml`).
-- Coverage: minimum 80% across `blog`, `core`, `snippets`.
+- Coverage: minimum 80% across `blog`, `core`.
 - Place tests in `*/tests/`; name files `test_*.py` with descriptive function names.
 - Run locally with `just test`; iterate on a file with `pytest path/to/test_file.py -q`.
 
