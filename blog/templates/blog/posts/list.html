@@ -7,14 +7,14 @@
 
 <div class="page-layout">
   <span class="section-label reveal">{% translate "Things I Think About" %}</span>
-  <h2 class="section-title reveal">
+  <h1 class="section-title reveal">
     Blog
     {% if tag %}
-      <span class="text-muted" style="font-weight: 400; font-size: 0.6em;">| {{ tag }}</span>
+      <span class="page-title-context">| {{ tag }}</span>
     {% else %}
-      <span class="text-muted" style="font-weight: 400; font-size: 0.6em;">{% translate 'or just public notes' %}</span>
+      <span class="page-title-context">{% translate 'or just public notes' %}</span>
     {% endif %}
-  </h2>
+  </h1>
 
   <div class="writing-grid">
     {% for post in posts %}

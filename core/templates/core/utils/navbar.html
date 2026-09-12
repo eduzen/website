@@ -5,7 +5,7 @@
      x-data="{ isMobileMenuOpen: false }"
      @click.outside="isMobileMenuOpen = false"
      class="fixed z-10 top-0 w-full">
-  <div class="mx-auto px-6 py-3 flex justify-between items-center">
+  <div class="site-container flex items-center justify-between py-3">
     <div>
       <a href="{% url 'home' %}"
          hx-get="{% url 'home' %}"
@@ -31,8 +31,10 @@
   </div>
 
   <!-- Mobile Links Container -->
-  <div class="md:hidden p-4 mobile-menu-bg" x-show="isMobileMenuOpen" x-cloak>
-    {% include 'core/utils/nav_links_mobile.html' %}
+  <div class="mobile-menu-bg md:hidden" x-show="isMobileMenuOpen" x-cloak>
+    <div class="site-container py-4">
+      {% include 'core/utils/nav_links_mobile.html' %}
+    </div>
   </div>
 </nav>
 

@@ -12,16 +12,19 @@
     <h1 class="section-title">Bio</h1>
     <div class="contact-accent" aria-hidden="true"></div>
     <div class="about-skills">
+      <!-- Technical identity -->
       <span class="about-skill">Python</span>
-      <span class="about-skill">Django</span>
-      <span class="about-skill">Docker</span>
+      <span class="about-skill">Backend</span>
+
+      <!-- How I work -->
+      <span class="about-skill about-skill--green">{% translate "Hands-on" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Pragmatic" %}</span>
       <span class="about-skill about-skill--green">{% translate "Problem Solver" %}</span>
-      <span class="about-skill about-skill--green">{% translate "Teacher" %}</span>
-      <span class="about-skill about-skill--green">{% translate "Curious" %}</span>
-      <span class="about-skill about-skill--green">{% translate "Hands On" %}</span>
-      <span class="about-skill about-skill--muted">{% translate "Reader" %}</span>
+      <span class="about-skill about-skill--green">{% translate "Mentor" %}</span>
+
+      <!-- Personal -->
       <span class="about-skill about-skill--muted">{% translate "Philosophy" %}</span>
-      <span class="about-skill about-skill--muted">Open Source</span>
+      <span class="about-skill about-skill--muted">{% translate "Reader" %}</span>
     </div>
   </div>
 
@@ -30,7 +33,9 @@
     <div class="about-bio page-prose">
       <p>
         {% blocktranslate trimmed with age=global_data.age years_in_nl=global_data.years_in_nl %}
-        Hi, my name is Eduardo. I'm from Buenos Aires, I'm {{ age }} years old, and I currently live in Amsterdam — I moved to the Netherlands in 2020, so it's been about {{ years_in_nl }} years now. I work as a Team Lead at FareHarbor, in a role that combines parts of an engineering manager and a tech lead. Besides that, I really enjoy teaching and helping people grow in the IT world.
+        Hi, my name is Eduardo. I'm from Buenos Aires, I'm {{ age }} years old, and I currently live in Amsterdam. I moved to the Netherlands in 2020, so it's been about {{ years_in_nl }} years now.
+        I work as a Team Lead at FareHarbor, in a role that combines parts of an engineering manager and a tech lead.
+        Besides that, I really enjoy teaching and helping people grow in the IT world.
         {% endblocktranslate %}
       </p>
       <p>
@@ -81,50 +86,34 @@
 
   <!-- Beyond code -->
   <section class="about-section reveal">
-    <h2 class="about-section-title">{% translate "Beyond code" %}</h2>
+    <h2 class="section-heading">{% translate "Beyond code" %}</h2>
     <div class="about-cards">
-      <div class="about-card">
+      <div class="card about-card">
         <span class="about-card__icon" aria-hidden="true">📚</span>
-        <h3 class="about-card__title">{% translate "Philosophy" %}</h3>
-        <p class="about-card__text">
+        <h3 class="card-title about-card__title">{% translate "Philosophy" %}</h3>
+        <p class="card-description about-card__text">
           {% translate "Some people find it weird that I have a bachelor's degree in philosophy from the University of Buenos Aires 🇦🇷. But I think that rational thinking is something that my profession and studies share." %}
           {% translate "In general, philosophy has shaped my analytical thinking and fostered my curiosity. Some of my favorite philosophers are Nietzsche, Descartes, and Foucault." %}
         </p>
       </div>
-      <div class="about-card">
+      <div class="card about-card">
         <span class="about-card__icon" aria-hidden="true">👨🏽‍🏫</span>
-        <h3 class="about-card__title">{% translate "Teaching" %}</h3>
-        <p class="about-card__text">
+        <h3 class="card-title about-card__title">{% translate "Teaching" %}</h3>
+        <p class="card-description about-card__text">
           {% translate "Last but not least, I'm passionate about teaching 👨🏽‍🏫. I think my background in philosophy has helped me to be a better teacher." %}
           {% translate "I've been teaching in the past, and I'm looking forward to doing it more often in the IT field." %}
         </p>
       </div>
-      <div class="about-card">
+      <div class="card about-card">
         <span class="about-card__icon" aria-hidden="true">✨</span>
-        <h3 class="about-card__title">{% translate "Interests" %}</h3>
-        <p class="about-card__text">
+        <h3 class="card-title about-card__title">{% translate "Interests" %}</h3>
+        <p class="card-description about-card__text">
           {% translate "Besides computers, I like good music, books, philosophy, movies, series, and good food. I started trying some mechanical keyboards (right now using a Leo pold 75 %)! But I have also a Keychron K12." %}
           {% translate "Writers... many; Jorge Luis Borges, Ursula K. Le Guin, Arthur C. Clarke, and many more..." %}
         </p>
       </div>
     </div>
   </section>
-
-  <!-- CTA -->
-  <div class="about-cta reveal">
-    <div class="about-cta__links">
-      <a class="about-cta__link about-cta__link--primary"
-         href="{% url 'contact' %}"
-         hx-get="{% url 'contact' %}"
-         hx-target="#content"
-         hx-push-url="true">
-        {% translate "Get in touch" %} →
-      </a>
-      <a class="about-cta__link" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="about-cta__link" href="{{ global_data.github }}" target="_blank" rel="noopener">GitHub</a>
-      <a class="about-cta__link" href="{{ global_data.telegram }}" target="_blank" rel="noopener">Telegram</a>
-    </div>
-  </div>
 
 </div>
 {% endpartialdef about-content %}

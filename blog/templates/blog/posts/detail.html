@@ -7,29 +7,27 @@
 
 <div class="page-layout">
 
-  <!-- Back Link -->
-  <div class="mb-6">
-    <a
-      hx-get="{% url 'post_list' %}"
-      hx-push-url="{% url 'post_list' %}"
-      hx-target="#content"
-      href="{% url 'post_list' %}"
-      class="warm-link text-sm" style="letter-spacing: 0.04em;">
-      ← {% translate 'Back to Post List' %}
-    </a>
-  </div>
+  <article class="page-prose">
+    <div class="post-back-link">
+      <a
+        hx-get="{% url 'post_list' %}"
+        hx-push-url="{% url 'post_list' %}"
+        hx-target="#content"
+        href="{% url 'post_list' %}"
+        class="warm-link">
+        ← {% translate 'Back to Post List' %}
+      </a>
+    </div>
 
-  <article>
-    <!-- Post Detail -->
     {% if post.published_date %}
-      <div class="mb-2 text-muted text-sm">
+      <div class="post-meta">
         <time datetime="{{ post.published_date|date:"Y-m-d" }}">{{ post.published_date|date:"F j, Y" }}</time>
         &middot;
         <span>{% translate 'Author' %}: {{ post.author.first_name }} {{ post.author.last_name }}</span>
       </div>
     {% endif %}
 
-    <h1 class="section-title" style="margin-bottom: 2.5rem;">{{ post.title }}</h1>
+    <h1 class="section-title post-title">{{ post.title }}</h1>
 
     <div class="post-content">
       {% autoescape off %}
@@ -38,11 +36,7 @@
     </div>
   </article>
 
-  <!-- Related Posts -->
-  <div class="divider my-8"><hr></div>
-  <h2 class="section-subtitle text-accent-warm">{% translate "Related Posts" %}</h2>
-  <div id="related-post-container" hx-get="{% url 'related_posts' post_id=post.id %}" hx-trigger="load">
-  </div>
+  <div id="related-post-container" hx-get="{% url 'related_posts' post_id=post.id %}" hx-trigger="load"></div>
 
 </div>
 

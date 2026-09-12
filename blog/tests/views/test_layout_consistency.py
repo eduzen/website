@@ -67,3 +67,15 @@ class TestLayoutConsistency(TestCase):
         for url in self.primary_page_urls():
             with self.subTest(url=url):
                 self.assert_history_restore_gets_full_page(url)
+
+    def test_site_shell_uses_the_shared_outer_container(self) -> None:
+        response = self.client.get(reverse("home"))
+
+        self.assertContains(response, 'class="site-container flex items-center justify-between py-3"')
+        self.assertContains(response, '<div class="site-container">', count=1)
+
+    def test_post_detail_uses_the_shared_reading_column(self) -> None:
+        response = self.client.get(reverse("post_detail", kwargs={"slug": self.post.slug}))
+
+        self.assertContains(response, '<article class="page-prose">')
+        self.assertContains(response, 'id="related-post-container"')

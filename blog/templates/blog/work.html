@@ -19,7 +19,7 @@
   <!-- Project mosaic -->
   <section class="work-mosaic">
     {% for project in projects %}
-    <a class="work-project reveal"
+    <a class="card work-project reveal"
        href="{{ project.url }}"
        target="_blank"
        rel="noopener">
@@ -34,10 +34,10 @@
       {% endif %}
       <div class="work-project__body">
         <div class="work-project__header">
-          <h2 class="work-project__name">{{ project.name }}</h2>
+          <h2 class="card-title work-project__name">{{ project.name }}</h2>
           <span class="work-project__arrow" aria-hidden="true">↗</span>
         </div>
-        <p class="work-project__desc">{{ project.description }}</p>
+        <p class="card-description work-project__desc">{{ project.description }}</p>
         <div class="work-project__tags">
           {% for tag in project.tags %}
           <span class="about-skill">{{ tag }}</span>
