@@ -56,6 +56,18 @@ class TestRelatedPostsView(TestCase):
         self.assertNotContains(response, self.post1.title)
         self.assertNotContains(response, self.post3.title)
 
+    def test_standalone_page_has_heading_and_pagination_target(self):
+        response = self.client.get(self.url1)
+
+        self.assertContains(response, '<h1 class="section-title">Related Posts</h1>')
+        self.assertContains(response, 'id="related-post-container"', count=1)
+
+    def test_fragment_does_not_duplicate_page_heading_or_target(self):
+        response = self.client.get(self.url1, headers={"HX-Request": "true"})
+
+        self.assertNotContains(response, "<h1")
+        self.assertNotContains(response, 'id="related-post-container"')
+
     def test_no_related_posts(self):
         # post3 only shares a tag with post2, so post1 is not related
         response = self.client.get(self.url3)

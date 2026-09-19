@@ -2,6 +2,16 @@
 
 This audit documents the current `base.css` role after replacing the Tailwind CDN with a compiled Bun/Tailwind build.
 
+## Standardization update (2026-09-19)
+
+The historical size/line inventory below predates layout standardization and is not a current navigation index. Use CSS section headings instead of those line ranges.
+
+- Shared `.site-container` / `.page-layout` and `.page-prose` now implement the [design system](design-system.md); preserve these semantic contracts rather than duplicating their arithmetic in utilities.
+- Navigation and footer use the shared container. Version/error/result templates use the shared page shell.
+- Related posts now use semantic grid/card/pagination classes, shared card surfaces and typography, and a full-width enclosing panel. The old mixed percentage/utility layout has been removed.
+- Article CSS normalizes legacy font families and span/font inline sizes. Representative stored content and table overflow still need browser verification.
+- Remaining work is tracked in the current status section of [Design standardization TODO](design-standardization-todo.md).
+
 ## Current split
 
 - `core/static/core/css/tailwind.css`: generated utility CSS from Tailwind.

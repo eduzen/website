@@ -662,6 +662,11 @@ body {
 }
 
 /* ---- Contact Page ---- */
+.contact-details {
+  max-width: 360px;
+  margin-inline: auto;
+}
+
 .contact-header {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -717,6 +722,11 @@ body {
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.06);
   transition: var(--transition);
+}
+
+.contact-channel:focus-visible {
+  outline: 2px solid var(--accent-warm);
+  outline-offset: 3px;
 }
 
 .contact-channel:hover {
@@ -1787,7 +1797,6 @@ dialog.confirm-dialog::backdrop {
 /* ---- Related Posts ---- */
 .related-posts {
   width: 100%;
-  max-width: var(--reading-width);
   margin: 4rem auto 0;
   padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid rgba(194, 105, 45, 0.16);
@@ -1816,9 +1825,6 @@ dialog.confirm-dialog::backdrop {
   display: flex;
   min-width: 0;
   overflow: hidden;
-  border-color: rgba(92, 107, 79, 0.12);
-  background: rgba(250, 248, 245, 0.78);
-  box-shadow: 0 10px 30px rgba(42, 42, 42, 0.04);
 }
 
 .related-card::before {
@@ -1856,7 +1862,7 @@ dialog.confirm-dialog::backdrop {
 
 .related-card__title {
   margin: 0;
-  font-size: 1.2rem;
+  overflow-wrap: anywhere;
 }
 
 .related-card__summary {

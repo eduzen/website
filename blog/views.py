@@ -1,27 +1,21 @@
-import logging
 from typing import Any, cast
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, Page, Paginator
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django.views.generic.base import View
 from django.views.generic.list import MultipleObjectMixin
 from django_filters.views import FilterView
 
 from core.htmx import is_htmx_fragment_request
-from core.services.statsig import log_event
 
 from .filters import PostFilter
-from .forms import AdvanceSearchForm, ContactForm
+from .forms import AdvanceSearchForm
 from .models import Post
 from .services.parsers import apply_styles
-from .services.telegram import send_contact_message
-
-logger = logging.getLogger(__name__)
 
 
 class HtmxPartialTemplateMixin:
@@ -250,36 +244,6 @@ class RelatedPostsView(HtmxPartialTemplateMixin, ListView):
         return context
 
 
-class ContactView(HtmxPartialTemplateMixin, FormView):
+class ContactView(HtmxPartialTemplateMixin, TemplateView):
     template_name = "blog/contact.html"
     htmx_template_name = "blog/contact.html#contact-content"
-    form_class = ContactForm
-    error_url = reverse_lazy("error")
-
-    def form_valid(self, form: ContactForm) -> HttpResponse:
-        context = {
-            "name": form.cleaned_data["name"],
-            "email": form.cleaned_data["email"],
-            "message": form.cleaned_data["message"],
-        }
-
-        try:
-            response = send_contact_message(**context)
-            logger.info(response)
-            log_event(
-                self.request,
-                "contact_form_submitted",
-                metadata={"htmx": str(is_htmx_fragment_request(self.request)).lower()},
-            )
-        except Exception:
-            logger.exception("Contact problems")
-            return redirect(self.error_url)
-
-        template_name = (
-            "blog/success.html#success-content" if is_htmx_fragment_request(self.request) else "blog/success.html"
-        )
-        return render(self.request, template_name, context)
-
-    def form_invalid(self, form: ContactForm) -> HttpResponse:
-        context_data = self.get_context_data(form=form)
-        return self.render_to_response(context_data)
