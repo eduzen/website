@@ -44,15 +44,29 @@ class TestRelatedPostsView(TestCase):
         assert response.status_code == HTTPStatus.OK
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
-        # Should contain related posts pagination structure
-        self.assertContains(response, "flex flex-wrap justify-between items-center")
+        # The fragment keeps cards in a responsive grid with a separate pager.
+        self.assertContains(response, "related-posts__grid")
+        self.assertNotContains(response, "text-lg font-semibold section-subtitle")
 
     def test_related_posts(self):
         # post1 and post2 share the tag 'test_tag1'
         response = self.client.get(self.url1)
         self.assertContains(response, self.post2.title)
+        self.assertContains(response, "related-card__title")
         self.assertNotContains(response, self.post1.title)
         self.assertNotContains(response, self.post3.title)
+
+    def test_standalone_page_has_heading_and_pagination_target(self):
+        response = self.client.get(self.url1)
+
+        self.assertContains(response, '<h1 class="section-title">Related Posts</h1>')
+        self.assertContains(response, 'id="related-post-container"', count=1)
+
+    def test_fragment_does_not_duplicate_page_heading_or_target(self):
+        response = self.client.get(self.url1, headers={"HX-Request": "true"})
+
+        self.assertNotContains(response, "<h1")
+        self.assertNotContains(response, 'id="related-post-container"')
 
     def test_no_related_posts(self):
         # post3 only shares a tag with post2, so post1 is not related

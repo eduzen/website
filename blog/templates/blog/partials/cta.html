@@ -1,0 +1,40 @@
+{% load i18n %}
+
+{% comment %}
+Reusable call-to-action block.
+
+Parameters:
+  - cta_text (optional): the text shown above the buttons.
+      Defaults to "Ready to tackle a technical challenge together? Let's talk."
+  - primary_text (optional): the label of the primary button.
+      Defaults to "Get in touch".
+{% endcomment %}
+
+<div class="about-cta reveal">
+  <p class="about-cta__text">
+    {% if cta_text %}
+      {{ cta_text }}
+    {% else %}
+      {% translate "Ready to tackle a technical challenge together? Let's talk." %}
+    {% endif %}
+  </p>
+  <div class="about-cta__links">
+    <a class="about-cta__link about-cta__link--primary"
+       href="{% url 'contact' %}"
+       hx-get="{% url 'contact' %}"
+       hx-target="#content"
+       hx-push-url="true">
+      {% if primary_text %}
+        {{ primary_text }}
+      {% else %}
+        {% translate "Get in touch" %}
+      {% endif %} →
+    </a>
+    <a class="about-cta__link" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">
+      <span class="icon-linkedin" aria-hidden="true">in</span>&nbsp;LinkedIn
+    </a>
+    <a class="about-cta__link" href="{{ global_data.email }}">
+      <span class="icon-email" aria-hidden="true">✉</span>&nbsp;Email
+    </a>
+  </div>
+</div>

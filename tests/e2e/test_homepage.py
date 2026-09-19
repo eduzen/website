@@ -1,4 +1,33 @@
+import re
+
+import pytest
 from playwright.sync_api import Page, expect
+
+from blog.tests.factories import PostFactory
+
+
+def _has_no_horizontal_overflow(page: Page) -> bool:
+    return page.evaluate("() => document.documentElement.scrollWidth <= window.innerWidth + 1")
+
+
+def _element_dimensions(page: Page, selector: str) -> dict[str, float]:
+    js = """
+(element) => ({
+  width: element.getBoundingClientRect().width,
+  height: element.getBoundingClientRect().height,
+})
+"""
+    return page.locator(selector).evaluate(js)
+
+
+def _element_vertical_position(page: Page, selector: str) -> dict[str, float]:
+    js = """
+(element) => ({
+  top: element.getBoundingClientRect().top,
+  bottom: element.getBoundingClientRect().bottom,
+})
+"""
+    return page.locator(selector).evaluate(js)
 
 
 def test_homepage_loads(page: Page, live_server):
@@ -48,8 +77,71 @@ def test_htmx_navigation(page: Page, live_server):
         expect(page.locator("#content")).to_be_visible()
 
 
+def test_nav_active_state_updates_with_htmx_and_history(page: Page, live_server):
+    page.goto(f"{live_server.url}/en/")
+
+    home_logo = page.locator("#main-navbar .logo")
+    about_link = page.locator("#main-navbar a[data-nav-sections~='about']").first
+    blog_link = page.locator("#main-navbar a[data-nav-sections~='blog']").first
+
+    expect(home_logo).to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(about_link).to_have_attribute("class", re.compile(r"\bnav-link\b"))
+
+    about_link.click()
+    page.wait_for_url(f"{live_server.url}/en/about/")
+    page.wait_for_load_state("networkidle")
+
+    expect(about_link).to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(home_logo).not_to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(blog_link).not_to_have_attribute("class", re.compile(r"\bactive-link\b"))
+
+    page.go_back()
+    page.wait_for_url(f"{live_server.url}/en/")
+    page.wait_for_load_state("networkidle")
+
+    expect(home_logo).to_have_attribute("class", re.compile(r"\bactive-link\b"))
+    expect(about_link).not_to_have_attribute("class", re.compile(r"\bactive-link\b"))
+
+
+def test_nav_keyboard_focus_styles(page: Page, live_server):
+    page.goto(f"{live_server.url}/en/")
+
+    about_link = page.locator("#main-navbar a[data-nav-sections~='about']").first
+    language_button = page.locator("div.hidden.md\\:flex .language-button").first
+
+    about_focus = about_link.evaluate(
+        """(element) => {
+            element.focus();
+            const styles = window.getComputedStyle(element);
+            return {
+                outlineStyle: styles.outlineStyle,
+                outlineWidth: styles.outlineWidth,
+                outlineColor: styles.outlineColor,
+            };
+        }"""
+    )
+    assert about_focus["outlineStyle"] != "none"
+    assert about_focus["outlineWidth"] != "0px"
+    assert "194, 105, 45" in about_focus["outlineColor"]
+
+    language_focus = language_button.evaluate(
+        """(element) => {
+            element.focus();
+            const styles = window.getComputedStyle(element);
+            return {
+                outlineStyle: styles.outlineStyle,
+                outlineWidth: styles.outlineWidth,
+                outlineColor: styles.outlineColor,
+            };
+        }"""
+    )
+    assert language_focus["outlineStyle"] != "none"
+    assert language_focus["outlineWidth"] != "0px"
+    assert "194, 105, 45" in language_focus["outlineColor"]
+
+
 def test_responsive_design(page: Page, live_server):
-    """Test basic responsive design elements."""
+    """Test mobile navigation, hero placement, and overflow protection."""
     # Test desktop view
     page.set_viewport_size({"width": 1200, "height": 800})
     page.goto(live_server.url)
@@ -62,5 +154,46 @@ def test_responsive_design(page: Page, live_server):
     page.set_viewport_size({"width": 375, "height": 667})
     page.goto(live_server.url)
 
-    # Navigation should still be present (might be hamburger menu)
+    # Navigation should still be present and tappable.
     expect(nav).to_be_visible()
+    mobile_menu_button = page.locator("#main-navbar button.md\\:hidden")
+    expect(mobile_menu_button).to_be_visible()
+
+    dimensions = _element_dimensions(page, "#main-navbar button.md\\:hidden")
+    assert dimensions["width"] >= 44
+    assert dimensions["height"] >= 44
+
+    mobile_menu_button.click()
+    expect(page.locator(".mobile-menu-bg")).to_be_visible()
+
+    nav_position = _element_vertical_position(page, "#main-navbar")
+    hero_position = _element_vertical_position(page, ".hero")
+    assert hero_position["top"] <= nav_position["bottom"] + 16
+
+    assert _has_no_horizontal_overflow(page)
+
+
+def test_global_wave_layers_use_duplicated_2400_paths(page: Page, live_server):
+    """Ensure global wave layers use single 2400-wide looping SVG paths."""
+    for route in ("/en/", "/en/about/"):
+        page.goto(f"{live_server.url}{route}")
+
+        for layer in ("1", "2", "3"):
+            svg = page.locator(f"svg.page-waves__layer--{layer}")
+            expect(svg).to_have_count(1)
+            expect(svg).to_have_attribute("viewBox", "0 0 2400 200")
+            expect(svg.locator("path")).to_have_count(1)
+
+
+@pytest.mark.django_db
+def test_blog_list_responsive_layout(page: Page, live_server):
+    """Test blog list remains readable on tablet widths."""
+    PostFactory(title="Responsive layouts need room to breathe")
+
+    for viewport in ({"width": 768, "height": 1024}, {"width": 1024, "height": 768}):
+        page.set_viewport_size(viewport)
+        page.goto(f"{live_server.url}/en/blog/")
+
+        expect(page.locator(".essay-item").first).to_be_visible()
+        expect(page.locator(".essay-title").first).to_contain_text("Responsive layouts")
+        assert _has_no_horizontal_overflow(page)

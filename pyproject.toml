@@ -14,9 +14,8 @@ classifiers = [
 dependencies = [
   "beautifulsoup4",
   "crispy-tailwind",
-  "django",
+  "django>=6.0",
   "django-ckeditor",
-  "django-cors-headers",
   "django-crispy-forms",
   "django-extensions",
   "django-filter",
@@ -26,12 +25,10 @@ dependencies = [
   "django-storages[google]",
   "django-debug-toolbar",
   "django-browser-reload",
-  "djangorestframework",
   "django-rosetta",
   "dj-database-url",
   "easy_thumbnails", # Needed for django-image-cropping
   "gunicorn",
-  "Markdown",
   "openai",
   "Pillow",
   "python-decouple",
@@ -41,10 +38,9 @@ dependencies = [
   "sentry-sdk[django]",
   "requests",
   "whitenoise[brotli]",
-  "logfire[django,psycopg,sqlite3,redis,requests]>=3.3.0",
-  "pydantic-ai-slim[logfire,openai]>=0.0.24",
-  "django-template-partials>=24.4",
+  "pydantic-ai-slim[openai]>=0.0.24",
   "django-dbbackup>=5.0.0",
+  "statsig-python-core>=0.19.5",
 ]
 
 [dependency-groups]
@@ -59,16 +55,11 @@ dev = [
   "pytest-django",
   "pytest-mock",
   "pytest-sugar",
-  "pytest-xdist",
-  "pytest-recording",
-  "types-redis",
-  "types-requests",
   "types-redis",
   "types-requests",
   "django-stubs[compatible-mypy]",
   "django-filter-stubs",
   "types-beautifulsoup4",
-  "types-Pygments",
   "types-factory-boy",
   "ty>=0.0.1a11",
 ]
@@ -81,24 +72,66 @@ e2e = [
 addopts = "--ds=website.settings.test"
 asyncio_mode = "auto"
 
-[tool.isort]
-profile = "black"
-include_trailing_comma = true
-
 [tool.ruff]
 line-length = 120
-target-version = "py311"
+target-version = "py314"
 exclude = [
   "website/settings/base.py",
   "website/settings/test.py",
 ]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I"]
+select = [
+  "E",  # Pycodestyle Errors
+  "F",  # Pyflakes
+  "W",  # Pycodestyle Warnings
+  "I",  # Isort
+  "UP",  # Pyupgrade
+  "ANN", # Missing type annotations
+  "PLC0415", # Import outside top-level (no inline imports)
+  "B",  # flake8-bugbear
+  "SIM", # flake8-simplify
+  "RUF", # Ruff-specific rules
+  "TRY", # tryceratops (exception handling quality)
+  "RET", # flake8-return (return consistency)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*.py" = ["ANN", "RUF012"]
+"blog/admin.py" = ["ANN"]
+"blog/forms.py" = ["ANN"]
+"blog/management/commands/*.py" = ["ANN"]
+"blog/tests/admin/admin_test.py" = ["ANN"]
+"blog/tests/commands/test_apply_styles.py" = ["ANN"]
+"blog/tests/forms_test.py" = ["ANN"]
+"blog/tests/services/test_captcha.py" = ["ANN"]
+"blog/tests/services/test_prettifier.py" = ["ANN"]
+"blog/tests/services/test_telegram.py" = ["ANN"]
+"blog/tests/views/test_about_view.py" = ["ANN"]
+"blog/tests/views/test_advance_search_view.py" = ["ANN"]
+"blog/tests/views/test_classes_view.py" = ["ANN"]
+"blog/tests/views/test_consultancy_view.py" = ["ANN"]
+"blog/tests/views/test_contact_view.py" = ["ANN"]
+"blog/tests/views/test_error_view.py" = ["ANN"]
+"blog/tests/views/test_home_view.py" = ["ANN"]
+"blog/tests/views/test_post_tags_list_view.py" = ["ANN"]
+"blog/tests/views/test_post_update_styles_view.py" = ["ANN"]
+"blog/tests/views/test_related_posts_view.py" = ["ANN"]
+"blog/tests/views/test_robots.py" = ["ANN"]
+"blog/tests/views/test_success_view.py" = ["ANN"]
+"core/tests/**/*.py" = ["ANN"]
+"proposals/*.py" = ["ANN"]
+"tests/**/*.py" = ["ANN"]
+"**/admin.py" = ["RUF012"]
+"**/tests/**/*.py" = ["TRY", "RET"]
+"**/filters.py" = ["RUF012"]
+"**/models.py" = ["RUF012"]
+"**/serializers.py" = ["RUF012"]
+"**/views.py" = ["RUF012"]
 
 [tool.coverage.run]
 branch = true
-source = ["blog", "core", "snippets"]
+source = ["blog", "core"]
 omit = [
   "website/__init__.py",
   "website/settings/*",
@@ -126,7 +159,7 @@ exclude_lines = [
 pretty_print=true
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.14"
 warn_return_any = false
 warn_unused_configs = true
 plugins = [
@@ -134,6 +167,7 @@ plugins = [
 ]
 exclude = [
   "migrations",
+  "proposals",
   "tests",
 ]
 

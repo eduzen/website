@@ -22,7 +22,7 @@ repos:
     rev: v1
     hooks:
       - id: typos
-        exclude: ^.*htmx\.min\..*\.js$
+        exclude: ^(.*htmx\.min\..*\.js|core/static/core/vendor/.*)$
 
   - repo: https://github.com/abravalheri/validate-pyproject
     rev: v0.25
@@ -34,23 +34,18 @@ repos:
     rev: "1.9.0"
     hooks:
     -   id: djade
-        args: [--target-version, "5.1"]
+        args: [--target-version, "6.0"]
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.30.0"
+    rev: "1.31.1"
     hooks:
     -   id: django-upgrade
-
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
-    hooks:
-      - id: pyupgrade
-        args: [--py313]
+        args: [--target-version, "6.0"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.15.8'
+    rev: 'v0.16.0'
     hooks:
       - id: ruff-check
-        args: ["--fix", "--target-version", "py313"]
+        args: ["--fix", "--target-version", "py314"]
       - id: ruff-format
-        args: ["--target-version", "py313"]
+        args: ["--target-version", "py314"]

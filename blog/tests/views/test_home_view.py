@@ -33,12 +33,12 @@ class TestHomeView(TestCase):
 
     def test_home_view_htmx_request(self):
         """Test home view with HTMX request"""
-        response = self.client.get(self.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render the partial content only
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Eduardo Enriquez")
+        self.assertContains(response, "Philosophy graduate turned software engineer.")
 
     def test_home_view_regular_request(self):
         """Test home view with regular HTTP request"""
@@ -56,7 +56,7 @@ class TestHomeView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # With django-template-partials, HTMX requests render only the partial content
         self.assertNotContains(response, "<!DOCTYPE html>")
-        self.assertContains(response, "Eduardo Enriquez")
+        self.assertContains(response, "Philosophy graduate turned software engineer.")
 
     def test_home_view_is_cached(self):
         """Test that home view is cached"""
@@ -165,3 +165,23 @@ class TestHomeView(TestCase):
             self.assertNotContains(htmx_response, 'id="main-navbar"')
             # With django-template-partials, HTMX requests render only partial content
             self.assertNotContains(htmx_response, "<!DOCTYPE html>")
+
+    def test_navigation_uses_explicit_nav_sections(self):
+        """Desktop nav links should expose deterministic section matching metadata."""
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'data-nav-sections="home"')
+        self.assertContains(response, 'data-nav-sections="blog post_list post_detail blog_slug bytag"')
+        self.assertContains(response, 'data-nav-sections="about"')
+        self.assertContains(response, 'data-nav-sections="contact"')
+
+    def test_language_dropdown_menu_semantics_present(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'data-testid="language-dropdown"')
+        self.assertContains(response, 'role="menu"')
+        self.assertContains(response, 'role="menuitem"')
+        self.assertContains(response, "@click.prevent=\"switchLanguage('en')\"")
+        self.assertContains(response, "@click.prevent=\"switchLanguage('es')\"")

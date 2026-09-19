@@ -4,50 +4,80 @@
    hx-get="{% url 'blog' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'blog' in request.path %}active-link{% endif %}">
+   data-nav-sections="blog post_list post_detail blog_slug bytag"
+   class="nav-link">
   {% translate "Blog" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'consultancy' %}"
    hx-get="{% url 'consultancy' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'consultancy' in request.path %}active-link{% endif %}">
+   data-nav-sections="consultancy"
+   class="nav-link">
   {% translate "Consultancy" %}
 </a>
-<span class="text-gray-400">·</span>
 
-<a href="{% url 'classes' %}"
-   hx-get="{% url 'classes' %}"
+<a href="{% url 'work' %}"
+   hx-get="{% url 'work' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'classes' in request.path %}active-link{% endif %}">
-  {% translate "Classes" %}
+   data-nav-sections="work"
+   class="nav-link">
+  {% translate "Work" %}
 </a>
-<span class="text-gray-400">·</span>
+
+<div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+  <button @click="open = !open"
+          data-nav-sections="classes mentoring"
+          class="nav-link nav-dropdown__trigger"
+          :aria-expanded="open ? 'true' : 'false'">
+    {% translate "Teaching" %} <span class="nav-dropdown__chevron" :class="{ 'nav-dropdown__chevron--open': open }" aria-hidden="true">&#9662;</span>
+  </button>
+  <div x-show="open" x-cloak x-transition.opacity.duration.150ms
+       @click.outside="open = false"
+       class="nav-dropdown__menu">
+    <a href="{% url 'mentoring' %}"
+       hx-get="{% url 'mentoring' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       data-nav-sections="mentoring"
+       @click="open = false"
+       class="nav-dropdown__item">
+      {% translate "Mentoring" %}
+    </a>
+    <a href="{% url 'classes' %}"
+       hx-get="{% url 'classes' %}"
+       hx-target="#content"
+       hx-push-url="true"
+       data-nav-sections="classes"
+       @click="open = false"
+       class="nav-dropdown__item">
+      {% translate "Classes" %}
+    </a>
+  </div>
+</div>
 
 <a href="{% url 'about' %}"
    hx-get="{% url 'about' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'about' in request.path %}active-link{% endif %}">
+   data-nav-sections="about"
+   class="nav-link">
   {% translate "About" %}
 </a>
-<span class="text-gray-400">·</span>
 
 <a href="{% url 'contact' %}"
    hx-get="{% url 'contact' %}"
    hx-target="#content"
    hx-push-url="true"
-   class="nav-link {% if 'contact' in request.path %}active-link{% endif %}">
+   data-nav-sections="contact"
+   class="nav-link">
   {% translate "Contact" %}
 </a>
-<span class="text-gray-400">·</span>
 
 {% if user.is_superuser %}
-  <a href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
-  <span class="text-gray-400">·</span>
+  <a href="{% url 'admin:index' %}" class="nav-link">{% translate "Admin" %}</a>
 {% endif %}
 
 {% include 'core/utils/language_dropdown_button.html' %}

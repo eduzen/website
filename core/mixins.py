@@ -1,9 +1,12 @@
-from typing import cast
-
 from django.core.exceptions import ImproperlyConfigured
 from django.views.generic.base import TemplateResponseMixin
 
-from .types import HtmxHttpRequest
+from .htmx import is_htmx_fragment_request
+
+
+class MissingTemplateNameError(ImproperlyConfigured):
+    def __init__(self, view_name: str) -> None:
+        super().__init__(f"{view_name} requires `template_name`.")
 
 
 class HtmxGetMixin(TemplateResponseMixin):
@@ -16,13 +19,10 @@ class HtmxGetMixin(TemplateResponseMixin):
     partial_template_name: str | None = None
 
     def get_template_names(self) -> list[str]:
-        request = cast(HtmxHttpRequest, self.request)
-
-        # For HTMX requests, render just the partial template
-        if request.htmx and self.partial_template_name:
+        if is_htmx_fragment_request(self.request) and self.partial_template_name:
             return [self.partial_template_name]
 
         if self.template_name:
             return [self.template_name]
 
-        raise ImproperlyConfigured(f"{self.__class__.__name__} requires `template_name`.")
+        raise MissingTemplateNameError(self.__class__.__name__)

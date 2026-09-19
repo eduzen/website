@@ -98,9 +98,6 @@ class PostAdmin(ImageCroppingMixin, admin.ModelAdmin):
         ),
     )
 
-    class Meta:
-        js = ("blog/js/htmx.min.1.9.4.js",)
-
     @admin.display(description="Suggested Title")
     def suggested_title(self, obj: Post) -> str:
         return obj.suggestions.get("title", "") if obj.suggestions else ""

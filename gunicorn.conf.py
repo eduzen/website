@@ -1,6 +1,8 @@
 import multiprocessing
 import os
 
+from core.services.statsig import shutdown_statsig
+
 # Network & timeouts
 bind = os.getenv("GUNICORN_BIND", "0.0.0.0:80")
 keepalive = int(os.getenv("GUNICORN_KEEPALIVE", 5))
@@ -48,3 +50,7 @@ if os.getenv("DEBUG") == "True":
     reload = True
     reload_engine = "auto"
     reload_extra_files = ["pyproject.toml", "uv.lock"]
+
+
+def worker_exit(server: object, worker: object) -> None:
+    shutdown_statsig()

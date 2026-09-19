@@ -1,11 +1,14 @@
 import factory
+from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.text import slugify
+
+from blog.models import Post, Tag
 
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "auth.User"
+        model = User
         django_get_or_create = ("username",)
 
     username = factory.Sequence(lambda n: f"eduzen{n}")
@@ -17,7 +20,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "blog.Tag"
+        model = Tag
         django_get_or_create = ("word",)
         skip_postgeneration_save = True
 
@@ -27,7 +30,7 @@ class TagFactory(factory.django.DjangoModelFactory):
 
 class PostFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "blog.Post"
+        model = Post
         django_get_or_create = ("slug",)
         skip_postgeneration_save = True
 
@@ -39,7 +42,8 @@ class PostFactory(factory.django.DjangoModelFactory):
     published_date = factory.LazyFunction(timezone.now)
 
     @factory.post_generation
-    def tags(self, create, tags, **kwargs):
+    def tags(self, create: bool, tags: list[Tag] | None, **kwargs: object) -> None:
+        del kwargs
         if not create:
             return
 
