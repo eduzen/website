@@ -16,7 +16,7 @@
 - Admin: `just createsuperuser username=alice` or `make superuser`.
 
 ## Coding Style & Naming Conventions
-- Python 3.13, 4‑space indent, LF endings, max line length 120.
+- Python 3.14, 4‑space indent, LF endings, max line length 120.
 - Tools: Ruff (lint/format), isort (black profile), pyupgrade, django-upgrade, djade, typos.
 - Naming: modules/functions `snake_case`, classes `PascalCase`, constants `UPPER_SNAKE_CASE`.
 - Templates live in `app/templates/`; static assets in `app/static/`.

@@ -43,8 +43,8 @@ def _is_cloudflare_addr(addr: str) -> bool:
 class CloudflareRealIPMiddleware:
     """
     Reemplaza REMOTE_ADDR con CF-Connecting-IP **solo** si la petición
-    proviene de un rango de Cloudflare. Además expone la IP en request.ip
-    para usarla fácilmente en tus logs.
+    proviene de un rango de Cloudflare. Expone esa IP validada en request.ip
+    (nunca el header crudo) para logs y analytics.
     """
 
     def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
@@ -62,8 +62,10 @@ class CloudflareRealIPMiddleware:
                 request.META["REMOTE_ADDR"] = cf_ip
                 logger.debug("REMOTE_ADDR sustituido por CF-Connecting-IP %s", cf_ip)
 
+        # Always derive request.ip from REMOTE_ADDR after the validated rewrite so
+        # spoofed CF-Connecting-IP headers never reach analytics (e.g. Statsig).
         request_with_ip = cast(Any, request)
-        request_with_ip.ip = cf_ip or request.META.get("REMOTE_ADDR")
+        request_with_ip.ip = request.META.get("REMOTE_ADDR")
 
         return self.get_response(request)
 

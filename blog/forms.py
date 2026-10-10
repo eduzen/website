@@ -1,47 +1,4 @@
-import logging
-from typing import Any
-
-from crispy_forms.helper import FormHelper  # type: ignore
-from crispy_forms.layout import Field, Layout, Submit  # type: ignore
 from django import forms
-from django.conf import settings
-from django.core.mail import send_mail
-from django.utils.translation import gettext_lazy as _
-
-from blog.services.captcha import verify_captcha
-
-log = logging.getLogger(__name__)
-
-
-class InvalidCaptchaValidationError(forms.ValidationError):
-    def __init__(self) -> None:
-        super().__init__("invalid captcha")
-
-
-class EmailForm(forms.Form):
-    subject = forms.CharField(label="Nombre", max_length=100, required=True)
-    from_email = forms.EmailField(max_length=150, label="E-mail", required=True)
-    message = forms.CharField(label="Consulta", required=True, widget=forms.Textarea)
-
-    def _prepare_data(self):
-        data = {}
-        data["subject"] = f"{self.data['subject']} Nuevo contacto a traves de la eduzen.com.ar"
-        data["recipient_list"] = ["eduardo.a.enriquez@gmail.com"]
-        data["message"] = self.data["message"]
-        data["html_message"] = (
-            f"<html><body><p>eduzen.com.ar<p><hr/><p>{self.data['subject']} - {self.data['from_email']}</p>"
-            f"<hr/><p>{self.data['message']}</p></body></html>"
-        )
-        data["from_email"] = settings.DEFAULT_FROM_EMAIL
-        return data
-
-    def send_email(self):
-        data = self._prepare_data()
-        send_mail(**data)
-        log.info(f"{data} sent to me")
-
-    def __str__(self):
-        return f"<Form from {self.data}>"
 
 
 class SearchForm(forms.Form):
@@ -50,29 +7,3 @@ class SearchForm(forms.Form):
 
 class AdvanceSearchForm(forms.Form):
     q = forms.CharField(label="", max_length=100, required=True)
-
-
-class ContactForm(forms.Form):
-    name = forms.CharField(label=_("Name"))
-    email = forms.EmailField(label=_("Email"))
-    message = forms.CharField(label=_("Message"), widget=forms.Textarea)
-    captcha = forms.CharField(label=_("What color is the red rabbit?"))
-
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        self.helper.layout = Layout(
-            Field("name"),
-            Field("email"),
-            Field("message", rows=6),
-            Field("captcha"),
-            Submit("submit", _("Send")),
-        )
-
-    def clean_captcha(self) -> str:
-        # Get the cleaned value (after built-in validation checks)
-        captcha = self.cleaned_data.get("captcha", "")
-        if not verify_captcha(captcha):
-            raise InvalidCaptchaValidationError()
-        return captcha
