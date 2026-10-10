@@ -1,7 +1,7 @@
 import multiprocessing
 import os
 
-from core.services.statsig import shutdown_statsig
+from core.services.statsig import initialize_statsig, shutdown_statsig
 
 # Network & timeouts
 bind = os.getenv("GUNICORN_BIND", "0.0.0.0:80")
@@ -50,6 +50,13 @@ if os.getenv("DEBUG") == "True":
     reload = True
     reload_engine = "auto"
     reload_extra_files = ["pyproject.toml", "uv.lock"]
+
+
+def post_worker_init(worker: object) -> None:
+    # Runs after the WSGI app (Django settings) is loaded, before requests.
+    # Warm Statsig here so gthread request threads never pay the network wait.
+    # initialize_statsig() soft-fails: Statsig is optional for this site.
+    initialize_statsig()
 
 
 def worker_exit(server: object, worker: object) -> None:

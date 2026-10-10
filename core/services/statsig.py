@@ -4,6 +4,7 @@ import atexit
 import logging
 import os
 import re
+import threading
 
 from django.conf import settings
 from django.http import HttpRequest
@@ -15,6 +16,7 @@ _PLACEHOLDER_SECRETS = {"", "foo", "changeme", "somekey", "secret-key"}
 
 _initialized_pid: int | None = None
 _shutdown_registered = False
+_init_lock = threading.Lock()
 
 _TABLET_RE = re.compile(r"ipad|tablet|playbook|silk", re.IGNORECASE)
 _MOBILE_RE = re.compile(r"mobile|iphone|ipod|android.*mobile|windows phone|blackberry", re.IGNORECASE)
@@ -50,6 +52,12 @@ def _register_shutdown() -> None:
 
 
 def _ensure_initialized() -> bool:
+    """Initialize the shared Statsig client once per process.
+
+    Safe under gunicorn gthread: double-checked locking prevents concurrent
+    callers from calling remove_shared() / new_shared() while initialize()
+    is still waiting on the network.
+    """
     global _initialized_pid
 
     if not _is_configured():
@@ -59,21 +67,35 @@ def _ensure_initialized() -> bool:
     if _initialized_pid == pid:
         return Statsig.has_shared_instance()
 
-    if Statsig.has_shared_instance():
-        Statsig.remove_shared()
+    with _init_lock:
+        if _initialized_pid == pid:
+            return Statsig.has_shared_instance()
 
-    environment = getattr(settings, "STATSIG_ENVIRONMENT", "development")
-    server_secret = getattr(settings, "STATSIG_SERVER_SECRET", "")
+        if Statsig.has_shared_instance():
+            Statsig.remove_shared()
 
-    options = StatsigOptions()
-    options.environment = environment
+        environment = getattr(settings, "STATSIG_ENVIRONMENT", "development")
+        server_secret = getattr(settings, "STATSIG_SERVER_SECRET", "")
 
-    statsig = Statsig.new_shared(server_secret, options)
-    statsig.initialize().wait()
-    _initialized_pid = pid
-    _register_shutdown()
-    logger.info("Statsig initialized for pid=%s environment=%s", pid, environment)
-    return True
+        options = StatsigOptions()
+        options.environment = environment
+
+        try:
+            statsig = Statsig.new_shared(server_secret, options)
+            statsig.initialize().wait()
+        except Exception:
+            # Statsig is optional: clean up and remember this pid so we do not
+            # block every subsequent request on another network attempt.
+            logger.exception("Statsig initialization failed for pid=%s", pid)
+            if Statsig.has_shared_instance():
+                Statsig.remove_shared()
+            _initialized_pid = pid
+            return False
+
+        _initialized_pid = pid
+        _register_shutdown()
+        logger.info("Statsig initialized for pid=%s environment=%s", pid, environment)
+        return True
 
 
 def get_client() -> Statsig | None:
@@ -83,20 +105,27 @@ def get_client() -> Statsig | None:
     return Statsig.shared()
 
 
+def initialize_statsig() -> bool:
+    """Warm Statsig outside the request path (e.g. gunicorn post_worker_init)."""
+    return _ensure_initialized()
+
+
 def shutdown_statsig() -> None:
     global _initialized_pid
 
-    if not Statsig.has_shared_instance():
-        return
+    with _init_lock:
+        if not Statsig.has_shared_instance():
+            _initialized_pid = None
+            return
 
-    try:
-        Statsig.shared().shutdown().wait()
-        logger.info("Statsig shutdown complete for pid=%s", os.getpid())
-    except Exception:
-        logger.exception("Statsig shutdown failed")
-    finally:
-        Statsig.remove_shared()
-        _initialized_pid = None
+        try:
+            Statsig.shared().shutdown().wait()
+            logger.info("Statsig shutdown complete for pid=%s", os.getpid())
+        except Exception:
+            logger.exception("Statsig shutdown failed")
+        finally:
+            Statsig.remove_shared()
+            _initialized_pid = None
 
 
 def build_user(request: HttpRequest) -> StatsigUser:

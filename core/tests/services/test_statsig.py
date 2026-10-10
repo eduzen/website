@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import threading
 from collections.abc import Iterator
 from typing import Any, cast
 from unittest import mock
@@ -168,3 +169,97 @@ def test_placeholder_secret_is_treated_as_unconfigured(mock_statsig: mock.MagicM
     log_event(request, "page_view")
 
     mock_statsig.new_shared.assert_not_called()
+
+
+@mock.patch("core.services.statsig.Statsig")
+def test_ensure_initialized_soft_fails_and_does_not_retry(mock_statsig: mock.MagicMock, settings) -> None:
+    settings.STATSIG_ENABLED = True
+    settings.STATSIG_SERVER_SECRET = "server-secret-key"
+    settings.STATSIG_ENVIRONMENT = "development"
+
+    shared_exists = False
+
+    def has_shared_instance() -> bool:
+        return shared_exists
+
+    def new_shared(*_args: object, **_kwargs: object) -> mock.MagicMock:
+        nonlocal shared_exists
+        shared_exists = True
+        return mock_client
+
+    def remove_shared() -> None:
+        nonlocal shared_exists
+        shared_exists = False
+
+    mock_client = mock.MagicMock()
+    mock_client.initialize.return_value.wait.side_effect = RuntimeError("statsig unavailable")
+    mock_statsig.new_shared.side_effect = new_shared
+    mock_statsig.has_shared_instance.side_effect = has_shared_instance
+    mock_statsig.remove_shared.side_effect = remove_shared
+
+    assert statsig_module._ensure_initialized() is False
+    assert statsig_module._ensure_initialized() is False
+    assert mock_statsig.new_shared.call_count == 1
+    assert shared_exists is False
+
+
+@mock.patch("core.services.statsig.Statsig")
+def test_ensure_initialized_is_thread_safe(mock_statsig: mock.MagicMock, settings) -> None:
+    """Concurrent callers must not tear down a shared instance mid-initialize."""
+    settings.STATSIG_ENABLED = True
+    settings.STATSIG_SERVER_SECRET = "server-secret-key"
+    settings.STATSIG_ENVIRONMENT = "development"
+
+    init_started = threading.Event()
+    allow_init_finish = threading.Event()
+    shared_exists = False
+    remove_calls = 0
+
+    def has_shared_instance() -> bool:
+        return shared_exists
+
+    def new_shared(*_args: object, **_kwargs: object) -> mock.MagicMock:
+        nonlocal shared_exists
+        shared_exists = True
+        return mock_client
+
+    def remove_shared() -> None:
+        nonlocal shared_exists, remove_calls
+        shared_exists = False
+        remove_calls += 1
+
+    def slow_wait() -> None:
+        init_started.set()
+        assert allow_init_finish.wait(timeout=2), "timed out waiting to finish initialize"
+
+    mock_client = mock.MagicMock()
+    mock_client.initialize.return_value.wait.side_effect = slow_wait
+    mock_statsig.new_shared.side_effect = new_shared
+    mock_statsig.has_shared_instance.side_effect = has_shared_instance
+    mock_statsig.remove_shared.side_effect = remove_shared
+    mock_statsig.shared.return_value = mock_client
+
+    results: list[bool] = []
+    errors: list[BaseException] = []
+
+    def worker() -> None:
+        try:
+            results.append(statsig_module._ensure_initialized())
+        except BaseException as exc:
+            errors.append(exc)
+
+    first = threading.Thread(target=worker)
+    second = threading.Thread(target=worker)
+    first.start()
+    assert init_started.wait(timeout=2), "first thread never started initialize"
+    second.start()
+    # Without a lock, the second thread tears down the in-flight shared instance.
+    threading.Event().wait(0.05)
+    allow_init_finish.set()
+    first.join(timeout=2)
+    second.join(timeout=2)
+
+    assert not errors
+    assert results == [True, True]
+    assert mock_statsig.new_shared.call_count == 1
+    assert remove_calls == 0
