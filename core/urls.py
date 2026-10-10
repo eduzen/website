@@ -13,5 +13,4 @@ urlpatterns = [
     path("favicon.ico", views.favicon_view),
     path("version/", views.version_view, name="version"),
     path("chatgpt_improve_post/<int:post_id>/", views.chatgpt_improve_post, name="chatgpt_improve_post"),
-    path("proposals/<path:filename>", views.proposal_view, name="proposal_view"),
 ]

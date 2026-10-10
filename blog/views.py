@@ -30,58 +30,44 @@ class HtmxPartialTemplateMixin:
 
 
 class SafePaginationMixin(MultipleObjectMixin, View):
-    """Mixin to handle pagination errors by redirecting to the last valid page."""
+    """Redirect invalid page numbers to page 1 and out-of-range pages to the last page."""
+
+    _redirect_url: str | None = None
+
+    def _page_url(self, page_number: int) -> str:
+        query_params = self.request.GET.copy()
+        query_params[self.page_kwarg] = str(page_number)
+        return f"{self.request.path}?{query_params.urlencode()}"
 
     def paginate_queryset(self, queryset: object, page_size: int) -> tuple[Paginator, Page[Post], QuerySet[Post], bool]:
-        """Override to handle pagination errors gracefully."""
-        queryset = cast(QuerySet[Post], queryset)
         paginator = self.get_paginator(
-            queryset,
+            cast(QuerySet[Post], queryset),
             page_size,
             orphans=self.get_paginate_orphans(),
             allow_empty_first_page=self.get_allow_empty(),
         )
-        page_kwarg = self.page_kwarg
-        page = self.kwargs.get(page_kwarg) or self.request.GET.get(page_kwarg) or 1
+        page = self.kwargs.get(self.page_kwarg) or self.request.GET.get(self.page_kwarg) or 1
 
         try:
             page_number = int(page)
         except ValueError, TypeError:
-            # Invalid page number, redirect to page 1
-            query_params = self.request.GET.copy()
-            query_params["page"] = "1"
-            redirect_url = f"{self.request.path}?{query_params.urlencode()}"
-            # Store redirect info to be handled in get method
-            self._redirect_url = redirect_url
             page_number = 1
+            self._redirect_url = self._page_url(page_number)
 
         try:
             page_obj = paginator.page(page_number)
-            object_list = cast(QuerySet[Post], page_obj.object_list)
-            return (paginator, page_obj, object_list, page_obj.has_other_pages())
         except EmptyPage:
-            # Page out of range, redirect to last page
-            query_params = self.request.GET.copy()
-            if paginator.num_pages > 0:
-                query_params["page"] = str(paginator.num_pages)
-            else:
-                query_params["page"] = "1"
-            redirect_url = f"{self.request.path}?{query_params.urlencode()}"
-            # Store redirect info to be handled in get method
-            self._redirect_url = redirect_url
-            # Return the last page temporarily
-            page_obj = paginator.page(paginator.num_pages if paginator.num_pages > 0 else 1)
-            object_list = cast(QuerySet[Post], page_obj.object_list)
-            return (paginator, page_obj, object_list, page_obj.has_other_pages())
+            page_number = max(paginator.num_pages, 1)
+            self._redirect_url = self._page_url(page_number)
+            page_obj = paginator.page(page_number)
+
+        object_list = cast(QuerySet[Post], page_obj.object_list)
+        return (paginator, page_obj, object_list, page_obj.has_other_pages())
 
     def get(self, request: HttpRequest, *args: object, **kwargs: object) -> HttpResponse:
-        """Override get to perform redirect if pagination error occurred."""
         response = super().get(request, *args, **kwargs)  # type: ignore[misc]
-        # Check if we stored a redirect URL during pagination
-        if hasattr(self, "_redirect_url"):
-            redirect_url = self._redirect_url
-            delattr(self, "_redirect_url")
-            return redirect(redirect_url)
+        if self._redirect_url:
+            return redirect(self._redirect_url)
         return response
 
 
@@ -196,15 +182,7 @@ class PostListView(HtmxPartialTemplateMixin, SafePaginationMixin, FilterView):
     paginate_by = 12
 
 
-class PostTagsListView(HtmxPartialTemplateMixin, SafePaginationMixin, FilterView):
-    queryset = Post.objects.published()
-    context_object_name = "posts"
-    template_name = "blog/posts/list.html"
-    htmx_template_name = "blog/posts/list.html#posts-list-content"
-    ordering = ["-published_date"]
-    filterset_class = PostFilter
-    paginate_by = 12
-
+class PostTagsListView(PostListView):
     def get_context_data(self, *, object_list: object | None = None, **kwargs: Any) -> dict[str, Any]:  # noqa: ANN401
         context = super().get_context_data(object_list=cast(Any, object_list), **kwargs)
         context["tag"] = self.kwargs.get("tag", "-").title()

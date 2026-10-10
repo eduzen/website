@@ -1,10 +1,3 @@
-"""
-Fix #9: windowed pagination tag.
-
-Renders a compact page range like  1 … 4 5 [6] 7 8 … 20
-instead of iterating every page number.
-"""
-
 from django import template
 from django.core.paginator import Paginator
 
@@ -25,9 +18,8 @@ def windowed_page_range(paginator: Paginator, current_page: int, window: int = 2
     if num_pages <= 1:
         return [1]
 
-    visible: set[int] = {1, num_pages}
-    for p in range(max(1, current_page - window), min(num_pages, current_page + window) + 1):
-        visible.add(p)
+    visible = {1, num_pages}
+    visible.update(range(max(1, current_page - window), min(num_pages, current_page + window) + 1))
 
     result: list[int | None] = []
     prev: int | None = None

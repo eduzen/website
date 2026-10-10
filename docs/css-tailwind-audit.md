@@ -50,7 +50,6 @@ Large, but still manageable. No immediate need for SCSS or CSS splitting.
 | Footer | 1348-1366 | Candidate for Tailwind utilities |
 | Forms / crispy overrides | 1367-1437 | Keep |
 | Post content / CKEditor output | 1438-1571 | Keep |
-| Confirmation dialog | 1572-1679 | Keep |
 | Scroll reveal | 1680-1715 | Keep |
 | Pagination | 1716-1750 | Keep for now |
 | Related posts | 1751-1763 | Candidate after template cleanup |
@@ -82,7 +81,6 @@ These are not good Tailwind migration targets right now:
 
 4. **Complex components**
    - nav dropdown
-   - confirmation dialog
    - reveal animation
    - post content rendering
    - CKEditor/code-block styling
@@ -128,7 +126,6 @@ Do not migrate these until there is a strong reason:
 - `.work-*` portfolio cards
 - `.mentoring-*` cards/steps
 - `.post-content*`
-- `.confirm-dialog*`
 - `.warm-form*`
 
 These are semantic, brand-heavy, or content-generated styles. Tailwind would make the templates noisier without much benefit.

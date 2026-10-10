@@ -36,26 +36,9 @@
       {% include "core/utils/footer.html" %}
     {% endblock footer %}
 
-    <!-- Custom confirmation dialog (uses native <dialog> for accessibility) -->
-    <dialog class="confirm-dialog" id="confirmDialog" aria-labelledby="confirmDialogTitle">
-      <form method="dialog" class="confirm-dialog__inner">
-        <h3 class="confirm-dialog__title" id="confirmDialogTitle">{% translate "Send this message?" %}</h3>
-        <div class="confirm-dialog__preview" id="confirmPreview"></div>
-        <div class="confirm-dialog__actions">
-          <button class="confirm-dialog__btn confirm-dialog__btn--cancel" value="cancel">
-            {% translate "Cancel" %}
-          </button>
-          <button class="confirm-dialog__btn confirm-dialog__btn--confirm" value="confirm">
-            {% translate "Send" %}
-          </button>
-        </div>
-      </form>
-    </dialog>
-
     {% block extra_scripts %}
       <script src="{% static 'core/js/menu.js' %}"></script>
       <script src="{% static 'core/js/reveal.js' %}"></script>
-      <script src="{% static 'core/js/confirm.js' %}"></script>
       <script src="{% static 'core/js/typing.js' %}"></script>
       <script data-goatcounter="https://eduzen.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     {% endblock extra_scripts %}

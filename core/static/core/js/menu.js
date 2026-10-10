@@ -43,56 +43,34 @@ document.addEventListener("DOMContentLoaded", function() {
     nav.dataset.currentView = currentView;
     setStoredView(pathname || window.location.pathname, currentView);
 
-    nav.querySelectorAll(".active-link").forEach(function(el) {
-      el.classList.remove("active-link");
-    });
-    nav.querySelectorAll(".nav-dropdown__item--active").forEach(function(el) {
-      el.classList.remove("nav-dropdown__item--active");
-    });
-
-    var selectors = [
-      ".logo[data-nav-sections]",
-      ".nav-link[data-nav-sections]",
-      ".nav-dropdown__trigger[data-nav-sections]",
-      ".nav-dropdown__item[data-nav-sections]"
-    ].join(", ");
-
-    nav.querySelectorAll(selectors).forEach(function(item) {
-      var sections = (item.dataset.navSections || "").split(/\s+/).filter(Boolean);
-      if (sections.includes(currentView)) {
-        if (item.classList.contains("nav-dropdown__item")) {
-          item.classList.add("nav-dropdown__item--active");
-        } else {
-          item.classList.add("active-link");
-        }
-      }
+    nav.querySelectorAll("[data-nav-sections]").forEach(function(item) {
+      var sections = item.dataset.navSections.split(/\s+/).filter(Boolean);
+      var activeClass = item.classList.contains("nav-dropdown__item") ? "nav-dropdown__item--active" : "active-link";
+      item.classList.toggle(activeClass, sections.includes(currentView));
     });
   }
 
   function handleHTMXEvents() {
     var indicator = document.getElementById("loadingIndicator");
 
+    function showIndicator(visible) {
+      if (!indicator) return;
+      indicator.classList.toggle("scale-x-100", visible);
+      indicator.classList.toggle("scale-x-0", !visible);
+    }
+
     document.body.addEventListener("htmx:beforeRequest", function() {
-      if (indicator) {
-        indicator.classList.remove("scale-x-0");
-        indicator.classList.add("scale-x-100");
-      }
+      showIndicator(true);
     });
 
     document.body.addEventListener("htmx:afterRequest", function() {
-      if (indicator) {
-        setTimeout(function() {
-          indicator.classList.remove("scale-x-100");
-          indicator.classList.add("scale-x-0");
-        }, 200);
-      }
+      setTimeout(showIndicator, 200, false);
     });
 
     document.body.addEventListener("htmx:responseError", function(evt) {
       console.error("HTMX Request failed:", evt.detail);
+      showIndicator(false);
       if (indicator) {
-        indicator.classList.remove("scale-x-100");
-        indicator.classList.add("scale-x-0");
         indicator.style.background = "var(--error)";
         setTimeout(function() {
           indicator.style.background = "";
@@ -106,13 +84,11 @@ document.addEventListener("DOMContentLoaded", function() {
       updateActiveNavigation(view);
     });
 
-    document.body.addEventListener("htmx:pushedIntoHistory", function(evt) {
+    function onHistoryUpdate(evt) {
       updateActiveNavigation(null, evt.detail.path);
-    });
-
-    document.body.addEventListener("htmx:replacedInHistory", function(evt) {
-      updateActiveNavigation(null, evt.detail.path);
-    });
+    }
+    document.body.addEventListener("htmx:pushedIntoHistory", onHistoryUpdate);
+    document.body.addEventListener("htmx:replacedInHistory", onHistoryUpdate);
   }
 
   handleHTMXEvents();

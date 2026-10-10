@@ -120,7 +120,6 @@ select = [
 "blog/tests/views/test_robots.py" = ["ANN"]
 "blog/tests/views/test_success_view.py" = ["ANN"]
 "core/tests/**/*.py" = ["ANN"]
-"proposals/*.py" = ["ANN"]
 "tests/**/*.py" = ["ANN"]
 "**/admin.py" = ["RUF012"]
 "**/tests/**/*.py" = ["TRY", "RET"]
@@ -167,7 +166,6 @@ plugins = [
 ]
 exclude = [
   "migrations",
-  "proposals",
   "tests",
 ]
 

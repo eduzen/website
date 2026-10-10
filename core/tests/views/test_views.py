@@ -1,11 +1,9 @@
 from http import HTTPStatus
-from pathlib import Path
-from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 import pytest
 from django.contrib.auth.models import User
-from django.test import Client, RequestFactory, TestCase, override_settings
+from django.test import Client, RequestFactory, TestCase
 from django.urls import reverse
 
 from blog.tests.factories import PostFactory
@@ -144,48 +142,3 @@ class CoreViewTests(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertContains(response, "<table", html=False)
         self.assertNotContains(response, "<!DOCTYPE html>")
-
-    def test_proposal_view_returns_html_file(self):
-        with TemporaryDirectory() as temp_dir:
-            temp_root = Path(temp_dir)
-            base_dir = temp_root / "website"
-            base_dir.mkdir(parents=True)
-            proposals_dir = temp_root / "proposals"
-            proposals_dir.mkdir(parents=True)
-            proposal_file = proposals_dir / "sample.html"
-            proposal_file.write_text("<h1>Sample Proposal</h1>")
-
-            with override_settings(BASE_DIR=base_dir):
-                response = self.client.get("/proposals/sample.html")
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertContains(response, "Sample Proposal")
-        self.assertEqual(response["Content-Type"], "text/html")
-
-    def test_proposal_view_blocks_directory_traversal(self):
-        with TemporaryDirectory() as temp_dir:
-            temp_root = Path(temp_dir)
-            base_dir = temp_root / "website"
-            base_dir.mkdir(parents=True)
-            proposals_dir = temp_root / "proposals"
-            proposals_dir.mkdir(parents=True)
-
-            with override_settings(BASE_DIR=base_dir):
-                response = self.client.get("/proposals/../secret.html")
-
-        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
-
-    def test_proposal_view_returns_not_found_for_non_html(self):
-        with TemporaryDirectory() as temp_dir:
-            temp_root = Path(temp_dir)
-            base_dir = temp_root / "website"
-            base_dir.mkdir(parents=True)
-            proposals_dir = temp_root / "proposals"
-            proposals_dir.mkdir(parents=True)
-            non_html_file = proposals_dir / "sample.txt"
-            non_html_file.write_text("plain text")
-
-            with override_settings(BASE_DIR=base_dir):
-                response = self.client.get("/proposals/sample.txt")
-
-        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)

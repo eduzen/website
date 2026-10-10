@@ -1,164 +1,84 @@
 // Typing animation for home page hero — HTMX-aware
 (function() {
-  var typingTimeout = null;
-  var running = false;
-
   var TYPE_SPEED = 100;
   var DELETE_SPEED = 80;
+  var START_DELAY = 800;
+  var FULL_NAME = 'Eduardo\nEnriquez';
 
+  // Each step types forward to `type`, erases back to `erase`, or waits `pause` ms. The list loops.
+  var STEPS = [
+    { type: 'Eduardo' },
+    { pause: 400 },
+    { type: FULL_NAME },
+    { pause: 1500 },
+    { erase: 'Eduardo' },
+    { pause: 100 },
+    { erase: '' },
+    { pause: 300 },
+    { type: 'eduzen' },
+    { pause: 3000 }
+  ];
 
   var reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  function getNameEl() {
-    var el = document.getElementById('typed-name');
-    return el && el.isConnected ? el : null;
-  }
+  var timer = null;
 
-  function setName(nameEl, text) {
-    if (!nameEl || !nameEl.isConnected) return;
-    nameEl.innerHTML = '';
-    var parts = text.split('\n');
-    parts.forEach(function(part, i) {
-      nameEl.appendChild(document.createTextNode(part));
-      if (i < parts.length - 1) {
-        nameEl.appendChild(document.createElement('br'));
-      }
+  function render(nameEl, text) {
+    nameEl.replaceChildren();
+    text.split('\n').forEach(function(line, i) {
+      if (i > 0) nameEl.appendChild(document.createElement('br'));
+      nameEl.appendChild(document.createTextNode(line));
     });
   }
 
-  function scheduleNext(fn, delay) {
-    typingTimeout = setTimeout(fn, delay);
-  }
+  function animate(nameEl) {
+    var text = '';
+    var stepIndex = 0;
 
-  function typeChars(nameEl, text, from, callback) {
-    var i = from;
-    function next() {
-      if (!running || !nameEl.isConnected) return;
-      if (i <= text.length) {
-        setName(nameEl, text.slice(0, i));
-        i++;
-        scheduleNext(next, TYPE_SPEED);
+    function nextStep(delay) {
+      stepIndex = (stepIndex + 1) % STEPS.length;
+      timer = setTimeout(tick, delay);
+    }
+
+    function tick() {
+      var step = STEPS[stepIndex];
+
+      if ('pause' in step) {
+        nextStep(step.pause);
+      } else if ('type' in step) {
+        if (!step.type.startsWith(text)) text = '';
+        if (text === step.type) return nextStep(0);
+        text = step.type.slice(0, text.length + 1);
+        render(nameEl, text);
+        timer = setTimeout(tick, TYPE_SPEED);
       } else {
-        callback();
+        if (text === step.erase) return nextStep(0);
+        text = text.slice(0, -1);
+        render(nameEl, text);
+        timer = setTimeout(tick, DELETE_SPEED);
       }
     }
-    next();
+
+    timer = setTimeout(tick, START_DELAY);
   }
 
-  function deleteLine(nameEl, line1, line2, callback) {
-    var len = line2.length;
-    function next() {
-      if (!running || !nameEl.isConnected) return;
-      if (len > 0) {
-        len--;
-        setName(nameEl, line1 + '\n' + line2.slice(0, len));
-        scheduleNext(next, DELETE_SPEED);
-      } else {
-        setName(nameEl, line1);
-        scheduleNext(callback, 100);
-      }
-    }
-    next();
+  function stop() {
+    clearTimeout(timer);
+    timer = null;
   }
 
-  function deleteWord(nameEl, callback) {
-    function next() {
-      if (!running || !nameEl.isConnected) return;
-      var text = nameEl.textContent;
-      if (text.length > 0) {
-        setName(nameEl, text.slice(0, -1));
-        scheduleNext(next, DELETE_SPEED);
-      } else {
-        callback();
-      }
-    }
-    next();
-  }
-
-  function runCycle() {
-    var nameEl = getNameEl();
-    if (!nameEl || !running) return;
-
-    typeChars(nameEl, 'Eduardo', 0, function() {
-      if (!running) return;
-      scheduleNext(function() {
-        if (!running) return;
-        setName(nameEl, 'Eduardo\n');
-        typeChars(nameEl, 'Eduardo\nEnriquez', 'Eduardo\n'.length, function() {
-          if (!running) return;
-          scheduleNext(function() {
-            if (!running) return;
-            deleteLine(nameEl, 'Eduardo', 'Enriquez', function() {
-              if (!running) return;
-              deleteWord(nameEl, function() {
-                if (!running) return;
-                scheduleNext(function() {
-                  if (!running) return;
-                  typeChars(nameEl, 'eduzen', 0, function() {
-                    if (!running) return;
-                    scheduleNext(runCycle, 3000);
-                  });
-                }, 300);
-              });
-            });
-          }, 1500);
-        });
-      }, 400);
-    });
-  }
-
-
-  function shouldReduceMotion() {
-    return reducedMotionQuery.matches;
-  }
-
-  function showStaticName() {
-    var nameEl = getNameEl();
+  function start() {
+    stop();
+    var nameEl = document.getElementById('typed-name');
     if (!nameEl) return;
-    setName(nameEl, 'Eduardo\nEnriquez');
-  }
-
-  function startTyping() {
-    stopTyping();
-    if (!getNameEl()) return;
-    if (shouldReduceMotion()) {
-      showStaticName();
+    if (reducedMotionQuery.matches) {
+      render(nameEl, FULL_NAME);
       return;
     }
-    running = true;
-    scheduleNext(runCycle, 800);
+    animate(nameEl);
   }
 
-  function stopTyping() {
-    running = false;
-    if (typingTimeout) {
-      clearTimeout(typingTimeout);
-      typingTimeout = null;
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    startTyping();
-  });
-
-  document.body.addEventListener('htmx:beforeSwap', stopTyping);
-
-  document.body.addEventListener('htmx:afterSwap', function() {
-    startTyping();
-  });
-
-  function handleMotionPreferenceChange() {
-    if (shouldReduceMotion()) {
-      stopTyping();
-      showStaticName();
-      return;
-    }
-
-    startTyping();
-  }
-
-  if (typeof reducedMotionQuery.addEventListener === 'function') {
-    reducedMotionQuery.addEventListener('change', handleMotionPreferenceChange);
-  } else if (typeof reducedMotionQuery.addListener === 'function') {
-    reducedMotionQuery.addListener(handleMotionPreferenceChange);
-  }
+  document.addEventListener('DOMContentLoaded', start);
+  document.body.addEventListener('htmx:beforeSwap', stop);
+  document.body.addEventListener('htmx:afterSwap', start);
+  reducedMotionQuery.addEventListener('change', start);
 })();
