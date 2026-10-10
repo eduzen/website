@@ -1,22 +1,20 @@
 // Typing animation for home page hero — HTMX-aware
 (function() {
-  var TYPE_SPEED = 100;
-  var DELETE_SPEED = 80;
-  var START_DELAY = 800;
+  var TYPE_SPEED = 90;
+  var DELETE_SPEED = 65;
+  var START_DELAY = 700;
   var FULL_NAME = 'Eduardo\nEnriquez';
 
-  // Each step types forward to `type`, erases back to `erase`, or waits `pause` ms. The list loops.
   var STEPS = [
-    { type: 'Eduardo' },
-    { pause: 400 },
-    { type: FULL_NAME },
-    { pause: 1500 },
-    { erase: 'Eduardo' },
-    { pause: 100 },
+    { pause: 2600 },
     { erase: '' },
-    { pause: 300 },
+    { pause: 250 },
     { type: 'eduzen' },
-    { pause: 3000 }
+    { pause: 1400 },
+    { erase: '' },
+    { pause: 250 },
+    { type: FULL_NAME },
+    { pause: 4000 }
   ];
 
   var reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -31,7 +29,7 @@
   }
 
   function animate(nameEl) {
-    var text = '';
+    var text = FULL_NAME;
     var stepIndex = 0;
 
     function nextStep(delay) {

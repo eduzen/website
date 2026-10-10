@@ -771,9 +771,13 @@ msgstr "Tu mensaje está en camino. Te responderé tan pronto como pueda."
 msgid "Back to home"
 msgstr "Volver al inicio"
 
+#: blog/templates/blog/home.html
+msgid "Previously lived in Buenos Aires and München; now in Amsterdam."
+msgstr "Antes vivía en Buenos Aires y Múnich; ahora vivo en Ámsterdam."
+
 #: blog/templates/blog/work.html:12
 msgid "Work"
-msgstr ""
+msgstr "Trabajo"
 
 #: blog/templates/blog/work.html:15
 msgid "A selection of projects I've built or contributed to."

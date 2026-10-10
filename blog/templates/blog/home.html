@@ -12,11 +12,11 @@
     <span class="hero-particle hero-particle--3"></span>
   </div>
 
-  <h1 class="hero-name reveal"><span id="typed-name"></span><span class="hero-cursor"></span></h1>
-  <p class="hero-tagline reveal">
+  <h1 class="hero-name"><span id="typed-name">Eduardo<br>Enriquez</span><span class="hero-cursor" aria-hidden="true"></span></h1>
+  <p class="hero-tagline">
     {% translate "Philosophy graduate turned software engineer." %}
   </p>
-  <p class="hero-intro reveal">
+  <p class="hero-intro">
     {% blocktranslate trimmed with email_link='<a class="warm-link" href="mailto:dev@eduzen.com.ar">dev@eduzen.com.ar</a>'|safe %}
     For over a decade I've worked primarily with Python and JavaScript.
     Today I lead teams, but I still get my hands dirty with code.
@@ -25,17 +25,24 @@
     or just want to get in touch, you can reach me at {{ email_link }}.
     {% endblocktranslate %}
   </p>
-  <span class="hero-location reveal">
-    <span class="hero-location-step">
-      <s class="hero-location-item"><span role="img" aria-label="Argentina flag">🇦🇷</span> Buenos Aires</s>
-    </span>
-    <span class="hero-location-step">
-      <span class="hero-location-sep" aria-hidden="true">→</span>
-      <s class="hero-location-item"><span role="img" aria-label="Germany flag">🇩🇪</span> München</s>
-    </span>
-    <span class="hero-location-step">
-      <span class="hero-location-sep" aria-hidden="true">→</span>
-      <span class="hero-location-item"><span role="img" aria-label="Netherlands flag">🇳🇱</span> Amsterdam</span>
+  <div class="hero-actions">
+    <a class="hero-action hero-action--primary" href="{% url 'work' %}">{% translate "Work" %}</a>
+    <a class="hero-action" href="{% url 'contact' %}">{% translate "Get in touch" %}</a>
+  </div>
+  <span class="hero-location">
+    <span class="sr-only">{% translate "Previously lived in Buenos Aires and München; now in Amsterdam." %}</span>
+    <span aria-hidden="true">
+      <span class="hero-location-step">
+        <s class="hero-location-item"><span role="img" aria-label="Argentina flag">🇦🇷</span> Buenos Aires</s>
+      </span>
+      <span class="hero-location-step">
+        <span class="hero-location-sep" aria-hidden="true">→</span>
+        <s class="hero-location-item"><span role="img" aria-label="Germany flag">🇩🇪</span> München</s>
+      </span>
+      <span class="hero-location-step">
+        <span class="hero-location-sep" aria-hidden="true">→</span>
+        <span class="hero-location-item"><span role="img" aria-label="Netherlands flag">🇳🇱</span> Amsterdam</span>
+      </span>
     </span>
   </span>
 </header>

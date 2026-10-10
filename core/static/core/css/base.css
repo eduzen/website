@@ -111,6 +111,7 @@ body {
 .nav-dropdown__trigger:focus-visible,
 .nav-dropdown__item:focus-visible,
 .contact-link:focus-visible,
+.hero-action:focus-visible,
 .language-button:focus-visible,
 #main-navbar button.md\:hidden:focus-visible {
   outline: 2px solid var(--accent-warm);
@@ -366,6 +367,46 @@ body {
 
 .hero-intro:last-of-type {
   margin-bottom: 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.hero-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.hero-action:hover {
+  border-color: var(--accent-warm);
+  color: var(--accent-warm);
+}
+
+.hero-action--primary {
+  background: var(--accent-warm);
+  border-color: var(--accent-warm);
+  color: #fff;
+}
+
+.hero-action--primary:hover {
+  background: #a8572a;
+  border-color: #a8572a;
+  color: #fff;
 }
 
 .hero-location {
@@ -1649,6 +1690,7 @@ footer a:hover {
     animation: none;
     opacity: 1;
   }
+
 }
 
 /* ---- Pagination ---- */
