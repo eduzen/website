@@ -8,7 +8,7 @@
 
   try {
     var saved = sessionStorage.getItem('home-atmosphere');
-    if (['original', 'tide', 'light', 'bloom'].includes(saved)) selected = saved;
+    if (['original', 'tide', 'low-tide', 'light', 'bloom'].includes(saved)) selected = saved;
   } catch (err) { /* The previews also work without browser storage. */ }
 
   function start() {
@@ -26,8 +26,8 @@
     var frame = null;
     var lastTime = null;
     var time = 0;
-    var pointer = { x: 0.5, strength: 0 };
-    var target = { x: 0.5, strength: 0 };
+    var pointer = { x: 0.5, y: 0.5, strength: 0 };
+    var target = { x: 0.5, y: 0.5, strength: 0 };
     var blooms = [];
     var nextBloom = 2;
     var lastPointerBloom = -10;
@@ -42,19 +42,40 @@
       ctx.fill();
     }
 
-    function tide() {
+    function smoothstep(edge0, edge1, value) {
+      var progress = Math.max(0, Math.min(1, (value - edge0) / (edge1 - edge0)));
+      return progress * progress * (3 - 2 * progress);
+    }
+
+    function waveSurface(u, layer, isLowTide) {
+      // Unequal frequencies create broad, evolving contours without a sliding tile.
+      var swell = Math.sin(u * 6.2 + time * 0.19 + layer * 1.9) * 0.065
+        + Math.sin(u * 10.7 - time * 0.13 + layer) * 0.025
+        + Math.cos(u * 3.4 + time * 0.11) * 0.035;
+      var baseline = (isLowTide ? 0.65 : 0.48) + layer * (isLowTide ? 0.09 : 0.16);
+      return baseline + swell * (isLowTide ? 0.5 : 1);
+    }
+
+    function tide(isLowTide = false) {
+      var blendWidth = isLowTide ? 0.045 : 0.07;
+      var liftScale = isLowTide ? 0.4 : 1;
+      var hoverWeights = colors.map(function(_, layer) {
+        var distance = (waveSurface(pointer.x, layer, isLowTide) - pointer.y) / blendWidth;
+        return Math.exp(-0.5 * distance * distance);
+      });
+      var totalWeight = hoverWeights.reduce(function(total, weight) { return total + weight; }, 0);
+      var topSurface = waveSurface(pointer.x, 0, isLowTide);
+      var hoverAmount = smoothstep(topSurface - 0.035, topSurface + 0.035, pointer.y);
       colors.forEach(function(color, layer) {
+        var hoverWeight = hoverWeights[layer] / totalWeight;
         ctx.beginPath();
         ctx.moveTo(0, height);
         for (var x = 0; x <= width + 8; x += 8) {
           var u = x / width;
-          // Unequal frequencies create broad, evolving contours without a sliding tile.
-          var swell = Math.sin(u * 6.2 + time * 0.19 + layer * 1.9) * 0.065
-            + Math.sin(u * 10.7 - time * 0.13 + layer) * 0.025
-            + Math.cos(u * 3.4 + time * 0.11) * 0.035;
           var distance = (u - pointer.x) / 0.15;
-          var lift = Math.exp(-distance * distance) * pointer.strength * 0.1;
-          ctx.lineTo(x, height * (0.48 + layer * 0.16 + swell - lift));
+          var lift = Math.exp(-distance * distance) * pointer.strength * hoverAmount
+            * hoverWeight * 0.1 * liftScale;
+          ctx.lineTo(x, height * (waveSurface(u, layer, isLowTide) - lift));
         }
         ctx.lineTo(width, height);
         ctx.closePath();
@@ -70,24 +91,24 @@
         var y = height * (0.8 + Math.sin(time * 0.13 + layer * 1.7) * 0.12);
         ctx.save();
         ctx.scale(1, 0.65);
-        wash(x, y / 0.65, Math.max(width * 0.34, height), color, 0.15);
+        wash(x, y / 0.65, Math.max(width * 0.34, height), color, 0.28);
         ctx.restore();
       });
     }
 
-    function addBloom(x) {
-      blooms.push({ x: x, y: 0.66 + Math.random() * 0.22, born: time, color: colors[2], life: 8 });
+    function addBloom(x, age) {
+      blooms.push({ x: x, y: 0.66 + Math.random() * 0.22, born: time - (age || 0), color: colors[2], life: 8 });
       if (blooms.length > 6) blooms.shift();
     }
 
     function bloom() {
-      wash(width * 0.3, height * 1.1, Math.max(width * 0.45, height), colors[1], 0.1);
+      wash(width * 0.3, height * 1.1, Math.max(width * 0.45, height), colors[1], 0.2);
       var visible = reducedMotion.matches
         ? [{ x: 0.68, y: 0.8, born: time - 4, color: colors[2], life: 8 }]
         : blooms;
       visible.forEach(function(item) {
         var progress = (time - item.born) / item.life;
-        var opacity = Math.sin(progress * Math.PI) * 0.16;
+        var opacity = Math.sin(progress * Math.PI) * 0.28;
         var radius = (0.2 + progress * 0.8) * Math.min(width * 0.3, 420);
         var x = item.x * width;
         var y = item.y * height - progress * height * 0.08;
@@ -99,7 +120,7 @@
           ctx.beginPath();
           ctx.arc(0, 0, radius * scale, 0, Math.PI * 2);
           ctx.strokeStyle = 'rgba(' + item.color + ', ' + opacity + ')';
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 1.5;
           ctx.stroke();
         });
         ctx.restore();
@@ -108,9 +129,20 @@
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      if (selected === 'tide') tide();
-      if (selected === 'light') light();
-      if (selected === 'bloom') bloom();
+      switch (selected) {
+        case 'tide':
+          tide();
+          break;
+        case 'low-tide':
+          tide(true);
+          break;
+        case 'light':
+          light();
+          break;
+        case 'bloom':
+          bloom();
+          break;
+      }
     }
 
     function tick(now) {
@@ -121,6 +153,7 @@
       time += delta;
       var ease = 1 - Math.exp(-delta * 2.2);
       pointer.x += (target.x - pointer.x) * ease;
+      pointer.y += (target.y - pointer.y) * ease;
       pointer.strength += (target.strength - pointer.strength) * ease;
       if (selected === 'bloom') {
         blooms = blooms.filter(function(item) { return time - item.born < item.life; });
@@ -170,6 +203,10 @@
       });
       blooms = [];
       nextBloom = time + 1;
+      if (selected === 'bloom') {
+        addBloom(0.68, 2.5);
+        nextBloom = time + 4;
+      }
       resize();
       resume();
     }
@@ -184,7 +221,8 @@
     window.addEventListener('pointermove', function(event) {
       if (!finePointer.matches || reducedMotion.matches || event.pointerType === 'touch') return;
       target.x = event.clientX / window.innerWidth;
-      target.strength = Math.max(0, Math.min(1, (event.clientY / window.innerHeight - 0.2) / 0.65));
+      target.y = event.clientY / window.innerHeight;
+      target.strength = Math.max(0, Math.min(1, (target.y - 0.2) / 0.65));
     }, options);
     document.documentElement.addEventListener('pointerleave', function() { target.strength = 0; }, options);
     window.addEventListener('blur', function() { target.strength = 0; }, options);

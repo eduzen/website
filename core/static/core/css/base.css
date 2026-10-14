@@ -601,6 +601,10 @@ body {
   outline-offset: 2px;
 }
 
+@media (max-width: 480px) {
+  .atmosphere-picker__options { flex-wrap: wrap; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .atmosphere-picker button { transition: none; }
 }
