@@ -533,6 +533,78 @@ body {
   100% { transform: translateY(-12px); }
 }
 
+/* ---- Homepage atmosphere previews ---- */
+.home-atmosphere {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.home-atmosphere-active .page-waves {
+  display: none;
+}
+
+.atmosphere-picker {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+}
+
+.atmosphere-picker[hidden],
+.home-atmosphere[hidden] {
+  display: none;
+}
+
+.atmosphere-picker__label {
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.atmosphere-picker__options {
+  display: flex;
+  padding: 3px;
+  border: 1px solid rgba(92, 107, 79, 0.16);
+  border-radius: 999px;
+  background: rgba(250, 248, 245, 0.7);
+}
+
+.atmosphere-picker button {
+  min-height: 44px;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.atmosphere-picker button:hover {
+  color: var(--accent-warm);
+}
+
+.atmosphere-picker button[aria-pressed="true"] {
+  background: var(--bg-alt);
+  color: var(--text);
+}
+
+.atmosphere-picker button:focus-visible {
+  outline: 2px solid var(--accent-warm);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-picker button { transition: none; }
+}
+
 /* ---- Floating Particles ---- */
 .hero-particles {
   position: absolute;
