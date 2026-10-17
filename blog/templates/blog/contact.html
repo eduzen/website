@@ -6,18 +6,12 @@
 {% load i18n %}
 
 <div class="contact-page page-layout">
-  <div class="contact-header reveal">
-      <h1 id="contact-title" class="section-title">{% translate "Let's connect" %}</h1>
-      <div class="contact-accent" aria-hidden="true"></div>
-
-      <p class="contact-intro">
-        {% blocktranslate trimmed %}
-        Have a project idea, a question, or just want to say hello?
-        I'd love to hear from you. Reach me through any of the channels below.
-        {% endblocktranslate %}
-      </p>
-
-  </div>
+  {% translate "Let's connect" as contact_title %}
+  {% blocktranslate trimmed asvar contact_intro %}
+  Have a project idea, a question, or just want to say hello?
+  I'd love to hear from you. Reach me through any of the channels below.
+  {% endblocktranslate %}
+  {% include "core/partials/page_header.html" with title=contact_title title_id="contact-title" intro=contact_intro %}
 
   <div class="contact-details reveal">
       <div class="contact-channels">

@@ -243,6 +243,7 @@ body {
 
 .post-title {
   margin-bottom: 2.5rem;
+  text-align: center;
 }
 
 .section-heading {
@@ -700,6 +701,25 @@ body {
   padding-top: 2rem;
 }
 
+/* Shared inner-page header (centered). Home .hero is the left-aligned exception. */
+.page-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.page-header .section-title {
+  margin-bottom: 0;
+}
+
+.page-header .section-label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.page-prose .section-title {
+  text-align: center;
+}
+
 .page-prose {
   width: 100%;
   max-width: var(--reading-width);
@@ -782,11 +802,6 @@ body {
 .contact-details {
   max-width: 360px;
   margin-inline: auto;
-}
-
-.contact-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
 }
 
 .contact-accent {
@@ -948,11 +963,6 @@ body {
 }
 
 /* ---- About Page ---- */
-.about-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-
 /* Profile: two-column bio (left) + photo (right), mirroring home layout */
 .about-profile {
   display: grid;
@@ -1154,11 +1164,6 @@ body {
 }
 
 /* ---- Classes Page ---- */
-.classes-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-
 /* Teaching intro */
 .classes-intro {
   margin-bottom: 3rem;
@@ -1253,11 +1258,6 @@ body {
 }
 
 /* ---- Consultancy Page ---- */
-.consultancy-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-
 .consultancy-intro {
   margin-bottom: 3rem;
 }
@@ -1273,18 +1273,6 @@ body {
 }
 
 /* ---- Work / Portfolio Page ---- */
-.work-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-
-.work-subtitle {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  margin-top: 1rem;
-  line-height: 1.6;
-}
-
 .work-mosaic {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1373,11 +1361,6 @@ body {
 }
 
 /* ---- Mentoring Page ---- */
-.mentoring-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-
 /* Intro text */
 .mentoring-intro {
   margin-bottom: 3rem;
@@ -2097,16 +2080,12 @@ footer a:hover {
     width: 100%;
   }
 
-  .contact-header {
+  .page-header {
     margin-bottom: 2.5rem;
   }
 
   .contact-intro {
     font-size: 0.95rem;
-  }
-
-  .about-header {
-    margin-bottom: 2.5rem;
   }
 
   .about-photo {
@@ -2123,28 +2102,12 @@ footer a:hover {
     text-align: center;
   }
 
-  .classes-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .consultancy-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .work-header {
-    margin-bottom: 2.5rem;
-  }
-
   .related-posts__grid {
     grid-template-columns: 1fr;
   }
 
   .related-posts__pagination {
     flex-direction: column;
-  }
-
-  .mentoring-header {
-    margin-bottom: 2.5rem;
   }
 
   .post-content pre {

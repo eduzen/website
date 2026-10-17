@@ -8,13 +8,9 @@
 <div class="work-page page-layout">
 
   <!-- Header -->
-  <div class="work-header reveal">
-    <h1 class="section-title">{% translate "Work" %}</h1>
-    <div class="contact-accent" aria-hidden="true"></div>
-    <p class="work-subtitle">
-      {% translate "A selection of projects I've built or contributed to." %}
-    </p>
-  </div>
+  {% translate "Work" as work_title %}
+  {% translate "A selection of projects I've built or contributed to." as work_intro %}
+  {% include "core/partials/page_header.html" with title=work_title intro=work_intro %}
 
   <!-- Project mosaic -->
   <section class="work-mosaic">

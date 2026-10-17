@@ -8,9 +8,9 @@
 <div class="classes-page page-layout">
 
   <!-- Header -->
-  <div class="classes-header reveal">
-    <h1 class="section-title">{% translate "Classes" %}</h1>
-    <div class="contact-accent" aria-hidden="true"></div>
+  <div class="page-header reveal">
+    {% translate "Classes" as classes_title %}
+    {% include "core/partials/page_header.html" with title=classes_title wrap="no" %}
     <div class="about-skills">
       <span class="about-skill">Python</span>
       <span class="about-skill">Django</span>

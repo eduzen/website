@@ -6,15 +6,15 @@
 {% load i18n static %}
 
 <div class="page-layout">
-  <span class="section-label reveal">{% translate "Things I Think About" %}</span>
-  <h1 class="section-title reveal">
-    Blog
-    {% if tag %}
-      <span class="page-title-context">| {{ tag }}</span>
-    {% else %}
-      <span class="page-title-context">{% translate 'or just public notes' %}</span>
-    {% endif %}
-  </h1>
+  {% translate "Things I Think About" as blog_eyebrow %}
+  {% if tag %}
+    {% with blog_title_context="| "|add:tag %}
+      {% include "core/partials/page_header.html" with title="Blog" eyebrow=blog_eyebrow title_context=blog_title_context %}
+    {% endwith %}
+  {% else %}
+    {% translate "or just public notes" as blog_title_context %}
+    {% include "core/partials/page_header.html" with title="Blog" eyebrow=blog_eyebrow title_context=blog_title_context %}
+  {% endif %}
 
   <div class="writing-grid">
     {% for post in posts %}

@@ -79,3 +79,30 @@ class TestLayoutConsistency(TestCase):
 
         self.assertContains(response, '<article class="page-prose">')
         self.assertContains(response, 'id="related-post-container"')
+
+    def page_header_urls(self) -> list[str]:
+        return [
+            reverse("about"),
+            reverse("blog"),
+            reverse("classes"),
+            reverse("consultancy"),
+            reverse("contact"),
+            reverse("mentoring"),
+            reverse("post_list"),
+            reverse("search"),
+            reverse("work"),
+        ]
+
+    def test_inner_pages_use_shared_page_header(self) -> None:
+        for url in self.page_header_urls():
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
+                self.assertContains(response, "page-header")
+
+    def test_home_keeps_left_aligned_hero_without_page_header(self) -> None:
+        response = self.client.get(reverse("home"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'class="hero"')
+        self.assertNotContains(response, "page-header")

@@ -5,7 +5,8 @@
 
 {% block content %}
 <div class="page-layout">
-  <h1 class="section-title">{% translate 'Related Posts' %}</h1>
+  {% translate "Related Posts" as related_title %}
+  {% include "core/partials/page_header.html" with title=related_title %}
   {% partialdef related-posts-content %}
     {% if related_posts %}
       <section class="related-posts" aria-labelledby="related-posts-heading">

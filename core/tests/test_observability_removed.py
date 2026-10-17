@@ -18,7 +18,7 @@ def test_removed_observability_provider_is_not_configured() -> None:
         "website/settings/prod.py",
         "blog/services/chatgpt.py",
         "core/views.py",
-        "CLAUDE.md",
+        "AGENTS.md",
     ]
 
     offenders = {path: lines for path in checked_paths if (lines := _find_matches(ROOT / path, removed_provider))}

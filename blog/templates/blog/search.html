@@ -7,7 +7,8 @@
 {% load i18n static %}
 
 <div class="page-layout">
-  <h1 class="section-title reveal">{% translate 'Advance Search' %}</h1>
+  {% translate "Advance Search" as search_title %}
+  {% include "core/partials/page_header.html" with title=search_title %}
   <div class="flex flex-col md:flex-row">
     <div class="md:w-2/3 mb-6 md:mb-0">
       {% if form %}

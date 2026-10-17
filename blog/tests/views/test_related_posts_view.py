@@ -59,7 +59,9 @@ class TestRelatedPostsView(TestCase):
     def test_standalone_page_has_heading_and_pagination_target(self):
         response = self.client.get(self.url1)
 
-        self.assertContains(response, '<h1 class="section-title">Related Posts</h1>')
+        self.assertContains(response, 'class="page-header')
+        self.assertContains(response, "Related Posts")
+        self.assertContains(response, 'class="section-title"')
         self.assertContains(response, 'id="related-post-container"', count=1)
 
     def test_fragment_does_not_duplicate_page_heading_or_target(self):
