@@ -106,3 +106,26 @@ class TestLayoutConsistency(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertContains(response, 'class="hero"')
         self.assertNotContains(response, "page-header")
+
+    def test_contact_uses_shared_header_and_details_structure(self) -> None:
+        response = self.client.get(reverse("contact"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "page-layout")
+        self.assertContains(response, "page-header")
+        self.assertContains(response, "contact-details")
+
+    def test_search_uses_reading_column_and_warm_form(self) -> None:
+        response = self.client.get(reverse("search"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "Advanced Search")
+        self.assertContains(response, "page-prose")
+        self.assertContains(response, "warm-form")
+
+    def test_about_and_classes_use_shared_cta(self) -> None:
+        for url in (reverse("about"), reverse("classes")):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
+                self.assertContains(response, "about-cta")

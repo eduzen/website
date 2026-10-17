@@ -34,17 +34,13 @@ msgstr "tag"
 msgid "tags"
 msgstr "tag"
 
-#: templates/blog/advance_search.html:12
-msgid "Advance Search"
-msgstr ""
+#: templates/blog/search.html
+msgid "Advanced Search"
+msgstr "Advanced Search"
 
-#: templates/blog/advance_search.html:14
-msgid "No results"
-msgstr "We couldn't find it 🥺"
-
-#: templates/blog/advance_search.html:16
-msgid "How-to-look"
-msgstr "Please, search again 🙏!"
+#: templates/blog/search.html
+msgid "Search posts by keyword."
+msgstr "Search posts by keyword."
 
 #: templates/blog/clases.html:10
 msgid "clases title"

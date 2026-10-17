@@ -6,5 +6,4 @@ check-file = false
 extend-exclude = [
   "localized/*.po",
   "blog/static/blog/js/htmx.min.*.js",
-
 ]

@@ -743,17 +743,13 @@ msgstr "Busqueda"
 msgid "Read more"
 msgstr "Leer más"
 
-#: blog/templates/blog/search.html:10
-msgid "Advance Search"
-msgstr "Busqueda avanzada"
+#: blog/templates/blog/search.html
+msgid "Advanced Search"
+msgstr "Búsqueda avanzada"
 
-#: blog/templates/blog/search.html:14
-msgid "No results"
-msgstr "No hay ningun resultado 😞"
-
-#: blog/templates/blog/search.html:16
-msgid "How-to-look"
-msgstr "Por favor 🙏 realize de nuevo la búsqueda!"
+#: blog/templates/blog/search.html
+msgid "Search posts by keyword."
+msgstr "Buscá posts por palabra clave."
 
 #: blog/templates/blog/success.html:12
 msgid "Message Sent"

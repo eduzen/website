@@ -26,7 +26,7 @@
   <!-- Teaching philosophy -->
   <section class="classes-intro page-intro page-prose reveal">
     <p>
-      {% translate "Hello! Thank you for your interest 😊. I'm Eduardo — you can " %}<a class="warm-link"
+      {% translate "Hello! Thank you for your interest. I'm Eduardo — you can " %}<a class="warm-link"
          hx-get="{% url 'about' %}"
          hx-target="#content"
          hx-push-url="true"
@@ -39,12 +39,12 @@
       {% translate "We can learn about: Python, or about web frameworks like Django, Flask, or FastAPI. We can also explore other topics like: object-oriented programming, unit tests, clean code or the one that you need." %}
     </p>
     <p>
-      {% translate "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, what we have is data 🗃️, data 🗃️ and data 🗃️, available everywhere." %}
-      {% translate "However, discerning the quality of this data can be challenging. That's where a guide or companion comes in handy 😉." %}
+      {% translate "It's not easy to learn new things. It's hard also to find the motivation and the resources that are good for you. In these modern times, data is available everywhere." %}
+      {% translate "However, discerning the quality of this data can be challenging. That's where a guide or companion comes in handy." %}
       {% translate "So I can help you to organize and curate the data and tell you what to use or not." %}
     </p>
     <p>
-      {% translate "If you're in the Netherlands 🇳🇱, let's schedule a coffee ☕ and chat 💬 about your learning objectives. If you're based elsewhere in the world 🌍, not to worry!" %}
+      {% translate "If you're in the Netherlands, let's schedule a coffee and chat about your learning objectives. If you're based elsewhere in the world, not to worry!" %}
       {% translate "We can set up a Zoom or Meet call to discuss how I can assist you in your coding adventure." %}
     </p>
   </section>
@@ -119,29 +119,8 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <div class="about-cta reveal">
-    <p class="about-cta__text">
-      {% translate "Reach out to me " %}
-      <a class="warm-link"
-         href="{% url 'contact' %}"
-         hx-get="{% url 'contact' %}"
-         hx-target="#content"
-         hx-push-url="true">{% translate "here" %}</a>
-      {% translate "or drop me an email at " %}<a class="warm-link" target="_blank" href="{{ global_data.email }}">me@eduzen.com.ar</a>{% translate " and let's chat!" %}
-    </p>
-    <div class="about-cta__links">
-      <a class="about-cta__link about-cta__link--primary"
-         href="{% url 'contact' %}"
-         hx-get="{% url 'contact' %}"
-         hx-target="#content"
-         hx-push-url="true">
-        {% translate "Get in touch" %} →
-      </a>
-      <a class="about-cta__link" href="{{ global_data.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="about-cta__link" href="{{ global_data.email }}">Email</a>
-    </div>
-  </div>
+  {% translate "Reach out and let's chat about your learning goals." as cta_text %}
+  {% include "blog/partials/cta.html" with cta_text=cta_text %}
 
 </div>
 {% endpartialdef classes-content %}

@@ -18,6 +18,7 @@
   --error: #c0392b;
   --max-width: 1200px;
   --reading-width: 70ch;
+  --measure-mid: 40rem;
   --page-gutter: clamp(1.25rem, 4vw, 2rem);
   --card-radius: 12px;
   --card-background: rgba(253, 246, 240, 0.4);
@@ -800,7 +801,7 @@ body {
 
 /* ---- Contact Page ---- */
 .contact-details {
-  max-width: 360px;
+  max-width: var(--measure-mid);
   margin-inline: auto;
 }
 
@@ -816,7 +817,7 @@ body {
   font-family: var(--sans);
   font-size: 1.05rem;
   color: var(--text-muted);
-  max-width: 520px;
+  max-width: var(--measure-mid);
   margin: 0 auto;
   line-height: 1.7;
 }
@@ -1383,7 +1384,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 640px;
+  max-width: var(--measure-mid);
   margin: 0 auto;
 }
 

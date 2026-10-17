@@ -151,13 +151,20 @@ class MyView(TemplateView):
 - Use `{% static %}` instead of `{% get_static_prefix %}` within partialdef blocks.
 
 ### Page layout
-Inner pages share one centered header primitive so titles cannot drift left/right per page:
+Inner pages share one centered header primitive so titles cannot drift left/right per page.
 
-- Shell: wrap content in `page-layout` (max-width container).
+Three content measures (CSS tokens in `core/static/core/css/base.css`):
+
+- Shell: wrap content in `page-layout` (`--max-width`, 1200px) — nav, Work mosaic, Blog list, card grids.
+- Reading column: long-form copy uses `page-prose` (`--reading-width`, 70ch) — Bio prose, service intros, post detail (titles stay centered via `.post-title`).
+- Mid: `--measure-mid` (40rem) — Contact intro + channels (`.contact-intro`, `.contact-details`) and Mentoring steps (`.mentoring-steps`) only. Do not invent new page-local max-widths.
+
+Header and exceptions:
+
 - Header: `{% include "core/partials/page_header.html" with title=... %}` (class `page-header`). Optional slots: `eyebrow`, `title_context`, `intro`, `title_id`. Use `wrap="no"` when the header must also contain skill chips inside the same `.page-header` wrapper. Do not pass a slot named `context` (reserved by Django's include tag).
-- Reading column: long-form copy uses `page-prose` (post detail titles stay centered via `.post-title`).
 - Home exception: `blog/home.html` uses `.hero` with left-aligned branding — do **not** wrap home in `page-header`.
 - Status pages (success/error/404/500) may use `.contact-result` (already centered) instead of `page-header`.
+- CTAs: reuse `{% include "blog/partials/cta.html" %}` on service/profile pages; Contact is the destination and has no CTA.
 - Never add page-specific rules like `.foo-header { text-align: center; }`. Extend the shared partial/CSS instead.
 
 ### HTMX Features

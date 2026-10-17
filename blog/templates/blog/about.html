@@ -114,6 +114,9 @@
     </div>
   </section>
 
+  {% translate "Want to connect? Let's talk." as cta_text %}
+  {% include "blog/partials/cta.html" with cta_text=cta_text %}
+
 </div>
 {% endpartialdef about-content %}
 
