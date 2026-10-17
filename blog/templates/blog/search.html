@@ -2,19 +2,27 @@
 {% load i18n static %}
 
 {% block content %}
-  <div class="container mx-auto py-8">
-    <div class="flex flex-col md:flex-row">
-      <div class="md:w-2/3 mb-6 md:mb-0">
-        <h2 class="text-2xl font-semibold">{% translate 'Advance Search' %}</h2>
-        {% if form %}
-          <p>{% translate 'No results' %}</p>
-          <p class="text-muted">
-            {% translate 'How-to-look' %}
-          </p>
-          {% csrf_token %}
-          {{ form }}
-        {% endif %}
-      </div>
-    </div>
+
+{% partialdef search-content %}
+{% load i18n static %}
+
+<div class="page-layout">
+  {% translate "Advanced Search" as search_title %}
+  {% blocktranslate trimmed asvar search_intro %}
+  Search posts by keyword.
+  {% endblocktranslate %}
+  {% include "core/partials/page_header.html" with title=search_title intro=search_intro %}
+
+  <div class="page-prose reveal">
+    <form method="post" action="{% url 'search' %}" class="warm-form">
+      {% csrf_token %}
+      {{ form }}
+      <button type="submit">{% translate "Search" %}</button>
+    </form>
   </div>
+</div>
+{% endpartialdef search-content %}
+
+{% partial search-content %}
+
 {% endblock content %}

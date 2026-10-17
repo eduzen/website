@@ -21,6 +21,9 @@ class TestAdvanceSearchView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "blog/search.html")
         self.assertIsInstance(response.context["form"], AdvanceSearchForm)
+        self.assertContains(response, "Advanced Search")
+        self.assertContains(response, "page-prose")
+        self.assertContains(response, 'class="warm-form"')
 
     def test_post_valid_form_redirects(self):
         """Test POST with valid form data redirects to success"""
@@ -84,7 +87,7 @@ class TestAdvanceSearchView(TestCase):
         """Test search form submission via HTMX"""
         form_data = {"q": "python django"}
 
-        response = self.client.post(self.url, data=form_data, HTTP_HX_REQUEST="true")
+        response = self.client.post(self.url, data=form_data, headers={"hx-request": "true"})
 
         # Should redirect to success page
         self.assertEqual(response.status_code, HTTPStatus.FOUND)

@@ -1,8 +1,7 @@
 {% extends "admin/change_form.html" %}
-{% load django_htmx static %}
+{% load django_htmx %}
 
 {% block extrahead %}
   {{ block.super }}
-  <script src="{% static 'core/js/htmx.min.1.9.4.js' %}" defer></script>
   {% django_htmx_script %}
 {% endblock extrahead %}

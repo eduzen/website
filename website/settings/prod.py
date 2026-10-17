@@ -1,16 +1,9 @@
-import logging
-
-import logfire
 import sentry_sdk
 from decouple import Csv, config
 from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
-from .base import LOG_LEVEL, RELEASE, SENTRY_DSN  # noqa
-
-logfire.configure(send_to_logfire="if-token-present", environment="production")
-logfire.instrument_django(capture_headers=True)
-logfire.instrument_psycopg(log_level=logging.INFO)
+from .base import LOG_LEVEL, RELEASE, SENTRY_DSN
 
 DEBUG = False
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=".eduzen.com.ar,.eduardoenriquez.com.ar,.eduzen.ar", cast=Csv())
@@ -28,11 +21,6 @@ CSRF_TRUSTED_ORIGINS = config(
     default="https://*.eduzen.ar,https://*.eduzen.com.ar,https://*.eduardoenriquez.com.ar",
     cast=Csv(),
 )
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://\w+\.eduzen\.ar$",
-    r"^https://localhost$",
-]
 
 CACHES = {
     "default": {
@@ -62,6 +50,10 @@ LOGGING = {
             "formatter": "verbose",
         }
     },
+    "root": {
+        "handlers": ["console"],
+        "level": LOG_LEVEL,
+    },
     "loggers": {
         "django": {
             "handlers": ["console"],
@@ -77,16 +69,6 @@ LOGGING = {
             "handlers": ["console"],
             "level": "WARNING",
             "propagate": False,
-        },
-        "logfire": {
-            "handlers": ["console"],
-            "level": LOG_LEVEL,
-            "propagate": False,
-        },
-        "*": {
-            "handlers": ["console"],
-            "level": LOG_LEVEL,
-            "propagate": True,
         },
     },
 }

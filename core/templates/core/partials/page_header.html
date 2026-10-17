@@ -1,0 +1,33 @@
+{% comment %}
+Centered page header for inner pages.
+
+Required:
+  - title: H1 text (pre-translated string)
+
+Optional:
+  - eyebrow: small uppercase label above the title
+  - title_context: muted fragment beside the title (e.g. blog subtitle)
+  - intro: supporting paragraph under the accent bar
+  - title_id: id attribute on the H1
+  - wrap: "no" to emit only the inner markup (for headers that add skills chips)
+
+Do not name a slot "context" — Django's include tag reserves that name.
+
+Home (.hero) must not use this partial — it stays left-aligned.
+{% endcomment %}
+{% if wrap != "no" %}
+<div class="page-header reveal">
+{% endif %}
+  {% if eyebrow %}
+    <span class="section-label">{{ eyebrow }}</span>
+  {% endif %}
+  <h1 class="section-title"{% if title_id %} id="{{ title_id }}"{% endif %}>
+    {{ title }}{% if title_context %} <span class="page-title-context">{{ title_context }}</span>{% endif %}
+  </h1>
+  <div class="contact-accent" aria-hidden="true"></div>
+  {% if intro %}
+    <p class="contact-intro">{{ intro }}</p>
+  {% endif %}
+{% if wrap != "no" %}
+</div>
+{% endif %}

@@ -1,0 +1,2 @@
+Alpine.js 3.17.4
+Source: https://github.com/alpinejs/alpine/releases/tag/v3.17.4

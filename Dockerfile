@@ -1,11 +1,11 @@
-FROM python:3.14-slim-bookworm AS production
+FROM python:3.14-slim-trixie AS python-deps
 
 ARG RELEASE=0.0.0+dev
 ARG BUILD_DATE=unknown
 ENV RELEASE=$RELEASE
 ENV BUILD_DATE=$BUILD_DATE
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
-ENV PATH="/code/.venv/bin:$PATH"
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PROJECT_ENVIRONMENT=/opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 # PYTHONUNBUFFERED non empty value force the stdout and stderr streams to be unbuffered.
 ENV PYTHONUNBUFFERED=1
 # PYTHONDONTWRITEBYTECODE prevents python creating .pyc files
@@ -26,14 +26,8 @@ RUN apt-get update && \
     ca-certificates \
     gnupg \
     libpq-dev \
-    iputils-ping \
-    httpie && \
-    install -d /usr/share/keyrings && \
-    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgres.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/postgres.gpg] http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    apt-get update && \
-    apt-get install --no-install-recommends -y postgresql-client-17 && \
-    rm -rf /var/lib/apt/lists/*
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /code
 
@@ -49,7 +43,24 @@ COPY pyproject.toml uv.lock /code/
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
+# Build Tailwind once during the image build. Bun is only used in this stage.
+FROM python-deps AS frontend-builder
+
+COPY --from=oven/bun:1 /usr/local/bin/bun /usr/local/bin/bun
+COPY frontend/package.json frontend/bun.lock /code/frontend/
+
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    cd frontend && bun install --frozen-lockfile
+
 COPY . /code
+
+RUN cd frontend && bun run build:css
+
+# PRODUCTION
+FROM python-deps AS production
+
+COPY . /code
+COPY --from=frontend-builder /code/core/static/core/css/tailwind.css /code/core/static/core/css/tailwind.css
 
 RUN python manage.py collectstatic --no-input --settings=website.settings.prod && \
     python manage.py compilemessages --settings=website.settings.prod
@@ -67,7 +78,7 @@ RUN printf '%s\n' 'export PS1="\[\e[36m\]eduzenshell>\[\e[m\] "' >> /root/.bashr
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --all-extras --group dev
 
-CMD ["uv", "run", "manage.py", "runserver", "0.0.0.0:80"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
 
 # E2E TESTING
 FROM development AS e2e
@@ -94,4 +105,4 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Install playwright browsers with dependencies
 RUN uv run playwright install --with-deps
 
-CMD ["uv", "run", "pytest", "/code/tests/e2e"]
+CMD ["python", "-m", "pytest", "/code/tests/e2e"]

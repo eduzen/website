@@ -22,12 +22,13 @@ services:
           # different platform in the container
           ignore:
             - .venv/
-        # Rebuild the image on changes to the `pyproject.toml`
+        # Rebuild the image on dependency metadata changes
         - action: rebuild
           path: ./pyproject.toml
+        - action: rebuild
+          path: ./uv.lock
     volumes:
       - .:/code
-      - /code/.venv
       - shell_history:/root/hist
       - ipy_history:/root/.ipython/
       - ./secrets/eduzen.json:/root/keys/eduzen.json
@@ -41,6 +42,9 @@ services:
       - RELEASE=$(git describe --tags --always --dirty)
     env_file:
       - .env
+    command: >
+      sh -c "python manage.py compilemessages --settings=website.settings.dev &&
+             python manage.py runserver 0.0.0.0:80"
 
   db:
     image: postgres:17-alpine
@@ -54,6 +58,13 @@ services:
     image: redis:7-alpine
     expose:
       - "6379"
+
+  frontend:
+    image: oven/bun:1
+    working_dir: /code/frontend
+    volumes:
+      - .:/code
+    command: sh -c "bun install --frozen-lockfile && bun run watch:css"
 
   e2e:
     build:
@@ -72,9 +83,10 @@ services:
             - .venv/
         - action: rebuild
           path: ./pyproject.toml
+        - action: rebuild
+          path: ./uv.lock
     volumes:
       - .:/code
-      - /code/.venv
     depends_on:
       - db
       - redis
